@@ -1,0 +1,14 @@
+'use strict';
+const fs=require('fs');
+const assert=require('assert');
+const server=fs.readFileSync(require('path').join(__dirname,'..','server.js'),'utf8');
+const html=fs.readFileSync(require('path').join(__dirname,'..','public','index.html'),'utf8');
+assert(server.includes('MAX_WS_MESSAGE_BYTES = 64 * 1024'),'WebSocket size limit missing');
+assert(server.includes('isDuplicateClientAction(ws,msg)'),'duplicate action guard missing');
+assert(server.includes("ws.close(1009,'message too large')"),'oversize close missing');
+assert(html.includes('function scrollResultToTop'),'result scroll helper missing');
+assert(html.includes("box.scrollTo({top:0,left:0,behavior:mode})"),'result scroller target missing');
+assert(!html.includes("window.scrollTo({top:0,behavior:window.matchMedia"),'legacy window scroll target remains');
+assert(html.includes("__continueRoundRequestTimer=window.setTimeout"),'continue round recovery timeout missing');
+assert(html.includes('id="finalResultTitle" tabindex="-1"'),'final result focus target missing');
+console.log('action + result resilience regression: all assertions passed');

@@ -1,0 +1,32 @@
+{
+  "name": "pipi-tori-online",
+  "version": "0.1.0",
+  "description": "Online room-code prototype for ピッグ・ピック・トリック（ピピとり）",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "node tests/default_rules_regression.js && node tests/identity_room_score_pick_v36_regression.js && node tests/websocket_room_clear_v36.js && node tests/shoot_limit_regression.js && node tests/v34_senior_audit_regression.js && node tests/rule_combination_matrix_regression.js && node tests/rule_gameplay_matrix_regression.js && node tests/full_audit_regression.js && node tests/commentary_readability_regression.js && node tests/cpu_personality_dialogue_regression.js && node tests/dialogue_object_context_regression.js && node tests/spotlight_priority_regression.js && node tests/spotlight_flow_regression.js && node tests/match_lifecycle_regression.js && node tests/transient_visual_lifecycle_regression.js && node tests/final_result_scroll_regression.js && node tests/final_result_contrast_regression.js && node tests/action_and_result_resilience_regression.js && node tests/interaction_accessibility_regression.js && node tests/game_engine_stress_regression.js && node tests/async_progress_smoke.js && node tests/mobile_ui_regression.js && node tests/layout_collision_regression.js && node tests/source_integrity_regression.js && node tests/app_icon_regression.js",
+    "test:ui": "node tests/mobile_ui_regression.js && node tests/layout_collision_regression.js",
+    "test:layout": "node tests/layout_collision_regression.js",
+    "test:smoke": "node tests/websocket_game_smoke.js",
+    "test:reconnect": "node tests/reconnect_recovery_smoke.js",
+    "test:resilience": "node tests/progress_resilience_smoke.js",
+    "test:integrity": "node tests/source_integrity_regression.js",
+    "test:fullgame": "node tests/four_human_completion_smoke.js",
+    "test:spotlight": "node tests/spotlight_priority_regression.js",
+    "test:engine": "node tests/match_lifecycle_regression.js && node tests/game_engine_stress_regression.js && node tests/async_progress_smoke.js",
+    "test:lobby-repeat": "node tests/websocket_lobby_repeat_v34.js && node tests/websocket_room_clear_v36.js",
+    "test:rules": "node tests/default_rules_regression.js && node tests/identity_room_score_pick_v36_regression.js && node tests/shoot_limit_regression.js && node tests/rule_combination_matrix_regression.js && node tests/rule_gameplay_matrix_regression.js"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "acorn": "^8.17.0",
+    "css-tree": "^3.2.1",
+    "parse5": "^8.0.1"
+  },
+  "engines": {
+    "node": "22.x"
+  }
+}

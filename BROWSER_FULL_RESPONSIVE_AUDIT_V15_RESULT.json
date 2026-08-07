@@ -1,0 +1,24 @@
+{
+  "result": "passed",
+  "cases": 54,
+  "viewports": [
+    "portrait-320x568",
+    "portrait-393x852",
+    "landscape-568x320",
+    "landscape-844x390",
+    "desktop-768x600",
+    "desktop-1280x720"
+  ],
+  "phases": [
+    "normal",
+    "review",
+    "passing",
+    "initialPair",
+    "pickTarget",
+    "pick",
+    "pair",
+    "roundEnd",
+    "finished"
+  ],
+  "failures": []
+}

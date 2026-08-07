@@ -1,0 +1,44 @@
+{
+  "date": "2026-07-22",
+  "actualBrowserRuns": {
+    "oneRoundFullGameAndRematch": {
+      "result": "passed",
+      "humanActions": 12,
+      "spotlightEventsObserved": 7,
+      "viewportRotationAndResize": true,
+      "finalSpotlightCleared": true,
+      "rematch": {
+        "phase": "playing",
+        "round": 1,
+        "handCounts": [13, 13, 13, 13],
+        "finalScoresCleared": true
+      },
+      "pageErrors": [],
+      "consoleWarnings": []
+    },
+    "threeRoundFullGame": {
+      "result": "finished-confirmed",
+      "humanActions": 42,
+      "spotlightEventsObserved": 24,
+      "roundTransitions": [1, 2, 3],
+      "finalSpotlightCleared": true,
+      "note": "The separate one-round run validated rematch reset after completion."
+    },
+    "reconnect": {
+      "result": "passed",
+      "samePlayerId": true,
+      "sameRoomCode": true,
+      "sameRound": true,
+      "sameHandCount": true,
+      "pageErrors": [],
+      "consoleWarnings": []
+    }
+  },
+  "responsiveBrowserAudits": {
+    "criticalResponsiveCases": 18,
+    "commentaryReadabilityCases": 5,
+    "spotlightViewports": 3,
+    "fullPhaseViewportCases": 54,
+    "failures": 0
+  }
+}

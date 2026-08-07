@@ -1,0 +1,11 @@
+{
+  "secretFindings": [],
+  "missingLocalRefs": [
+    "${escAttr(c.avatarImage)}",
+    "${escAttr(ev.portraitPath)}",
+    "${escAttr(p.avatarImage)}"
+  ],
+  "files": 142,
+  "serverLines": 3902,
+  "htmlLines": 10225
+}

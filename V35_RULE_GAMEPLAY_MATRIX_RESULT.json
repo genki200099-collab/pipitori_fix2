@@ -1,0 +1,182 @@
+{
+  "result": "passed",
+  "runs": 384,
+  "samples": [
+    {
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 56,
+      "picks": 7,
+      "pairs": 2,
+      "totals": [
+        -13,
+        -6,
+        -23,
+        -13
+      ]
+    },
+    {
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 63,
+      "picks": 8,
+      "pairs": 5,
+      "totals": [
+        -20,
+        5,
+        -10,
+        4
+      ]
+    },
+    {
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 64,
+      "picks": 8,
+      "pairs": 3,
+      "totals": [
+        -10,
+        0,
+        -2,
+        -12
+      ]
+    },
+    {
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 64,
+      "picks": 8,
+      "pairs": 3,
+      "totals": [
+        -1,
+        0,
+        -7,
+        -3
+      ]
+    },
+    {
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 64,
+      "picks": 8,
+      "pairs": 3,
+      "totals": [
+        -16,
+        -7,
+        0,
+        -17
+      ]
+    },
+    {
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 56,
+      "picks": 7,
+      "pairs": 2,
+      "totals": [
+        0,
+        -34,
+        -42,
+        0
+      ]
+    },
+    {
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 57,
+      "picks": 7,
+      "pairs": 3,
+      "totals": [
+        -5,
+        -6,
+        4,
+        -15
+      ]
+    },
+    {
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 73,
+      "picks": 10,
+      "pairs": 3,
+      "totals": [
+        4,
+        11,
+        -8,
+        8
+      ]
+    }
+  ]
+}

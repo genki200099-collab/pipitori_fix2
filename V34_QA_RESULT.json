@@ -1,0 +1,124 @@
+{
+  "result": "passed",
+  "baseVersion": "v33",
+  "fixedIssues": [
+    {
+      "severity": "P1",
+      "issue": "高速なCPU連続追加が汎用重複除外で破棄される",
+      "status": "fixed"
+    },
+    {
+      "severity": "P2",
+      "issue": "最終結果のシュート説明が旧1回制限で固定",
+      "status": "fixed"
+    },
+    {
+      "severity": "P3",
+      "issue": "WebSocketメッセージごとに重複防止Setを生成",
+      "status": "refactored"
+    }
+  ],
+  "npmTest": "passed",
+  "engineGames": 16,
+  "engineRounds": 48,
+  "asyncLoops": 3266,
+  "websocketRuntime": {
+    "result": "passed",
+    "note": "実コードの状態遷移を変更せず、待機・演出時間のみテスト用コピーで短縮。WebSocketは隔離環境用互換シムで実サーバーへ接続。配布物にはシムと短縮設定を含めない。",
+    "tests": {
+      "rapidLobby": {
+        "result": "passed",
+        "players": 4,
+        "addRequests": 3,
+        "phase": "playing",
+        "handCount": 13
+      },
+      "cpuGame": {
+        "result": "passed",
+        "elapsedMs": 11058,
+        "phases": [
+          "lobby",
+          "playing",
+          "finished"
+        ],
+        "humanPlays": 9,
+        "humanPicks": 4,
+        "humanTargetSelections": 0,
+        "humanPairChoices": 4,
+        "commentEvents": [
+          "card-danger",
+          "card-play",
+          "endgame",
+          "finish",
+          "greeting",
+          "pair",
+          "pick",
+          "round-start",
+          "target-select",
+          "trick-weak",
+          "trick-win",
+          "watch"
+        ],
+        "cinematicEvents": [
+          "mad-pick",
+          "mad-trick",
+          "pair-pick"
+        ],
+        "seenSuits": [
+          "apple",
+          "cabbage",
+          "corn",
+          "mud"
+        ],
+        "totals": [
+          -27,
+          4,
+          0,
+          -22
+        ]
+      },
+      "fourHumanGame": {
+        "result": "passed",
+        "elapsedMs": 10209,
+        "totals": [
+          -40,
+          -37,
+          -24,
+          0
+        ],
+        "round": 1
+      },
+      "reconnect": {
+        "result": "passed",
+        "elapsedMs": 181,
+        "room": "LR95",
+        "samePlayerId": true,
+        "handRestored": 13,
+        "postReconnectPlayAccepted": true
+      }
+    }
+  },
+  "browser": {
+    "responsiveCases": 54,
+    "ruleConsistencyCases": 4,
+    "result": "passed"
+  },
+  "staticAudit": {
+    "result": "passed",
+    "localAssetReferences": 9,
+    "dynamicAssetReferencesIgnored": 3,
+    "missingAssets": [],
+    "secretPatternHits": {
+      "private_key": 0,
+      "openai_key": 0,
+      "aws_access_key": 0,
+      "github_token": 0
+    },
+    "serverLines": 3947,
+    "clientLines": 10507,
+    "packageLockPresent": true,
+    "deploymentEntry": "node server.js",
+    "renderYamlPresent": false
+  },
+  "rulesChanged": false
+}

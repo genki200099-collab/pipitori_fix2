@@ -1,0 +1,21 @@
+{
+  "result": "passed",
+  "details": {
+    "spotlightActive": {
+      "body": true,
+      "railOpacity": "0",
+      "spotCount": 1
+    },
+    "spotlightCleared": {
+      "body": false,
+      "html": ""
+    },
+    "replacementGuard": {
+      "id": "new",
+      "text": "NEW",
+      "active": "1"
+    },
+    "commentExpiry": "",
+    "adaptiveHold": 510
+  }
+}

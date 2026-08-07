@@ -1,0 +1,376 @@
+{
+  "result": "passed",
+  "failures": [],
+  "results": [
+    {
+      "viewport": "iphone-se",
+      "colors": {
+        "title": {
+          "color": "rgb(255, 244, 232)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "flex",
+          "contrast": 13.36
+        },
+        "podium_name": {
+          "color": "rgb(74, 41, 35)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 12.38
+        },
+        "break_heading": {
+          "color": "rgb(165, 54, 59)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 6.58
+        },
+        "break_label": {
+          "color": "rgb(107, 73, 61)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 7.94
+        },
+        "break_value": {
+          "color": "rgb(40, 23, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 17.18
+        },
+        "break_total": {
+          "color": "rgb(106, 67, 0)",
+          "background": "rgb(255, 241, 189)",
+          "display": "block",
+          "contrast": 7.69
+        },
+        "table_header": {
+          "color": "rgb(93, 38, 48)",
+          "background": "rgb(248, 223, 202)",
+          "display": "table-cell",
+          "contrast": 9.19
+        },
+        "table_cell": {
+          "color": "rgb(58, 37, 30)",
+          "background": "rgb(248, 242, 232)",
+          "display": "table-cell",
+          "contrast": 14.35
+        },
+        "table_total": {
+          "color": "rgb(41, 23, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "inline",
+          "contrast": 17.13
+        },
+        "final_comment": {
+          "color": "rgb(91, 61, 28)",
+          "background": "rgb(255, 248, 216)",
+          "display": "block",
+          "contrast": 9.24
+        }
+      },
+      "dimensions": {
+        "bodyWidth": 320,
+        "viewportWidth": 320,
+        "stageRight": 312,
+        "scrollWidth": 320,
+        "clientWidth": 320
+      },
+      "errors": [],
+      "screenshot": "V31_FINAL_CONTRAST_iphone-se.png"
+    },
+    {
+      "viewport": "iphone-pro",
+      "colors": {
+        "title": {
+          "color": "rgb(255, 244, 232)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "flex",
+          "contrast": 13.36
+        },
+        "podium_name": {
+          "color": "rgb(74, 41, 35)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 12.38
+        },
+        "break_heading": {
+          "color": "rgb(165, 54, 59)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 6.58
+        },
+        "break_label": {
+          "color": "rgb(107, 73, 61)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 7.94
+        },
+        "break_value": {
+          "color": "rgb(40, 23, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 17.18
+        },
+        "break_total": {
+          "color": "rgb(106, 67, 0)",
+          "background": "rgb(255, 241, 189)",
+          "display": "block",
+          "contrast": 7.69
+        },
+        "table_header": {
+          "color": "rgb(93, 38, 48)",
+          "background": "rgb(248, 223, 202)",
+          "display": "table-cell",
+          "contrast": 9.19
+        },
+        "table_cell": {
+          "color": "rgb(58, 37, 30)",
+          "background": "rgb(248, 242, 232)",
+          "display": "table-cell",
+          "contrast": 14.35
+        },
+        "table_total": {
+          "color": "rgb(41, 23, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "inline",
+          "contrast": 17.13
+        },
+        "final_comment": {
+          "color": "rgb(91, 61, 28)",
+          "background": "rgb(255, 248, 216)",
+          "display": "block",
+          "contrast": 9.24
+        }
+      },
+      "dimensions": {
+        "bodyWidth": 393,
+        "viewportWidth": 393,
+        "stageRight": 385,
+        "scrollWidth": 393,
+        "clientWidth": 393
+      },
+      "errors": [],
+      "screenshot": "V31_FINAL_CONTRAST_iphone-pro.png"
+    },
+    {
+      "viewport": "landscape",
+      "colors": {
+        "title": {
+          "color": "rgb(255, 244, 232)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "flex",
+          "contrast": 13.36
+        },
+        "podium_name": {
+          "color": "rgb(74, 41, 35)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 12.38
+        },
+        "break_heading": {
+          "color": "rgb(165, 54, 59)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 6.58
+        },
+        "break_label": {
+          "color": "rgb(107, 73, 61)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 7.94
+        },
+        "break_value": {
+          "color": "rgb(40, 23, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 17.18
+        },
+        "break_total": {
+          "color": "rgb(106, 67, 0)",
+          "background": "rgb(255, 241, 189)",
+          "display": "block",
+          "contrast": 7.69
+        },
+        "table_header": {
+          "color": "rgb(93, 38, 48)",
+          "background": "rgb(248, 223, 202)",
+          "display": "table-cell",
+          "contrast": 9.19
+        },
+        "table_cell": {
+          "color": "rgb(58, 37, 30)",
+          "background": "rgb(248, 242, 232)",
+          "display": "table-cell",
+          "contrast": 14.35
+        },
+        "table_total": {
+          "color": "rgb(41, 23, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "inline",
+          "contrast": 17.13
+        },
+        "final_comment": {
+          "color": "rgb(91, 61, 28)",
+          "background": "rgb(255, 248, 216)",
+          "display": "block",
+          "contrast": 9.24
+        }
+      },
+      "dimensions": {
+        "bodyWidth": 568,
+        "viewportWidth": 568,
+        "stageRight": 560,
+        "scrollWidth": 568,
+        "clientWidth": 568
+      },
+      "errors": [],
+      "screenshot": "V31_FINAL_CONTRAST_landscape.png"
+    },
+    {
+      "viewport": "desktop",
+      "colors": {
+        "title": {
+          "color": "rgb(255, 244, 232)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "flex",
+          "contrast": 13.36
+        },
+        "podium_name": {
+          "color": "rgb(74, 41, 35)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 12.38
+        },
+        "break_heading": {
+          "color": "rgb(165, 54, 59)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 6.58
+        },
+        "break_label": {
+          "color": "rgb(107, 73, 61)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 7.94
+        },
+        "break_value": {
+          "color": "rgb(40, 23, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 17.18
+        },
+        "break_total": {
+          "color": "rgb(106, 67, 0)",
+          "background": "rgb(255, 241, 189)",
+          "display": "block",
+          "contrast": 7.69
+        },
+        "table_header": {
+          "color": "rgb(93, 38, 48)",
+          "background": "rgb(248, 223, 202)",
+          "display": "table-cell",
+          "contrast": 9.19
+        },
+        "table_cell": {
+          "color": "rgb(58, 37, 30)",
+          "background": "rgb(248, 242, 232)",
+          "display": "table-cell",
+          "contrast": 14.35
+        },
+        "table_total": {
+          "color": "rgb(41, 23, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "inline",
+          "contrast": 17.13
+        },
+        "final_comment": {
+          "color": "rgb(91, 61, 28)",
+          "background": "rgb(255, 248, 216)",
+          "display": "block",
+          "contrast": 9.24
+        }
+      },
+      "dimensions": {
+        "bodyWidth": 1280,
+        "viewportWidth": 1280,
+        "stageRight": 1262,
+        "scrollWidth": 1280,
+        "clientWidth": 1280
+      },
+      "errors": [],
+      "screenshot": "V31_FINAL_CONTRAST_desktop.png"
+    },
+    {
+      "viewport": "wide",
+      "colors": {
+        "title": {
+          "color": "rgb(255, 244, 232)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "flex",
+          "contrast": 13.36
+        },
+        "podium_name": {
+          "color": "rgb(74, 41, 35)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 12.38
+        },
+        "break_heading": {
+          "color": "rgb(165, 54, 59)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 6.58
+        },
+        "break_label": {
+          "color": "rgb(107, 73, 61)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 7.94
+        },
+        "break_value": {
+          "color": "rgb(40, 23, 19)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "block",
+          "contrast": 17.18
+        },
+        "break_total": {
+          "color": "rgb(106, 67, 0)",
+          "background": "rgb(255, 241, 189)",
+          "display": "block",
+          "contrast": 7.69
+        },
+        "table_header": {
+          "color": "rgb(93, 38, 48)",
+          "background": "rgb(248, 223, 202)",
+          "display": "table-cell",
+          "contrast": 9.19
+        },
+        "table_cell": {
+          "color": "rgb(58, 37, 30)",
+          "background": "rgb(248, 242, 232)",
+          "display": "table-cell",
+          "contrast": 14.35
+        },
+        "table_total": {
+          "color": "rgb(41, 23, 18)",
+          "background": "rgba(0, 0, 0, 0)",
+          "display": "inline",
+          "contrast": 17.13
+        },
+        "final_comment": {
+          "color": "rgb(91, 61, 28)",
+          "background": "rgb(255, 248, 216)",
+          "display": "block",
+          "contrast": 9.24
+        }
+      },
+      "dimensions": {
+        "bodyWidth": 1875,
+        "viewportWidth": 1875,
+        "stageRight": 1857,
+        "scrollWidth": 1875,
+        "clientWidth": 1875
+      },
+      "errors": [],
+      "screenshot": "V31_FINAL_CONTRAST_wide.png"
+    }
+  ]
+}

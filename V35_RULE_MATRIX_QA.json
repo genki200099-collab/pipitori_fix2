@@ -1,0 +1,35 @@
+{
+  "version": "v35",
+  "result": "passed",
+  "default_rules": {
+    "rounds": 3,
+    "round_deal_mode": "reshuffle",
+    "penalty_mode": "mud6",
+    "mad_pig_enabled": true,
+    "joker_penalty": -20,
+    "joker_penalty_timing": "perRound",
+    "shoot_the_pig_enabled": true,
+    "shoot_the_pig_limit": "unlimited",
+    "pick_target_count": 2,
+    "pass_three_enabled": false,
+    "initial_pair_discard_enabled": false
+  },
+  "tests": {
+    "rule_logic_combinations": {"cases": 18432, "failures": 0},
+    "gameplay_matrix": {"games": 384, "failures": 0},
+    "browser_rule_matrix": {"cases": 1152, "failures": 0},
+    "critical_responsive": {"cases": 18, "failures": 0},
+    "full_phase_responsive": {"cases": 54, "failures": 0},
+    "final_result_contrast_viewports": {"cases": 5, "failures": 0},
+    "npm_test": "passed"
+  },
+  "fixed": [
+    "restore Shoot selection after temporarily disabling Mad Pig",
+    "correct CPU Shoot preservation for gameEnd plus reshuffle",
+    "show effective Mad and Shoot states in compact UI summaries",
+    "render zero penalty as 0 instead of -0",
+    "clarify Mad score-pile penalty in face-value mode",
+    "label Shoot penalty as cumulative"
+  ],
+  "rule_changes": false
+}

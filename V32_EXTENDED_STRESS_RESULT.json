@@ -1,0 +1,12 @@
+{
+  "result": "passed",
+  "engineBatches": 5,
+  "completedGames": 40,
+  "completedRounds": 120,
+  "engineSteps": 8628,
+  "picks": 989,
+  "pairs": 375,
+  "asyncBatches": 3,
+  "asyncLoops": 8346,
+  "asyncHumanActions": 44
+}

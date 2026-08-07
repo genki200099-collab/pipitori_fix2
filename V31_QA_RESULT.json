@@ -1,0 +1,25 @@
+{
+  "version": "v31",
+  "result": "passed",
+  "cause": "Light gameplay foreground was inherited by light final-result surfaces.",
+  "npmTest": "passed",
+  "browserViewports": [
+    "320x568",
+    "393x852",
+    "568x320",
+    "1280x720",
+    "1875x588"
+  ],
+  "minimumMeasuredContrast": 6.58,
+  "finalResultContrast": "passed",
+  "otherLightSurfaces": "passed",
+  "pageErrors": 0,
+  "horizontalOverflowFailures": 0,
+  "rulesChanged": false,
+  "changedFiles": [
+    "public/index.html",
+    "package.json",
+    "tests/final_result_contrast_regression.js",
+    "tests/browser_result_contrast_v31.py"
+  ]
+}

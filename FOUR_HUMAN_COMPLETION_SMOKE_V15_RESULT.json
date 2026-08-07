@@ -1,0 +1,13 @@
+{
+  "result": "passed",
+  "elapsedMs": 63360,
+  "totals": [
+    -34,
+    0,
+    -37,
+    -30
+  ],
+  "round": 1,
+  "players": 4,
+  "mode": "all-human automatic legal actions"
+}

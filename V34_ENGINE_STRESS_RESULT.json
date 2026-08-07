@@ -1,0 +1,357 @@
+{
+  "result": "passed",
+  "runs": [
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "unlimited",
+      "steps": 213,
+      "picks": 24,
+      "pairs": 11,
+      "spots": 24,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -6,
+        -34,
+        -40,
+        -41
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "unlimited",
+      "steps": 217,
+      "picks": 24,
+      "pairs": 11,
+      "spots": 24,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -2,
+        -50,
+        -21,
+        -20
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "unlimited",
+      "steps": 237,
+      "picks": 27,
+      "pairs": 11,
+      "spots": 27,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -39,
+        -7,
+        -9,
+        -31
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "unlimited",
+      "steps": 208,
+      "picks": 24,
+      "pairs": 11,
+      "spots": 24,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -37,
+        -18,
+        -40,
+        -20
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "once",
+      "steps": 249,
+      "picks": 29,
+      "pairs": 13,
+      "spots": 29,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        1,
+        16,
+        -25,
+        -36
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "once",
+      "steps": 228,
+      "picks": 27,
+      "pairs": 10,
+      "spots": 27,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -34,
+        -31,
+        -32,
+        -7
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "once",
+      "steps": 209,
+      "picks": 23,
+      "pairs": 11,
+      "spots": 23,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -26,
+        -22,
+        -44,
+        -21
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "once",
+      "steps": 199,
+      "picks": 23,
+      "pairs": 11,
+      "spots": 23,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "totals": [
+        -17,
+        -50,
+        -51,
+        -44
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "unlimited",
+      "steps": 198,
+      "picks": 22,
+      "pairs": 12,
+      "spots": 22,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        28,
+        6,
+        -49,
+        -18
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "unlimited",
+      "steps": 203,
+      "picks": 23,
+      "pairs": 10,
+      "spots": 23,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -6,
+        8,
+        -59,
+        -2
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "unlimited",
+      "steps": 213,
+      "picks": 26,
+      "pairs": 6,
+      "spots": 26,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -3,
+        20,
+        10,
+        -26
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "unlimited",
+      "steps": 226,
+      "picks": 26,
+      "pairs": 9,
+      "spots": 26,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -30,
+        -32,
+        17,
+        32
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "once",
+      "steps": 197,
+      "picks": 22,
+      "pairs": 14,
+      "spots": 22,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -12,
+        14,
+        -41,
+        9
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "once",
+      "steps": 225,
+      "picks": 27,
+      "pairs": 10,
+      "spots": 27,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        23,
+        -23,
+        -32,
+        9
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "once",
+      "steps": 220,
+      "picks": 25,
+      "pairs": 9,
+      "spots": 25,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -38,
+        2,
+        -16,
+        7
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "once",
+      "steps": 205,
+      "picks": 24,
+      "pairs": 11,
+      "spots": 24,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -52,
+        6,
+        -3,
+        16
+      ]
+    }
+  ]
+}

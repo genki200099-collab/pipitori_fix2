@@ -1,0 +1,90 @@
+{
+  "result": "passed",
+  "errors": [],
+  "surfaces": {
+    "round_panel": [
+      {
+        "selector": "round-panel",
+        "color": "rgb(60, 36, 29)",
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      {
+        "selector": "round-reason",
+        "color": "rgb(60, 36, 29)",
+        "background": "rgb(255, 243, 201)",
+        "opacity": "1"
+      },
+      {
+        "selector": "name",
+        "color": "rgb(105, 42, 40)",
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      {
+        "selector": "SPAN",
+        "color": "rgb(124, 86, 71)",
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      {
+        "selector": "B",
+        "color": "rgb(47, 27, 21)",
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      {
+        "selector": "round-total",
+        "color": "rgb(111, 71, 0)",
+        "background": "rgb(255, 243, 201)",
+        "opacity": "1"
+      }
+    ],
+    "rule_help": [
+      {
+        "selector": "rule-help-panel",
+        "color": "rgb(72, 33, 52)",
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "0"
+      },
+      {
+        "selector": "H3",
+        "color": "rgb(72, 33, 52)",
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      {
+        "selector": "LI",
+        "color": "rgb(95, 68, 80)",
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      }
+    ],
+    "utility": [
+      {
+        "selector": "utility-sheet",
+        "color": "rgb(44, 41, 36)",
+        "background": "rgb(248, 246, 239)",
+        "opacity": "1"
+      },
+      {
+        "selector": "H2",
+        "color": "rgb(72, 33, 52)",
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      {
+        "selector": "H3",
+        "color": "rgb(44, 41, 36)",
+        "background": "rgba(0, 0, 0, 0)",
+        "opacity": "1"
+      },
+      {
+        "selector": "log",
+        "color": "rgb(44, 41, 36)",
+        "background": "rgba(255, 255, 255, 0.62)",
+        "opacity": "1"
+      }
+    ]
+  }
+}

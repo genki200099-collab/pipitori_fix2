@@ -1,0 +1,144 @@
+{
+  "result": "passed",
+  "literalLocalReferences": 9,
+  "missingLiteralReferences": [],
+  "spotlightAssets": [
+    {
+      "character": "kamomodoki",
+      "emotion": "normal",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/kamomodoki/normal.jpg"
+      ]
+    },
+    {
+      "character": "kamomodoki",
+      "emotion": "joy",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/kamomodoki/joy.jpg"
+      ]
+    },
+    {
+      "character": "kamomodoki",
+      "emotion": "anger",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/kamomodoki/anger.jpg"
+      ]
+    },
+    {
+      "character": "kamomodoki",
+      "emotion": "sad",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/kamomodoki/sad.jpg"
+      ]
+    },
+    {
+      "character": "kamomodoki",
+      "emotion": "pleased",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/kamomodoki/pleased.jpg"
+      ]
+    },
+    {
+      "character": "wakumodoki",
+      "emotion": "normal",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/wakumodoki/normal.png"
+      ]
+    },
+    {
+      "character": "wakumodoki",
+      "emotion": "joy",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/wakumodoki/joy.png"
+      ]
+    },
+    {
+      "character": "wakumodoki",
+      "emotion": "anger",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/wakumodoki/anger.png"
+      ]
+    },
+    {
+      "character": "wakumodoki",
+      "emotion": "sad",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/wakumodoki/sad.png"
+      ]
+    },
+    {
+      "character": "wakumodoki",
+      "emotion": "pleased",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/wakumodoki/pleased.png"
+      ]
+    },
+    {
+      "character": "rikumodoki",
+      "emotion": "normal",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/rikumodoki/normal.png"
+      ]
+    },
+    {
+      "character": "rikumodoki",
+      "emotion": "joy",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/rikumodoki/joy.png"
+      ]
+    },
+    {
+      "character": "rikumodoki",
+      "emotion": "anger",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/rikumodoki/anger.png"
+      ]
+    },
+    {
+      "character": "rikumodoki",
+      "emotion": "sad",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/rikumodoki/sad.png"
+      ]
+    },
+    {
+      "character": "rikumodoki",
+      "emotion": "pleased",
+      "present": true,
+      "files": [
+        "public/cpu_characters/spotlight/rikumodoki/pleased.png"
+      ]
+    }
+  ],
+  "secretPatternHits": {
+    "openai_key": 0,
+    "private_key": 0,
+    "hardcoded_bearer": 0,
+    "aws_access_key": 0
+  },
+  "fileMetrics": {
+    "serverLines": 3918,
+    "clientLines": 10455,
+    "serverBytes": 177627,
+    "clientBytes": 520598
+  },
+  "deployment": {
+    "startCommand": "node server.js",
+    "nodeEngine": "22.x",
+    "packageLockPresent": true
+  }
+}

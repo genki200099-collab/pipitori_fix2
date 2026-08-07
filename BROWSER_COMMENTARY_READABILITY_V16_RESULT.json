@@ -1,0 +1,213 @@
+{
+  "result": "passed",
+  "cases": 5,
+  "results": [
+    {
+      "count": 2,
+      "expectedCount": 2,
+      "useCompact": true,
+      "texts": [
+        {
+          "compactVisible": true,
+          "fullVisible": false,
+          "compact": "💧12を処理します。",
+          "full": "💧スートは失点が重いです。12 💧を処理します。",
+          "pOverflow": false,
+          "bubble": {
+            "x": 21,
+            "y": 312,
+            "width": 278,
+            "height": 29,
+            "top": 312,
+            "right": 299,
+            "bottom": 341,
+            "left": 21
+          }
+        },
+        {
+          "compactVisible": true,
+          "fullVisible": false,
+          "compact": "大胆にいくぞぉ〜✊🏻",
+          "full": "かももどきさん、ごめん！自由なら大胆にいくぞぉ〜✊🏻",
+          "pOverflow": false,
+          "bubble": {
+            "x": 21,
+            "y": 344,
+            "width": 278,
+            "height": 29,
+            "top": 344,
+            "right": 299,
+            "bottom": 373,
+            "left": 21
+          }
+        }
+      ],
+      "noTextOverflow": true,
+      "correctMode": true,
+      "expectedCopy": true,
+      "noMessageOverlap": true,
+      "noHorizontalOverflow": true,
+      "viewport": "portrait-320x568",
+      "errors": []
+    },
+    {
+      "count": 2,
+      "expectedCount": 2,
+      "useCompact": true,
+      "texts": [
+        {
+          "compactVisible": true,
+          "fullVisible": false,
+          "compact": "💧12を処理します。",
+          "full": "💧スートは失点が重いです。12 💧を処理します。",
+          "pOverflow": false,
+          "bubble": {
+            "x": 21,
+            "y": 576,
+            "width": 351,
+            "height": 36,
+            "top": 576,
+            "right": 372,
+            "bottom": 612,
+            "left": 21
+          }
+        },
+        {
+          "compactVisible": true,
+          "fullVisible": false,
+          "compact": "大胆にいくぞぉ〜✊🏻",
+          "full": "かももどきさん、ごめん！自由なら大胆にいくぞぉ〜✊🏻",
+          "pOverflow": false,
+          "bubble": {
+            "x": 21,
+            "y": 615,
+            "width": 351,
+            "height": 36,
+            "top": 615,
+            "right": 372,
+            "bottom": 651,
+            "left": 21
+          }
+        }
+      ],
+      "noTextOverflow": true,
+      "correctMode": true,
+      "expectedCopy": true,
+      "noMessageOverlap": true,
+      "noHorizontalOverflow": true,
+      "viewport": "portrait-393x852",
+      "errors": []
+    },
+    {
+      "count": 1,
+      "expectedCount": 1,
+      "useCompact": true,
+      "texts": [
+        {
+          "compactVisible": true,
+          "fullVisible": false,
+          "compact": "💧12を処理します。",
+          "full": "💧スートは失点が重いです。12 💧を処理します。",
+          "pOverflow": false,
+          "bubble": {
+            "x": 20,
+            "y": 197,
+            "width": 207.515625,
+            "height": 40,
+            "top": 197,
+            "right": 227.515625,
+            "bottom": 237,
+            "left": 20
+          }
+        }
+      ],
+      "noTextOverflow": true,
+      "correctMode": true,
+      "expectedCopy": true,
+      "noMessageOverlap": true,
+      "noHorizontalOverflow": true,
+      "viewport": "landscape-568x320",
+      "errors": []
+    },
+    {
+      "count": 1,
+      "expectedCount": 1,
+      "useCompact": true,
+      "texts": [
+        {
+          "compactVisible": true,
+          "fullVisible": false,
+          "compact": "💧12を処理します。",
+          "full": "💧スートは失点が重いです。12 💧を処理します。",
+          "pOverflow": false,
+          "bubble": {
+            "x": 20,
+            "y": 242,
+            "width": 323.4375,
+            "height": 40,
+            "top": 242,
+            "right": 343.4375,
+            "bottom": 282,
+            "left": 20
+          }
+        }
+      ],
+      "noTextOverflow": true,
+      "correctMode": true,
+      "expectedCopy": true,
+      "noMessageOverlap": true,
+      "noHorizontalOverflow": true,
+      "viewport": "landscape-844x390",
+      "errors": []
+    },
+    {
+      "count": 2,
+      "expectedCount": 2,
+      "useCompact": false,
+      "texts": [
+        {
+          "compactVisible": false,
+          "fullVisible": true,
+          "compact": "💧12を処理します。",
+          "full": "💧スートは失点が重いです。12 💧を処理します。",
+          "pOverflow": false,
+          "bubble": {
+            "x": 900,
+            "y": 118,
+            "width": 351,
+            "height": 48,
+            "top": 118,
+            "right": 1251,
+            "bottom": 166,
+            "left": 900
+          }
+        },
+        {
+          "compactVisible": false,
+          "fullVisible": true,
+          "compact": "大胆にいくぞぉ〜✊🏻",
+          "full": "かももどきさん、ごめん！自由なら大胆にいくぞぉ〜✊🏻",
+          "pOverflow": false,
+          "bubble": {
+            "x": 900,
+            "y": 171,
+            "width": 351,
+            "height": 48,
+            "top": 171,
+            "right": 1251,
+            "bottom": 219,
+            "left": 900
+          }
+        }
+      ],
+      "noTextOverflow": true,
+      "correctMode": true,
+      "expectedCopy": true,
+      "noMessageOverlap": true,
+      "noHorizontalOverflow": true,
+      "viewport": "desktop-1280x720",
+      "errors": []
+    }
+  ],
+  "failures": []
+}

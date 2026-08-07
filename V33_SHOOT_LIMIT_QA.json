@@ -1,0 +1,39 @@
+{
+  "version": "v33",
+  "date": "2026-07-24",
+  "result": "passed",
+  "default": "unlimited",
+  "options": ["unlimited", "once"],
+  "npmTest": {
+    "result": "passed",
+    "suites": 20
+  },
+  "engineStress": {
+    "games": 16,
+    "rounds": 48,
+    "dealModes": ["reshuffle", "carryOver"],
+    "shootLimits": ["unlimited", "once"],
+    "duplicateCards": 0,
+    "nonFiniteScores": 0,
+    "progressStops": 0
+  },
+  "deterministicRules": {
+    "unlimitedRepeatAcrossRounds": "passed",
+    "onceBlocksSecondUse": "passed",
+    "otherPlayerOwnOnceUse": "passed",
+    "currentRoundOnlyWaiver": "passed",
+    "cumulativeOpponentPenalty": "passed"
+  },
+  "browser": {
+    "shootSettingCases": 3,
+    "criticalResponsiveCases": 18,
+    "totalCases": 21,
+    "failures": 0
+  },
+  "sourceIntegrity": {
+    "duplicateIds": 0,
+    "duplicateFunctions": 0,
+    "blockingAlerts": 0,
+    "cssParsed": true
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "version": "v28",
+  "change": "Unified all post-trick illustrated CPU spotlight dialogue display durations to 2200 ms",
+  "durationsMs": {
+    "normalPick": 2200,
+    "pairClean": 2200,
+    "madPig": 2200,
+    "joker": 2200,
+    "fallbackNoPick": 2200
+  },
+  "resultWindowsMs": {
+    "normalPick": 2800,
+    "pairClean": 4600,
+    "madPig": 5100,
+    "joker": 5700
+  },
+  "tests": {
+    "npmTest": "passed",
+    "gameEngineRuns": 8,
+    "asyncProgressLoops": 2645,
+    "duplicateCardIds": 0,
+    "nonFiniteScores": 0,
+    "sourceIntegrity": "passed",
+    "httpStartup": "passed"
+  }
+}

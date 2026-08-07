@@ -1,0 +1,19 @@
+{
+  "version": "v30",
+  "npmTest": "passed",
+  "browserFinalResult": [
+    "320x568",
+    "393x852",
+    "568x320",
+    "1280x720"
+  ],
+  "browserFinalResultButton": "passed",
+  "spotlightBrowser": "passed",
+  "overlayLifecycle": "passed",
+  "websocketRuntime": "not rerun: ws dependency unavailable",
+  "rulesChanged": false,
+  "p0Fixed": 0,
+  "p1Fixed": 0,
+  "p2Fixed": 4,
+  "p3Fixed": 1
+}

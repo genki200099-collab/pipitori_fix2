@@ -1,0 +1,176 @@
+{
+  "result": "passed",
+  "cases": [
+    {
+      "case": "portrait",
+      "viewport": [
+        320,
+        568
+      ],
+      "card": {
+        "x": 12,
+        "y": 162,
+        "width": 302,
+        "height": 244
+      },
+      "bubble": {
+        "x": 12,
+        "y": 162,
+        "width": 302,
+        "height": 112
+      },
+      "portrait": {
+        "x": 104,
+        "y": 288,
+        "width": 118,
+        "height": 118
+      },
+      "metrics": {
+        "bubbleScrollW": 296,
+        "bubbleClientW": 296,
+        "bubbleScrollH": 129,
+        "bubbleClientH": 106,
+        "textScrollW": 268,
+        "textClientW": 268,
+        "naturalW": 1254,
+        "naturalH": 1254,
+        "bubbleRect": {
+          "x": 12,
+          "y": 162,
+          "width": 302,
+          "height": 112,
+          "top": 162,
+          "right": 314,
+          "bottom": 274,
+          "left": 12
+        },
+        "textRect": {
+          "x": 29,
+          "y": 203,
+          "width": 268,
+          "height": 40.78125,
+          "top": 203,
+          "right": 297,
+          "bottom": 243.78125,
+          "left": 29
+        },
+        "typed": "ピピさん、そのババブタは明日のパンより重たいですよ♡▼"
+      },
+      "screenshot": "/mnt/data/pipitri_spotlight_v23_browser/portrait_320x568.png"
+    },
+    {
+      "case": "landscape",
+      "viewport": [
+        568,
+        320
+      ],
+      "card": {
+        "x": 34.078125,
+        "y": 106,
+        "width": 499.828125,
+        "height": 108
+      },
+      "bubble": {
+        "x": 162.078125,
+        "y": 113,
+        "width": 371.828125,
+        "height": 94
+      },
+      "portrait": {
+        "x": 36.078125,
+        "y": 106,
+        "width": 108,
+        "height": 108
+      },
+      "metrics": {
+        "bubbleScrollW": 366,
+        "bubbleClientW": 366,
+        "bubbleScrollH": 88,
+        "bubbleClientH": 88,
+        "textScrollW": 338,
+        "textClientW": 338,
+        "naturalW": 1024,
+        "naturalH": 1024,
+        "bubbleRect": {
+          "x": 162.078125,
+          "y": 113,
+          "width": 371.828125,
+          "height": 94,
+          "top": 113,
+          "right": 533.90625,
+          "bottom": 207,
+          "left": 162.078125
+        },
+        "textRect": {
+          "x": 179.078125,
+          "y": 149,
+          "width": 337.828125,
+          "height": 33.78125,
+          "top": 149,
+          "right": 516.90625,
+          "bottom": 182.78125,
+          "left": 179.078125
+        },
+        "typed": "エベレストなら更地にしておいたよ？ このペアも浄化するぞぉ〜✊🏻▼"
+      },
+      "screenshot": "/mnt/data/pipitri_spotlight_v23_browser/landscape_568x320.png"
+    },
+    {
+      "case": "desktop",
+      "viewport": [
+        1280,
+        720
+      ],
+      "card": {
+        "x": 230,
+        "y": 151.734375,
+        "width": 820,
+        "height": 416.53125
+      },
+      "bubble": {
+        "x": 230,
+        "y": 151.734375,
+        "width": 820,
+        "height": 168.53125
+      },
+      "portrait": {
+        "x": 525,
+        "y": 338.265625,
+        "width": 230,
+        "height": 230
+      },
+      "metrics": {
+        "bubbleScrollW": 812,
+        "bubbleClientW": 812,
+        "bubbleScrollH": 192,
+        "bubbleClientH": 161,
+        "textScrollW": 768,
+        "textClientW": 768,
+        "naturalW": 1254,
+        "naturalH": 1254,
+        "bubbleRect": {
+          "x": 230,
+          "y": 151.734375,
+          "width": 820,
+          "height": 168.53125,
+          "top": 151.734375,
+          "right": 1050,
+          "bottom": 320.265625,
+          "left": 230
+        },
+        "textRect": {
+          "x": 256,
+          "y": 210.734375,
+          "width": 768,
+          "height": 85.53125,
+          "top": 210.734375,
+          "right": 1024,
+          "bottom": 296.265625,
+          "left": 256
+        },
+        "typed": "ピピさんの残り手札を確認。締切が近いです。進捗を更新してください。▼"
+      },
+      "screenshot": "/mnt/data/pipitri_spotlight_v23_browser/desktop_1280x720.png"
+    }
+  ]
+}

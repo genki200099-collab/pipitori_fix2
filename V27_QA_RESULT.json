@@ -1,0 +1,36 @@
+{
+  "result": "passed",
+  "npm_test": {
+    "passed": true,
+    "engine_games": 8,
+    "engine_rounds": 24,
+    "deal_modes": ["reshuffle", "carryOver"],
+    "duplicate_ids": 0,
+    "duplicate_functions": 0,
+    "blocking_alerts": 0
+  },
+  "browser": {
+    "spotlight_viewports": 3,
+    "critical_responsive_cases": 18,
+    "overlay_lifecycle_passed": true,
+    "javascript_errors": 0
+  },
+  "runtime_websocket": {
+    "production_timing_partial": true,
+    "accelerated_complete_games": 2,
+    "rematch": true,
+    "states": 148,
+    "human_plays": 16,
+    "picks": 4,
+    "pairs": 3,
+    "spotlight_events": 15,
+    "special_events": 12,
+    "object_object_leaks": 0,
+    "errors": 0
+  },
+  "assets": {
+    "missing_local_references": 0,
+    "secret_pattern_hits": 0
+  },
+  "npm_ci_offline": "not_run_successfully: ws package was not cached in the isolated environment"
+}

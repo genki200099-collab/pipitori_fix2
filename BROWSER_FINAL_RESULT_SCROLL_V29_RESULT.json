@@ -1,0 +1,154 @@
+{
+  "result": "passed",
+  "results": [
+    {
+      "viewport": "iphone-se",
+      "before": {
+        "client": 524,
+        "scroll": 3499,
+        "top": 0,
+        "body": "hidden",
+        "action": 246
+      },
+      "after": {
+        "top": 2975,
+        "max": 2975,
+        "actionTop": 243,
+        "actionBottom": 453,
+        "visible": true,
+        "buttons": [
+          {
+            "text": "上に戻る",
+            "top": 254,
+            "bottom": 304
+          },
+          {
+            "text": "同じメンバー・同じルールで再戦",
+            "top": 312,
+            "bottom": 384
+          },
+          {
+            "text": "新しい部屋で遊ぶ",
+            "top": 392,
+            "bottom": 442
+          }
+        ],
+        "buttonTop": 0
+      },
+      "errors": [],
+      "ok": true
+    },
+    {
+      "viewport": "iphone-pro",
+      "before": {
+        "client": 808,
+        "scroll": 3296,
+        "top": 0,
+        "body": "hidden",
+        "action": 554
+      },
+      "after": {
+        "top": 2488,
+        "max": 2488,
+        "actionTop": 551,
+        "actionBottom": 737,
+        "visible": true,
+        "buttons": [
+          {
+            "text": "上に戻る",
+            "top": 562,
+            "bottom": 612
+          },
+          {
+            "text": "同じメンバー・同じルールで再戦",
+            "top": 620,
+            "bottom": 668
+          },
+          {
+            "text": "新しい部屋で遊ぶ",
+            "top": 676,
+            "bottom": 726
+          }
+        ],
+        "buttonTop": 0
+      },
+      "errors": [],
+      "ok": true
+    },
+    {
+      "viewport": "landscape",
+      "before": {
+        "client": 276,
+        "scroll": 3215,
+        "top": 0,
+        "body": "hidden",
+        "action": 121
+      },
+      "after": {
+        "top": 2939,
+        "max": 2939,
+        "actionTop": 19,
+        "actionBottom": 205,
+        "visible": true,
+        "buttons": [
+          {
+            "text": "上に戻る",
+            "top": 30,
+            "bottom": 80
+          },
+          {
+            "text": "同じメンバー・同じルールで再戦",
+            "top": 88,
+            "bottom": 136
+          },
+          {
+            "text": "新しい部屋で遊ぶ",
+            "top": 144,
+            "bottom": 194
+          }
+        ],
+        "buttonTop": 0
+      },
+      "errors": [],
+      "ok": true
+    },
+    {
+      "viewport": "desktop",
+      "before": {
+        "client": 664,
+        "scroll": 1832,
+        "top": 0,
+        "body": "hidden",
+        "action": 535
+      },
+      "after": {
+        "top": 1168,
+        "max": 1168,
+        "actionTop": 528,
+        "actionBottom": 595,
+        "visible": true,
+        "buttons": [
+          {
+            "text": "上に戻る",
+            "top": 539,
+            "bottom": 584
+          },
+          {
+            "text": "同じメンバー・同じルールで再戦",
+            "top": 539,
+            "bottom": 584
+          },
+          {
+            "text": "新しい部屋で遊ぶ",
+            "top": 539,
+            "bottom": 584
+          }
+        ],
+        "buttonTop": 0
+      },
+      "errors": [],
+      "ok": true
+    }
+  ],
+  "failures": []
+}

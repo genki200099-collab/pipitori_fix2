@@ -1,0 +1,76 @@
+{
+  "result": "passed",
+  "note": "実コードの状態遷移を変更せず、待機・演出時間のみテスト用コピーで短縮。WebSocketは隔離環境用互換シムで実サーバーへ接続。配布物にはシムと短縮設定を含めない。",
+  "tests": {
+    "rapidLobby": {
+      "result": "passed",
+      "players": 4,
+      "addRequests": 3,
+      "phase": "playing",
+      "handCount": 13
+    },
+    "cpuGame": {
+      "result": "passed",
+      "elapsedMs": 11058,
+      "phases": [
+        "lobby",
+        "playing",
+        "finished"
+      ],
+      "humanPlays": 9,
+      "humanPicks": 4,
+      "humanTargetSelections": 0,
+      "humanPairChoices": 4,
+      "commentEvents": [
+        "card-danger",
+        "card-play",
+        "endgame",
+        "finish",
+        "greeting",
+        "pair",
+        "pick",
+        "round-start",
+        "target-select",
+        "trick-weak",
+        "trick-win",
+        "watch"
+      ],
+      "cinematicEvents": [
+        "mad-pick",
+        "mad-trick",
+        "pair-pick"
+      ],
+      "seenSuits": [
+        "apple",
+        "cabbage",
+        "corn",
+        "mud"
+      ],
+      "totals": [
+        -27,
+        4,
+        0,
+        -22
+      ]
+    },
+    "fourHumanGame": {
+      "result": "passed",
+      "elapsedMs": 10209,
+      "totals": [
+        -40,
+        -37,
+        -24,
+        0
+      ],
+      "round": 1
+    },
+    "reconnect": {
+      "result": "passed",
+      "elapsedMs": 181,
+      "room": "LR95",
+      "samePlayerId": true,
+      "handRestored": 13,
+      "postReconnectPlayAccepted": true
+    }
+  }
+}

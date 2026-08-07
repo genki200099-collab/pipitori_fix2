@@ -1,0 +1,9 @@
+{
+  "localAssetRefs": 9,
+  "missingAssets": [],
+  "secretPatternHits": {
+    "openai_key": [],
+    "generic_secret": [],
+    "private_key": []
+  }
+}

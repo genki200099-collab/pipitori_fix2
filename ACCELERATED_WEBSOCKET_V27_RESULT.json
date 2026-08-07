@@ -1,0 +1,1 @@
+{"result": "passed", "banner": "【ピピトリ】ピッグ・ピック・トリック server listening on http://localhost:3154", "runtime": {"games": 2, "states": 148, "plays": 16, "picks": 4, "pairs": 3, "targets": 4, "spots": 15, "special": 12, "objectLeaks": 0, "errors": [], "rematchSent": true}}

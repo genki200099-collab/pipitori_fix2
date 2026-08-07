@@ -1,0 +1,19 @@
+{
+  "result": "passed",
+  "checks": {
+    "rightClickIgnored": true,
+    "keyboardActivation": true,
+    "pickAccessibleNames": true,
+    "pickLabels": [
+      "裏向きのピック候補 1枚目を選ぶ",
+      "裏向きのピック候補 2枚目を選ぶ"
+    ],
+    "pairRecovery": true,
+    "avatarFallback": true,
+    "hudTouchTargets": true,
+    "handToggleTarget": true,
+    "noHorizontalOverflow": true,
+    "pageErrors": []
+  },
+  "failures": []
+}

@@ -26,7 +26,7 @@ function setup(room){
 }
 function run(config,index){
   const ws=fakeWs();
-  api.createRoom(ws,`H${index}`,1,config.mad,-20,config.initialPair,config.pass,config.penalty,config.pick,config.timing,config.shoot,config.deal,config.limit,config.feast,config.providerRole);
+  api.createRoom(ws,`H${index}`,1,config.mad,-20,config.initialPair,config.pass,config.penalty,config.pick,config.timing,config.shoot,config.deal,config.limit,config.feast,config.providerRole,'player',config.forceJokerPickCandidate,config.shootRequiresBabaMoved);
   const room=[...api.rooms.values()].at(-1);
   for(let i=0;i<3;i++)api.addCpu(room,room.hostId);
   assert.strictEqual(api.startGame(room,room.hostId),true);
@@ -38,7 +38,7 @@ function run(config,index){
     if(room.trickReview){const r=room.trickReview;api.advanceReviewToPick(room,r.until,r.winnerPid,r.weakestPid);continue;}
     const pp=room.pendingPick;
     if(pp){
-      if(pp.targetSelectionRequired&&!pp.targetSelectionDone){const provider=room.players[pp.pickProviderPid];api.submitPickTargets(room,provider.id,provider.hand.slice(0,pp.targetCount).map(c=>c.id),true);continue;}
+      if(pp.targetSelectionRequired&&!pp.targetSelectionDone){const provider=room.players[pp.pickProviderPid];const mandatory=pp.mandatoryCandidateIds||[];const ids=[...mandatory,...provider.hand.map(c=>c.id).filter(id=>!mandatory.includes(id))].slice(0,pp.targetCount);api.submitPickTargets(room,provider.id,ids,true);continue;}
       if(pp.pairChoice&&!pp.result){pairs++;api.resolvePairChoice(room,room.players[pp.pickerPid].id,pp.pairChoice.candidates[0]?.id,false);continue;}
       if(!pp.result){picks++;pp.readyAt=0;api.doPick(room,room.players[pp.pickerPid].id,(index+steps)%Math.max(1,(pp.targetCandidateIds||[]).length||pp.targetCount||1));continue;}
       api.finishAfterPick(room,pp.winnerPid);continue;
@@ -63,9 +63,11 @@ for(const timing of ['perRound','gameEnd'])
 for(const shoot of [true,false])
 for(const deal of ['reshuffle','carryOver'])
 for(const limit of ['unlimited','once'])
-for(const pick of [0,2,13]){
+for(const pick of [0,2,13])
+for(const forceJokerPickCandidate of [false,true])
+for(const shootRequiresBabaMoved of [false,true]){
   const setupMode=idx++%4;
-  configs.push({penalty,mad,timing,shoot,deal,limit,pick,feast:[0,1,2,5][idx%4],providerRole:idx%2?'winner':'weakest',pass:setupMode===1||setupMode===3,initialPair:setupMode===2||setupMode===3});
+  configs.push({penalty,mad,timing,shoot,deal,limit,pick,forceJokerPickCandidate,shootRequiresBabaMoved,feast:[0,1,2,5][idx%4],providerRole:idx%2?'winner':'weakest',pass:setupMode===1||setupMode===3,initialPair:setupMode===2||setupMode===3});
 }
 const samples=[];
 configs.forEach((config,index)=>{const r=run(config,index);if(index%48===0)samples.push({config,...r});});

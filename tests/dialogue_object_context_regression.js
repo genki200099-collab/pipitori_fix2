@@ -20,8 +20,8 @@ const expected=[
 ];
 assert.match(server,/const SPOTLIGHT_DISPLAY_MS = 2200;/,'spotlight duration must be unified at 2.2 seconds');
 for(const [label,re] of expected) assert.match(server,re,`${label} spotlight must use the unified 2.2-second duration`);
-assert.match(server,/if\(result\?\.drawn\?\.joker\) return 5700;/);
-assert.match(server,/if\(result\?\.paired\) return 4600;/);
-assert.match(server,/isMadPig\(result\?\.drawn\)\) return 5100;/);
-assert.match(server,/return 2800;/);
+assert.match(server,/if\(result\?\.drawn\?\.joker\) return GAME_TIMING\.babaPickResult;/);
+assert.match(server,/if\(result\?\.paired\) return GAME_TIMING\.pairPickResult;/);
+assert.match(server,/isMadPig\(result\?\.drawn\)\) return GAME_TIMING\.madPickResult;/);
+assert.match(server,/return GAME_TIMING\.normalPickResult;/);
 console.log('dialogue object context regression: all assertions passed');

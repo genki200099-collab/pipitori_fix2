@@ -6,14 +6,22 @@ const server=fs.readFileSync(path.join(root,'server.js'),'utf8');
 const html=fs.readFileSync(path.join(root,'public','index.html'),'utf8');
 
 function num(re){ const m=server.match(re); assert(m,`missing ${re}`); return Number(m[1]); }
+function gameTiming(name){
+  return num(new RegExp(`${name}:(\\d+)`));
+}
 const unifiedDuration=num(/const SPOTLIGHT_DISPLAY_MS = (\d+);/);
-const pick={joker:num(/if\(result\?\.drawn\?\.joker\) return (\d+);/),pair:num(/if\(result\?\.paired\) return (\d+);/),mad:num(/isMadPig\(result\?\.drawn\)\) return (\d+);/)};
+const pick={
+  joker:gameTiming('babaPickResult'),
+  pair:gameTiming('pairPickResult'),
+  mad:gameTiming('madPickResult')
+};
 const timing={
  joker:[num(/if\(drawn\?\.joker\) return \{delayMs:(\d+),durationMs:SPOTLIGHT_DISPLAY_MS\}/),unifiedDuration],
  pair:[num(/if\(paired\) return \{delayMs:(\d+),durationMs:SPOTLIGHT_DISPLAY_MS\}/),unifiedDuration],
  mad:[num(/isMadPig\(drawn\)\) return \{delayMs:(\d+),durationMs:SPOTLIGHT_DISPLAY_MS\}/),unifiedDuration]
 };
 assert.strictEqual(unifiedDuration,2200,'all spotlight dialogue must display for 2.2 seconds');
+assert.deepStrictEqual(pick,{joker:5600,pair:4500,mad:5000},'important v38 pick result lifetimes must remain readable');
 const fade=280;
 assert(timing.joker[0]+timing.joker[1]+fade < pick.joker,'joker spotlight must finish before next trick');
 assert(timing.pair[0]+timing.pair[1]+fade < pick.pair,'pair spotlight must finish before next trick');

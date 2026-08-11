@@ -103,6 +103,15 @@ assert.match(html, /\.lobby-participants\{display:grid/);
 assert.match(html, /\.btn\{min-height:44px\}/);
 assert.match(html, /pick-system-role">カードを取られる人/);
 assert.match(html, /pick-system-role">カードを引く人/);
+assert.match(html, /id="forceJokerPickCandidate"/);
+assert.match(html, /id="shootRequiresBabaMoved"/);
+assert.match(html, /\.baba-move-option-group\{grid-column:1\/-1;display:grid;grid-template-columns:repeat\(2,minmax\(0,1fr\)\)/);
+assert.match(html, /@media\(max-width:620px\)\{\.baba-move-option-group\{grid-template-columns:1fr/);
+assert.match(html, /mandatory-pick-badge/);
+assert.match(html, /mandatory\?'disabled'/);
+assert.match(html, /ババブタはルールにより自動選択済み/);
+assert.match(html, /state\.shootRequiresBabaMoved\) chips\.push\(state\.babaMovedThisRound/);
+assert.match(server, /babaMovedThisRound:!!room\.babaMovedThisRound/);
 
 function rgb(hex){
   const value = hex.replace('#','');
@@ -185,6 +194,7 @@ function validateLandscape(width,height){
 const portraitResults = [
   [320,568],
   [360,640],
+  [375,667],
   [390,844],
   [393,852],
   [430,932]
@@ -193,6 +203,7 @@ const landscapeResults = [
   [568,320],
   [667,375],
   [844,390],
+  [852,393],
   [932,430]
 ].map(v=>validateLandscape(...v));
 

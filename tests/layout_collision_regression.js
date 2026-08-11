@@ -37,6 +37,10 @@ assert.match(html, /not\(\.ui-phone\) \.game-screen\.is-review-mode \.table-play
 assert.match(html, /ui-phone\.ui-phone-portrait \.table-players \.name\{font-size:10\.5px!important\}/);
 assert.match(html, /ui-phone\.ui-phone-portrait \.review-banner\.review-result-v11\{[\s\S]*?grid-template-columns:1fr!important/);
 assert.match(html, /ui-phone-landscape \.review-banner\.review-result-v11\{[\s\S]*?grid-template-columns:minmax\(0,1fr\) auto!important/);
+assert.match(html,/\.spectator-layout\{display:grid;grid-template-columns:minmax\(280px,\.92fr\) minmax\(420px,1\.45fr\)/);
+assert.match(html,/@media\(max-width:932px\) and \(orientation:landscape\)\{[\s\S]*?\.spectator-layout\{grid-template-columns:minmax\(0,\.82fr\) minmax\(0,1\.5fr\)/);
+assert.match(html,/@media\(max-width:720px\)\{[\s\S]*?\.spectator-layout\{grid-template-columns:1fr\}/);
+assert.match(html,/\.spectator-cards\{display:flex;[\s\S]*?overflow-x:auto/);
 
 function rect(x, y, width, height, label){
   return {x, y, width, height, right:x + width, bottom:y + height, label};
@@ -304,15 +308,32 @@ function desktopProfile(width, height){
 }
 
 const portrait = [
-  [320,568], [360,600], [360,640], [390,600], [390,640], [390,664], [390,844], [393,852], [430,600], [430,650], [430,800], [430,932]
+  [320,568], [360,600], [360,640], [375,667], [390,600], [390,640], [390,664], [390,844], [393,852], [430,600], [430,650], [430,800], [430,932]
 ].map(v => portraitProfile(...v));
 
 const landscape = [
-  [568,320], [640,360], [667,375], [844,390], [932,430]
+  [568,320], [640,360], [667,375], [844,390], [852,393], [932,430]
 ].map(v => landscapeProfile(...v));
 
 const desktop = [
-  [768,600], [1024,600], [1280,720], [1024,768], [1280,800], [1440,900]
+  [768,600], [1024,600], [1024,768], [1280,720], [1366,768], [1440,900], [1920,1080]
 ].map(v => desktopProfile(...v));
 
-console.log(JSON.stringify({result:'passed', portrait, landscape, desktop}));
+const spectatorSizes=[
+  [320,568],[360,640],[375,667],[390,844],[393,852],[430,932],
+  [568,320],[667,375],[844,390],[852,393],[932,430],
+  [768,600],[1024,600],[1024,768],[1280,720],[1366,768],[1440,900],[1920,1080]
+].map(([width,height])=>{
+  const landscape=width>height&&width<=932;
+  const portrait=width<=720&&!landscape;
+  const contentWidth=width-(landscape?16:portrait?16:28);
+  const gap=landscape?7:12;
+  const tableWidth=portrait?contentWidth:landscape?(contentWidth-gap)*(.82/2.32):Math.max(280,(contentWidth-gap)*(.92/2.37));
+  const handsWidth=portrait?contentWidth:contentWidth-gap-tableWidth;
+  assert.ok(tableWidth>=(portrait?280:landscape?180:280),`${width}x${height}: spectator trick panel readable`);
+  assert.ok(handsWidth>=(portrait?280:landscape?300:420),`${width}x${height}: spectator hand board readable`);
+  assert.ok(contentWidth<=width,`${width}x${height}: spectator board has no horizontal page overflow`);
+  return{width,height,mode:portrait?'portrait':landscape?'landscape':'desktop',tableWidth:Math.round(tableWidth),handsWidth:Math.round(handsWidth)};
+});
+
+console.log(JSON.stringify({result:'passed', portrait, landscape, desktop,spectator:spectatorSizes}));

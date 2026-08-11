@@ -24,6 +24,7 @@ sandbox.globalThis=sandbox;
 vm.runInNewContext(`${source}\n;globalThis.__ruleMatrixApi={
  normalizeRoundCount,normalizeRoundDealMode,normalizePenaltyMode,normalizeMadPigEnabled,
  normalizeJokerPenalty,normalizeJokerPenaltyTiming,normalizeShootThePigEnabled,normalizeShootThePigLimit,
+ normalizeForceJokerPickCandidate,normalizeShootRequiresBabaMoved,
  normalizePickTargetCount,normalizeFeastPointPerCard,normalizePickProviderRole,normalizePassThreeEnabled,normalizeInitialPairDiscardEnabled,
  shootThePigEnabled,shootThePigLimit,shootThePigLabel,rulePenaltyPointLabel,roomOptionSummary,
  playerCanShootThePig,playerShootLimitReached,shouldCheckShootThePigThisRound,applyShootThePigForRound,
@@ -38,6 +39,7 @@ const makeRoom=(overrides={})=>({
  players:[player('A',[joker(),card('mud',11,'M')]),player('B',[card('apple',2,'B2')]),player('C',[card('corn',3,'C3')]),player('D',[card('cabbage',4,'D4')])],
  totalRounds:3,round:1,roundDealMode:'reshuffle',feastPointPerCard:1,pickProviderRole:'winner',penaltyMode:'mud6',madPigEnabled:true,jokerPenalty:20,
  jokerPenaltyTiming:'perRound',shootThePigEnabled:true,shootThePigLimit:'unlimited',pickTargetCount:2,
+ forceJokerPickCandidate:false,shootRequiresBabaMoved:false,babaMovedThisRound:false,babaMoveCountThisRound:0,
  passThreeEnabled:false,initialPairDiscardEnabled:false,shootPigRoundResults:{},shootPigEvent:null,log:[],commentary:[],...overrides
 });
 
@@ -59,9 +61,10 @@ for(const totalRounds of rounds) for(const roundDealMode of dealModes) for(const
 for(const madPigEnabled of madModes) for(const jokerPenalty of jokerValues) for(const jokerPenaltyTiming of timings)
 for(const requestedShoot of shootModes) for(const shootThePigLimit of shootLimits) for(const pickTargetCount of pickCounts)
 for(const feastPointPerCard of feastPoints) for(const pickProviderRole of pickProviderRoles)
-for(const passThreeEnabled of toggles) for(const initialPairDiscardEnabled of toggles){
+for(const passThreeEnabled of toggles) for(const initialPairDiscardEnabled of toggles)
+for(const forceJokerPickCandidate of toggles) for(const shootRequiresBabaMoved of toggles){
   const room=makeRoom({totalRounds,roundDealMode,penaltyMode,madPigEnabled,jokerPenalty,jokerPenaltyTiming,
-    shootThePigEnabled:madPigEnabled && requestedShoot,shootThePigLimit,pickTargetCount,feastPointPerCard,pickProviderRole,passThreeEnabled,initialPairDiscardEnabled});
+    shootThePigEnabled:madPigEnabled && requestedShoot,shootThePigLimit,pickTargetCount,feastPointPerCard,pickProviderRole,passThreeEnabled,initialPairDiscardEnabled,forceJokerPickCandidate,shootRequiresBabaMoved});
   const summary=api.roomOptionSummary(room);
   combinations++;
   assert(!/undefined|NaN|\[object Object\]|-0(?:\D|$)/.test(summary),summary);
@@ -72,12 +75,14 @@ for(const passThreeEnabled of toggles) for(const initialPairDiscardEnabled of to
   assert(summary.includes(pickProviderRole==='winner'?'勝者から最弱者へ':'最弱者から勝者へ'));
   assert.strictEqual(api.shootThePigEnabled(room),madPigEnabled && requestedShoot);
   assert.strictEqual(api.shootThePigLimit(room),shootThePigLimit);
+  if(forceJokerPickCandidate) assert(summary.includes('ババ必須候補'));
+  if(shootRequiresBabaMoved && madPigEnabled && requestedShoot) assert(summary.includes('ババ移動必須'));
   if(!madPigEnabled) assert(summary.includes('シュート:不可'));
   else if(!requestedShoot) assert(summary.includes('シュート:なし'));
   else if(jokerPenaltyTiming==='gameEnd') assert(summary.includes('最終Rのみ'));
   else assert(summary.includes(shootThePigLimit==='once'?'1人1回まで':'無制限'));
 }
-assert.strictEqual(combinations,3*2*4*2*3*2*2*2*4*4*2*2*2);
+assert.strictEqual(combinations,3*2*4*2*3*2*2*2*4*4*2*2*2*2*2);
 
 // Zero-point Joker must never be rendered as negative zero.
 assert.strictEqual(api.rulePenaltyPointLabel(0),'0');

@@ -88,10 +88,10 @@ const baseRoom = (players, extra={})=>({
   assert.strictEqual(hiddenPair.rank,'11');
   assert.strictEqual(hiddenPair.containsMadPig,false);
 
-  assert.strictEqual(api.pickResultDisplayMs(room,{drawn:joker()}),5700);
-  assert.strictEqual(api.pickResultDisplayMs(room,{drawn:card('apple',4),paired:true}),4600);
-  assert.strictEqual(api.pickResultDisplayMs(room,{drawn:mad}),5100);
-  assert.strictEqual(api.pickResultDisplayMs(room,{drawn:card('cabbage',4)}),2800);
+  assert.strictEqual(api.pickResultDisplayMs(room,{drawn:joker()}),5600);
+  assert.strictEqual(api.pickResultDisplayMs(room,{drawn:card('apple',4),paired:true}),4500);
+  assert.strictEqual(api.pickResultDisplayMs(room,{drawn:mad}),5000);
+  assert.strictEqual(api.pickResultDisplayMs(room,{drawn:card('cabbage',4)}),2350);
   const publicView=api.publicState(room,'A');
   assert.strictEqual(publicView.madPigEvent.id,madEvent.id);
   assert.strictEqual(publicView.pairCleanEvent.cards,null);
@@ -348,6 +348,8 @@ assert.strictEqual(api.normalizePickProviderRole('legacy'),'winner');
   assert.strictEqual(room.pickTargetCount,2);
   assert.strictEqual(room.shootThePigEnabled,true);
   assert.strictEqual(room.shootThePigLimit,'unlimited');
+  assert.strictEqual(room.forceJokerPickCandidate,false);
+  assert.strictEqual(room.shootRequiresBabaMoved,false);
   assert.strictEqual(room.passThreeEnabled,false);
   assert.strictEqual(room.initialPairDiscardEnabled,false);
   assert.ok(sent.some(x=>x.type==='created'));
@@ -355,6 +357,8 @@ assert.strictEqual(api.normalizePickProviderRole('legacy'),'winner');
   assert.strictEqual(state.shootThePigLimit,'unlimited');
   assert.strictEqual(state.shootThePigPerPlayerLimit,null);
   assert.strictEqual(state.roundDealMode,'reshuffle');
+  assert.strictEqual(state.forceJokerPickCandidate,false);
+  assert.strictEqual(state.shootRequiresBabaMoved,false);
   assert.strictEqual(state.players[0].shootUsed,false);
 }
 

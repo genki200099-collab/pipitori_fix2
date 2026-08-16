@@ -7184,6 +7184,18 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
 .mandatory-pick-card{outline:3px solid #f4a000!important;outline-offset:-3px;position:relative;opacity:1!important;filter:none!important;cursor:not-allowed}.mandatory-pick-badge{position:absolute;z-index:5;top:4px;left:4px;padding:3px 6px;border-radius:999px;background:#7b3f00;color:#fff;font-weight:900;font-size:.68rem;box-shadow:0 2px 6px #0003;pointer-events:none}
 .pick-forced-note{margin:8px auto;padding:8px 10px;max-width:620px;border-radius:12px;background:#fff2bd;color:#6b4100;font-weight:800;text-align:center}
 .shoot-blocked-note{margin:12px 0;padding:12px;border-radius:14px;background:#fff3c9;border:2px solid #dfaa2c;color:#603d00}.shoot-blocked-note b{display:block;margin-bottom:4px}
+.featured-rules{margin:14px 0 12px;padding:16px;border:2px solid rgba(216,61,91,.22);border-radius:24px;background:linear-gradient(145deg,#fff8ed,#fff0f4);box-shadow:0 14px 30px rgba(109,29,53,.08)}
+.featured-rules-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}.featured-rules-head h3{margin:2px 0;color:#4b2135}.featured-rules-head p{margin:4px 0 0;color:#775e69;font-size:.78rem;font-weight:700}.featured-rule-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+.featured-rule-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px;align-items:start;min-height:134px;padding:13px;border:1px solid rgba(83,38,57,.15);border-radius:18px;background:#fff;cursor:pointer;box-shadow:0 8px 18px rgba(75,33,53,.06)}.featured-rule-card:focus-within{outline:3px solid rgba(216,61,91,.23)}.featured-rule-copy b{display:block;color:#4b2135}.featured-rule-copy small{display:block;margin-top:7px;color:#765e69;line-height:1.5}.featured-rule-copy em{display:inline-block;margin-top:8px;padding:3px 7px;border-radius:999px;background:#671c3c;color:#fff;font-size:.67rem;font-style:normal;font-weight:900}.featured-rule-card select{min-width:82px;min-height:44px}
+.score-total-mini{display:inline-flex;align-items:center;padding:2px 7px;border-radius:999px;background:#183b42;color:#fff;font-size:.66rem;font-weight:1000;white-space:nowrap}.player-score-total{margin-left:auto}
+.shoot-choice-panel{position:fixed;z-index:1900;inset:0;display:grid;place-items:center;padding:max(14px,env(safe-area-inset-top)) max(14px,env(safe-area-inset-right)) max(14px,env(safe-area-inset-bottom)) max(14px,env(safe-area-inset-left));background:rgba(13,9,18,.72);backdrop-filter:blur(7px)}.shoot-choice-card{width:min(520px,100%);padding:24px;border:2px solid #ffc35a;border-radius:26px;background:linear-gradient(155deg,#20102b,#4e1736);color:#fff;text-align:center;box-shadow:0 28px 80px #0009,0 0 42px #ffbd4a66}.shoot-choice-card .moon{font-size:3rem}.shoot-choice-card h2{margin:5px 0;font-size:clamp(1.7rem,7vw,3rem)}.shoot-choice-card p{margin:8px 0 18px;color:#ffe8bd}.shoot-choice-actions{display:grid;grid-template-columns:1fr 1.25fr;gap:10px}.shoot-choice-actions button{min-height:52px}.shoot-fire-btn{background:linear-gradient(135deg,#ffb72c,#e63254)!important;color:#fff!important;box-shadow:0 10px 24px #e6325466!important}
+.shoot-load-ready{position:fixed;z-index:1840;left:50%;top:max(74px,calc(env(safe-area-inset-top) + 58px));transform:translateX(-50%);width:min(88vw,480px);padding:14px 18px;border:2px solid #ffe08a;border-radius:18px;background:linear-gradient(135deg,#35123f,#7d2442);color:#fff;text-align:center;box-shadow:0 18px 48px #0007,0 0 36px #ffce5b66;pointer-events:none;animation:shootReadyIn .35s ease-out,shootReadyOut .35s ease-in 2.65s forwards}.shoot-load-ready b{display:block;font-size:clamp(1.35rem,6vw,2.3rem);letter-spacing:.08em}.shoot-load-ready span{color:#ffe6aa;font-weight:900}@keyframes shootReadyIn{from{opacity:0;transform:translate(-50%,-18px) scale(.86)}to{opacity:1;transform:translate(-50%,0) scale(1)}}@keyframes shootReadyOut{to{opacity:0;transform:translate(-50%,-10px) scale(.96)}}
+.turn-notice{position:fixed;z-index:1780;left:50%;top:max(68px,calc(env(safe-area-inset-top) + 52px));transform:translateX(-50%);width:min(86vw,430px);padding:11px 16px;border:1px solid #9ee9d1;border-radius:16px;background:rgba(10,69,67,.96);color:#fff;text-align:center;box-shadow:0 14px 34px #0005;pointer-events:none;animation:shootReadyIn .25s ease-out,shootReadyOut .3s ease-in 2.15s forwards}.turn-notice b{display:block;font-size:1.1rem}.turn-notice small{color:#cffff1;font-weight:800}
+.shoot-fire-cutscene{position:fixed;z-index:2100;inset:0;overflow:hidden;display:grid;place-items:center;background:radial-gradient(circle at center,rgba(74,22,64,.5),rgba(4,4,12,.9));pointer-events:none;color:#fff}.shoot-fire-vignette{position:absolute;inset:0;box-shadow:inset 0 0 13vw #000;animation:shootDark .35s ease-out}.shoot-fire-title{position:absolute;top:9%;font-size:clamp(1.8rem,7vw,5rem);font-weight:1000;letter-spacing:.08em;text-shadow:0 0 24px #ffcf61,0 4px 0 #7c183f;animation:shootTitle .52s both}.shoot-fire-cards{position:absolute;top:28%;display:flex;align-items:center;gap:clamp(10px,4vw,42px);font-size:clamp(3rem,12vw,7rem)}.shoot-fire-cards .baba{animation:shootCardLeft .62s .28s both}.shoot-fire-cards .mad{animation:shootCardRight .62s .28s both}.shoot-fire-cards b{font-size:clamp(1.8rem,7vw,4rem);color:#ffe171;animation:shootReadyPulse .42s .78s both}.shoot-fire-shooter{position:absolute;top:57%;display:flex;align-items:center;gap:12px;animation:shootShooter .45s 1.05s both}.shoot-fire-shooter .avatar{font-size:clamp(2.4rem,9vw,5rem)}.shoot-fire-shooter b{display:block;font-size:clamp(1.15rem,5vw,2.4rem)}.shoot-fire-shooter span{color:#ffd16c;font-weight:1000}.shoot-projectile-card{position:absolute;left:12%;top:66%;font-size:clamp(3.2rem,11vw,7rem);filter:drop-shadow(-22px 4px 12px #ffb62a);animation:shootProjectile 1.05s 1.42s cubic-bezier(.15,.82,.3,1) both}.shoot-speedline{position:absolute;left:8%;right:8%;top:73%;height:5px;background:linear-gradient(90deg,transparent,#ffcf60,#fff,transparent);transform:scaleX(0);animation:shootLine .85s 1.48s both}.shoot-impact-target{position:absolute;right:8%;top:60%;text-align:center;animation:shootImpact .5s 2.18s both}.shoot-impact-target i{display:block;font-size:clamp(3rem,11vw,7rem);font-style:normal}.shoot-impact-target b{font-size:clamp(1rem,4vw,1.9rem)}.shoot-fire-success{position:absolute;bottom:6%;text-align:center;animation:shootSuccess .65s 2.55s both}.shoot-fire-success b{display:block;font-size:clamp(1.7rem,7vw,4.5rem);color:#ffe376;text-shadow:0 0 20px #ff8b36}.shoot-fire-success small{font-size:clamp(.72rem,2.6vw,1rem)}
+@keyframes shootDark{from{opacity:0}to{opacity:1}}@keyframes shootTitle{from{opacity:0;transform:scale(1.6)}to{opacity:1;transform:scale(1)}}@keyframes shootCardLeft{from{opacity:0;transform:translateX(-55vw) rotate(-24deg)}to{opacity:1;transform:none}}@keyframes shootCardRight{from{opacity:0;transform:translateX(55vw) rotate(24deg)}to{opacity:1;transform:none}}@keyframes shootReadyPulse{from{opacity:0;transform:scale(2.2)}to{opacity:1;transform:scale(1)}}@keyframes shootShooter{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:none}}@keyframes shootProjectile{0%{opacity:0;transform:translateX(0) rotate(0)}10%{opacity:1}100%{opacity:1;transform:translateX(70vw) rotate(720deg)}}@keyframes shootLine{to{transform:scaleX(1)}}@keyframes shootImpact{0%{opacity:0;transform:scale(.5)}45%{opacity:1;transform:scale(1.32) rotate(-3deg)}100%{opacity:1;transform:scale(1)}}@keyframes shootSuccess{from{opacity:0;transform:scale(.72)}to{opacity:1;transform:scale(1)}}
+@media(max-width:780px){.featured-rule-grid{grid-template-columns:1fr}.featured-rule-card{min-height:0}.shoot-fire-shooter{top:55%}.shoot-projectile-card{left:7%}.shoot-impact-target{right:4%}}
+@media(max-height:430px) and (orientation:landscape){.shoot-fire-title{top:4%;font-size:1.8rem}.shoot-fire-cards{top:18%;font-size:3.2rem}.shoot-fire-shooter{top:50%}.shoot-projectile-card{top:60%;font-size:3.5rem}.shoot-speedline{top:72%}.shoot-impact-target{top:53%}.shoot-fire-success{bottom:2%}.shoot-choice-card{padding:14px}.shoot-choice-card .moon{font-size:2rem}.shoot-choice-card h2{font-size:1.6rem}.shoot-choice-card p{margin:5px 0 10px}}
+@media(prefers-reduced-motion:reduce){.shoot-load-ready,.shoot-fire-cutscene *{animation:none!important}.shoot-fire-cutscene{background:rgba(10,7,16,.94)}.shoot-projectile-card{left:50%;transform:translateX(-50%);top:48%}.shoot-speedline{display:none}.shoot-fire-cards{opacity:.35}.shoot-fire-shooter{top:60%}.shoot-impact-target{opacity:1}.shoot-fire-success{opacity:1}}
 @media(max-width:620px){.baba-move-option-group{grid-template-columns:1fr;padding:9px}.baba-move-option-head{grid-column:1}.baba-move-option-head{align-items:flex-start;flex-direction:column}.mandatory-pick-badge{font-size:.6rem;padding:2px 5px}}
 @media(max-height:430px) and (orientation:landscape){.pick-forced-note{margin:4px auto;padding:5px 8px;font-size:.76rem}}
 </style>
@@ -7232,11 +7244,20 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
       <div id="selectedPresetSummary" class="selected-preset-summary" aria-live="polite"><span>現在の設定</span><b>スタンダード</b><small>運と戦略のバランスが良い標準ルールです。</small></div>
     </section>
 
+    <section class="featured-rules" aria-labelledby="featuredRulesTitle">
+      <div class="featured-rules-head"><div><span class="menu-eyebrow">TESTING NOW</span><h3 id="featuredRulesTitle">🔥 テスト中の注目ルール</h3><p>通常ルールは変えず、ONにした項目だけ追加されます。</p></div><span class="recommended-pill">すべて標準OFF</span></div>
+      <div class="featured-rule-grid">
+        <label class="featured-rule-card"><span class="featured-rule-copy"><b>① 2位と3位の間でもピック <button type="button" class="rule-help-btn" data-help-rule="enableMiddleRankPick" aria-label="中位ピックのヘルプ">?</button></b><small>1位→最弱に加え、2位→3位でもカードが動きます。</small></span><select id="enableMiddleRankPick" class="input" aria-label="2位と3位の間でもピック"><option value="false" selected>OFF</option><option value="true">ON</option></select></label>
+        <label class="featured-rule-card"><span class="featured-rule-copy"><b>② シュート「装填 → 発射」 <button type="button" class="rule-help-btn" data-help-rule="shootLoadFireMode" aria-label="装填から発射のヘルプ">?</button></b><small>ババ＋マッドを揃えて装填。勝てば自分で必殺技を発射できます。</small><em>💥 専用の必殺技演出あり</em></span><select id="shootLoadFireMode" class="input" aria-label="シュート装填から発射"><option value="false" selected>OFF</option><option value="true">ON</option></select></label>
+        <label class="featured-rule-card"><span class="featured-rule-copy"><b>③ ババブタを必ずピック候補</b><small>提供者がババを持つ場合、候補を絞る両ピックで必須になります。</small></span><select id="forceJokerPickCandidate" class="input" aria-label="ババブタを必ずピック候補"><option value="false" selected>OFF</option><option value="true">ON</option></select></label>
+      </div>
+    </section>
+
     <details class="settings-details advanced-settings organized-settings">
       <summary class="advanced-settings-summary">⚙️ 詳細ルールをカスタマイズ <span class="small">プリセットから一項目ずつ変更できます</span></summary>
       <div class="advanced-settings-hint">変更内容に合わせて、すぐ下の「試合傾向」がリアルタイムに更新されます。</div>
       <div class="rules-default-note">
-        <b>標準設定</b>：3ラウンド / ラウンド終了ごとに全カードを回収してシャッフル / ごちそう山1枚1点 / 🍎リンゴ・🌽トウモロコシ・🥬キャベツは-3点・通常の💧は-6点 / マッド固有-13点 / ババブタ-20点・ラウンド毎 / 勝者の手札から最弱者がピック（候補2枚） / ババ必須候補なし / シュート移動条件なし / 3枚パスなし / 開始時ペア捨てなし / シュートON（両方とも手札・無制限）
+        <b>標準設定</b>：3ラウンド / ラウンド終了ごとに全カードを回収してシャッフル / ごちそう山1枚1点 / 🍎リンゴ・🌽トウモロコシ・🥬キャベツは-3点・通常の💧は-6点 / マッド固有-13点 / ババブタ-20点・ラウンド毎 / 勝者の手札から最弱者がピック（候補2枚） / 中位ピックなし / 装填→発射なし / ババ必須候補なし / シュート移動条件なし / 3枚パスなし / 開始時ペア捨てなし / シュートON（両方とも手札・無制限）
       </div>
       <div class="suit-flavor-map" aria-label="ピピトリの4スート">
         <span class="suit-flavor apple"><i aria-hidden="true">🍎</i><b>リンゴ</b><small>赤色スート</small></span>
@@ -7274,7 +7295,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
             <label class="input-label option-toggle"><span class="rule-title"><span>シュート発動回数</span><button type="button" class="rule-help-btn" data-help-rule="shootThePigLimit" aria-label="シュート発動回数のヘルプ">?</button></span><select id="shootThePigLimit" class="input"><option value="unlimited" selected>無制限</option><option value="once">1人1回まで</option></select><em id="shootThePigLimitHint">標準は無制限。各ラウンドで条件を満たせば再発動可能</em></label>
             <div class="baba-move-option-group" role="group" aria-labelledby="babaMoveOptionTitle">
               <div class="baba-move-option-head"><b id="babaMoveOptionTitle">🃏 ババブタ移動オプション</b><small>どちらも標準OFF・同時ON可</small></div>
-              <label class="input-label option-toggle baba-option"><span class="rule-title"><span>ババブタを必ずピック候補にする</span><button type="button" class="rule-help-btn" data-help-rule="forceJokerPickCandidate" aria-label="ババブタ必須候補のヘルプ">?</button></span><select id="forceJokerPickCandidate" class="input"><option value="false" selected>OFF（標準）</option><option value="true">ON</option></select><em>候補を絞る時だけ、ババを解除不能の必須枠にします</em></label>
+              <div class="input-label baba-option"><span class="rule-title"><span>ババブタ必須候補</span><button type="button" class="rule-help-btn" data-help-rule="forceJokerPickCandidate" aria-label="ババブタ必須候補のヘルプ">?</button></span><em>上の「注目ルール」で切り替えます。通常／中位の両ピックに適用。</em></div>
               <label class="input-label option-toggle baba-option"><span class="rule-title"><span>シュートにはババブタの移動が必要</span><button type="button" class="rule-help-btn" data-help-rule="shootRequiresBabaMoved" aria-label="シュート移動条件のヘルプ">?</button></span><select id="shootRequiresBabaMoved" class="input"><option value="false" selected>OFF（標準）</option><option value="true">ON</option></select><em id="shootRequiresBabaMovedHint">そのラウンドのピックでババが実際に動く必要があります</em></label>
             </div>
           </div>
@@ -7402,6 +7423,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
             <li>標準は勝者が自分の手札から候補を出し、最弱者が1枚引いて受け取る。従来方向も選択可。</li>
             <li>カードを取られる側が候補を2枚に絞る。絞らない/1〜13枚にも変更可。</li>
             <li>任意で「ババブタ必須候補」をONにできる。候補1枚ならババが自動確定。「絞らない」は元々全手札候補なので変化なし。</li>
+            <li>任意で「2位と3位の間でもピック」をONにすると、順位を一度確定した後、通常ピックに続いて2位→3位でも同じ候補・浄化ルールで1枚動く。</li>
             <li>提供者の候補選択画面はスート順→数字順。ピッカー側は公平なランダム順。</li>
             <li>受取人の手札で同じ数字ができたら、ペアで捨てるかスキップを選ぶ。ババブタはペア不可。次のリードは勝者。</li>
           </ul>
@@ -7422,7 +7444,8 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
             <li>残り通常手札：標準はリンゴ・トウモロコシ・キャベツが1枚-3点、通常の💧が1枚-6点。全スート-3、数字分、または他-1・💧-3にも変更可。</li>
             <li>マッド・ピッグ：💧11。標準ON。数字分以外では手札・山とも固有-13点で、通常カード失点と重複しない。山では設定されたごちそう点の後に固有失点を適用。</li>
             <li>ババブタ：標準-20点。失点タイミングはラウンド毎/ゲーム最後から選択。</li>
-            <li>シュート・ザ・ピッグON時：標準ではババブタ＋マッド・ピッグの両方が手札にある状態でラウンド終了すると発動。そのラウンドの本人対象失点0、他全員-10点。移動条件ONでは、さらにそのラウンド中のババ実移動が必要。山のマッドは条件に含めない。</li>
+            <li>シュート・ザ・ピッグON時：標準ではババブタ＋マッド・ピッグの両方が手札にある状態でラウンド終了すると発動。そのラウンドの本人対象失点0、他全員-10点。山のマッドは条件に含めない。</li>
+            <li>任意の「装填→発射」ON時：両方が手札に揃うと本人だけに装填を通知。装填者がトリックに勝つと、自分で通常ピックか発射を選ぶ。発射ではババを最弱者へ直接渡し、マッドは手札に残す。卓全体で1ラウンド1発。</li>
             <li>任意で「シュートにはババ移動が必要」をONにできる。この時は、そのラウンド中にピックでババが実際に移動していることも必要。配札や持ち越しは移動ではない。</li>
           </ul>
         </div>
@@ -7438,7 +7461,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
           <ul>
             <li>3ラウンド / ピック対象2枚 / リンゴ・トウモロコシ・キャベツは-3点・通常の💧は-6点。</li>
             <li>マッド・ピッグあり / ババブタ-20点・ラウンド毎。</li>
-            <li>ババ必須候補OFF / シュート移動条件OFF / 3枚パスなし / 開始時ペア捨てなし / シュートON（両方とも手札・無制限）。</li>
+            <li>2位→3位ピックOFF / 装填→発射OFF / ババ必須候補OFF / シュート移動条件OFF / 3枚パスなし / 開始時ペア捨てなし / シュートON（両方とも手札・無制限）。</li>
           </ul>
         </div>
       </div>
@@ -7472,6 +7495,10 @@ let __lastScoreRenderKey='';
 let __finalResultViewToken='';
 let __continueRoundRequestTimer=0;
 let __lastShootPigEventId='';
+let __lastShootFireEventId='';
+let __lastShootLoadEventId='';
+let __lastShootChoiceId='';
+let __lastTurnNoticeKey='';
 let __lastBabaDrawEventId='';
 let __lastMomentEventId='';
 let __lastSpotlightEventId='';
@@ -7649,6 +7676,73 @@ function hypeByState(){
   else if(state.phase==='finished') hypeToast('🏆 最終結果', 'gold');
 }
 
+function showTransientNotice(className,html,duration=2800){
+  document.querySelectorAll(`.${className}`).forEach(el=>el.remove());
+  const el=document.createElement('div');el.className=className;el.setAttribute('role','status');el.setAttribute('aria-live','polite');el.innerHTML=html;document.body.appendChild(el);
+  window.setTimeout(()=>el.remove(),duration);
+}
+
+function renderTurnNotice(){
+  if(!state || state.isSpectator || state.participantRole==='spectator') return;
+  const key=`${state.round || 0}:${state.current ?? '-'}:${(state.trick || []).map(x=>x.card?.id || '').join(',')}`;
+  if(!state.isYourTurn){ return; }
+  if(key===__lastTurnNoticeKey) return;
+  __lastTurnNoticeKey=key;
+  showTransientNotice('turn-notice','<b>あなたの番です</b><small>カードを1枚選んでください</small>',2500);
+}
+
+function renderShootLoadReady(){
+  if(!state) return;
+  const ownEvent=state.shootLoadState?.event;
+  const spectatorEvents=state.isSpectator?(state.spectatorShootLoadStates || []).map(x=>x.event).filter(Boolean):[];
+  const ev=ownEvent || spectatorEvents.sort((a,b)=>Number(b.createdAt||0)-Number(a.createdAt||0))[0];
+  if(!ev) return;
+  if(!__animationStateHydrated){ __lastShootLoadEventId=ev.id;return; }
+  if(__lastShootLoadEventId===ev.id) return;
+  __lastShootLoadEventId=ev.id;
+  const owner=state.players?.[ev.pid];
+  const detail=state.isSpectator && owner?`${esc(owner.name)} が装填`:'シュート装填完了！';
+  showTransientNotice('shoot-load-ready',`<b>🌕 SHOOT READY</b><span>${detail}</span>`,3100);
+}
+
+function renderShootChoice(){
+  const choice=state?.pendingShootDecision;
+  let root=document.getElementById('shootChoicePanel');
+  if(!choice?.canChoose){ if(root) root.remove();return; }
+  if(root && root.dataset.choiceId===choice.id) return;
+  if(root) root.remove();
+  root=document.createElement('div');root.id='shootChoicePanel';root.className='shoot-choice-panel';root.dataset.choiceId=choice.id;
+  root.innerHTML=`<div class="shoot-choice-card" role="dialog" aria-modal="true" aria-labelledby="shootChoiceTitle"><div class="moon">🌕</div><div class="small">SHOOT THE PIG</div><h2 id="shootChoiceTitle">撃てる！</h2><p>通常の1位→最弱ピックを行うか、ババブタを最弱者へ直接発射します。</p><div class="shoot-choice-actions"><button type="button" class="btn secondary" data-shoot-decision="normal">通常ピック</button><button type="button" class="btn shoot-fire-btn" data-shoot-decision="fire">発射する！</button></div></div>`;
+  document.body.appendChild(root);
+  root.querySelectorAll('[data-shoot-decision]').forEach(button=>button.addEventListener('click',()=>{
+    root.querySelectorAll('button').forEach(btn=>btn.disabled=true);
+    send({type:'shootDecision',fire:button.dataset.shootDecision==='fire'});
+  }));
+  root.querySelector('[data-shoot-decision="fire"]')?.focus({preventScroll:true});
+}
+
+function shootCutinLine(player){
+  if(player?.cpuKey==='wakumodoki') return '「いくぞー！ シュート・ザ・ピッグ！」';
+  if(player?.cpuKey==='kamomodoki') return '「逃がさないよ。発射！」';
+  if(player?.cpuKey==='rikumodoki') return '「発射条件成立。実行します。」';
+  return `${player?.name || 'プレイヤー'}がシュートを発射！`;
+}
+
+function renderShootFireOverlay(){
+  const ev=state?.shootFireEvent;const root=$('shootPigOverlay');
+  if(!ev || !root) return false;
+  if(!__animationStateHydrated){ __lastShootFireEventId=ev.id;return true; }
+  if(__lastShootFireEventId===ev.id) return true;
+  __lastShootFireEventId=ev.id;
+  const shooter=state.players?.[ev.shooterPid] || {};const target=state.players?.[ev.targetPid] || {};
+  window.clearTimeout(window.__shootPigOverlayTimer);window.clearTimeout(window.__shootPigOverlayClearTimer);
+  root.dataset.active='1';root.dataset.eventId=ev.id;
+  root.innerHTML=`<div class="shoot-fire-cutscene" aria-label="${escAttr(`${shooter.name || '発射者'}が${target.name || '最弱者'}へババブタを発射`)}"><div class="shoot-fire-vignette"></div><div class="shoot-fire-title">🌕 SHOOT THE PIG!</div><div class="shoot-fire-cards"><span class="baba">🃏</span><b>× READY!</b><span class="mad">💧11</span></div><div class="shoot-fire-shooter"><span class="avatar">${playerAvatarHTML(ev.shooterPid)}</span><span><b>${esc(shooter.name || '')}　SHOOT!!</b><span>${esc(shootCutinLine(shooter))}</span></span></div><div class="shoot-speedline"></div><div class="shoot-projectile-card">🃏</div><div class="shoot-impact-target"><i>💥${playerAvatarHTML(ev.targetPid)}</i><b>${esc(target.name || '最弱者')} に<br>ババブタ直撃！</b></div><div class="shoot-fire-success"><b>🌕 SHOOT SUCCESS!</b><small>🃏 ババブタ → ${esc(target.name || '最弱者')}　／　💧11 マッド → ${esc(shooter.name || '発射者')}に残る</small></div></div>`;
+  if(!window.matchMedia?.('(prefers-reduced-motion: reduce)')?.matches) effectVibrate([45,35,110]);
+  window.__shootPigOverlayTimer=window.setTimeout(()=>{ if(root.dataset.eventId===ev.id){root.innerHTML='';root.dataset.active='0';} },3500);
+  return true;
+}
+
 
 
 
@@ -7742,9 +7836,11 @@ function resetRoomClientState({hostCleared=false,wasHost=false}={}){
     window.clearTimeout(window[key]); window.clearInterval(window[key]); window[key]=null;
   });
   document.querySelectorAll('.hype-toast').forEach(el=>el.remove());
+  document.querySelectorAll('.shoot-choice-panel,.shoot-load-ready').forEach(el=>el.remove());
   ['sceneEffects','lastTrick','tableCommentary','table','hand','handNote','handAlerts','roundStatus','roundModal','score','log'].forEach(id=>{ const el=$(id); if(el) el.innerHTML=''; });
   ['spotlightOverlay','momentOverlay','shootPigOverlay','babaDrawOverlay'].forEach(id=>{ const el=$(id); if(el){ el.innerHTML=''; el.dataset.active='0'; } });
   document.body.classList.remove('gameplay-mode','finished-mode','baba-impact-active','pair-impact-active','mad-impact-active','shoot-impact-active');
+  __lastShootFireEventId='';__lastShootLoadEventId='';__lastShootChoiceId='';__lastTurnNoticeKey='';
   const gameScreen=$('gameScreen'); if(gameScreen){ gameScreen.hidden=true; gameScreen.setAttribute('aria-hidden','true'); }
   const lobby=$('lobby'); if(lobby) lobby.setAttribute('aria-hidden','false');
   const roomInfo=$('roomInfo'); if(roomInfo) roomInfo.style.display='none';
@@ -8172,6 +8268,24 @@ const RULE_HELP_TEXTS = {
       '「シュートにはババブタの移動が必要」と同時にONにできます。候補入りだけでは移動済みにならず、実際に引かれた時だけ数えます。'
     ]
   },
+  enableMiddleRankPick:{
+    title:'2位と3位の間でもピック',
+    body:[
+      'ONでは通常の1位→最弱ピックに続き、トリック2位が候補を出して3位が1枚受け取ります。標準はOFFです。',
+      '順位はトリック解決時に一度だけ確定し、最初のピック後も変わりません。次のリードは従来どおり1位です。',
+      '候補数、ババ必須候補、CPUの公平なランダム選択、ペア浄化、切断時の自動復旧は追加ピックにも同じように適用されます。'
+    ]
+  },
+  shootLoadFireMode:{
+    title:'シュート「装填 → 発射」',
+    body:[
+      'ONでは手札にババブタ＋マッド・ピッグが揃うと、本人だけに「装填完了」を知らせます。装填情報は他プレイヤーへ公開されません。',
+      '装填者がトリック1位になると、通常ピックか「発射する！」を本人が選びます。自動発射はしません。',
+      '発射時は1位→最弱の通常ピックを置き換え、ババブタを最弱者へ直接渡します。マッド・ピッグは発射者の手札に残ります。',
+      '2位→3位ピックがONなら、必殺技演出の後にその追加ピックを必ず続行します。卓全体で1ラウンド1発です。',
+      'このモードでは「シュートにはババ移動が必要」は使わず、サーバーでもOFFへ正規化します。標準はOFFで、OFF時は従来のラウンド終了判定を維持します。'
+    ]
+  },
   shootRequiresBabaMoved:{
     title:'シュートにはババブタの移動が必要',
     body:[
@@ -8218,19 +8332,19 @@ const RULE_HELP_TEXTS = {
 const RULE_PRESETS = {
   standard:{
     label:'スタンダード', description:'運と戦略のバランスが良い標準ルールです。',
-    values:{rounds:'3',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-20',jokerPenaltyTiming:'perRound',shootThePigEnabled:'true',shootThePigLimit:'unlimited',forceJokerPickCandidate:'false',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'2',passThreeEnabled:'false',initialPairDiscardEnabled:'false'}
+    values:{rounds:'3',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-20',jokerPenaltyTiming:'perRound',shootThePigEnabled:'true',shootThePigLimit:'unlimited',enableMiddleRankPick:'false',shootLoadFireMode:'false',forceJokerPickCandidate:'false',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'2',passThreeEnabled:'false',initialPairDiscardEnabled:'false'}
   },
   quick:{
     label:'クイック', description:'1ラウンドで決着。ルールを覚える練習や短時間プレイ向けです。',
-    values:{rounds:'1',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-20',jokerPenaltyTiming:'perRound',shootThePigEnabled:'true',shootThePigLimit:'unlimited',forceJokerPickCandidate:'false',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'2',passThreeEnabled:'false',initialPairDiscardEnabled:'false'}
+    values:{rounds:'1',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-20',jokerPenaltyTiming:'perRound',shootThePigEnabled:'true',shootThePigLimit:'unlimited',enableMiddleRankPick:'false',shootLoadFireMode:'false',forceJokerPickCandidate:'false',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'2',passThreeEnabled:'false',initialPairDiscardEnabled:'false'}
   },
   dramatic:{
     label:'ドラマチック', description:'重いババブタと広いピック候補で、事故・逆転・歓声が増える設定です。',
-    values:{rounds:'3',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-30',jokerPenaltyTiming:'perRound',shootThePigEnabled:'true',shootThePigLimit:'unlimited',forceJokerPickCandidate:'false',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'6',passThreeEnabled:'false',initialPairDiscardEnabled:'false'}
+    values:{rounds:'3',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-30',jokerPenaltyTiming:'perRound',shootThePigEnabled:'true',shootThePigLimit:'unlimited',enableMiddleRankPick:'false',shootLoadFireMode:'false',forceJokerPickCandidate:'false',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'6',passThreeEnabled:'false',initialPairDiscardEnabled:'false'}
   },
   strategic:{
     label:'ストラテジー', description:'💧スート管理、3枚パス、開始ペアを使う長期の読み合いです。',
-    values:{rounds:'5',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-20',jokerPenaltyTiming:'perRound',shootThePigEnabled:'true',shootThePigLimit:'unlimited',forceJokerPickCandidate:'false',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'2',passThreeEnabled:'true',initialPairDiscardEnabled:'true'}
+    values:{rounds:'5',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-20',jokerPenaltyTiming:'perRound',shootThePigEnabled:'true',shootThePigLimit:'unlimited',enableMiddleRankPick:'false',shootLoadFireMode:'false',forceJokerPickCandidate:'false',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'2',passThreeEnabled:'true',initialPairDiscardEnabled:'true'}
   }
 };
 
@@ -8291,8 +8405,10 @@ function readRuleSelectionForTrend(){
     jokerTiming:$('jokerPenaltyTiming')?.value || 'perRound',
     shoot:$('shootThePigEnabled')?.value === 'true' && $('madPigEnabled')?.value === 'true',
     shootLimit:$('shootThePigLimit')?.value === 'once' ? 'once' : 'unlimited',
+    enableMiddleRankPick:$('enableMiddleRankPick')?.value === 'true',
+    shootLoadFireMode:$('shootLoadFireMode')?.value === 'true' && $('shootThePigEnabled')?.value === 'true' && $('madPigEnabled')?.value === 'true',
     forceJokerPickCandidate:$('forceJokerPickCandidate')?.value === 'true',
-    shootRequiresBabaMoved:$('shootRequiresBabaMoved')?.value === 'true',
+    shootRequiresBabaMoved:$('shootRequiresBabaMoved')?.value === 'true' && $('shootLoadFireMode')?.value !== 'true',
     pickCount:Number($('pickTargetCount')?.value || 2),
     pickProviderRole:$('pickProviderRole')?.value === 'weakest' ? 'weakest' : 'winner',
     passThree:$('passThreeEnabled')?.value === 'true',
@@ -8349,12 +8465,21 @@ function buildMatchTrendDescription(cfg){
     if(cfg.jokerTiming === 'gameEnd') warnings.push('ババブタ失点が「ゲームの最後」の場合、シュート判定も最終ラウンドだけです。この組み合わせでは無制限と1人1回の差は実質ありません。');
   }
 
+  if(cfg.shootLoadFireMode){
+    tags.push('装填→発射');chaos+=2;strategy+=2;
+    points.unshift('ババ＋マッドで装填し、トリックに勝つと本人が必殺技を発射できます。通常進行は軽快なまま、発射だけ専用カットインで大きく盛り上がります。');
+  }
+
   if(cfg.pickProviderRole==='winner'){
     tags.push('勝者から最弱へ'); strategy += 1;
     points.push('勝者が候補を出し、最弱者が1枚受け取ります。勝利するとごちそうを得ながら不要札を手放しやすい新標準です。');
   }else{
     tags.push('最弱から勝者へ'); pressure += 1;
     points.push('最弱者が候補を出し、勝者が1枚受け取る従来ルールです。勝者の手札が増えやすくなります。');
+  }
+  if(cfg.enableMiddleRankPick){
+    tags.push('中位ピック');chaos+=1;strategy+=1;
+    points.unshift('1位→最弱に続いて2位→3位でもピックします。1トリックでカードが2回動き、全員が順位争いに関わりやすくなります。');
   }
 
   if(cfg.pickCount === 0){ tags.push('ピック運大'); chaos += 2; points.push('候補を絞らず、提供者の手札全体から引きます。事故感と運要素が強くなります。'); }
@@ -8378,6 +8503,9 @@ function buildMatchTrendDescription(cfg){
   }
   if(cfg.forceJokerPickCandidate && cfg.shootRequiresBabaMoved && cfg.shoot){
     points.unshift('ババブタが卓上を移動しやすく、移動後のシュートを巡る駆け引きが強い組み合わせです。');
+  }
+  if(cfg.enableMiddleRankPick && cfg.shootLoadFireMode && cfg.forceJokerPickCandidate){
+    points.unshift('ババブタが非常に動きやすく、装填と発射を巡る派手な攻防が起こりやすい注目ルール構成です。');
   }
 
   if(cfg.passThree){ tags.push('手札調整'); strategy += 2; points.push('開始時3枚パスあり。初手から手札を整える読み合いが増えます。'); }
@@ -8444,7 +8572,7 @@ function closeRuleHelp(ev=null){
 
 
 function setupRuleSelectionHelpers(){
-  const ids = ['rounds','roundDealMode','feastPointPerCard','penaltyMode','madPigEnabled','jokerPenalty','jokerPenaltyTiming','shootThePigEnabled','shootThePigLimit','forceJokerPickCandidate','shootRequiresBabaMoved','pickProviderRole','pickTargetCount','passThreeEnabled','initialPairDiscardEnabled'];
+  const ids = ['rounds','roundDealMode','feastPointPerCard','penaltyMode','madPigEnabled','jokerPenalty','jokerPenaltyTiming','shootThePigEnabled','shootThePigLimit','enableMiddleRankPick','shootLoadFireMode','forceJokerPickCandidate','shootRequiresBabaMoved','pickProviderRole','pickTargetCount','passThreeEnabled','initialPairDiscardEnabled'];
   ids.forEach(id=>{
     const el = $(id);
     if(!el || el.dataset.trendBound === '1') return;
@@ -8523,6 +8651,7 @@ function syncShootThePigAvailability(){
   const mad = $('madPigEnabled')?.value === 'true';
   const shoot = $('shootThePigEnabled');
   const limit = $('shootThePigLimit');
+  const loadFire=$('shootLoadFireMode');
   const moveRequirement=$('shootRequiresBabaMoved');
   const timing = $('jokerPenaltyTiming')?.value || 'perRound';
   const shootHint = $('shootThePigHint');
@@ -8545,19 +8674,38 @@ function syncShootThePigAvailability(){
   shoot.disabled = !mad;
   shoot.closest('.input-label')?.classList.toggle('disabled-option', !mad);
   const limitAvailable = mad && shoot.value === 'true';
+  if(loadFire){
+    loadFire.disabled=!limitAvailable;
+    loadFire.closest('.featured-rule-card')?.classList.toggle('disabled-option',!limitAvailable);
+    if(!limitAvailable && loadFire.value==='true'){
+      loadFire.dataset.beforeShootOff='true';loadFire.value='false';
+    }else if(limitAvailable && loadFire.dataset.beforeShootOff==='true'){
+      loadFire.value='true';delete loadFire.dataset.beforeShootOff;
+    }
+  }
+  const loadFireActive=limitAvailable && loadFire?.value==='true';
   if(limit){
     limit.disabled = !limitAvailable;
     limit.closest('.input-label')?.classList.toggle('disabled-option', !limitAvailable);
   }
   if(moveRequirement){
-    moveRequirement.disabled=!limitAvailable;
-    moveRequirement.closest('.input-label')?.classList.toggle('disabled-option',!limitAvailable);
+    if(loadFireActive && !Object.prototype.hasOwnProperty.call(moveRequirement.dataset,'beforeLoadFire')){
+      moveRequirement.dataset.beforeLoadFire=moveRequirement.value;
+      moveRequirement.value='false';
+    }else if(!loadFireActive && Object.prototype.hasOwnProperty.call(moveRequirement.dataset,'beforeLoadFire')){
+      moveRequirement.value=moveRequirement.dataset.beforeLoadFire;
+      delete moveRequirement.dataset.beforeLoadFire;
+    }
+    moveRequirement.disabled=!limitAvailable || loadFireActive;
+    moveRequirement.closest('.input-label')?.classList.toggle('disabled-option',!limitAvailable || loadFireActive);
   }
   if(shootHint){
     shootHint.textContent = !mad
       ? 'マッド・ピッグOFFのため使用不可'
       : shoot.value === 'true'
-        ? moveRequirement?.value==='true'
+        ? loadFireActive
+          ? '装填後にトリックへ勝ち、本人が発射を選ぶと成立'
+          : moveRequirement?.value==='true'
           ? 'ババブタ＋マッドに加え、そのラウンド中のババ実移動が必要'
           : 'ババブタ＋マッドを手札に残すと発動'
         : 'この部屋ではシュートを使用しません';
@@ -8578,7 +8726,9 @@ function syncShootThePigAvailability(){
       ? 'マッド・ピッグOFFのため、この設定は無効です'
       : shoot.value!=='true'
         ? 'シュートOFFのため、この設定は無効です'
-        : moveRequirement?.value==='true'
+        : loadFireActive
+          ? '装填→発射モードONのため、この設定は無効です'
+          : moveRequirement?.value==='true'
           ? 'そのラウンドのピックでババが実際に動く必要があります'
           : '標準OFF：ババ＋マッドを手札に持てば移動なしでも判定します';
   }
@@ -8588,6 +8738,7 @@ $('madPigEnabled').addEventListener('change', syncShootThePigAvailability);
 $('shootThePigEnabled').addEventListener('change', syncShootThePigAvailability);
 $('shootThePigLimit').addEventListener('change', syncShootThePigAvailability);
 $('shootRequiresBabaMoved').addEventListener('change', syncShootThePigAvailability);
+$('shootLoadFireMode').addEventListener('change', syncShootThePigAvailability);
 $('jokerPenaltyTiming').addEventListener('change', syncShootThePigAvailability);
 syncShootThePigAvailability();
 setupRuleSelectionHelpers();
@@ -8616,7 +8767,7 @@ $('create').onclick=()=>{
   pendingConnectIntent='create';
   setCreateButtonState('creating');
   participantRole=selectedParticipantRole();
-  connect(()=>send({type:'create', participantRole, name:$('name').value, rounds:Number($('rounds').value || 3), roundDealMode:$('roundDealMode').value || 'reshuffle', feastPointPerCard:Number($('feastPointPerCard').value ?? 1), madPigEnabled:$('madPigEnabled').value==='true', shootThePigEnabled:$('shootThePigEnabled').value==='true', shootThePigLimit:$('shootThePigLimit').value || 'unlimited', forceJokerPickCandidate:$('forceJokerPickCandidate').value==='true', shootRequiresBabaMoved:$('shootRequiresBabaMoved').value==='true', jokerPenalty:Number($('jokerPenalty').value || -20), jokerPenaltyTiming:$('jokerPenaltyTiming').value, initialPairDiscardEnabled:$('initialPairDiscardEnabled').value==='true', passThreeEnabled:$('passThreeEnabled').value==='true', penaltyMode:$('penaltyMode').value, pickProviderRole:$('pickProviderRole').value || 'winner', pickTargetCount:Number($('pickTargetCount').value || 2)}));
+  connect(()=>send({type:'create', participantRole, name:$('name').value, rounds:Number($('rounds').value || 3), roundDealMode:$('roundDealMode').value || 'reshuffle', feastPointPerCard:Number($('feastPointPerCard').value ?? 1), madPigEnabled:$('madPigEnabled').value==='true', shootThePigEnabled:$('shootThePigEnabled').value==='true', shootThePigLimit:$('shootThePigLimit').value || 'unlimited', enableMiddleRankPick:$('enableMiddleRankPick').value==='true', shootLoadFireMode:$('shootLoadFireMode').value==='true', forceJokerPickCandidate:$('forceJokerPickCandidate').value==='true', shootRequiresBabaMoved:$('shootLoadFireMode').value!=='true' && $('shootRequiresBabaMoved').value==='true', jokerPenalty:Number($('jokerPenalty').value || -20), jokerPenaltyTiming:$('jokerPenaltyTiming').value, initialPairDiscardEnabled:$('initialPairDiscardEnabled').value==='true', passThreeEnabled:$('passThreeEnabled').value==='true', penaltyMode:$('penaltyMode').value, pickProviderRole:$('pickProviderRole').value || 'winner', pickTargetCount:Number($('pickTargetCount').value || 2)}));
 };
 $('join').onclick=()=>{
   setCreateButtonState('idle', '部屋コードで参加します。');
@@ -9284,7 +9435,8 @@ function renderSpectatorView(){
   if(hands) hands.innerHTML=`<div class="spectator-hand-list">${state.players.map((p,pid)=>{
     const hand=Array.isArray(p.hand)?p.hand:[];
     const markers=[state.current===pid?'手番':'',state.trickReview?.winnerPid===pid?'勝者':'',state.trickReview?.weakestPid===pid?'最弱':'',pp?.pickProviderPid===pid?'提供者':'',pp?.pickerPid===pid?'ピッカー':''].filter(Boolean).join('・');
-    return `<article class="spectator-hand-row ${spectatorRoleClass(pid)}" data-spectator-hand-pid="${pid}"><div class="spectator-hand-head"><b title="${escAttr(`${p.avatar} ${p.name}`)}">${esc(`${p.avatar} ${p.name}`)}</b><span class="spectator-hand-meta">${hand.length}枚 · 🍽️${p.scorePileCount}枚/+${p.scorePileScore}点${markers?` · ${esc(markers)}`:''}</span></div><div class="spectator-cards" aria-label="${escAttr(`${p.name}の手札${hand.length}枚`)}">${hand.map(card=>`<div class="spectator-card" data-spectator-card-id="${escAttr(card.id)}">${cardHTML(card)}</div>`).join('') || '<span class="spectator-hand-meta">手札なし</span>'}</div></article>`;
+    const total=Number(p.completedRoundTotalScore || 0);const totalLabel=`${total>=0?'+':''}${total}`;
+    return `<article class="spectator-hand-row ${spectatorRoleClass(pid)}" data-spectator-hand-pid="${pid}"><div class="spectator-hand-head"><b title="${escAttr(`${p.avatar} ${p.name}`)}">${esc(`${p.avatar} ${p.name}`)}</b><span class="spectator-hand-meta">総合${totalLabel} · ${hand.length}枚 · 🍽️${p.scorePileCount}枚/+${p.scorePileScore}点${markers?` · ${esc(markers)}`:''}</span></div><div class="spectator-cards" aria-label="${escAttr(`${p.name}の手札${hand.length}枚、総合${totalLabel}点`)}">${hand.map(card=>`<div class="spectator-card" data-spectator-card-id="${escAttr(card.id)}">${cardHTML(card)}</div>`).join('') || '<span class="spectator-hand-meta">手札なし</span>'}</div></article>`;
   }).join('')}</div>`;
   const commentary=$('spectatorCommentary');
   const latest=(state.commentary || [])[0];
@@ -9427,6 +9579,7 @@ function shootThePigLimitText(){
 function shootThePigLabel(){
   if(state?.madPigEnabled === false) return 'シュート不可';
   if(!state?.shootThePigEnabled) return 'シュートOFF';
+  if(state?.shootLoadFireMode) return `シュート装填→発射・${shootThePigLimitText()}`;
   const move=state?.shootRequiresBabaMoved?'・移動必須':'';
   return state?.jokerPenaltyTiming === 'gameEnd'
     ? `シュート${shootThePigLimitText()}・最終R${move}`
@@ -9443,6 +9596,9 @@ function finalShootRuleExplanation(){
   }
   if(!state?.shootThePigEnabled){
     return 'この部屋ではシュート・ザ・ピッグを使用しません。';
+  }
+  if(state?.shootLoadFireMode){
+    return `手札にババブタ＋マッド・ピッグが揃うと本人だけが装填を確認できます。装填者がトリックに勝つと通常ピックか発射を選び、発射時はババブタを最弱者へ直接渡します。マッドは発射者に残り、発射は卓全体で1ラウンド1回、${shootThePigLimitText()}です。`;
   }
   const limitText=state?.shootThePigLimit === 'once'
     ? '各プレイヤー1ゲーム1回まで'
@@ -9467,6 +9623,8 @@ function compactOptionChips(){
   if(state.passThreeEnabled) chips.push('3枚パス');
   if(state.initialPairDiscardEnabled) chips.push('開始ペア');
   if(state.forceJokerPickCandidate) chips.push('🃏ババ必須候補');
+  if(state.enableMiddleRankPick) chips.push('🥈2位→🥉3位ピック');
+  if(state.shootLoadFireMode) chips.push(state.shootFiredThisRound?'🌕発射済み':'🌕装填→発射');
   if(state.shootRequiresBabaMoved) chips.push(state.babaMovedThisRound?'🃏ババ移動済み✓':'🃏ババ移動まだ');
   if(state.roundEndDeferred) chips.push('トリック後終了');
   return chips;
@@ -9490,7 +9648,7 @@ function renderSelectedRuleSummary(){
   if(!target || !state) return;
   const rounds=Number(state.totalRounds || 3);
   const pickCount=Number(state.pickTargetCount || 0);
-  const summaryKey=[rounds,state.roundDealMode,state.feastPointPerCard,state.penaltyMode,state.jokerPenalty,state.jokerPenaltyTiming,state.madPigEnabled,state.shootThePigEnabled,state.shootThePigLimit,state.forceJokerPickCandidate,state.shootRequiresBabaMoved,state.babaMovedThisRound,state.babaMoveCountThisRound,state.pickProviderRole,pickCount,state.passThreeEnabled,state.initialPairDiscardEnabled].join('|');
+  const summaryKey=[rounds,state.roundDealMode,state.feastPointPerCard,state.penaltyMode,state.jokerPenalty,state.jokerPenaltyTiming,state.madPigEnabled,state.shootThePigEnabled,state.shootThePigLimit,state.enableMiddleRankPick,state.shootLoadFireMode,state.shootFiredThisRound,state.forceJokerPickCandidate,state.shootRequiresBabaMoved,state.babaMovedThisRound,state.babaMoveCountThisRound,state.pickProviderRole,pickCount,state.passThreeEnabled,state.initialPairDiscardEnabled].join('|');
   if(summaryKey===__lastActiveRuleSummaryKey) return;
   __lastActiveRuleSummaryKey=summaryKey;
   const jokerTiming=state.jokerPenaltyTiming==='gameEnd' ? 'ゲーム終了時に一度' : '各ラウンド';
@@ -9504,7 +9662,9 @@ function renderSelectedRuleSummary(){
     ? '使用不可：マッド・ピッグがOFFです'
     : !state.shootThePigEnabled
       ? 'OFF：この部屋では使用しません'
-      : `ON：手札にババブタ＋マッド・ピッグを残すと、本人対象失点0・他全員-10点（${shootThePigLimitText()}／${state.jokerPenaltyTiming==='gameEnd'?'最終ラウンド終了時のみ判定':'各ラウンド終了時に判定'}${state.shootRequiresBabaMoved?'／そのラウンド中のババ移動必須':''}）`;
+      : state.shootLoadFireMode
+        ? `ON・装填→発射：ババ＋マッドを手札に揃え、トリックに勝つと本人が発射を選択。ババは最弱者へ直接移り、マッドは発射者に残る（卓全体で1R1発／${shootThePigLimitText()}）`
+        : `ON：手札にババブタ＋マッド・ピッグを残すと、本人対象失点0・他全員-10点（${shootThePigLimitText()}／${state.jokerPenaltyTiming==='gameEnd'?'最終ラウンド終了時のみ判定':'各ラウンド終了時に判定'}${state.shootRequiresBabaMoved?'／そのラウンド中のババ移動必須':''}）`;
   const cards=[
     ['ラウンド', `${rounds}ラウンド`],
     ['次ラウンドの配り方', state.roundDealMode==='carryOver' ? '残り手札・ごちそう山・ペアを持ち越し、手札を13枚まで補充' : '全カードを回収してシャッフルし、新しい13枚を配る（標準）'],
@@ -9514,15 +9674,16 @@ function renderSelectedRuleSummary(){
     ['マッド・ピッグ', madText],
     ['シュート・ザ・ピッグ', shootText],
     ['ピックされる人', state.pickProviderRole==='weakest' ? '最弱者の手札から勝者が引く（従来）' : '勝者の手札から最弱者が引く（標準）'],
+    ['2位→3位ピック', state.enableMiddleRankPick ? 'ON：通常ピック後に2位が提供し、3位が1枚受け取る' : 'OFF（標準）'],
     ['ピック候補', pickCount>0 ? `カードを取られる側が${pickCount}枚に絞り、受取側が1枚ピック` : '提供者の手札全体から受取側が1枚ピック'],
     ['ババブタ必須候補', state.forceJokerPickCandidate ? `ON：候補を絞る時はババを必須枠にする${pickCount===1?'（提供者が持つ場合は移動確定）':''}` : 'OFF（標準）'],
-    ['ババ移動とシュート', state.shootRequiresBabaMoved ? `ON：このラウンドは${state.babaMovedThisRound?`移動済み（${Number(state.babaMoveCountThisRound||0)}回）`:'まだ移動していません'}` : 'OFF（標準）：ババ移動はシュート条件に含めない'],
+    ['ババ移動とシュート', state.shootLoadFireMode ? '装填→発射モードでは移動条件を使用しない' : state.shootRequiresBabaMoved ? `ON：このラウンドは${state.babaMovedThisRound?`移動済み（${Number(state.babaMoveCountThisRound||0)}回）`:'まだ移動していません'}` : 'OFF（標準）：ババ移動はシュート条件に含めない'],
     ['開始時3枚パス', state.passThreeEnabled ? 'ON：次の手番の人へ3枚渡す（ババブタ不可）' : 'OFF'],
     ['開始時ペア捨て', state.initialPairDiscardEnabled ? 'ON：同じ数字のペアを任意で捨てる' : 'OFF']
   ];
   target.innerHTML=`
     <div class="active-rule-chips">${compactOptionChips().map(chip=>`<span>${esc(chip)}</span>`).join('')}</div>
-    <div class="active-rule-basics"><b>共通の進め方</b><p>リードスートを持っていれば必ずフォロー。リードスートの最大が勝者、規定の最小が最弱。勝者は場の4枚を山へ取り、設定された提供者から反対側へ1枚移します。受取人は同じ数字をペア浄化でき、次のリードは勝者です。</p></div>
+    <div class="active-rule-basics"><b>共通の進め方</b><p>リードスートを持っていれば必ずフォロー。リードスートの最大が勝者、規定の最小が最弱。勝者は場の4枚を山へ取り、設定された提供者から反対側へ1枚移します。中位ピックONでは続けて2位→3位でも移動します。受取人は同じ数字をペア浄化でき、次のリードは勝者です。</p></div>
     <div class="active-rule-grid">${cards.map(([name,value])=>`<article><b>${esc(name)}</b><p>${esc(value)}</p></article>`).join('')}</div>`;
 }
 
@@ -9626,9 +9787,11 @@ function render(){
     setStartRequestUi(false);
   }
   if(startBtn) startBtn.disabled=startBtn.classList.contains('is-starting') ? true : !canStart;
-  $('addCpu').disabled = !(isHost() && state.phase==='lobby' && state.players.length<4);
+  // 観戦者数や接続総数ではなく、サーバーが確定した4つのゲーム席だけで判定する。
+  $('addCpu').disabled = !(state.canAddCpu===true || (isHost() && state.phase==='lobby' && Number(state.playerSeatCount ?? state.players.length)<4));
   $('removeCpu').disabled = !(isHost() && state.phase==='lobby' && state.players.some(p=>p.cpu));
   updateLobbyActionUi();renderSpectatorPresence(); renderRoundStatus(); renderRoundModal(); renderSelectedRuleSummary();
+  renderTurnNotice();renderShootLoadReady();renderShootChoice();
   renderShootPigOverlay(); renderBabaDrawOverlay(); renderMomentOverlay(); renderSpotlightOverlay();
   if(showSpectatorView){
     renderSpectatorView();renderLog();renderScore();renderSceneEffects();
@@ -9974,6 +10137,7 @@ function renderSpotlightOverlay(){
 function renderShootPigOverlay(){
   const root = $('shootPigOverlay');
   if(!root || !state) return;
+  if(renderShootFireOverlay()) return;
   const ev = state.shootPigEvent;
   if(!ev){
     if(root.dataset.active === '1'){
@@ -10055,6 +10219,11 @@ function currentActionGuide(){
       detail:ownTurn ? '光っているカードから1枚選んでリード' : (starter ? `${starter}からリード` : state.roundStart.text || ''),
       tone:ownTurn?'action':'result'
     };
+  }
+  if(state.pendingShootDecision){
+    return state.pendingShootDecision.canChoose
+      ? {icon:'🌕',title:'シュートを発射できます',detail:'通常ピック／発射する！を選択',tone:'danger'}
+      : {icon:'🌕',title:'シュート判断中',detail:`${state.players?.[state.pendingShootDecision.shooterPid]?.name || '勝者'}の選択を待っています`,tone:'warning'};
   }
   if(pp){
     const providerPid=Number.isInteger(pp.pickProviderPid)?pp.pickProviderPid:(state.pickProviderRole==='weakest'?pp.weakestPid:pp.winnerPid);
@@ -10184,7 +10353,7 @@ function renderRoundModal(){
     <div class="round-panel">
       <h2>🐷 第${sum.round}ラウンド結果</h2><p class="small" style="text-align:center;margin-top:-4px">ここではこのラウンド終了時点の累計得点を表示します。次ラウンド：${sum.roundDealMode==='carryOver'?'残りカードを持ち越して補充':'全カードを回収してシャッフル'}／ババブタ失点：${sum.jokerPenaltyTiming==='gameEnd'?'ゲームの最後のみ':'ラウンド毎'}</p>
       ${sum.madPigEnabled !== false && sum.penaltyMode==='faceValue' ? '<p class="small" style="text-align:center">数字分失点では、手札のマッド・ピッグ-40点は「手札失点」に含み、「マッド山失点」はごちそう山にある分だけを表示します。</p>' : ''}
-      ${sum.shootPigResult ? `<div class="round-reason shoot-pig-banner"><div class="shoot-mini-title">🐷🌕 シュート・ザ・ピッグ！</div><div><b>${esc(sum.shootPigResult.shooterName)}</b> が手札の2枚で発動（${sum.shootPigResult.limitMode==='once'?'1人1回制限':`無制限・通算${Number(sum.shootPigResult.activationCount||1)}回目`}）。本人のこのラウンドのババブタ/マッド失点0、他全員に-10点。</div></div>` : ''}
+      ${sum.shootPigResult ? `<div class="round-reason shoot-pig-banner"><div class="shoot-mini-title">🐷🌕 シュート・ザ・ピッグ！</div><div><b>${esc(sum.shootPigResult.shooterName)}</b> が${sum.shootPigResult.source==='loadFire'?`${esc(state.players?.[sum.shootPigResult.targetPid]?.name || '最弱者')}へババブタを発射`:'手札の2枚で発動'}（${sum.shootPigResult.limitMode==='once'?'1人1回制限':`無制限・通算${Number(sum.shootPigResult.activationCount||1)}回目`}）。本人のこのラウンドのババブタ/マッド失点0、他全員に-10点。</div></div>` : ''}
       ${sum.shootBlockedByUnmovedBaba ? `<div class="shoot-blocked-note" role="status"><b>🌕 シュート条件未成立</b>${esc(sum.shootBlockedByUnmovedBaba.name)} はババブタ＋マッド・ピッグを手札に持っていましたが、ババブタがこのラウンド中に一度も移動していません。</div>` : ''}
       <div class="round-reason">${esc(sum.reasonText)}</div>
       <div class="round-grid">${rows}</div>
@@ -10253,7 +10422,7 @@ function renderPlayers(){
   const key = placements.map(({pid:i,position})=>{
     const p=state.players[i];
     if(!p) return 'x';
-    return [i,position,p.name,p.avatar,p.cpuKey,p.avatarImage,p.connected,p.handCount,p.scorePileCount,p.scorePileScore,p.pairsCount,p.shootUsed,p.shootActivationCount,p.shootLimitReached,state.shootThePigLimit,state.current===i,p.id===state.you].join(':');
+    return [i,position,p.name,p.avatar,p.cpuKey,p.avatarImage,p.connected,p.handCount,p.scorePileCount,p.scorePileScore,p.pairsCount,p.completedRoundTotalScore,p.shootUsed,p.shootActivationCount,p.shootLimitReached,state.shootThePigLimit,state.current===i,p.id===state.you].join(':');
   }).join('|');
   if(key === __lastPlayersRenderKey) return;
   __lastPlayersRenderKey = key;
@@ -10269,10 +10438,12 @@ function renderPlayers(){
         ? '<span class="shoot-used-mini" title="シュート・ザ・ピッグの1回権利を使用済み">🌕済</span>'
         : `<span class="shoot-used-mini" title="シュート・ザ・ピッグ発動${shootCount}回">🌕×${shootCount}</span>`)
       : '';
-    return `<div class="player position-${position} ${state.current===i?'active':''} ${p.cpu?'cpu-player':''}" data-player-pid="${i}" aria-label="${escAttr(`${playerIdentityText(i)}、手札${p.handCount}枚、ごちそう山${p.scorePileCount}枚、${p.scorePileScore ?? p.scorePileCount}点`)}">
+    const totalScore=Number(p.completedRoundTotalScore || 0);
+    const totalLabel=`${totalScore>=0?'+':''}${totalScore}`;
+    return `<div class="player position-${position} ${state.current===i?'active':''} ${p.cpu?'cpu-player':''}" data-player-pid="${i}" aria-label="${escAttr(`${playerIdentityText(i)}、終了済みラウンドの総合${totalLabel}点、手札${p.handCount}枚、ごちそう山${p.scorePileCount}枚`)}">
       <div class="pig">${playerAvatarHTML(i)}</div>
       <div class="name" title="${escAttr(playerIdentityText(i))}">${esc(p.name)} ${you}${turn}${conn}${shootUsed}</div>
-      <div class="player-stats"><span>手札 ${p.handCount}</span><span>山 ${p.scorePileCount}（+${p.scorePileScore ?? p.scorePileCount}）</span><span>ペア ${p.pairsCount}</span></div>
+      <div class="player-stats"><span>手札 ${p.handCount}</span><span>山 ${p.scorePileCount}（+${p.scorePileScore ?? p.scorePileCount}）</span><span>ペア ${p.pairsCount}</span><span class="score-total-mini player-score-total" title="終了済みラウンドまでの確定得点">総合 ${totalLabel}</span></div>
     </div>`;
   }).join('');
 }
@@ -10419,7 +10590,7 @@ function renderTable(){
     const ready=isPickReady(pp);
     const waitSec=pickRemainingSeconds(pp);
     const isTargetSelecting = pp.targetSelectionRequired && !pp.targetSelectionDone;
-    const mode = isTargetSelecting ? `target:${providerPid}:${pp.targetCount}:${state.yourIndex===providerPid?'me':'wait'}`
+    const mode = isTargetSelecting ? `${pp.pickStage || 'primary'}:target:${providerPid}:${pp.targetCount}:${state.yourIndex===providerPid?'me':'wait'}`
       : pp.result ? 'result'
       : pp.pairChoice ? `pair:${pp.pairChoice.drawn?.id || ''}:${pp.pairChoice.candidateCount || 0}:${state.yourIndex===pickerPid?'me':'wait'}`
       : `pick:${providerPid}:${pickerPid}:${pp.targetCandidateCount || provider.handCount}:${state.yourIndex===pickerPid?'me':'wait'}`;
@@ -10430,12 +10601,15 @@ function renderTable(){
       return;
     }
 
-    let html=`<div class="pick-stage">
-      <h3>🐽 ピック</h3>
+    const secondary=pp.pickStage==='secondary';
+    const providerRank=secondary?'🥈 2位':providerPid===(pp.trickWinnerPid ?? pp.winnerPid)?'👑 勝者':'💀 最弱';
+    const pickerRank=secondary?'🥉 3位':pickerPid===(pp.trickWinnerPid ?? pp.winnerPid)?'👑 勝者':'💀 最弱';
+    let html=`<div class="pick-stage ${secondary?'secondary-pick-stage':''}">
+      <h3>🐽 ${secondary?'2位 → 3位 ピック':'1位 → 最弱 ピック'}</h3>
       <div class="pick-main">
-        <div class="pick-person provider"><div class="big">${playerAvatarHTML(providerPid)}</div><span class="pick-system-role">カードを取られる人</span><span class="pick-trick-role">${providerPid===(pp.trickWinnerPid ?? pp.winnerPid)?'👑 勝者':'💀 最弱'}</span><span class="pick-person-name" title="${escAttr(playerIdentityText(providerPid))}">${esc(provider.name)}</span></div>
+        <div class="pick-person provider"><div class="big">${playerAvatarHTML(providerPid)}</div><span class="pick-system-role">カードを取られる人</span><span class="pick-trick-role">${providerRank}</span><span class="pick-person-name" title="${escAttr(playerIdentityText(providerPid))}">${esc(provider.name)}</span></div>
         <div class="pick-big-arrow">➡<small>カードの移動</small></div>
-        <div class="pick-person picker"><div class="big">${playerAvatarHTML(pickerPid)}</div><span class="pick-system-role">カードを引く人</span><span class="pick-trick-role">${pickerPid===(pp.trickWinnerPid ?? pp.winnerPid)?'👑 勝者':'💀 最弱'}</span><span class="pick-person-name" title="${escAttr(playerIdentityText(pickerPid))}">${esc(picker.name)}</span></div>
+        <div class="pick-person picker"><div class="big">${playerAvatarHTML(pickerPid)}</div><span class="pick-system-role">カードを引く人</span><span class="pick-trick-role">${pickerRank}</span><span class="pick-person-name" title="${escAttr(playerIdentityText(pickerPid))}">${esc(picker.name)}</span></div>
       </div>`;
 
     if(isTargetSelecting){

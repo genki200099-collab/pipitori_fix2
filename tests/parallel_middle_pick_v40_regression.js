@@ -68,9 +68,12 @@ function start(r){r.postTrickFlow=api.buildPostTrickFlow(r,0,3);return api.start
 // Two CPU lanes can both finish; group finalization happens once and the next leader is the trick winner.
 {
   const r=room();r.players.forEach(p=>{p.cpu=true;p.ws=null;});const beforeComments=r.commentary.length;const g=start(r);
-  for(const pp of [g.primary,g.secondary]){pp.readyAt=0;assert(api.doPick(r,r.players[pp.pickerPid].id,0,pp.pickId));api.finishPickLane(r,pp,0);}
+  g.primary.readyAt=0;assert(api.doPick(r,r.players[g.primary.pickerPid].id,0,g.primary.pickId));api.finishPickLane(r,g.primary,0);
+  assert.strictEqual(r.commentary.length,beforeComments,'the first completed lane must not emit the group comment early');
+  g.secondary.readyAt=0;assert(api.doPick(r,r.players[g.secondary.pickerPid].id,0,g.secondary.pickId));api.finishPickLane(r,g.secondary,0);
   assert.strictEqual(r.parallelPickGroup,null);assert.strictEqual(r.postTrickFlow,null);assert.strictEqual(r.lead,0);assert.strictEqual(r.current,0);
-  assert(r.commentary.length-beforeComments<=1,'parallel-pick commentary is emitted at most once');
+  assert.strictEqual(r.commentary.length-beforeComments,1,'ordinary parallel picks emit exactly one summary after both lanes finish');
+  assert.strictEqual(r.commentary.at(-1).eventKey,'pick');
   api.assertUniqueActiveCards(r,'v40 test group completion');
 }
 
@@ -136,4 +139,4 @@ const serialAverageMs=average('serialMs'),parallelAverageMs=average('parallelMs'
 const tempoReductionPct=Math.round((1-parallelAverageMs/serialAverageMs)*100);
 assert(parallelAverageMs<serialAverageMs);
 assert(tempoReductionPct>=35);
-console.log(JSON.stringify({result:'passed',suite:'parallel-middle-pick-v40',startDeltaMsMax:5,distinctPickIds:true,independentWait:true,pairCleanseIndependent:true,staleRejected:true,commentPerTrickMax:1,tempoCpu4Tricks:tempoSamples.length,serialAverageMs,parallelAverageMs,tempoReductionPct}));
+console.log(JSON.stringify({result:'passed',suite:'parallel-middle-pick-v40',startDeltaMsMax:5,distinctPickIds:true,independentWait:true,pairCleanseIndependent:true,staleRejected:true,commentAfterBothLanes:true,commentPerTrickExactly:1,tempoCpu4Tricks:tempoSamples.length,serialAverageMs,parallelAverageMs,tempoReductionPct}));

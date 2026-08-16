@@ -18,6 +18,13 @@ assert.match(html,/@media\(min-width:760px\),\(orientation:landscape\) and \(min
 assert.match(html,/min-height:44px/);assert.match(html,/env\(safe-area-inset-bottom\)/);assert.match(html,/@media\(prefers-reduced-motion:reduce\)/);
 assert.match(html,/state\.isSpectator/);assert.match(html,/data-pick-id/);assert.match(html,/自分|あなたが操作するレーン/);
 assert.match(html,/spectator-parallel-grid/);assert.match(html,/parallelLaneStatusLabel/);
+assert.match(html,/\.participant-role-actions>span\{[\s\S]*?white-space:nowrap/,'lobby role text cannot collapse into vertical glyphs');
+assert.match(html,/@media\(max-width:620px\)\{[\s\S]*?\.participant-role-actions\{[\s\S]*?grid-template-columns:minmax\(0,1fr\)/,'phone lobby stacks role status and action');
+assert.match(html,/class="btn parallel-pick-submit"/);assert.match(html,/ピック対象を確定/);
+assert.match(html,/parallel-mandatory-note/);assert.match(html,/ババブタ選択済み/);
+assert.match(html,/\.parallel-pick-lane\.is-complete \.parallel-lane-people\{display:none\}/,'completed lane is compact on portrait');
+assert.match(html,/\.parallel-pick-lane\.is-target-selecting \.parallel-pick-submit\{[\s\S]*?position:sticky/,'target confirm remains reachable');
+assert.match(html,/ペア浄化対象を選んでください/);assert.match(html,/ペア浄化をスキップ/);
 
 const viewports=['320x568','375x667','390x844','393x852','430x932','568x320','667x375','844x390','932x430','768x600','1024x768','1280x720','1440x900','1920x1080'];
 assert.strictEqual(viewports.length,14);

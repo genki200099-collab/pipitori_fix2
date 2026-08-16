@@ -7206,6 +7206,91 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
 @media(max-width:540px){.game-hud-actions{gap:5px}.game-hud-actions .hud-button{min-width:44px;padding:7px 8px}.parallel-pick-shell{padding:4px;gap:6px}.parallel-pick-grid{gap:7px}.parallel-pick-lane{padding:9px;border-radius:14px}.parallel-lane-people{margin:4px 0}.parallel-lane-body{min-height:68px}.parallel-pick-lane .playing-card{--card-w:48px}.spectator-parallel-grid{grid-template-columns:1fr}.commentary-layer{pointer-events:none}}
 @media(max-height:430px) and (orientation:landscape){.parallel-pick-heading{display:none}.parallel-pick-lane{padding:7px}.parallel-lane-head{margin-bottom:2px}.parallel-lane-people{margin:2px 0}.parallel-lane-body{min-height:55px}.parallel-pick-lane .pick-target-cards{max-height:105px}}
 @media(prefers-reduced-motion:reduce){.parallel-pick-lane,.parallel-pick-lane *{transition:none!important;animation:none!important}}
+
+/* v41: lobby role stability and compact, action-safe parallel pick lanes. */
+.participant-role-actions>span{
+  flex:0 0 auto;
+  white-space:nowrap;
+  writing-mode:horizontal-tb;
+  text-orientation:mixed;
+  font-weight:900;
+}
+.participant-role-actions .btn{
+  flex:0 1 auto;
+  width:auto;
+  max-width:70%;
+}
+.parallel-pick-shell{
+  height:100%;
+  max-height:100%;
+  min-height:0;
+  box-sizing:border-box;
+  grid-template-rows:auto minmax(0,1fr);
+}
+.parallel-pick-grid,.parallel-pick-lane,.parallel-lane-body{min-width:0;min-height:0}
+.parallel-target-status{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-wrap:wrap;
+  gap:4px 7px;
+}
+.parallel-mandatory-note{
+  display:inline-flex;
+  align-items:center;
+  padding:2px 7px;
+  border-radius:999px;
+  background:#fff2bd;
+  color:#6b4100;
+  font-size:.68rem;
+  font-weight:900;
+  white-space:nowrap;
+}
+.parallel-pick-submit{position:relative;z-index:2;width:100%}
+@media(max-width:620px){
+  .participant-role-actions{
+    display:grid;
+    grid-template-columns:minmax(0,1fr);
+    align-items:stretch;
+  }
+  .participant-role-actions>span{display:block;text-align:left}
+  .participant-role-actions .btn{width:100%;max-width:none}
+}
+@media(max-width:540px){
+  .parallel-pick-shell{
+    padding:4px max(4px,env(safe-area-inset-right)) max(4px,env(safe-area-inset-bottom)) max(4px,env(safe-area-inset-left));
+    overflow-y:auto;
+    overscroll-behavior:contain;
+    align-content:start;
+  }
+  .parallel-pick-grid{align-content:start}
+  .parallel-pick-lane.is-complete{padding:7px 9px}
+  .parallel-pick-lane.is-complete .parallel-lane-head{margin-bottom:2px}
+  .parallel-pick-lane.is-complete .parallel-lane-head small,
+  .parallel-pick-lane.is-complete .parallel-lane-people{display:none}
+  .parallel-pick-lane.is-complete .parallel-lane-body{min-height:42px}
+  .parallel-pick-lane.is-complete .parallel-result{gap:4px;font-size:.72rem;line-height:1.25}
+  .parallel-pick-lane.is-complete .parallel-result .playing-card{transform:scale(.5);margin:-28px -18px}
+  .parallel-pick-lane.is-target-selecting .parallel-lane-body{
+    grid-template-rows:auto minmax(92px,auto) 44px;
+    gap:5px;
+    align-content:start;
+  }
+  .parallel-pick-lane.is-target-selecting .pick-target-cards{
+    width:100%;
+    max-height:112px;
+    padding:3px 2px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    justify-content:flex-start;
+  }
+  .parallel-pick-lane.is-target-selecting .parallel-pick-submit{
+    position:sticky;
+    bottom:0;
+    min-height:44px;
+    margin:0;
+  }
+}
 </style>
 </head>
 <body class="modern-game-ui">
@@ -8288,7 +8373,7 @@ const RULE_HELP_TEXTS = {
   enableMiddleRankPick:{
     title:'2位と3位の間でもピック',
     body:[
-      'ONでは通常の1位→最弱ピックに続き、トリック2位が候補を出して3位が1枚受け取ります。標準はOFFです。',
+      'ONでは通常の1位↔最弱ピックと同時に、トリック2位が候補を出して3位が1枚受け取ります。標準はOFFです。',
       '順位はトリック解決時に一度だけ確定し、最初のピック後も変わりません。次のリードは従来どおり1位です。',
       '候補数、ババ必須候補、CPUの公平なランダム選択、ペア浄化、切断時の自動復旧は追加ピックにも同じように適用されます。'
     ]
@@ -8299,7 +8384,7 @@ const RULE_HELP_TEXTS = {
       'ONでは手札にババブタ＋マッド・ピッグが揃うと、本人だけに「装填完了」を知らせます。装填情報は他プレイヤーへ公開されません。',
       '装填者がトリック1位になると、通常ピックか「発射する！」を本人が選びます。自動発射はしません。',
       '発射時は1位→最弱の通常ピックを置き換え、ババブタを最弱者へ直接渡します。マッド・ピッグは発射者の手札に残ります。',
-      '2位→3位ピックがONなら、必殺技演出の後にその追加ピックを必ず続行します。卓全体で1ラウンド1発です。',
+      '2位→3位ピックがONなら、必殺技演出中もその追加ピックの状態処理は並行して進みます。卓全体で1ラウンド1発です。',
       'このモードでは「シュートにはババ移動が必要」は使わず、サーバーでもOFFへ正規化します。標準はOFFで、OFF時は従来のラウンド終了判定を維持します。'
     ]
   },
@@ -8496,7 +8581,7 @@ function buildMatchTrendDescription(cfg){
   }
   if(cfg.enableMiddleRankPick){
     tags.push('中位ピック');chaos+=1;strategy+=1;
-    points.unshift('1位→最弱に続いて2位→3位でもピックします。1トリックでカードが2回動き、全員が順位争いに関わりやすくなります。');
+    points.unshift('1位↔最弱と2位→3位のピックを同時進行します。1トリックでカードが2回動き、全員が順位争いに関わりやすくなります。');
   }
 
   if(cfg.pickCount === 0){ tags.push('ピック運大'); chaos += 2; points.push('候補を絞らず、提供者の手札全体から引きます。事故感と運要素が強くなります。'); }
@@ -9782,7 +9867,7 @@ function renderSelectedRuleSummary(){
     ['マッド・ピッグ', madText],
     ['シュート・ザ・ピッグ', shootText],
     ['ピックされる人', state.pickProviderRole==='weakest' ? '最弱者の手札から勝者が引く（従来）' : '勝者の手札から最弱者が引く（標準）'],
-    ['2位→3位ピック', state.enableMiddleRankPick ? 'ON：通常ピック後に2位が提供し、3位が1枚受け取る' : 'OFF（標準）'],
+    ['2位→3位ピック', state.enableMiddleRankPick ? 'ON：1位↔4位と同時に、2位が提供し3位が1枚受け取る' : 'OFF（標準）'],
     ['ピック候補', pickCount>0 ? `カードを取られる側が${pickCount}枚に絞り、受取側が1枚ピック` : '提供者の手札全体から受取側が1枚ピック'],
     ['ババブタ必須候補', state.forceJokerPickCandidate ? `ON：候補を絞る時はババを必須枠にする${pickCount===1?'（提供者が持つ場合は移動確定）':''}` : 'OFF（標準）'],
     ['ババ移動とシュート', state.shootLoadFireMode ? '装填→発射モードでは移動条件を使用しない' : state.shootRequiresBabaMoved ? `ON：このラウンドは${state.babaMovedThisRound?`移動済み（${Number(state.babaMoveCountThisRound||0)}回）`:'まだ移動していません'}` : 'OFF（標準）：ババ移動はシュート条件に含めない'],
@@ -9791,7 +9876,7 @@ function renderSelectedRuleSummary(){
   ];
   target.innerHTML=`
     <div class="active-rule-chips">${compactOptionChips().map(chip=>`<span>${esc(chip)}</span>`).join('')}</div>
-    <div class="active-rule-basics"><b>共通の進め方</b><p>リードスートを持っていれば必ずフォロー。リードスートの最大が勝者、規定の最小が最弱。勝者は場の4枚を山へ取り、設定された提供者から反対側へ1枚移します。中位ピックONでは続けて2位→3位でも移動します。受取人は同じ数字をペア浄化でき、次のリードは勝者です。</p></div>
+    <div class="active-rule-basics"><b>共通の進め方</b><p>リードスートを持っていれば必ずフォロー。リードスートの最大が勝者、規定の最小が最弱。勝者は場の4枚を山へ取り、設定された提供者から反対側へ1枚移します。中位ピックONでは1位↔4位と2位→3位を同時進行します。受取人は同じ数字をペア浄化でき、次のリードは勝者です。</p></div>
     <div class="active-rule-grid">${cards.map(([name,value])=>`<article><b>${esc(name)}</b><p>${esc(value)}</p></article>`).join('')}</div>`;
 }
 
@@ -10363,7 +10448,7 @@ function currentActionGuide(){
     if(pp.result) return {icon:pp.result.drawn?.joker?'🃏':'✓',title:'ピック結果を確認',detail:pp.result.text||'',tone:pp.result.drawn?.joker?'danger':'result'};
     if(pp.pairChoice){
       return state.yourIndex===pickerPid
-        ? {icon:'✨',title:'ペアにするカードを選ぶ',detail:'同じ数字を捨てる／スキップ',tone:'action'}
+        ? {icon:'✨',title:'ペア浄化対象を選ぶ',detail:'同じ数字のカードを選ぶ／ペア浄化をスキップ',tone:'action'}
         : {icon:'✨',title:`${picker?.name||'受取人'}がペアを判断中`,detail:'選択を待っています',tone:'waiting'};
     }
     if(pp.forcedJokerCandidate && Number(pp.targetCandidateCount||0)===1){
@@ -10732,6 +10817,11 @@ function renderParallelPickLane(pp,laneName){
   const picker=state.players[pp.pickerPid] || {};
   const operable=!state.isSpectator && pp.canOperate && !['completed','skipped'].includes(pp.status);
   const terminal=['completed','skipped'].includes(pp.status);
+  const phaseClass=terminal?'is-complete'
+    : pp.pairChoice?'is-pair-selecting'
+    : pp.targetSelectionRequired && !pp.targetSelectionDone?'is-target-selecting'
+    : pp.result?'is-result'
+    : 'is-in-progress';
   let body='';
   if(pp.status==='skipped'){
     body='<div class="parallel-readonly">提供できるカードがないため、このレーンはスキップされました。</div>';
@@ -10742,7 +10832,7 @@ function renderParallelPickLane(pp,laneName){
   }else if(pp.pairChoice){
     const pc=pp.pairChoice;
     if(state.yourIndex===pp.pickerPid && Array.isArray(pc.candidates) && !state.isSpectator){
-      body=`<div class="pick-status" data-pick-status>同じ数字を浄化するかスキップ</div><div class="pair-cards">${pc.candidates.map(c=>`<button type="button" class="pair-card-btn" data-pick-id="${escAttr(pp.pickId)}" data-pair-card-id="${escAttr(c.id)}">${cardHTML(c,true)}<span class="small">浄化</span></button>`).join('')}</div><button type="button" class="btn secondary" data-pick-id="${escAttr(pp.pickId)}" data-pair-skip="1">スキップ</button>`;
+      body=`<div class="pick-status" data-pick-status>ペア浄化対象を選んでください</div><div class="pair-cards">${pc.candidates.map(c=>`<button type="button" class="pair-card-btn" data-pick-id="${escAttr(pp.pickId)}" data-pair-card-id="${escAttr(c.id)}">${cardHTML(c,true)}<span class="small">この札と浄化</span></button>`).join('')}</div><button type="button" class="btn secondary" data-pick-id="${escAttr(pp.pickId)}" data-pair-skip="1">ペア浄化をスキップ</button>`;
     }else body=`<div class="parallel-readonly">${esc(picker.name || 'ピッカー')} がペア浄化を選択中…</div>`;
   }else if(pp.targetSelectionRequired && !pp.targetSelectionDone){
     if(state.yourIndex===pp.pickProviderPid && !state.isSpectator){
@@ -10750,7 +10840,7 @@ function renderParallelPickLane(pp,laneName){
       const mandatory=(pp.mandatoryCandidateIds || []).filter(id=>hand.some(c=>c.id===id));
       pickTargetSelectedIds=[...new Set([...mandatory,...pickTargetSelectedIds.filter(id=>hand.some(c=>c.id===id))])];
       const need=Math.min(Number(pp.targetCount || 0),hand.length);
-      body=`<div class="pick-status" data-pick-status>候補を選択 <b data-pick-target-count>${pickTargetSelectedIds.length}/${need}</b></div>${mandatory.length?'<div class="pick-forced-note">🃏 ババブタは必須候補</div>':''}<div class="pick-target-cards">${hand.map(c=>{const selected=pickTargetSelectedIds.includes(c.id),required=mandatory.includes(c.id);return `<button type="button" class="pick-target-card ${selected?'selected':''} ${required?'mandatory-pick-card':''}" data-pick-id="${escAttr(pp.pickId)}" data-pick-target-card-id="${escAttr(c.id)}" aria-pressed="${selected?'true':'false'}" ${required?'disabled':''}>${required?'<span class="mandatory-pick-badge">必須</span>':''}${cardHTML(c,true)}<span class="small">${required?'必須':selected?'候補':'選ぶ'}</span></button>`;}).join('')}</div><button type="button" class="btn" data-pick-id="${escAttr(pp.pickId)}" data-pick-target-submit="1" ${pickTargetSelectedIds.length===need?'':'disabled'}>候補を確定</button>`;
+      body=`<div class="pick-status parallel-target-status" data-pick-status><span>ピック候補を選択 <b data-pick-target-count>${pickTargetSelectedIds.length}/${need}</b></span>${mandatory.length?'<span class="parallel-mandatory-note">🃏 ババブタ選択済み</span>':''}</div><div class="pick-target-cards">${hand.map(c=>{const selected=pickTargetSelectedIds.includes(c.id),required=mandatory.includes(c.id);return `<button type="button" class="pick-target-card ${selected?'selected':''} ${required?'mandatory-pick-card':''}" data-pick-id="${escAttr(pp.pickId)}" data-pick-target-card-id="${escAttr(c.id)}" aria-pressed="${selected?'true':'false'}" ${required?'disabled':''}>${required?'<span class="mandatory-pick-badge">必須</span>':''}${cardHTML(c,true)}<span class="small">${required?'必須':selected?'候補':'選ぶ'}</span></button>`;}).join('')}</div><button type="button" class="btn parallel-pick-submit" data-pick-id="${escAttr(pp.pickId)}" data-pick-target-submit="1" ${pickTargetSelectedIds.length===need?'':'disabled'}>ピック対象を確定</button>`;
     }else body=`<div class="parallel-readonly">${esc(provider.name || '提供者')} が候補を${Number(pp.targetCount || 0)}枚に絞っています…</div>`;
   }else if(pp.forcedJokerCandidate && Number(pp.targetCandidateCount || 0)===1){
     body='<div class="parallel-readonly">🃏 必須候補1枚を自動処理中…</div>';
@@ -10760,7 +10850,7 @@ function renderParallelPickLane(pp,laneName){
   }else{
     body=`<div class="parallel-readonly" data-pick-status>${esc(picker.name || 'ピッカー')} が${isPickReady(pp)?'ピック中':'準備中'}…</div><div class="pick-hand">${Array.from({length:Number(pp.targetCandidateCount || provider.handCount || 0)},()=>'<div class="playing-card back"></div>').join('')}</div>`;
   }
-  return `<section class="parallel-pick-lane ${laneName} ${operable?'is-operable':''} ${terminal?'is-complete':''}" data-pick-id="${escAttr(pp.pickId)}" aria-label="${primary?'1位と4位':'2位と3位'}のピック"><header class="parallel-lane-head"><div><b>${primary?'🏆 1位 ↔ 4位 PICK':'🥈 2位 → 🥉 3位 PICK'}</b><small>${operable?'あなたが操作するレーン':'リアルタイム進行'}</small></div><span class="parallel-lane-status">${esc(parallelLaneStatusLabel(pp))}</span></header><div class="parallel-lane-people"><div class="parallel-person"><span class="avatar">${playerAvatarHTML(pp.pickProviderPid)}</span><b>${esc(provider.name || '')}</b><small>提供者</small></div><span class="parallel-arrow">→</span><div class="parallel-person"><span class="avatar">${playerAvatarHTML(pp.pickerPid)}</span><b>${esc(picker.name || '')}</b><small>受取人</small></div></div><div class="parallel-lane-body">${body}</div></section>`;
+  return `<section class="parallel-pick-lane ${laneName} ${operable?'is-operable':''} ${phaseClass}" data-pick-id="${escAttr(pp.pickId)}" aria-label="${primary?'1位と4位':'2位と3位'}のピック"><header class="parallel-lane-head"><div><b>${primary?'🏆 1位 ↔ 4位 PICK':'🥈 2位 → 🥉 3位 PICK'}</b><small>${operable?'あなたが操作するレーン':'リアルタイム進行'}</small></div><span class="parallel-lane-status">${esc(parallelLaneStatusLabel(pp))}</span></header><div class="parallel-lane-people"><div class="parallel-person"><span class="avatar">${playerAvatarHTML(pp.pickProviderPid)}</span><b>${esc(provider.name || '')}</b><small>提供者</small></div><span class="parallel-arrow">→</span><div class="parallel-person"><span class="avatar">${playerAvatarHTML(pp.pickerPid)}</span><b>${esc(picker.name || '')}</b><small>受取人</small></div></div><div class="parallel-lane-body">${body}</div></section>`;
 }
 
 function renderParallelPickTable(group){
@@ -10843,13 +10933,13 @@ function renderTable(){
       html += `<div class="pick-status ${isBabaReveal?'baba-result-status':''}" data-pick-status="1">${esc(pp.result.text)}</div><div class="pick-result ${isBabaReveal?'baba-result-panel':''}"><span>${isBabaReveal?'公開ピック！ババブタ':'引いたカード'}</span>${cardHTML(pp.result.drawn,true)}</div>`;
     } else if(pp.pairChoice){
       const pc = pp.pairChoice;
-      html += `<div class="pick-status" data-pick-status="1">引いたカードと同じ数字を選ぶか、スキップできます。</div><div class="pair-decision-layout"><div class="pick-drawn-card"><span class="pair-source-label">引いた札</span>${cardHTML(pc.drawn,true)}</div>`;
+      html += `<div class="pick-status" data-pick-status="1">ペア浄化対象を選んでください。浄化しない場合は下のボタンを選べます。</div><div class="pair-decision-layout"><div class="pick-drawn-card"><span class="pair-source-label">引いた札</span>${cardHTML(pc.drawn,true)}</div>`;
       if(state.yourIndex===pickerPid && Array.isArray(pc.candidates)){
-        html += `<div class="pair-choice"><h4>ペアにするカードを選択</h4><div class="pair-cards" data-card-count="${pc.candidates.length}">`;
+        html += `<div class="pair-choice"><h4>ペア浄化するカードを選択</h4><div class="pair-cards" data-card-count="${pc.candidates.length}">`;
         for(const c of pc.candidates){
-          html += `<button type="button" class="pair-card-btn" data-pair-card-id="${escAttr(c.id)}" aria-label="${escAttr(playCardChoiceLabel(c))}と引いたカードをペア浄化する">${cardHTML(c,true)}<div class="small">これと捨てる</div></button>`;
+          html += `<button type="button" class="pair-card-btn" data-pair-card-id="${escAttr(c.id)}" aria-label="${escAttr(playCardChoiceLabel(c))}と引いたカードをペア浄化する">${cardHTML(c,true)}<div class="small">この札と浄化</div></button>`;
         }
-        html += `</div><button type="button" class="btn secondary skip-pair" data-pair-skip="1">スキップ</button></div>`;
+        html += `</div><button type="button" class="btn secondary skip-pair" data-pair-skip="1">ペア浄化をスキップ</button></div>`;
       } else {
         const pickerDisconnected = !picker.cpu && picker.connected === false;
         html += `<div class="pair-choice pair-choice-wait"><div class="pick-status">${pickerDisconnected ? `${esc(picker.name)} が切断中です。自動復旧を待っています。` : `${esc(picker.name)} のペア選択待ちです。`}</div>${pickerDisconnected ? '<div class="small center-note">しばらく戻らない場合はスキップ扱いで進行します。</div>' : ''}</div>`;

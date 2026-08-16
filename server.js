@@ -2864,7 +2864,13 @@ function nextCpuCharacter(room){
 
 function createCpuSeat(room,preserved={}){
   const ch=nextCpuCharacter(room);
-  const display=assignCpuDisplayIdentity(room);
+  // 既存3人格は名前・姿もキャラクターそのものとして固定する。
+  // 3人格がすべて着席済みの時だけ、重複する4人目の内部人格と
+  // 卓上表示identityを分離し、共有動物poolから表示名と絵文字を割り当てる。
+  const characterAlreadySeated=(room?.players || []).some(player=>player?.cpu && cpuCharacter(player)?.key===ch.key);
+  const display=characterAlreadySeated
+    ? assignCpuDisplayIdentity(room)
+    : {name:ch.name,avatar:ch.avatar,identityKey:null};
   return Object.assign({},preserved,{
     id:`CPU-${uid()}`,name:display.name,avatar:display.avatar,displayIdentityKey:display.identityKey,
     ws:null,cpu:true,participantRole:'player',disconnectedAt:null,resumeToken:null,cpuCharacter:ch,
@@ -3283,7 +3289,14 @@ function resolveShootDecision(room,playerId,fire=false){
   room.message=`🌕 SHOOT SUCCESS！ ${shooter.name} から ${target.name} へババブタ直撃！`;
   log(room,`💥 ${shooter.name} がババブタを ${target.name} へ発射。マッド・ピッグは発射者の手札に残ります。`);
   const reactionPid=shooter.cpu?choice.shooterPid:room.players.findIndex((p,pid)=>p.cpu && pid!==choice.shooterPid);
-  if(reactionPid>=0){ say(room,reactionPid,cpuShootActivatedLine(room,reactionPid,choice.shooterPid),{eventKey:'shoot',durationMs:6200}); if(room.parallelPickGroup) room.parallelPickGroup.commentEmitted=true; }
+  if(reactionPid>=0){
+    if(room.parallelPickGroup){
+      // middle pick中はsecondary完了前に喋らせない。グループ集約時の話者候補だけ保存する。
+      room.parallelPickGroup.preferredCommentPid=reactionPid;
+    }else{
+      say(room,reactionPid,cpuShootActivatedLine(room,reactionPid,choice.shooterPid),{eventKey:'shoot',durationMs:6200});
+    }
+  }
   assertUniqueActiveCards(room,'シュート発射直後');broadcast(room);
   scheduleRoomTask(room,`shoot-finish-${choice.id}`,GAME_TIMING.shootFirePresentation,()=>finishShootPresentation(room,choice.id));
   return !!result;
@@ -4579,7 +4592,7 @@ function doPick(room,playerId,targetIndex,pickId=null){
     pp.pairChoice = {drawn, candidates:candidatesForPair};
     pp.pairChoiceAt = Date.now();
     pp.resultAt = null;
-    const text = `${picker.name} は ${cardText(drawn)} を引いた。ペアにするカードを選べます。`;
+    const text = `${picker.name} は ${cardText(drawn)} を引いた。ペア浄化対象を選んでください。浄化しない場合は「ペア浄化をスキップ」を選べます。`;
     log(room, `🐽 ${text}`);
     room.message = text;
 
@@ -4636,14 +4649,23 @@ function parallelPickSummary(room,group){
     || results.find(r=>isMadPig(r.drawn))
     || results.find(r=>r.paired)
     || null;
-  if(!important) return;
-  const preferred=Number.isInteger(important.pickerPid) && room.players[important.pickerPid]?.cpu ? important.pickerPid : room.players.findIndex(p=>p.cpu);
+  const involvedCpuResult=results.find(result=>Number.isInteger(result?.pickerPid) && room.players[result.pickerPid]?.cpu);
+  const preferred=Number.isInteger(group.preferredCommentPid) && room.players[group.preferredCommentPid]?.cpu
+    ? group.preferredCommentPid
+    : Number.isInteger(important?.pickerPid) && room.players[important.pickerPid]?.cpu
+      ? important.pickerPid
+      : involvedCpuResult
+        ? involvedCpuResult.pickerPid
+        : room.players.findIndex(p=>p.cpu);
   if(preferred<0) return;
-  const text=important.shoot ? 'シュート直撃。今の2レーンは大きく動きました。'
-    : important.drawn?.joker ? 'おっと、並行ピックでババブタが動いた！'
-    : isMadPig(important.drawn) ? 'マッド・ピッグが動きました。次の手札管理が重要です。'
-    : 'おそろいペア浄化！ 2つのピックをまとめて確認しました。';
-  say(room,preferred,text,{eventKey:important.drawn?.joker?'baba':important.paired?'pair':'pick'});
+  const text=important?.shoot ? 'シュート直撃。今の2レーンは大きく動きました。'
+    : important?.drawn?.joker ? 'おっと、並行ピックでババブタが動いた！'
+    : isMadPig(important?.drawn) ? 'マッド・ピッグが動きました。次の手札管理が重要です。'
+    : important?.paired ? 'おそろいペア浄化！ 2つのピックをまとめて確認しました。'
+    : results.length ? '2つのピックが決着。次の手札の流れに注目です。'
+    : '2つのピック処理が完了。次のトリックへ進みます。';
+  const eventKey=important?.shoot?'shoot':important?.drawn?.joker?'baba':important?.paired?'pair':'pick';
+  say(room,preferred,text,{eventKey});
   group.commentEmitted=true;
 }
 

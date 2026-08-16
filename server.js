@@ -72,6 +72,10 @@ const GAME_TIMING = Object.freeze({
   pairPickResult:4500,
   madPickResult:5000,
   babaPickResult:5600,
+  middlePickPrepare:720,
+  shootDecisionCpu:650,
+  shootDecisionFallback:12000,
+  shootFirePresentation:3400,
   failSafeExtra:4500
 });
 const MAX_WS_MESSAGE_BYTES = 64 * 1024;
@@ -79,8 +83,8 @@ const MAX_SPECTATORS_PER_ROOM = 12;
 const DUPLICATE_ACTION_WINDOW_MS = 160;
 // 二重実行でカードや状態を壊し得る不可逆操作だけを短時間重複除外する。
 // addCpu/removeCpu は1回ごとに座席数が変わる正当な反復操作なので含めない。
-const DEDUPED_CLIENT_ACTION_TYPES = new Set(['start','rematch','clearRoom','play','pick','pickTargets','pairChoice','passThree','initialPairDiscard','skipInitialPairs','continueRound']);
-const GAMEPLAY_ACTION_TYPES = new Set(['play','pick','pickTargets','pairChoice','passThree','initialPairDiscard','skipInitialPairs','continueRound']);
+const DEDUPED_CLIENT_ACTION_TYPES = new Set(['start','rematch','clearRoom','play','pick','pickTargets','pairChoice','shootDecision','passThree','initialPairDiscard','skipInitialPairs','continueRound']);
+const GAMEPLAY_ACTION_TYPES = new Set(['play','pick','pickTargets','pairChoice','shootDecision','passThree','initialPairDiscard','skipInitialPairs','continueRound']);
 
 
 // 同じ目的の短時間タスクをキーで一元管理し、再送や監視処理からの重複予約を防ぐ。
@@ -516,7 +520,11 @@ function newMatchStats(){
     remainingHandCount:0,remainingHandPenalty:0,endgameTrickWins:0,
     highCardWins:0,efficientLowWins:0,voidCount:0,roundScores:[],finalScore:0,
     babaForcedCandidateCount:0,babaForcedTransferCount:0,
-    shootBlockedByUnmovedBabaCount:0
+    shootBlockedByUnmovedBabaCount:0,
+    middlePickProviderCount:0,middlePickerCount:0,
+    middlePickTransferredCards:0,middlePickReceivedCards:0,
+    shootLoadedCount:0,shootFireOpportunityCount:0,
+    shootFiredCount:0,shootDeclinedCount:0,shootReceivedBabaCount:0
   };
 }
 
@@ -559,6 +567,12 @@ function generatePlayEvaluation(room,player){
   }
   if(s.shootCount>0){
     comments.push(`シュート・ザ・ピッグを${s.shootCount}回成立。抱えた危険札を実際に逆転へつなげました。`);
+  }
+  if(comments.length<3 && s.middlePickReceivedCards>0){
+    comments.push(`中位ピックに${s.middlePickerCount}回参加し、${s.middlePickReceivedCards}枚を受け取りました。`);
+  }
+  if(comments.length<3 && s.shootDeclinedCount>0){
+    comments.push(`シュート発射機会${s.shootFireOpportunityCount}回のうち、${s.shootDeclinedCount}回は通常ピックを選びました。`);
   }
   if(comments.length<3 && s.shootBlockedByUnmovedBabaCount>0){
     comments.push(`ババブタとマッド・ピッグを揃えましたが、ババ未移動でシュート不成立が${s.shootBlockedByUnmovedBabaCount}回ありました。`);
@@ -760,6 +774,12 @@ function isRoundEndHand(p){
 
 function activePlayerCount(room){
   return room.players ? room.players.length : 0;
+}
+function gameSeatCount(room){
+  return Array.isArray(room?.players) ? room.players.length : 0;
+}
+function canHostAddCpu(room, requesterId){
+  return !!(room && room.phase==='lobby' && room.hostId===requesterId && gameSeatCount(room)<4);
 }
 function safeBroadcast(room){
   try { broadcast(room); } catch(e) { console.error('safeBroadcast error', e); }
@@ -1005,6 +1025,7 @@ function cpuCardPlayScore(room, pid, card){
   const isMad = cpuIsMadPigCard(room, card);
   const shoot = cpuShootPotential(room, player);
   const shootState=shootEligibilityState(room,player);
+  const loadedForFire=normalizeShootLoadFireMode(room.shootLoadFireMode) && playerIsShootLoaded(room,player);
   const preserveMadForMove=shootState.needsBabaMove && ch?.key==='wakumodoki';
   const shootHold=shoot || preserveMadForMove;
   const nearShoot = cpuNearShootPotential(room, player);
@@ -1043,6 +1064,11 @@ function cpuCardPlayScore(room, pid, card){
       if((mode === 'mud6' || mode === 'mudSuit') && card.suit === MUD_SUIT && !isMad) score += 26; // 泥は早めに処理
     }
     if(isMad && !shootHold) score -= 170; // リードでマッドを自分の山に取る事故を避ける
+    if(loadedForFire && !isMad){
+      // 装填→発射モードでは「ラウンド終了まで2枚を抱える」だけでなく、
+      // このトリックに勝って本人の発射選択を作る価値を評価する。
+      score += highCard * 9.5 * w.shoot;
+    }
     return score;
   }
 
@@ -1078,6 +1104,11 @@ function cpuCardPlayScore(room, pid, card){
     if(ch?.key === 'kamomodoki') score += 48; // 攻撃的に取りに行く
     if(ch?.key === 'wakumodoki') score += 28 + Math.random()*34;
     if(ch?.key === 'rikumodoki' && over <= 2) score += 52; // 最小勝ちを評価
+    if(loadedForFire){
+      const targetHand=Math.min(...room.players.filter((_,i)=>i!==pid).map(p=>Number(p.hand?.length || 0)));
+      const personalityBoost=ch?.key==='wakumodoki'?260:ch?.key==='kamomodoki'?205:135;
+      score += personalityBoost*w.shoot + Math.max(0,Number(player.hand?.length || 0)-targetHand)*8;
+    }
 
     // シュートにはマッドを手札に残す必要がある。山へ取っても条件を満たさない。
     if(shootThePigEnabled(room) && hasJoker && trickHasMad) score -= 90 * w.risk;
@@ -1782,6 +1813,11 @@ function publicState(room, viewerId){
   const participantRole=viewer?.participantRole === 'spectator' ? 'spectator' : 'player';
   const isSpectator=participantRole === 'spectator';
   const viewerIndex = room.players.findIndex(p=>p.id===viewerId);
+  const viewerPlayer=viewerIndex>=0?room.players[viewerIndex]:null;
+  const visibleLoadEvent=viewerPlayer?.shootLoadEvent && viewerPlayer.shootLoadEvent.expiresAt>Date.now()?viewerPlayer.shootLoadEvent:null;
+  const pendingShootDecision=room.pendingShootDecision && (isSpectator || room.pendingShootDecision.shooterPid===viewerIndex)
+    ? {...room.pendingShootDecision,canChoose:room.pendingShootDecision.shooterPid===viewerIndex}
+    : null;
   return {
     code: room.code,
     hostId: room.hostId,
@@ -1790,6 +1826,9 @@ function publicState(room, viewerId){
     participantRole,
     isSpectator,
     maxSpectators:MAX_SPECTATORS_PER_ROOM,
+    playerSeatCount:gameSeatCount(room),
+    playerSeatCapacity:4,
+    canAddCpu:canHostAddCpu(room,viewerId),
     phase: room.phase,
     disconnectedActionGraceMs: DISCONNECTED_ACTION_GRACE_MS,
     round: room.round,
@@ -1799,8 +1838,18 @@ function publicState(room, viewerId){
     jokerPenaltyTiming: normalizeJokerPenaltyTiming(room.jokerPenaltyTiming),
     shootThePigEnabled: shootThePigEnabled(room),
     shootThePigLimit: shootThePigLimit(room),
+    enableMiddleRankPick:normalizeEnableMiddleRankPick(room.enableMiddleRankPick),
+    shootLoadFireMode:normalizeShootLoadFireMode(room.shootLoadFireMode),
+    shootFiredThisRound:!!room.shootFiredThisRound,
+    shootFiredByPid:Number.isInteger(room.shootFiredByPid)?room.shootFiredByPid:null,
+    shootFireEvent:room.shootFireEvent && room.shootFireEvent.expiresAt>Date.now()?room.shootFireEvent:null,
+    shootLoadState:viewerPlayer ? {loaded:playerIsShootLoaded(room,viewerPlayer),event:visibleLoadEvent} : null,
+    spectatorShootLoadStates:isSpectator ? room.players.map((p,pid)=>({pid,loaded:playerIsShootLoaded(room,p),event:p.shootLoadEvent && p.shootLoadEvent.expiresAt>Date.now()?p.shootLoadEvent:null})) : null,
+    pendingShootDecision,
+    trickRankings:Array.isArray(room.trickRankings)?room.trickRankings.slice():[],
+    completedRoundTotalScores:Array.isArray(room.completedRoundTotalScores)?room.completedRoundTotalScores.slice():[0,0,0,0],
     forceJokerPickCandidate:normalizeForceJokerPickCandidate(room.forceJokerPickCandidate),
-    shootRequiresBabaMoved:normalizeShootRequiresBabaMoved(room.shootRequiresBabaMoved),
+    shootRequiresBabaMoved:!normalizeShootLoadFireMode(room.shootLoadFireMode) && normalizeShootRequiresBabaMoved(room.shootRequiresBabaMoved),
     babaMovedThisRound:!!room.babaMovedThisRound,
     babaMoveCountThisRound:Number(room.babaMoveCountThisRound || 0),
     babaMoveEvent:room.babaMoveEvent && room.babaMoveEvent.expiresAt>Date.now() ? room.babaMoveEvent : null,
@@ -1856,6 +1905,7 @@ function publicState(room, viewerId){
       ready: Date.now() >= room.pendingPick.readyAt,
       readyInMs: Math.max(0, room.pendingPick.readyAt - Date.now()),
       targetCount: room.pendingPick.targetCount || pickCandidateLimit(room, provider),
+      pickStage:room.pendingPick.pickStage || 'primary',
       targetSelectionRequired: room.pendingPick.targetSelectionRequired === true,
       targetSelectionDone: room.pendingPick.targetSelectionDone !== false,
       mandatoryCandidateCount:Array.isArray(room.pendingPick.mandatoryCandidateIds) ? room.pendingPick.mandatoryCandidateIds.length : 0,
@@ -1877,6 +1927,7 @@ function publicState(room, viewerId){
     players: room.players.map((p,i)=>({
       id:p.id, name:p.name, seat:i, cpu: !!p.cpu, cpuKey: cpuCharacter(p)?.key || null, cpuStyle:cpuCharacter(p)?.style || null, cpuTitle:cpuCharacter(p)?.title || null, avatar: p.cpu ? cpuAvatar(p) : (p.avatar || '🐷'), avatarImage: p.cpu ? (cpuCharacter(p)?.imagePath || null) : null, connected:!!(p.cpu || (p.ws && p.ws.readyState===WebSocket.OPEN)), disconnectedAt:p.cpu ? null : (p.disconnectedAt || null), disconnectedForMs:!p.cpu && p.disconnectedAt ? Math.max(0,Date.now()-p.disconnectedAt) : 0,
       handCount:p.hand.length,
+      completedRoundTotalScore:Number(room.completedRoundTotalScores?.[i] || 0),
       // プレイヤー接続へ他人の非公開手札を送らない。全手札は観戦接続だけに公開する。
       hand: isSpectator || p.id===viewerId ? p.hand : null,
       scorePileCount:p.scorePile.length,
@@ -1919,6 +1970,7 @@ function send(ws, type, payload){
 }
 function broadcast(room){
   if(!room || !room.players) return;
+  refreshShootLoadStates(room);
   for(const p of room.players){
     if(p.ws && p.ws.readyState===WebSocket.OPEN){
       send(p.ws,'state',{state: publicState(room,p.id)});
@@ -2046,6 +2098,12 @@ function normalizeForceJokerPickCandidate(v){
 function normalizeShootRequiresBabaMoved(v){
   return v === true || v === 'true';
 }
+function normalizeEnableMiddleRankPick(v){
+  return v === true || v === 'true';
+}
+function normalizeShootLoadFireMode(v){
+  return v === true || v === 'true';
+}
 function normalizeShootThePigLimit(v){
   // v33標準はゲーム中の発動回数に上限を設けない。
   // 旧クライアントや保存済み部屋に値がない場合も unlimited として扱う。
@@ -2065,7 +2123,9 @@ function shootThePigLabel(room){
   if(!shootThePigEnabled(room)) return 'なし';
   const timing = normalizeJokerPenaltyTiming(room?.jokerPenaltyTiming);
   const limit = shootThePigLimitLabel(room);
-  const move=normalizeShootRequiresBabaMoved(room?.shootRequiresBabaMoved)?'・ババ移動必須':'';
+  const loadFire=normalizeShootLoadFireMode(room?.shootLoadFireMode);
+  const move=!loadFire && normalizeShootRequiresBabaMoved(room?.shootRequiresBabaMoved)?'・ババ移動必須':'';
+  if(loadFire) return `あり(${limit}・装填→勝利時に任意発射)`;
   return timing === 'gameEnd' ? `あり(${limit}・最終Rのみ${move})` : `あり(${limit}${move})`;
 }
 function rulePenaltyPointLabel(value){
@@ -2097,11 +2157,34 @@ function shootEligibilityState(room, player){
   const hasJoker=playerHasJoker(player);
   const hasMad=playerHasMadPigInHand(room,player);
   const limitReached=playerShootLimitReached(room,player);
-  const movementRequired=normalizeShootRequiresBabaMoved(room?.shootRequiresBabaMoved);
+  const loadFireMode=normalizeShootLoadFireMode(room?.shootLoadFireMode);
+  const movementRequired=!loadFireMode && normalizeShootRequiresBabaMoved(room?.shootRequiresBabaMoved);
   const babaMoved=!!room?.babaMovedThisRound;
   const needsBabaMove=enabled && movementRequired && hasJoker && hasMad && !babaMoved;
   const eligibleNow=!!(enabled && player && !limitReached && hasJoker && hasMad && (!movementRequired || babaMoved));
-  return {enabled,hasJoker,hasMad,limitReached,movementRequired,babaMoved,needsBabaMove,eligibleNow,nearShoot:enabled && !limitReached && (hasJoker || hasMad)};
+  return {enabled,hasJoker,hasMad,limitReached,loadFireMode,movementRequired,babaMoved,needsBabaMove,eligibleNow,nearShoot:enabled && !limitReached && (hasJoker || hasMad)};
+}
+
+function playerIsShootLoaded(room, player){
+  const state=shootEligibilityState(room,player);
+  return !!(state.loadFireMode && state.eligibleNow && !room?.shootFiredThisRound);
+}
+
+function refreshShootLoadStates(room){
+  if(!room || !Array.isArray(room.players)) return;
+  const now=Date.now();
+  for(const [pid,player] of room.players.entries()){
+    const loaded=playerIsShootLoaded(room,player);
+    if(loaded && !player.shootLoadedNow){
+      player.shootLoadedNow=true;
+      player.shootLoadEvent={id:`shoot-load-${room.round || 1}-${pid}-${uid()}`,pid,round:room.round || 1,createdAt:now,expiresAt:now+5200};
+      matchStatsFor(player).shootLoadedCount++;
+      // 装填は非公開情報。共通ログや実況へは書かず、本人向けstateと
+      // 全手札を閲覧できる観戦者向けstateにだけ載せる。
+    }else if(!loaded){
+      player.shootLoadedNow=false;
+    }
+  }
 }
 function playerCanShootThePig(room, player){
   return shootEligibilityState(room,player).eligibleNow;
@@ -2140,6 +2223,51 @@ function cpuShootActivatedLine(room, pid, shooterPid){
   return self ? 'シュート・ザ・ピッグ発動！' : `${shooter} がシュートを発動しました！`;
 }
 
+function recordShootSuccess(room, shooterPid, {source='roundEnd',targetPid=null,babaCard=null,madCard=null}={}){
+  if(!room || !room.players?.[shooterPid]) return null;
+  const roundKey=String(room.round || 1);
+  room.shootPigRoundResults=room.shootPigRoundResults || {};
+  const existing=room.shootPigRoundResults[roundKey];
+  if(existing) return existing;
+  const shooter=room.players[shooterPid];
+  const timing=normalizeJokerPenaltyTiming(room.jokerPenaltyTiming);
+  const result={
+    round:room.round || 1,shooterPid,shooterName:shooter.name || '',penaltyToOthers:10,
+    timing,isFinalRound:(room.round || 1)>=(room.totalRounds || 3),limitMode:shootThePigLimit(room),
+    perPlayerLimit:shootThePigLimit(room)==='once'?1:null,
+    activationCount:playerShootActivationCount(shooter)+1,source,targetPid
+  };
+  for(const [pid,player] of room.players.entries()){
+    player.shootPigPenaltyBank=Number(player.shootPigPenaltyBank || 0);
+    player.shootPigActivatedRounds=Array.isArray(player.shootPigActivatedRounds)?player.shootPigActivatedRounds:[];
+    if(pid===shooterPid){
+      const stats=matchStatsFor(player);
+      stats.shootCount++;
+      if(source==='loadFire') stats.shootFiredCount++;
+      if(!player.shootPigActivatedRounds.includes(result.round)) player.shootPigActivatedRounds.push(result.round);
+    }else{
+      player.shootPigPenaltyBank+=result.penaltyToOthers;
+    }
+  }
+  room.shootPigRoundResults[roundKey]=result;
+  room.shootBlockedByUnmovedBabaResults=room.shootBlockedByUnmovedBabaResults || {};
+  room.shootBlockedByUnmovedBabaResults[roundKey]=null;
+  if(source==='loadFire'){
+    room.shootFiredThisRound=true;
+    room.shootFiredByPid=shooterPid;
+    room.shootFireEvent={
+      id:`shoot-fire-${result.round}-${shooterPid}-${uid()}`,round:result.round,trickNumber:Number(room.trickNumber || 1),
+      shooterPid,targetPid,babaCardId:babaCard?.id || null,madCardId:madCard?.id || null,
+      babaCard:babaCard || null,madCard:madCard || null,firedAt:Date.now(),expiresAt:Date.now()+7200
+    };
+  }else{
+    room.shootPigEvent={...result,id:`shoot-${result.round}-${result.shooterPid}-${Date.now()}`,expiresAt:Date.now()+9000};
+  }
+  const limitText=result.limitMode==='once'?'1人1回制限の権利を使用':`無制限設定で通算${result.activationCount}回目`;
+  log(room,`🐷🌕 シュート・ザ・ピッグ発動！ ${result.shooterName} は${limitText}。このラウンドのババブタ/マッド・ピッグ失点は0、他の全員に-10点。`);
+  return result;
+}
+
 
 
 function applyShootThePigForRound(room){
@@ -2148,6 +2276,13 @@ function applyShootThePigForRound(room){
   room.shootPigRoundResults = room.shootPigRoundResults || {};
   if(Object.prototype.hasOwnProperty.call(room.shootPigRoundResults, roundKey)){
     return room.shootPigRoundResults[roundKey];
+  }
+
+  // 装填→発射モードでは、勝利時に本人が発射を選んだ時だけ成立する。
+  // ラウンド終了時の旧方式による自動成立は行わない。
+  if(normalizeShootLoadFireMode(room.shootLoadFireMode)){
+    room.shootPigRoundResults[roundKey]=null;
+    return null;
   }
 
   // 基本条件は「ババブタとマッド・ピッグの両方が手札にある」こと。
@@ -2176,44 +2311,7 @@ function applyShootThePigForRound(room){
     return null;
   }
 
-  const timing = normalizeJokerPenaltyTiming(room.jokerPenaltyTiming);
-  const isFinalRound = (room.round || 1) >= (room.totalRounds || 3);
-  const result = {
-    round: room.round || 1,
-    shooterPid,
-    shooterName: room.players[shooterPid]?.name || '',
-    penaltyToOthers: 10,
-    timing,
-    isFinalRound,
-    limitMode: shootThePigLimit(room),
-    perPlayerLimit: shootThePigLimit(room) === 'once' ? 1 : null,
-    activationCount: playerShootActivationCount(room.players[shooterPid]) + 1,
-  };
-
-  for(const [i,p] of room.players.entries()){
-    p.shootPigPenaltyBank = p.shootPigPenaltyBank || 0;
-    p.shootPigActivatedRounds = p.shootPigActivatedRounds || [];
-    if(i === shooterPid){
-      matchStatsFor(p).shootCount++;
-      if(!p.shootPigActivatedRounds.includes(result.round)) p.shootPigActivatedRounds.push(result.round);
-      // 失点免除は「発動した当該ラウンド」にだけ適用する。
-      // 過去ラウンドの発動を永続フラグにすると、後のラウンドで条件未成立でも
-      // マッド失点が0になるため、判定は各ラウンドのshootPigResultから導出する。
-    } else {
-      p.shootPigPenaltyBank += result.penaltyToOthers;
-    }
-  }
-
-  room.shootPigRoundResults[roundKey] = result;
-  room.shootBlockedByUnmovedBabaResults=room.shootBlockedByUnmovedBabaResults || {};
-  room.shootBlockedByUnmovedBabaResults[roundKey]=null;
-  room.shootPigEvent = {
-    ...result,
-    id:`shoot-${result.round}-${result.shooterPid}-${Date.now()}`,
-    expiresAt:Date.now()+9000
-  };
-  const limitText = result.limitMode === 'once' ? '1人1回制限の権利を使用' : `無制限設定で通算${result.activationCount}回目`;
-  log(room, `🐷🌕 シュート・ザ・ピッグ発動！ ${result.shooterName} は手札のババブタ＋マッドで${limitText}。このラウンドのババブタ/マッド・ピッグ失点は0、他の全員に-10点。`);
+  const result=recordShootSuccess(room,shooterPid,{source:'roundEnd'});
   const speakerPid=room.players[shooterPid]?.cpu
     ? shooterPid
     : room.players.findIndex((p,i)=>p.cpu && i!==shooterPid);
@@ -2561,18 +2659,20 @@ function roomOptionSummary(room){
   const babaOptions=[];
   if(normalizeForceJokerPickCandidate(room.forceJokerPickCandidate)) babaOptions.push('ババ必須候補');
   if(normalizeShootRequiresBabaMoved(room.shootRequiresBabaMoved)) babaOptions.push('シュート移動条件');
-  return `全${room.totalRounds || 3}R / 配り直し:${roundDealModeLabel(room)} / ごちそう:1枚${normalizeFeastPointPerCard(room.feastPointPerCard)}点 / 失点:${roomPenaltyLabel(room)} / ババ:${rulePenaltyPointLabel(room.jokerPenalty ?? 20)}(${jokerPenaltyTimingLabel(room)}) / マッド:${roomMadPigLabel(room)} / シュート:${shootThePigLabel(room)} / ピック:${roomPickProviderLabel(room)}・${pickTargetLabel(room)}${babaOptions.length?` / ババ移動:${babaOptions.join('＋')}`:''} / 3枚パス:${room.passThreeEnabled ? 'あり' : 'なし'} / 開始ペア:${room.initialPairDiscardEnabled ? 'あり' : 'なし'}`;
+  const middle=normalizeEnableMiddleRankPick(room.enableMiddleRankPick)?'＋2位→3位':'';
+  return `全${room.totalRounds || 3}R / 配り直し:${roundDealModeLabel(room)} / ごちそう:1枚${normalizeFeastPointPerCard(room.feastPointPerCard)}点 / 失点:${roomPenaltyLabel(room)} / ババ:${rulePenaltyPointLabel(room.jokerPenalty ?? 20)}(${jokerPenaltyTimingLabel(room)}) / マッド:${roomMadPigLabel(room)} / シュート:${shootThePigLabel(room)} / ピック:${roomPickProviderLabel(room)}${middle}・${pickTargetLabel(room)}${babaOptions.length?` / ババ移動:${babaOptions.join('＋')}`:''} / 3枚パス:${room.passThreeEnabled ? 'あり' : 'なし'} / 開始ペア:${room.initialPairDiscardEnabled ? 'あり' : 'なし'}`;
 }
 
 
 
-function createRoom(ws, name, totalRounds=3, madPigEnabled=true, jokerPenalty=-20, initialPairDiscardEnabled=false, passThreeEnabled=false, penaltyMode='mud6', pickTargetCount=2, jokerPenaltyTiming='perRound', shootThePigEnabled=true, roundDealMode='reshuffle', shootThePigLimit='unlimited', feastPointPerCard=1, pickProviderRole='winner', participantRole='player', forceJokerPickCandidate=false, shootRequiresBabaMoved=false){
+function createRoom(ws, name, totalRounds=3, madPigEnabled=true, jokerPenalty=-20, initialPairDiscardEnabled=false, passThreeEnabled=false, penaltyMode='mud6', pickTargetCount=2, jokerPenaltyTiming='perRound', shootThePigEnabled=true, roundDealMode='reshuffle', shootThePigLimit='unlimited', feastPointPerCard=1, pickProviderRole='winner', participantRole='player', forceJokerPickCandidate=false, shootRequiresBabaMoved=false, enableMiddleRankPick=false, shootLoadFireMode=false){
   const c = code();
   const role=normalizeParticipantRole(participantRole);
   const normalizedMadPigEnabled=normalizeMadPigEnabled(madPigEnabled);
   const normalizedShootEnabled=normalizedMadPigEnabled && normalizeShootThePigEnabled(shootThePigEnabled);
-  const normalizedMoveRequirement=normalizedShootEnabled && normalizeShootRequiresBabaMoved(shootRequiresBabaMoved);
-  const room = {code:c, hostId:null, players:[], spectators:[], phase:'lobby', round:1, totalRounds: normalizeRoundCount(totalRounds), roundDealMode:normalizeRoundDealMode(roundDealMode), feastPointPerCard:normalizeFeastPointPerCard(feastPointPerCard), pickProviderRole:normalizePickProviderRole(pickProviderRole), forceJokerPickCandidate:normalizeForceJokerPickCandidate(forceJokerPickCandidate), shootRequiresBabaMoved:normalizedMoveRequirement, babaMovedThisRound:false, babaMoveCountThisRound:0, babaMoveHistory:[], babaMoveEvent:null, madPigEnabled:normalizedMadPigEnabled, jokerPenalty: normalizeJokerPenalty(jokerPenalty), jokerPenaltyTiming: normalizeJokerPenaltyTiming(jokerPenaltyTiming), shootThePigEnabled:normalizedShootEnabled, shootThePigLimit:normalizeShootThePigLimit(shootThePigLimit), initialPairDiscardEnabled: normalizeInitialPairDiscardEnabled(initialPairDiscardEnabled), passThreeEnabled: normalizePassThreeEnabled(passThreeEnabled), penaltyMode: normalizePenaltyMode(penaltyMode), pickTargetCount: normalizePickTargetCount(pickTargetCount), initialPairDone:[], passDone:[], passSelections:{}, lead:0, current:0, leadSuit:null, trick:[], stock:[], log:[], message:'4人そろったら開始できます。人が足りない場合はCPUを追加できます。', pendingPick:null, commentary:[], lastTrick:null, cardPlayEvent:null, trickCollectEvent:null, shootPigEvent:null, madPigEvent:null, pairCleanEvent:null, spotlightEvent:null, pendingSpotlightPlans:null, spotlightHistory:[], spotlightRoundCounts:{}, lastSpotlightSpeakerPid:null, transientTimers:new Map(), emptySince:null, cleanupTimer:null, closed:false};
+  const normalizedLoadFire=normalizedShootEnabled && normalizeShootLoadFireMode(shootLoadFireMode);
+  const normalizedMoveRequirement=normalizedShootEnabled && !normalizedLoadFire && normalizeShootRequiresBabaMoved(shootRequiresBabaMoved);
+  const room = {code:c, hostId:null, players:[], spectators:[], phase:'lobby', round:1, totalRounds: normalizeRoundCount(totalRounds), roundDealMode:normalizeRoundDealMode(roundDealMode), feastPointPerCard:normalizeFeastPointPerCard(feastPointPerCard), pickProviderRole:normalizePickProviderRole(pickProviderRole), enableMiddleRankPick:normalizeEnableMiddleRankPick(enableMiddleRankPick), shootLoadFireMode:normalizedLoadFire, forceJokerPickCandidate:normalizeForceJokerPickCandidate(forceJokerPickCandidate), shootRequiresBabaMoved:normalizedMoveRequirement, babaMovedThisRound:false, babaMoveCountThisRound:0, babaMoveHistory:[], babaMoveEvent:null, madPigEnabled:normalizedMadPigEnabled, jokerPenalty: normalizeJokerPenalty(jokerPenalty), jokerPenaltyTiming: normalizeJokerPenaltyTiming(jokerPenaltyTiming), shootThePigEnabled:normalizedShootEnabled, shootThePigLimit:normalizeShootThePigLimit(shootThePigLimit), initialPairDiscardEnabled: normalizeInitialPairDiscardEnabled(initialPairDiscardEnabled), passThreeEnabled: normalizePassThreeEnabled(passThreeEnabled), penaltyMode: normalizePenaltyMode(penaltyMode), pickTargetCount: normalizePickTargetCount(pickTargetCount), initialPairDone:[], passDone:[], passSelections:{}, lead:0, current:0, leadSuit:null, trick:[], stock:[], log:[], message:'4人そろったら開始できます。観戦者の人数に関係なく、空席へCPUを追加できます。', pendingPick:null, pendingShootDecision:null, postTrickFlow:null, completedRoundTotalScores:[0,0,0,0], jokerPenaltyAppliedByRound:{}, shootFiredThisRound:false, shootFiredByPid:null, shootFireEvent:null, commentary:[], lastTrick:null, cardPlayEvent:null, trickCollectEvent:null, shootPigEvent:null, madPigEvent:null, pairCleanEvent:null, spotlightEvent:null, pendingSpotlightPlans:null, spotlightHistory:[], spotlightRoundCounts:{}, lastSpotlightSpeakerPid:null, transientTimers:new Map(), emptySince:null, cleanupTimer:null, closed:false};
   const participant=createHumanParticipant(room,name,ws,role);
   room.hostId=participant.id;
   if(role==='spectator') room.spectators.push(participant); else room.players.push(participant);
@@ -2649,9 +2749,9 @@ function changeParticipantRole(room, participantId, nextRole, requesterWs=null){
 
 
 function addCpu(room, requesterId){
-  if(room.hostId !== requesterId) return;
+  if(!room || room.hostId !== requesterId) return;
   if(room.phase !== 'lobby') return;
-  if(room.players.length >= 4) { room.message='この部屋は満員です。'; broadcast(room); return; }
+  if(gameSeatCount(room) >= 4) { room.message='ゲーム席は4席すべて埋まっています。'; broadcast(room); return; }
   const used = new Set(room.players.filter(p=>p.cpu).map(p=>p.cpuCharacter?.key || cpuCharacterByName(p.name)?.key));
   const ch = CPU_CHARACTERS.find(c=>!used.has(c.key)) || {key:`cpu-${uid()}`, name:`CPU${room.players.length}`, avatar:'🐷'};
   const player = {id:`CPU-${uid()}`, name:ch.name, ws:null, cpu:true, participantRole:'player', disconnectedAt:null, cpuCharacter:ch, hand:[], scorePile:[], pairs:[], completedRoundCardScoreBank:0, jokerPenaltyBank:0, shootPigPenaltyBank:0, shootPigActivatedRounds:[], out:false,matchStats:null};
@@ -2695,6 +2795,11 @@ function clearRoom(room, requesterId, requesterWs=null){
   room.spotlightEvent=null;
   room.pendingSpotlightPlans=null;
   room.pendingPick=null;
+  room.postTrickFlow=null;
+  room.pendingShootDecision=null;
+  room.pendingShootTransition=null;
+  room.trickRankings=[];
+  room.trickNumber=1;
   room.trickReview=null;
   rooms.delete(room.code);
 
@@ -2808,121 +2913,165 @@ function ensureReviewToPick(room, reviewToken, winnerPid, weakestPid){
 }
 
 
+function buildPostTrickFlow(room,winnerPid,weakestPid){
+  const rankings=Array.isArray(room.trickRankings)?room.trickRankings.slice():[winnerPid,null,null,weakestPid];
+  const primaryRoles=resolvedPickRoles(room,winnerPid,weakestPid);
+  const steps=[{pickStage:'primary',highPid:winnerPid,lowPid:weakestPid,pickProviderPid:primaryRoles.pickProviderPid,pickerPid:primaryRoles.pickerPid}];
+  if(normalizeEnableMiddleRankPick(room.enableMiddleRankPick) && Number.isInteger(rankings[1]) && Number.isInteger(rankings[2])){
+    steps.push({pickStage:'secondary',highPid:rankings[1],lowPid:rankings[2],pickProviderPid:rankings[1],pickerPid:rankings[2]});
+  }
+  return {winnerPid,weakestPid,rankings,steps,index:0,createdAt:Date.now()};
+}
+
+function beginPickStep(room,step){
+  if(!room || room.phase!=='playing' || !step) return finishAfterPick(room,room?.postTrickFlow?.winnerPid);
+  const provider=room.players[step.pickProviderPid];
+  const picker=room.players[step.pickerPid];
+  if(!provider || !picker || provider===picker || !provider.hand?.length){
+    log(room,`⚠️ ${step.pickStage==='secondary'?'2位→3位':'通常'}ピックは提供可能な手札がないためスキップします。`);
+    finishAfterPick(room,room.postTrickFlow?.winnerPid);
+    return;
+  }
+  const providerStats=matchStatsFor(provider),pickerStats=matchStatsFor(picker);
+  providerStats.pickProviderCount++;pickerStats.pickerCount++;
+  if(step.pickStage==='secondary'){
+    providerStats.middlePickProviderCount++;pickerStats.middlePickerCount++;
+  }
+  const targetCount=pickCandidateLimit(room,provider);
+  const mandatoryCandidateIds=forcedJokerCandidateIds(room,provider);
+  const narrowedCandidates=normalizePickTargetCount(room.pickTargetCount)>0 && targetCount<provider.hand.length;
+  const targetSelectionRequired=narrowedCandidates && targetCount>mandatoryCandidateIds.length;
+  const autoCandidateIds=narrowedCandidates && !targetSelectionRequired?mergeMandatoryPickTargetIds(room,provider,[],targetCount):null;
+  const forcedJokerCandidate=forcedJokerRuleChangesCandidates(room,provider,targetCount);
+  const prepareMs=step.pickStage==='secondary'?GAME_TIMING.middlePickPrepare:GAME_TIMING.pickPrepare;
+  room.lastPickTargetRebroadcastAt=0;room.lastPairChoiceRebroadcastAt=0;
+  room.pendingPick={
+    pickStage:step.pickStage,trickWinnerPid:step.highPid,trickWeakestPid:step.lowPid,
+    pickProviderPid:step.pickProviderPid,pickerPid:step.pickerPid,winnerPid:step.highPid,weakestPid:step.lowPid,
+    readyAt:Date.now()+(targetSelectionRequired?999999999:prepareMs),createdAt:Date.now(),result:null,
+    token:`pick-${step.pickStage}-${Date.now()}-${Math.random()}`,targetCount,mandatoryCandidateIds,forcedJokerCandidate,
+    targetSelectionRequired,targetSelectionDone:!targetSelectionRequired,
+    targetCandidateIds:targetSelectionRequired?[]:autoCandidateIds,
+    pickOrderIds:targetSelectionRequired?[]:shuffleIds(autoCandidateIds || provider.hand.map(c=>c.id))
+  };
+  if(forcedJokerCandidate){
+    providerStats.babaForcedCandidateCount++;
+    log(room,`🃏 強制候補ルール：${provider.name} のババブタを${step.pickStage==='secondary'?'中位':''}ピック候補へ固定しました。`);
+  }
+  const stageLabel=step.pickStage==='secondary'?'2位→3位ピック':'1位→4位ピック';
+  if(targetSelectionRequired){
+    room.message=`🐽 ${stageLabel}：${provider.name} が候補を${targetCount}枚に絞ります。`;
+    log(room,`🎯 ${stageLabel}：${provider.name} が${targetCount}枚を選び、${picker.name} が1枚引きます。`);
+    autoResolveCpuPickTargets(room,room.pendingPick);broadcast(room);return;
+  }
+  room.message=forcedJokerCandidate && targetCount===1
+    ? `🃏 ${stageLabel}：ババブタ1枚が自動候補。${picker.name} が受け取ります。`
+    : `🐽 ${stageLabel}！ ${picker.name} が ${provider.name} の袋から1枚選びます。`;
+  const line=cpuPickLine(room,room.pendingPick);if(line && picker.cpu) say(room,step.pickerPid,line,{eventKey:'pick'});
+  ensureCpuPick(room);broadcast(room);
+  const token=room.pendingPick.token;
+  if(forcedJokerCandidate && targetCount===1){
+    scheduleRoomTask(room,`forced-baba-pick-${token}`,prepareMs+80,()=>{
+      if(room.phase==='playing' && room.pendingPick?.token===token && !room.pendingPick.result) doPick(room,picker.id,0);
+    });
+  }
+  scheduleRoomTask(room,`pick-ready-${token}`,prepareMs+50,()=>{
+    if(room.phase==='playing' && room.pendingPick?.token===token) broadcast(room);
+  });
+}
+
+function cpuShouldFireShoot(room,pid){
+  const player=room.players?.[pid];const key=cpuCharacter(player)?.key;
+  if(key==='wakumodoki') return true;
+  if(key==='kamomodoki') return (room.players?.[room.pendingShootDecision?.targetPid]?.hand?.length || 0)>=2;
+  const target=room.players?.[room.pendingShootDecision?.targetPid];
+  return Number(player?.hand?.length || 0)>=Number(target?.hand?.length || 0) || normalizeFeastPointPerCard(room.feastPointPerCard)<=1;
+}
+
+function offerShootDecisionOrBeginPick(room){
+  const flow=room.postTrickFlow;if(!flow) return;
+  const shooter=room.players[flow.winnerPid];
+  if(normalizeShootLoadFireMode(room.shootLoadFireMode) && playerIsShootLoaded(room,shooter)){
+    room.pendingShootDecision={id:`shoot-choice-${room.round || 1}-${flow.winnerPid}-${uid()}`,shooterPid:flow.winnerPid,targetPid:flow.weakestPid,createdAt:Date.now(),expiresAt:Date.now()+GAME_TIMING.shootDecisionFallback};
+    matchStatsFor(shooter).shootFireOpportunityCount++;
+    room.message=`🌕 ${shooter.name} はシュート装填済み。通常ピックか発射を選びます。`;
+    broadcast(room);
+    if(shooter.cpu){
+      const choiceId=room.pendingShootDecision.id;
+      scheduleRoomTask(room,`cpu-shoot-${choiceId}`,GAME_TIMING.shootDecisionCpu,()=>{
+        if(room.pendingShootDecision?.id===choiceId) resolveShootDecision(room,shooter.id,cpuShouldFireShoot(room,flow.winnerPid));
+      });
+    }
+    return;
+  }
+  beginPickStep(room,flow.steps[0]);
+}
+
+function registerDirectBabaMove(room,providerPid,pickerPid,forced=false){
+  room.babaMovedThisRound=true;
+  room.babaMoveCountThisRound=Number(room.babaMoveCountThisRound || 0)+1;
+  const event={eventId:`baba-move-${room.round || 1}-${room.babaMoveCountThisRound}-${uid()}`,round:room.round || 1,count:room.babaMoveCountThisRound,providerPid,pickerPid,forced,source:'shoot',expiresAt:Date.now()+5200};
+  room.babaMoveHistory=Array.isArray(room.babaMoveHistory)?room.babaMoveHistory:[];room.babaMoveHistory.push(event);room.babaMoveHistory=room.babaMoveHistory.slice(-24);room.babaMoveEvent=event;
+}
+
+function finishShootPresentation(room,choiceId){
+  if(!room || room.phase!=='playing' || room.pendingShootTransition?.id!==choiceId) return;
+  room.pendingShootTransition=null;
+  const flow=room.postTrickFlow;
+  if(!flow) return finishAfterPick(room,room.lead);
+  flow.index=1;
+  if(flow.steps[1]) beginPickStep(room,flow.steps[1]); else finishAfterPick(room,flow.winnerPid);
+}
+
+function resolveShootDecision(room,playerId,fire=false){
+  const choice=room?.pendingShootDecision;if(!choice || room.phase!=='playing') return false;
+  const shooter=room.players?.[choice.shooterPid];
+  if(!shooter || shooter.id!==playerId) return false;
+  const flow=room.postTrickFlow;
+  room.pendingShootDecision=null;
+  if(!fire){
+    matchStatsFor(shooter).shootDeclinedCount++;
+    log(room,`🌕 ${shooter.name} は発射せず、通常ピックを選びました。`);
+    beginPickStep(room,flow?.steps?.[0]);return true;
+  }
+  if(!playerIsShootLoaded(room,shooter) || room.shootFiredThisRound){
+    room.message='シュート発射条件を満たしていません。通常ピックへ進みます。';
+    beginPickStep(room,flow?.steps?.[0]);return false;
+  }
+  const target=room.players?.[choice.targetPid];
+  const babaIndex=shooter.hand.findIndex(c=>c?.joker);
+  const madCard=shooter.hand.find(c=>isMadPig(c));
+  if(!target || babaIndex<0 || !madCard){
+    room.message='装填カードを確認できなかったため通常ピックへ進みます。';
+    beginPickStep(room,flow?.steps?.[0]);return false;
+  }
+  const [babaCard]=shooter.hand.splice(babaIndex,1);target.hand.push(babaCard);sortHand(shooter.hand);sortHand(target.hand);
+  const shooterStats=matchStatsFor(shooter),targetStats=matchStatsFor(target),summary=matchCardSummary(room,babaCard);
+  shooterStats.transferredCards.push(summary);shooterStats.babaTransferred++;
+  targetStats.receivedCards.push(summary);targetStats.babaReceived++;targetStats.shootReceivedBabaCount++;
+  registerDirectBabaMove(room,choice.shooterPid,choice.targetPid,false);
+  const result=recordShootSuccess(room,choice.shooterPid,{source:'loadFire',targetPid:choice.targetPid,babaCard,madCard});
+  shooter.shootLoadedNow=false;
+  room.pendingShootTransition={id:choice.id,until:Date.now()+GAME_TIMING.shootFirePresentation};
+  room.message=`🌕 SHOOT SUCCESS！ ${shooter.name} から ${target.name} へババブタ直撃！`;
+  log(room,`💥 ${shooter.name} がババブタを ${target.name} へ発射。マッド・ピッグは発射者の手札に残ります。`);
+  const reactionPid=shooter.cpu?choice.shooterPid:room.players.findIndex((p,pid)=>p.cpu && pid!==choice.shooterPid);
+  if(reactionPid>=0) say(room,reactionPid,cpuShootActivatedLine(room,reactionPid,choice.shooterPid),{eventKey:'shoot',durationMs:6200});
+  assertUniqueActiveCards(room,'シュート発射直後');broadcast(room);
+  scheduleRoomTask(room,`shoot-finish-${choice.id}`,GAME_TIMING.shootFirePresentation,()=>finishShootPresentation(room,choice.id));
+  return !!result;
+}
+
 function advanceReviewToPick(room, reviewToken, winnerPid, weakestPid){
-  if(room.phase !== 'playing') return;
-
-  // 現在のレビューと違う古いタイマーなら無視。
-  if(!room.trickReview || room.trickReview.until !== reviewToken) return;
-
-  const wp = room.players[winnerPid];
-  const lp = room.players[weakestPid];
-  if(!wp || !lp){
-    log(room, '⚠️ ピック遷移対象のプレイヤーが見つからないため、進行を復旧しました。');
-    room.trickReview = null;
-    room.trick = [];
-    room.leadSuit = null;
-    room.current = room.lead ?? 0;
-    broadcast(room);
-    return;
+  if(room.phase!=='playing' || !room.trickReview || room.trickReview.until!==reviewToken) return;
+  if(!room.players[winnerPid] || !room.players[weakestPid]){
+    log(room,'⚠️ ピック遷移対象を確認できないため、トリックを安全に終了します。');
+    room.trickReview=null;finishAfterPick(room,winnerPid);return;
   }
-
-  clearReviewTimer(room);
-  room.trickReview = null;
-
-  if(winnerPid===weakestPid){
-    log(room, '⚠️ 勝者と最弱者が同一の異常状態を検知したため、ピックを行わず進行します。');
-    finishAfterPick(room,winnerPid);
-    return;
-  }
-
-  if(endCandidatePid(room) >= 0){
-    room.pendingPick = null;
-    room.spotlightEvent = null;
-    room.pendingSpotlightPlans = null;
-    checkRoundEnd(room);
-    broadcast(room);
-    return;
-  }
-
-  const roles=resolvedPickRoles(room,winnerPid,weakestPid);
-  const provider=room.players[roles.pickProviderPid];
-  const picker=room.players[roles.pickerPid];
-
-  if(provider?.hand.length > 0){
-    matchStatsFor(provider).pickProviderCount++;
-    matchStatsFor(picker).pickerCount++;
-    const targetCount = pickCandidateLimit(room, provider);
-    const mandatoryCandidateIds=forcedJokerCandidateIds(room,provider);
-    const narrowedCandidates=normalizePickTargetCount(room.pickTargetCount)>0 && targetCount<provider.hand.length;
-    // 必須ババだけで候補が確定する1枚設定では、意味のない人間入力を要求しない。
-    const targetSelectionRequired=narrowedCandidates && targetCount>mandatoryCandidateIds.length;
-    const autoCandidateIds=narrowedCandidates && !targetSelectionRequired
-      ? mergeMandatoryPickTargetIds(room,provider,[],targetCount)
-      : null;
-    const forcedJokerCandidate=forcedJokerRuleChangesCandidates(room,provider,targetCount);
-    const readyAt = Date.now() + (targetSelectionRequired ? 999999999 : GAME_TIMING.pickPrepare);
-    room.lastPickTargetRebroadcastAt = 0;
-    room.lastPairChoiceRebroadcastAt = 0;
-    room.pendingPick = {
-      trickWinnerPid:winnerPid,
-      trickWeakestPid:weakestPid,
-      pickProviderPid:roles.pickProviderPid,
-      pickerPid:roles.pickerPid,
-      // 旧クライアント互換。意味は従来どおりトリックの勝者・最弱者。
-      winnerPid,
-      weakestPid,
-      readyAt,
-      createdAt: Date.now(),
-      result:null,
-      token:`pick-${Date.now()}-${Math.random()}`,
-      targetCount,
-      mandatoryCandidateIds,
-      forcedJokerCandidate,
-      targetSelectionRequired,
-      targetSelectionDone: !targetSelectionRequired,
-      targetCandidateIds: targetSelectionRequired ? [] : autoCandidateIds,
-      pickOrderIds: targetSelectionRequired ? [] : shuffleIds(autoCandidateIds || provider.hand.map(c=>c.id))
-    };
-
-    if(forcedJokerCandidate){
-      matchStatsFor(provider).babaForcedCandidateCount++;
-      log(room, `🃏 強制候補ルール：${provider.name} のババブタをピック候補へ固定しました。`);
-    }
-
-    if(targetSelectionRequired){
-      room.message = `🐽 カードを取られる ${provider.name} が、候補を${targetCount}枚に絞ります。`;
-      log(room, `🎯 ピック候補選択：提供者 ${provider.name} が ${targetCount}枚を選び、${picker.name} が1枚引きます。`);
-      autoResolveCpuPickTargets(room, room.pendingPick);
-      broadcast(room);
-    } else {
-      room.message = forcedJokerCandidate && targetCount===1
-        ? `🃏 ルールによりババブタ1枚が自動で候補になりました。${picker.name} が受け取ります。`
-        : `🐽 ババ抜きピック！ ${picker.name} が ${provider.name} の袋から1枚選びます。`;
-      const line = cpuPickLine(room, room.pendingPick); if(line && picker.cpu) say(room, roles.pickerPid, line, {eventKey:'pick'});
-      ensureCpuPick(room);
-      broadcast(room);
-      // readyAtを過ぎた状態を全員に再送する。キー付き予約で重複タイマーを防ぐ。
-      const pickToken=room.pendingPick.token;
-      if(forcedJokerCandidate && targetCount===1){
-        scheduleRoomTask(room,`forced-baba-pick-${pickToken}`,GAME_TIMING.pickPrepare+80,()=>{
-          if(room.phase==='playing' && room.pendingPick?.token===pickToken && !room.pendingPick.result){
-            doPick(room,picker.id,0);
-          }
-        });
-      }
-      scheduleRoomTask(room, `pick-ready-${pickToken}-1`, GAME_TIMING.pickPrepare+50, ()=>{
-        if(room.phase==='playing' && room.pendingPick?.token===pickToken) broadcast(room);
-      });
-      scheduleRoomTask(room, `pick-ready-${pickToken}-2`, GAME_TIMING.pickPrepare+450, ()=>{
-        if(room.phase==='playing' && room.pendingPick?.token===pickToken) broadcast(room);
-      });
-    }
-  } else {
-    // ピックなしでラウンド終了へ向かう場合も、古い中央セリフを結果画面へ残さない。
-    room.spotlightEvent = null;
-    room.pendingSpotlightPlans = null;
-    finishAfterPick(room, winnerPid);
-  }
+  clearReviewTimer(room);room.trickReview=null;
+  if(winnerPid===weakestPid){finishAfterPick(room,winnerPid);return;}
+  room.postTrickFlow=buildPostTrickFlow(room,winnerPid,weakestPid);
+  offerShootDecisionOrBeginPick(room);
 }
 
 
@@ -2964,6 +3113,24 @@ function ensureRoomProgress(room){
   }
   if(room.phase !== 'playing') return;
   if(!room.players || room.players.length !== 4) return;
+
+  if(room.pendingShootTransition){
+    if(Date.now()>=Number(room.pendingShootTransition.until || 0)) finishShootPresentation(room,room.pendingShootTransition.id);
+    return;
+  }
+  if(room.pendingShootDecision){
+    const choice=room.pendingShootDecision;
+    const shooter=room.players[choice.shooterPid];
+    if(shooter?.cpu){
+      scheduleRoomTask(room,`cpu-shoot-${choice.id}`,GAME_TIMING.shootDecisionCpu,()=>{
+        if(room.pendingShootDecision?.id===choice.id) resolveShootDecision(room,shooter.id,cpuShouldFireShoot(room,choice.shooterPid));
+      });
+    }else if(Date.now()>=Number(choice.expiresAt || 0)){
+      log(room,`⚠️ ${shooter?.name || '発射者'} の選択待ちが長いため、通常ピックへ進みます。`);
+      resolveShootDecision(room,shooter?.id,false);
+    }
+    return;
+  }
 
   // 手札0枚は進行不能なので終了候補。
   // ババブタ1枚だけは「そのプレイヤーの手番開始時」にだけ終了候補。
@@ -3314,6 +3481,11 @@ function initializeMatch(room, {rematch=false}={}){
   room.trick=[];
   room.leadSuit=null;
   room.pendingPick=null;
+  room.postTrickFlow=null;
+  room.pendingShootDecision=null;
+  room.pendingShootTransition=null;
+  room.trickRankings=[];
+  room.trickNumber=1;
   room.trickReview=null;
   room.spotlightEvent=null;
   room.pendingSpotlightPlans=null;
@@ -3332,6 +3504,9 @@ function initializeMatch(room, {rematch=false}={}){
   room.shootPigRoundResults={};
   room.shootBlockedByUnmovedBabaResults={};
   room.shootPigEvent=null;
+  room.shootFireEvent=null;
+  room.shootFiredThisRound=false;
+  room.shootFiredByPid=null;
   room.madPigEvent=null;
   room.pairCleanEvent=null;
   room.cardPlayEvent=null;
@@ -3342,9 +3517,11 @@ function initializeMatch(room, {rematch=false}={}){
   room.babaMoveEvent=null;
   room.lastHumanTurnRebroadcastAt=0;
   room.lastNoPlayableRebroadcastAt=0;
+  room.completedRoundTotalScores=[0,0,0,0];
+  room.jokerPenaltyAppliedByRound={};
   for(const p of room.players){
     p.hand=[];p.scorePile=[];p.pairs=[];p.completedRoundCardScoreBank=0;p.jokerPenaltyBank=0;p.shootPigPenaltyBank=0;
-    p.shootPigActivatedRounds=[];p.out=false;p.final=null;p.matchStats=newMatchStats();p.playEvaluation=[];
+    p.shootPigActivatedRounds=[];p.shootLoadedNow=false;p.shootLoadEvent=null;p.out=false;p.final=null;p.matchStats=newMatchStats();p.playEvaluation=[];
   }
   dealInitial(room);
   log(room, `${rematch?'同じメンバーで再戦！':'収穫祭スタート！'}${roomOptionSummary(room)}。通常カードを1枚抜き、全員13枚で開始します。`);
@@ -3810,6 +3987,21 @@ function judgeWeakestCard(room, leadSuit, trickEntries=null){
   })[0] || null;
 }
 
+function rankTrickPlayers(room, leadSuit, trickEntries=null){
+  const valid=(Array.isArray(trickEntries)?trickEntries:room?.trick || []).filter(x=>validTrickEntry(room,x));
+  if(valid.length!==4 || !suits.includes(leadSuit)) return [];
+  // 既存勝者（リードスート最大）と既存最弱（非フォロー最小、同値は後出し）を
+  // 両端に保つ強さ順。非フォロー同士は値の大きい札・先出しを上位とする。
+  return valid.slice().sort((a,b)=>{
+    const aFollow=a.card.suit===leadSuit?1:0;
+    const bFollow=b.card.suit===leadSuit?1:0;
+    if(aFollow!==bFollow) return bFollow-aFollow;
+    const av=Number(a.card.val),bv=Number(b.card.val);
+    if(av!==bv) return bv-av;
+    return Number(a.order ?? 0)-Number(b.order ?? 0);
+  }).map((entry,index)=>({rank:index+1,pid:entry.pid,card:entry.card,order:entry.order}));
+}
+
 function resolveTrick(room){
   if(!room.trick || room.trick.length < 4){
     log(room, '⚠️ トリック解決に必要な4枚が揃っていないため、処理を中断しました。');
@@ -3842,10 +4034,9 @@ function resolveTrick(room){
   }
   room.leadSuit=leadSuit;
 
-  const winner=core
-    .filter(x=>x.card.suit===leadSuit)
-    .sort((a,b)=>Number(b.card.val)-Number(a.card.val))[0] || null;
-  const weakest=judgeWeakestCard(room, leadSuit, core);
+  const rankings=rankTrickPlayers(room,leadSuit,core);
+  const winner=rankings[0] || null;
+  const weakest=rankings[3] || null;
   if(!winner || !weakest || !room.players[winner.pid] || !room.players[weakest.pid]){
     cancelCorruptTrick(room, core, '勝者または最弱を確定できませんでした');
     broadcast(room);
@@ -3865,7 +4056,8 @@ function resolveTrick(room){
   // トリックの最終盤面を見せるため、ここではまだピック画面に遷移しない。
   const reviewUntil = Date.now() + GAME_TIMING.trickReview;
   room.current = null;
-  room.trickReview = {winnerPid:winner.pid, weakestPid:weakest.pid, until:reviewUntil};
+  room.trickRankings=rankings.map(item=>item.pid);
+  room.trickReview = {winnerPid:winner.pid, weakestPid:weakest.pid, rankings:room.trickRankings.slice(), until:reviewUntil};
   room.lastTrick = {
     winnerPid:winner.pid,
     weakestPid:weakest.pid,
@@ -3873,6 +4065,7 @@ function resolveTrick(room){
     weakestName:lp.name,
     winnerCard:cardText(winner.card),
     weakestCard:cardText(weakest.card),
+    rankings:room.trickRankings.slice(),
     feastCardCount:core.length,
     feastPointPerCard:normalizeFeastPointPerCard(room.feastPointPerCard),
     feastScore:core.length * normalizeFeastPointPerCard(room.feastPointPerCard),
@@ -4128,6 +4321,10 @@ function doPick(room, playerId, targetIndex){
   const summary=matchCardSummary(room,drawn);
   providerStats.transferredCards.push(summary);
   pickerStats.receivedCards.push(summary);
+  if(pp.pickStage==='secondary'){
+    providerStats.middlePickTransferredCards++;
+    pickerStats.middlePickReceivedCards++;
+  }
   if(drawn.joker){
     providerStats.babaTransferred++;pickerStats.babaReceived++;
     if(pp.forcedJokerCandidate){
@@ -4190,7 +4387,7 @@ function finishAfterPick(room, winnerPid){
   const fallbackPlans=Array.isArray(room.pendingSpotlightPlans) ? room.pendingSpotlightPlans.slice() : [];
   room.pendingSpotlightPlans=null;
   if(room.cpuPickFailSafeTimer){ clearTimeout(room.cpuPickFailSafeTimer); room.cpuPickFailSafeTimer=null; }
-  if(!room.pendingPick && !room.trick.length) return;
+  if(!room.pendingPick && !room.trick.length && !room.postTrickFlow) return;
   room.pendingPick=null;
   room.lastPickTargetRebroadcastAt=0;
   room.lastPairChoiceRebroadcastAt=0;
@@ -4198,11 +4395,23 @@ function finishAfterPick(room, winnerPid){
   // 古いペア／マッド演出を再生しないよう、公開状態から取り除く。
   room.pairCleanEvent=null;
   room.madPigEvent=null;
+  const flow=room.postTrickFlow;
+  if(flow && flow.index+1<flow.steps.length){
+    flow.index++;
+    room.message='2位→3位の追加ピックへ進みます。';
+    beginPickStep(room,flow.steps[flow.index]);
+    return;
+  }
+  room.postTrickFlow=null;
+  room.pendingShootDecision=null;
+  room.pendingShootTransition=null;
   if(checkRoundEnd(room)){ room.spotlightEvent=null; broadcast(room); return; }
   if(!room.spotlightEvent && fallbackPlans.length){
     triggerSpotlight(room,fallbackPlans,{source:'trick',durationMs:SPOTLIGHT_DISPLAY_MS});
   }
   room.trick=[];room.leadSuit=null;
+  room.trickRankings=[];
+  room.trickNumber=Number(room.trickNumber || 0)+1;
   if(!Number.isInteger(winnerPid) || winnerPid<0 || winnerPid>=room.players.length) winnerPid=room.lead ?? 0;
   room.lead=winnerPid;room.current=winnerPid;
   if(checkRoundEnd(room,winnerPid)){room.spotlightEvent=null;broadcast(room);return;}
@@ -4223,6 +4432,7 @@ function makeRoundSnapshot(room, reasonPid, reasonText){
   const shootPigResult = applyShootThePigForRound(room);
   const shootBlockedByUnmovedBaba=room.shootBlockedByUnmovedBabaResults?.[String(room.round || 1)] || null;
   const penaltyMode = normalizePenaltyMode(room.penaltyMode);
+  room.jokerPenaltyAppliedByRound=room.jokerPenaltyAppliedByRound || {};
   const rows = room.players.map((p,i)=>{
     const pileCardCount = p.scorePile.length;
     const pileScore = feastPileScore(room,p);
@@ -4237,8 +4447,10 @@ function makeRoundSnapshot(room, reasonPid, reasonText){
 
     const roundJokerPenalty = (jokerPenaltyTiming === 'perRound' && hasJoker && !shootThePig) ? jokerPenaltyValue : 0;
     const pendingFinalJokerPenalty = (jokerPenaltyTiming === 'gameEnd' && hasJoker && !shootThePig) ? jokerPenaltyValue : 0;
-    if(roundJokerPenalty){
+    const jokerPenaltyApplyKey=`${room.round || 1}:${i}`;
+    if(roundJokerPenalty && !room.jokerPenaltyAppliedByRound[jokerPenaltyApplyKey]){
       p.jokerPenaltyBank = (p.jokerPenaltyBank || 0) + roundJokerPenalty;
+      room.jokerPenaltyAppliedByRound[jokerPenaltyApplyKey]=roundJokerPenalty;
     }
     const jokerPenaltyTotal = jokerPenaltyTiming === 'perRound' ? (p.jokerPenaltyBank || 0) : 0;
     const jokerPenalty = jokerPenaltyTiming === 'perRound' ? roundJokerPenalty : 0;
@@ -4292,7 +4504,9 @@ function makeRoundSnapshot(room, reasonPid, reasonText){
     madPigEnabled: useMadPig,
     shootThePigEnabled: shootThePigEnabled(room),
     shootThePigLimit: shootThePigLimit(room),
-    shootRequiresBabaMoved:normalizeShootRequiresBabaMoved(room.shootRequiresBabaMoved),
+    enableMiddleRankPick:normalizeEnableMiddleRankPick(room.enableMiddleRankPick),
+    shootLoadFireMode:normalizeShootLoadFireMode(room.shootLoadFireMode),
+    shootRequiresBabaMoved:!normalizeShootLoadFireMode(room.shootLoadFireMode) && normalizeShootRequiresBabaMoved(room.shootRequiresBabaMoved),
     babaMovedThisRound:!!room.babaMovedThisRound,
     babaMoveCountThisRound:Number(room.babaMoveCountThisRound || 0),
     shootPigResult,
@@ -4308,6 +4522,7 @@ function makeRoundSnapshot(room, reasonPid, reasonText){
 }
 
 function recordRoundStats(room,snapshot){
+  if(!Array.isArray(room.completedRoundTotalScores)) room.completedRoundTotalScores=[0,0,0,0];
   for(const row of snapshot?.rows || []){
     const player=room.players?.[row.pid];
     if(!player) continue;
@@ -4317,6 +4532,7 @@ function recordRoundStats(room,snapshot){
     const roundRecord={round:Number(snapshot.round || room.round || 1),score:Number(row.total || 0),feastCards:Number(row.pileCardCount || 0),feastPoints:Number(row.pileScore || 0),handPenalty:Number(row.handPenalty || 0)};
     const existing=stats.roundScores.findIndex(item=>item.round===roundRecord.round);
     if(existing>=0) stats.roundScores[existing]=roundRecord; else stats.roundScores.push(roundRecord);
+    room.completedRoundTotalScores[row.pid]=Number(row.total || 0);
   }
 }
 
@@ -4354,6 +4570,11 @@ function beginNextRound(room){
   room.trick = [];
   room.leadSuit = null;
   room.pendingPick = null;
+  room.postTrickFlow=null;
+  room.pendingShootDecision=null;
+  room.pendingShootTransition=null;
+  room.trickRankings=[];
+  room.trickNumber=1;
   room.trickReview = null;
   room.spotlightEvent = null;
   room.pendingSpotlightPlans = null;
@@ -4362,6 +4583,9 @@ function beginNextRound(room){
   room.roundEndOutPid = null;
   room.roundEndDeferred = null;
   room.shootPigEvent = null;
+  room.shootFireEvent=null;
+  room.shootFiredThisRound=false;
+  room.shootFiredByPid=null;
   room.madPigEvent = null;
   room.pairCleanEvent = null;
   room.lead = outPid;
@@ -4372,6 +4596,10 @@ function beginNextRound(room){
   room.babaMovedThisRound=false;
   room.babaMoveCountThisRound=0;
   room.babaMoveEvent=null;
+  for(const player of room.players){
+    player.shootLoadedNow=false;
+    player.shootLoadEvent=null;
+  }
 
   let transitionText='';
   let detailText='';
@@ -4646,7 +4874,7 @@ wss.on('connection', (ws) => {
       if((msg.type==='create' || msg.type==='join' || msg.type==='reconnect') && roomByWs(ws)){
         return send(ws,'errorMsg',{message:'この画面はすでに部屋へ接続済みです。別の部屋へ移る場合は新しい画面で開いてください。'});
       }
-      if(msg.type==='create') return createRoom(ws, msg.name, msg.rounds, msg.madPigEnabled, msg.jokerPenalty, msg.initialPairDiscardEnabled, msg.passThreeEnabled, msg.penaltyMode, msg.pickTargetCount, msg.jokerPenaltyTiming, msg.shootThePigEnabled, msg.roundDealMode, msg.shootThePigLimit, msg.feastPointPerCard, msg.pickProviderRole, msg.participantRole, msg.forceJokerPickCandidate, msg.shootRequiresBabaMoved);
+      if(msg.type==='create') return createRoom(ws, msg.name, msg.rounds, msg.madPigEnabled, msg.jokerPenalty, msg.initialPairDiscardEnabled, msg.passThreeEnabled, msg.penaltyMode, msg.pickTargetCount, msg.jokerPenaltyTiming, msg.shootThePigEnabled, msg.roundDealMode, msg.shootThePigLimit, msg.feastPointPerCard, msg.pickProviderRole, msg.participantRole, msg.forceJokerPickCandidate, msg.shootRequiresBabaMoved, msg.enableMiddleRankPick, msg.shootLoadFireMode);
       if(msg.type==='join') return joinRoom(ws, msg.code, msg.name, msg.playerId, msg.resumeToken, msg.participantRole);
       if(msg.type==='reconnect') return reconnectRoom(ws, msg.code, msg.playerId, msg.name, msg.resumeToken);
       const room = roomByWs(ws);
@@ -4672,6 +4900,7 @@ wss.on('connection', (ws) => {
       if(msg.type==='pick') doPick(room, ws.playerId, Number(msg.index));
       if(msg.type==='pickTargets') submitPickTargets(room, ws.playerId, msg.cardIds);
       if(msg.type==='pairChoice') resolvePairChoice(room, ws.playerId, msg.cardId, !!msg.skip);
+      if(msg.type==='shootDecision') resolveShootDecision(room,ws.playerId,msg.fire===true);
       if(msg.type==='passThree') submitPassThree(room, ws.playerId, msg.cardIds);
       if(msg.type==='initialPairDiscard') discardInitialPair(room, ws.playerId, String(msg.cardAId||''), String(msg.cardBId||''));
       if(msg.type==='skipInitialPairs') skipInitialPairs(room, ws.playerId);

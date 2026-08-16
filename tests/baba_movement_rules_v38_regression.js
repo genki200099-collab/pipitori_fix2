@@ -282,7 +282,7 @@ assert.strictEqual(api.normalizeShootRequiresBabaMoved('true'),true);
   assert.match(html,/そのラウンド中のババ実移動が必要/);
   assert.match(html,/ババブタ＋マッドに加え、そのラウンド中のババ実移動が必要/);
   assert.match(html,/forceJokerPickCandidate:\$\('forceJokerPickCandidate'\)\.value==='true'/);
-  assert.match(html,/shootRequiresBabaMoved:\$\('shootRequiresBabaMoved'\)\.value==='true'/);
+  assert.match(html,/shootRequiresBabaMoved:\$\('shootLoadFireMode'\)\.value!=='true' && \$\('shootRequiresBabaMoved'\)\.value==='true'/);
   assert.strictEqual((html.match(/forceJokerPickCandidate:'false'/g)||[]).length,4);
   assert.strictEqual((html.match(/shootRequiresBabaMoved:'false'/g)||[]).length,4);
   assert.match(html,/mandatory-pick-badge/);

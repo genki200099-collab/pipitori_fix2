@@ -26,9 +26,10 @@ assert.match(html,/\.hand-view-toggle\{min-height:36px!important;min-width:60px!
 assert.match(server,/const progressWatchdogTimer=setInterval/,'watchdog handle missing');
 assert.match(server,/progressWatchdogTimer\.unref\?\.\(\)/,'watchdog should not pin process');
 assert.match(server,/room\.cleanupTimer\.unref\?\.\(\)/,'room cleanup timer should not pin process');
-assert.match(server,/room\.pickFinishTimer\.unref\?\.\(\)/,'pick finish timer should not pin process');
+assert.match(server,/scheduleRoomTask\(room,`pick-finish-\$\{scope\}`/,'pick finish timer must be scoped per pick lane');
+assert.match(server,/handle\.unref\?\.\(\)/,'scoped room timers should not pin process');
 assert.match(server,/room\.reviewTimer\.unref\?\.\(\)/,'review timer should not pin process');
-assert.match(server,/room\.cpuPickTimer\.unref\?\.\(\)/,'CPU pick timer should not pin process');
+assert.match(server,/scheduleRoomTask\(room,`cpu-pick-\$\{token\}`/,'CPU pick timer must be scoped per pick lane');
 assert.match(server,/room\.cpuTimer\.unref\?\.\(\)/,'CPU play timer should not pin process');
 assert.match(server,/ピック準備中です。あと\$\{remaining\}秒お待ちください。/,'early pick feedback missing');
 

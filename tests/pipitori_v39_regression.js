@@ -31,7 +31,7 @@ sandbox.globalThis=sandbox;
 vm.runInNewContext(`${source}\n;globalThis.__v39Api={
   rooms,createRoom,newMatchStats,matchStatsFor,publicState,gameSeatCount,canHostAddCpu,addCpu,removeCpu,
   normalizeEnableMiddleRankPick,normalizeShootLoadFireMode,rankTrickPlayers,buildPostTrickFlow,beginPickStep,
-  offerShootDecisionOrBeginPick,resolveShootDecision,finishShootPresentation,doPick,finishAfterPick,
+  offerShootDecisionOrBeginPick,startParallelPickGroup,finishPickLane,resolveShootDecision,finishShootPresentation,doPick,finishAfterPick,
   playerIsShootLoaded,refreshShootLoadStates,cpuShouldFireShoot,recordRoundStats,initializeMatch,beginNextRound,
   makeRoundSnapshot,clearAllProgressTimers
 };`,sandbox,{filename:'server.js'});
@@ -88,7 +88,7 @@ assert.strictEqual(api.normalizeShootLoadFireMode(true),true);
   assert.strictEqual(ranks[3].pid,3,'later equal off-suit card is weakest');
 }
 
-// OFF has one pick. ON completes primary then secondary before round-end/next-leader work.
+// OFF has one pick. v40 changes ON to two simultaneous lanes; both must finish before next-leader work.
 {
   const off=baseRoom();off.postTrickFlow=api.buildPostTrickFlow(off,0,3);
   assert.strictEqual(off.postTrickFlow.steps.length,1);
@@ -97,19 +97,22 @@ assert.strictEqual(api.normalizeShootLoadFireMode(true),true);
   r.postTrickFlow=api.buildPostTrickFlow(r,0,3);
   assert.deepStrictEqual([...r.postTrickFlow.rankings],[0,1,2,3]);
   assert.strictEqual(r.postTrickFlow.steps.length,2);
-  api.beginPickStep(r,r.postTrickFlow.steps[0]);
-  assert.strictEqual(r.pendingPick.pickStage,'primary');
-  assert.strictEqual(r.pendingPick.pickProviderPid,0);assert.strictEqual(r.pendingPick.pickerPid,3);
-  r.pendingPick.readyAt=0;api.doPick(r,'D',0);api.finishAfterPick(r,0);
-  assert.strictEqual(r.pendingPick.pickStage,'secondary');
-  assert.strictEqual(r.pendingPick.pickProviderPid,1);assert.strictEqual(r.pendingPick.pickerPid,2);
+  api.startParallelPickGroup(r,r.postTrickFlow);
+  assert.strictEqual(r.pendingPick,null);
+  assert.ok(r.parallelPickGroup);
+  const primary=r.parallelPickGroup.primary,secondary=r.parallelPickGroup.secondary;
+  assert.notStrictEqual(primary.pickId,secondary.pickId);
+  assert.strictEqual(primary.pickProviderPid,0);assert.strictEqual(primary.pickerPid,3);
+  assert.strictEqual(secondary.pickProviderPid,1);assert.strictEqual(secondary.pickerPid,2);
   assert.strictEqual(r.players[1].matchStats.middlePickProviderCount,1);
   assert.strictEqual(r.players[2].matchStats.middlePickerCount,1);
-  r.pendingPick.readyAt=0;api.doPick(r,'C',0);
+  primary.readyAt=0;api.doPick(r,'D',0,primary.pickId);api.finishPickLane(r,primary,0);
+  assert.ok(r.parallelPickGroup,'secondary remains active after primary completion');
+  secondary.readyAt=0;api.doPick(r,'C',0,secondary.pickId);
   assert.strictEqual(r.players[1].matchStats.middlePickTransferredCards,1);
   assert.strictEqual(r.players[2].matchStats.middlePickReceivedCards,1);
-  api.finishAfterPick(r,0);
-  assert.strictEqual(r.pendingPick,null);assert.strictEqual(r.postTrickFlow,null);
+  api.finishPickLane(r,secondary,0);
+  assert.strictEqual(r.pendingPick,null);assert.strictEqual(r.parallelPickGroup,null);assert.strictEqual(r.postTrickFlow,null);
   assert.strictEqual(r.lead,0);assert.strictEqual(r.current,0,'next leader remains trick winner');
 }
 
@@ -166,8 +169,9 @@ assert.strictEqual(api.normalizeShootLoadFireMode(true),true);
   assert.strictEqual(api.resolveShootDecision(r,'A',true),false,'same choice cannot fire twice');
   assert.strictEqual(r.shootFireEvent.id,eventId);assert.strictEqual(r.players[0].matchStats.shootFiredCount,1);
   api.finishShootPresentation(r,choiceId);
-  assert.strictEqual(r.pendingPick.pickStage,'secondary','shoot replaces only primary pick');
-  assert.strictEqual(r.pendingPick.pickProviderPid,1);assert.strictEqual(r.pendingPick.pickerPid,2);
+  assert.strictEqual(r.parallelPickGroup.primary.status,'completed','shoot completes only primary lane');
+  assert.strictEqual(r.parallelPickGroup.secondary.pickStage,'secondary','secondary has been active throughout the shoot');
+  assert.strictEqual(r.parallelPickGroup.secondary.pickProviderPid,1);assert.strictEqual(r.parallelPickGroup.secondary.pickerPid,2);
   r.shootThePigLimit='once';r.shootFiredThisRound=false;r.round=2;r.players[0].hand.push(joker('FIRE-J2'));
   assert.strictEqual(api.playerIsShootLoaded(r,r.players[0]),false,'per-player once limit persists across rounds');
 }

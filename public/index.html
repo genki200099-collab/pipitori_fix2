@@ -7198,6 +7198,14 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
 @media(prefers-reduced-motion:reduce){.shoot-load-ready,.shoot-fire-cutscene *{animation:none!important}.shoot-fire-cutscene{background:rgba(10,7,16,.94)}.shoot-projectile-card{left:50%;transform:translateX(-50%);top:48%}.shoot-speedline{display:none}.shoot-fire-cards{opacity:.35}.shoot-fire-shooter{top:60%}.shoot-impact-target{opacity:1}.shoot-fire-success{opacity:1}}
 @media(max-width:620px){.baba-move-option-group{grid-template-columns:1fr;padding:9px}.baba-move-option-head{grid-column:1}.baba-move-option-head{align-items:flex-start;flex-direction:column}.mandatory-pick-badge{font-size:.6rem;padding:2px 5px}}
 @media(max-height:430px) and (orientation:landscape){.pick-forced-note{margin:4px auto;padding:5px 8px;font-size:.76rem}}
+
+/* v40: 重要操作を明確にし、並行ピックを独立した2レーンとして表示する。 */
+.leave-room-button{min-height:44px;border-color:rgba(255,120,132,.35)!important;color:#ffd6da!important;background:rgba(105,24,40,.3)!important}.lobby-leave-button{margin-top:12px;color:#8b2635!important;background:#fff7f8!important;border-color:#e9b7bf!important}.room-leave-dialog{background:#171b25;color:#e9edf4}.room-leave-dialog::backdrop{background:rgba(7,10,16,.78);backdrop-filter:blur(4px)}.room-leave-dialog .room-clear-panel{border-color:rgba(255,116,132,.38)}.room-leave-dialog h3{color:#ffdce1}.room-leave-dialog p{line-height:1.65;color:#c8ced8}.leave-confirm{background:#bd334b!important;color:#fff!important}
+.parallel-pick-shell{display:grid;gap:10px;width:100%;padding:8px}.parallel-pick-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:2px 4px}.parallel-pick-heading h3{margin:0;color:#fff;font-size:clamp(1rem,3vw,1.35rem)}.parallel-pick-heading span{padding:5px 9px;border-radius:999px;background:#173f42;color:#aaf4df;font-size:.72rem;font-weight:900}.parallel-pick-grid{display:grid;grid-template-columns:1fr;gap:10px}.parallel-pick-lane{position:relative;min-width:0;padding:12px;border:1px solid rgba(255,255,255,.13);border-radius:18px;background:#151923;box-shadow:0 8px 22px rgba(0,0,0,.18)}.parallel-pick-lane.primary{border-top:3px solid #efb94f}.parallel-pick-lane.secondary{border-top:3px solid #63c9ba}.parallel-pick-lane.is-operable{box-shadow:0 0 0 2px rgba(108,229,194,.34),0 10px 28px rgba(0,0,0,.22)}.parallel-pick-lane.is-complete{opacity:.74}.parallel-lane-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px;margin-bottom:8px}.parallel-lane-head b{color:#fff}.parallel-lane-head small{display:block;margin-top:2px;color:#aab2c0}.parallel-lane-status{flex:0 0 auto;padding:5px 8px;border-radius:999px;background:#292f3c;color:#eaf0f5;font-size:.68rem;font-weight:900}.parallel-lane-people{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:6px;margin:8px 0}.parallel-person{min-width:0;text-align:center}.parallel-person .avatar{display:block;font-size:1.6rem}.parallel-person b{display:block;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#f5f6f8;font-size:.8rem}.parallel-person small{display:block;color:#9ca7b7;font-size:.62rem}.parallel-arrow{color:#ffd16b;font-weight:1000}.parallel-lane-body{min-height:86px;display:grid;align-content:center;gap:8px;text-align:center}.parallel-lane-body .pick-hand,.parallel-lane-body .pick-target-cards,.parallel-lane-body .pair-cards{margin:2px auto}.parallel-lane-body .pick-card,.parallel-lane-body .pair-card-btn,.parallel-lane-body .pick-target-card{min-width:44px;min-height:44px}.parallel-readonly{color:#bdc6d3;font-size:.8rem;line-height:1.45}.parallel-result{display:flex;align-items:center;justify-content:center;gap:10px;color:#fff;font-weight:800}.parallel-result .playing-card{transform:scale(.72);margin:-12px}.parallel-pick-lane .pick-status{margin:0;padding:7px;font-size:.78rem}.parallel-pick-lane .btn{min-height:44px}.parallel-pick-lane .pick-target-cards{max-height:164px;overflow:auto;overscroll-behavior:contain}.spectator-parallel-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px}.spectator-parallel-grid .spectator-flow{margin:0;min-width:0}.commentary-layer [data-comment-event-id],#spectatorCommentary[data-comment-event-id]{contain:layout paint}
+@media(min-width:760px),(orientation:landscape) and (min-width:568px){.parallel-pick-grid{grid-template-columns:1fr 1fr}.parallel-pick-shell{padding:10px}.parallel-pick-lane{padding:14px}}
+@media(max-width:540px){.game-hud-actions{gap:5px}.game-hud-actions .hud-button{min-width:44px;padding:7px 8px}.parallel-pick-shell{padding:4px;gap:6px}.parallel-pick-grid{gap:7px}.parallel-pick-lane{padding:9px;border-radius:14px}.parallel-lane-people{margin:4px 0}.parallel-lane-body{min-height:68px}.parallel-pick-lane .playing-card{--card-w:48px}.spectator-parallel-grid{grid-template-columns:1fr}.commentary-layer{pointer-events:none}}
+@media(max-height:430px) and (orientation:landscape){.parallel-pick-heading{display:none}.parallel-pick-lane{padding:7px}.parallel-lane-head{margin-bottom:2px}.parallel-lane-people{margin:2px 0}.parallel-lane-body{min-height:55px}.parallel-pick-lane .pick-target-cards{max-height:105px}}
+@media(prefers-reduced-motion:reduce){.parallel-pick-lane,.parallel-pick-lane *{transition:none!important;animation:none!important}}
 </style>
 </head>
 <body class="modern-game-ui">
@@ -7247,7 +7255,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
     <section class="featured-rules" aria-labelledby="featuredRulesTitle">
       <div class="featured-rules-head"><div><span class="menu-eyebrow">TESTING NOW</span><h3 id="featuredRulesTitle">🔥 テスト中の注目ルール</h3><p>通常ルールは変えず、ONにした項目だけ追加されます。</p></div><span class="recommended-pill">すべて標準OFF</span></div>
       <div class="featured-rule-grid">
-        <label class="featured-rule-card"><span class="featured-rule-copy"><b>① 2位と3位の間でもピック <button type="button" class="rule-help-btn" data-help-rule="enableMiddleRankPick" aria-label="中位ピックのヘルプ">?</button></b><small>1位→最弱に加え、2位→3位でもカードが動きます。</small></span><select id="enableMiddleRankPick" class="input" aria-label="2位と3位の間でもピック"><option value="false" selected>OFF</option><option value="true">ON</option></select></label>
+        <label class="featured-rule-card"><span class="featured-rule-copy"><b>① 2位と3位の間でもピック <button type="button" class="rule-help-btn" data-help-rule="enableMiddleRankPick" aria-label="中位ピックのヘルプ">?</button></b><small>1位↔4位と2位→3位を、2レーンで同時に進めます。</small></span><select id="enableMiddleRankPick" class="input" aria-label="2位と3位の間でもピック"><option value="false" selected>OFF</option><option value="true">ON</option></select></label>
         <label class="featured-rule-card"><span class="featured-rule-copy"><b>② シュート「装填 → 発射」 <button type="button" class="rule-help-btn" data-help-rule="shootLoadFireMode" aria-label="装填から発射のヘルプ">?</button></b><small>ババ＋マッドを揃えて装填。勝てば自分で必殺技を発射できます。</small><em>💥 専用の必殺技演出あり</em></span><select id="shootLoadFireMode" class="input" aria-label="シュート装填から発射"><option value="false" selected>OFF</option><option value="true">ON</option></select></label>
         <label class="featured-rule-card"><span class="featured-rule-copy"><b>③ ババブタを必ずピック候補</b><small>提供者がババを持つ場合、候補を絞る両ピックで必須になります。</small></span><select id="forceJokerPickCandidate" class="input" aria-label="ババブタを必ずピック候補"><option value="false" selected>OFF</option><option value="true">ON</option></select></label>
       </div>
@@ -7341,11 +7349,16 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
         <div id="startHint" class="start-hint">4人そろうとゲームを開始できます。</div>
       </div>
       <button type="button" id="clearRoom" class="btn secondary clear-room-button" hidden>部屋をクリアして作り直す</button>
+      <button type="button" id="leaveRoomLobby" class="btn secondary lobby-leave-button">部屋から離脱</button>
     </div>
     <dialog id="clearRoomDialog" class="room-clear-dialog" aria-labelledby="clearRoomDialogTitle">
       <div class="room-clear-panel"><h3 id="clearRoomDialogTitle">この部屋をクリアしますか？</h3><p>接続中の全員をロビーへ戻し、この部屋コードと復帰情報を無効にします。ゲーム開始後は実行できません。</p><div class="room-clear-actions"><button type="button" class="btn secondary" data-clear-room-cancel>戻る</button><button type="button" class="btn" data-clear-room-confirm>部屋をクリアする</button></div></div>
     </dialog>
   </section>
+
+  <dialog id="leaveRoomDialog" class="room-clear-dialog room-leave-dialog" aria-labelledby="leaveRoomDialogTitle">
+    <div class="room-clear-panel"><h3 id="leaveRoomDialogTitle">この部屋から離脱しますか？</h3><p>離脱すると、この部屋への自動再接続は行われません。ゲーム中のプレイヤー席はCPUが同じ手札・得点のまま引き継ぎます。</p><div class="room-clear-actions"><button type="button" class="btn secondary" data-leave-room-cancel>キャンセル</button><button type="button" class="btn leave-confirm" data-leave-room-confirm>離脱する</button></div></div>
+  </dialog>
 
   <main id="gameScreen" class="game-screen" hidden aria-hidden="true">
     <header class="game-hud">
@@ -7362,6 +7375,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
         <button type="button" id="spectatorPresenceButton" class="hud-button spectator-presence" data-game-panel="spectators" hidden aria-label="観戦者一覧を開く">👁 観戦 0人</button>
         <button type="button" class="hud-button" data-game-panel="log" aria-label="進行ログを開く">ログ</button>
         <button type="button" class="hud-button" data-game-panel="rules" aria-label="ルールを開く">ルール</button>
+        <button type="button" id="leaveRoomGame" class="hud-button leave-room-button" aria-label="部屋から離脱">離脱</button>
       </nav>
     </header>
 
@@ -7423,7 +7437,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
             <li>標準は勝者が自分の手札から候補を出し、最弱者が1枚引いて受け取る。従来方向も選択可。</li>
             <li>カードを取られる側が候補を2枚に絞る。絞らない/1〜13枚にも変更可。</li>
             <li>任意で「ババブタ必須候補」をONにできる。候補1枚ならババが自動確定。「絞らない」は元々全手札候補なので変化なし。</li>
-            <li>任意で「2位と3位の間でもピック」をONにすると、順位を一度確定した後、通常ピックに続いて2位→3位でも同じ候補・浄化ルールで1枚動く。</li>
+            <li>任意で「2位と3位の間でもピック」をONにすると、1位↔4位と2位→3位を別pickIdの2レーンで同時進行する。両方のピック／浄化が終わると次のトリックへ進む。</li>
             <li>提供者の候補選択画面はスート順→数字順。ピッカー側は公平なランダム順。</li>
             <li>受取人の手札で同じ数字ができたら、ペアで捨てるかスキップを選ぶ。ババブタはペア不可。次のリードは勝者。</li>
           </ul>
@@ -7756,6 +7770,7 @@ let socketOpenTimer=null;
 let heartbeatTimer=null;
 let reconnectAttempts=0;
 let intentionalClose=false;
+let intentionalLeave=false;
 let reconnectBlockedElsewhere=false;
 let resumeToken='';
 let lastServerActivityAt=0;
@@ -7765,6 +7780,7 @@ let socketGeneration=0;
 let reconnectInFlight=false;
 
 function saveReconnectInfo(code, playerId, name, token=resumeToken, phase=state?.phase, role=participantRole || state?.participantRole){
+  if(intentionalLeave) return;
   try{
     const previous=loadReconnectInfo() || {};
     const next={
@@ -7847,6 +7863,7 @@ function resetRoomClientState({hostCleared=false,wasHost=false}={}){
   if($('roomCode')) $('roomCode').textContent='----';
   if($('code')) $('code').value='';
   $('clearRoomDialog')?.close?.();
+  $('leaveRoomDialog')?.close?.();
   __lastHypeKey=''; __lastSceneEffectKey=''; __lastCommentaryRenderKey=''; __lastPlayersRenderKey=''; __lastRoundStatusKey=''; __lastRoundModalKey=''; __lastTableRenderKey=''; __lastHandRenderKey=''; __lastScoreRenderKey=''; __lastUiPhase='';
   __animationStateHydrated=false;__seenAnimationEventIds.clear();__animationOrigins.clear();document.querySelector('.card-flight-layer')?.remove();
   renderLobbyParticipants(null);
@@ -7965,7 +7982,7 @@ function reconnectPayload(data){
 
 function scheduleReconnect(immediate=false){
   const data=loadReconnectInfo();
-  if(!data || data.active===false || intentionalClose || reconnectBlockedElsewhere) return;
+  if(!data || data.active===false || intentionalClose || intentionalLeave || reconnectBlockedElsewhere) return;
   if(reconnectTimer) return;
   if(typeof navigator !== 'undefined' && navigator.onLine === false){
     setConnStatus('オフライン');
@@ -8760,8 +8777,39 @@ $('clearRoomDialog').querySelector('[data-clear-room-confirm]').addEventListener
     ev.currentTarget.removeAttribute('aria-busy');
   }
 });
+function openLeaveRoomDialog(){
+  if(!state?.code || !myId) return;
+  const dialog=$('leaveRoomDialog');
+  const confirmButton=dialog?.querySelector('[data-leave-room-confirm]');
+  if(confirmButton){confirmButton.disabled=false;confirmButton.removeAttribute('aria-busy');}
+  if(dialog?.showModal) dialog.showModal();
+}
+$('leaveRoomLobby').addEventListener('click',openLeaveRoomDialog);
+$('leaveRoomGame').addEventListener('click',openLeaveRoomDialog);
+$('leaveRoomDialog').addEventListener('cancel',ev=>{ev.preventDefault();$('leaveRoomDialog').close();});
+$('leaveRoomDialog').querySelector('[data-leave-room-cancel]').addEventListener('click',()=>$('leaveRoomDialog').close());
+$('leaveRoomDialog').querySelector('[data-leave-room-confirm]').addEventListener('click',ev=>{
+  if(!state?.code || !myId){$('leaveRoomDialog').close();return;}
+  if(!ws || ws.readyState!==WebSocket.OPEN){
+    $('leaveRoomDialog').close();
+    hypeToast('通信復旧後に、もう一度「離脱」を押してください。','danger');
+    scheduleReconnect(true);
+    return;
+  }
+  ev.currentTarget.disabled=true;ev.currentTarget.setAttribute('aria-busy','true');
+  // commandを送る前に再接続材料を破棄し、close競合が起きても自動復帰させない。
+  intentionalLeave=true;intentionalClose=true;stopReconnectLoop();clearReconnectInfo();
+  try{ws.send(JSON.stringify({type:'leaveRoom'}));}
+  catch(error){
+    intentionalLeave=false;intentionalClose=false;
+    ev.currentTarget.disabled=false;ev.currentTarget.removeAttribute('aria-busy');
+    hypeToast('離脱を送信できませんでした。接続を確認して再度お試しください。','danger');
+    scheduleReconnect(true);
+  }
+});
 $('create').onclick=()=>{ 
   syncShootThePigAvailability();
+  intentionalLeave=false;
   intentionalClose=false;
   reconnectBlockedElsewhere=false;
   pendingConnectIntent='create';
@@ -8771,6 +8819,7 @@ $('create').onclick=()=>{
 };
 $('join').onclick=()=>{
   setCreateButtonState('idle', '部屋コードで参加します。');
+  intentionalLeave=false;
   intentionalClose=false;
   reconnectBlockedElsewhere=false;
   const saved=loadReconnectInfo();
@@ -8830,6 +8879,7 @@ $('removeCpu').onclick=()=>send({type:'removeCpu'});
 function reconnectSavedRoom(manual=false){
   const data=loadReconnectInfo();
   if(!data) return;
+  intentionalLeave=false;
   intentionalClose=false;
   reconnectBlockedElsewhere=false;
   resumeToken=data.resumeToken || resumeToken || '';
@@ -8858,7 +8908,7 @@ document.addEventListener('click', ev=>{
   reconnectSavedRoom(true);
 });
 window.addEventListener('online', ()=>{
-  if(reconnectBlockedElsewhere) return;
+  if(reconnectBlockedElsewhere || intentionalLeave) return;
   intentionalClose=false;
   setConnStatus('復帰準備');
   scheduleReconnect(true);
@@ -8881,6 +8931,15 @@ document.addEventListener('visibilitychange', ()=>{
 // DOMのidやwindowプロパティとの名前衝突を避け、pointer/click両方に対応する。
 const __actionPointerTimes = Object.create(null);
 const __actionRecoveryTimers = new Map();
+function currentParallelPickLanes(){
+  const group=state?.parallelPickGroup;
+  return group?[group.primary,group.secondary].filter(Boolean):[];
+}
+function statePickById(pickId){
+  const id=String(pickId || '');
+  if(id) return currentParallelPickLanes().find(pp=>pp.pickId===id) || (state?.pendingPick?.pickId===id?state.pendingPick:null);
+  return state?.pendingPick || null;
+}
 function shouldHandleActionEvent(ev, key){
   if(!ev) return false;
   const now=Date.now();
@@ -8925,28 +8984,34 @@ function handlePickButtonEvent(ev){
   const btn = ev.target && ev.target.closest ? ev.target.closest('[data-pick-index]') : null;
   if(!btn || btn.disabled) return;
   if(state && (state.phase === 'initialPair' || state.phase === 'passing')) return;
-  if(!shouldHandleActionEvent(ev,'pick')) return;
+  const pickId=btn.dataset.pickId || btn.closest('[data-pick-id]')?.dataset.pickId || '';
+  const activePick=statePickById(pickId);
+  if(!activePick) return;
+  if(!shouldHandleActionEvent(ev,`pick:${pickId}`)) return;
   ev.preventDefault();
   btn.classList.add('is-picking');
-  setButtonsBusy('#table .pick-card',true);
+  const lane=btn.closest('[data-pick-id]') || $('table');
+  lane?.querySelectorAll('.pick-card').forEach(card=>{card.disabled=true;card.setAttribute('aria-busy','true');});
   effectVibrate(14);
-  const expectedPicker=state?.pendingPick?.pickerPid;
-  const expectedProvider=state?.pendingPick?.pickProviderPid;
-  const expectedReadyAt=state?.pendingPick?.readyAt;
+  const expectedPicker=activePick.pickerPid;
+  const expectedProvider=activePick.pickProviderPid;
+  const expectedReadyAt=activePick.readyAt;
   const restore=()=>{
-    document.querySelectorAll('#table .pick-card').forEach(cardBtn=>{
-      cardBtn.disabled=!isPickReady(state?.pendingPick);
+    lane?.querySelectorAll('.pick-card').forEach(cardBtn=>{
+      cardBtn.disabled=!isPickReady(statePickById(pickId));
       cardBtn.classList.remove('is-picking');
       cardBtn.removeAttribute('aria-busy');
     });
   };
-  if(!requestPick(btn.dataset.pickIndex)){
+  if(!requestPick(btn.dataset.pickIndex,pickId)){
     restore();
   } else {
-    scheduleActionRecovery('pick',()=>{
-      const pp=state?.pendingPick;
+    const recoverPick=()=>{
+      const pp=statePickById(pickId);
       return !!pp && !pp.result && !pp.pairChoice && pp.pickerPid===expectedPicker && pp.pickProviderPid===expectedProvider && pp.readyAt===expectedReadyAt;
-    },restore);
+    };
+    if(pickId) scheduleActionRecovery(`pick:${pickId}`,recoverPick,restore);
+    else scheduleActionRecovery('pick',recoverPick,restore);
   }
 }
 document.addEventListener('pointerup', handlePickButtonEvent);
@@ -8955,23 +9020,29 @@ document.addEventListener('click', handlePickButtonEvent);
 function handlePairChoiceEvent(ev){
   const btn = ev.target && ev.target.closest ? ev.target.closest('[data-pair-card-id],[data-pair-skip]') : null;
   if(!btn || btn.disabled) return;
-  if(!shouldHandleActionEvent(ev,'pair')) return;
+  const pickId=btn.dataset.pickId || btn.closest('[data-pick-id]')?.dataset.pickId || '';
+  const activePick=statePickById(pickId);
+  if(!activePick?.pairChoice) return;
+  if(!shouldHandleActionEvent(ev,`pair:${pickId}`)) return;
   ev.preventDefault();
   const skip=btn.dataset.pairSkip === '1';
   if(!skip){ btn.classList.add('is-cleansing'); effectVibrate([10,28,12]); }
-  setButtonsBusy('#table [data-pair-card-id],#table [data-pair-skip]',true);
-  const expectedDrawnId=state?.pendingPick?.pairChoice?.drawn?.id;
+  const lane=btn.closest('[data-pick-id]') || $('table');
+  lane?.querySelectorAll('[data-pair-card-id],[data-pair-skip]').forEach(choice=>{choice.disabled=true;choice.setAttribute('aria-busy','true');});
+  const expectedDrawnId=activePick.pairChoice?.drawn?.id;
   const restore=()=>{
-    document.querySelectorAll('#table [data-pair-card-id],#table [data-pair-skip]').forEach(choice=>{
+    lane?.querySelectorAll('[data-pair-card-id],[data-pair-skip]').forEach(choice=>{
       choice.disabled=false;
       choice.classList.remove('is-cleansing');
       choice.removeAttribute('aria-busy');
     });
   };
-  if(!requestPairChoice(skip ? null : btn.dataset.pairCardId, skip)){
+  if(!requestPairChoice(skip ? null : btn.dataset.pairCardId, skip,pickId)){
     restore();
   } else {
-    scheduleActionRecovery('pair',()=>state?.pendingPick?.pairChoice?.drawn?.id===expectedDrawnId,restore);
+    const recoverPair=()=>statePickById(pickId)?.pairChoice?.drawn?.id===expectedDrawnId;
+    if(pickId) scheduleActionRecovery(`pair:${pickId}`,recoverPair,restore);
+    else scheduleActionRecovery('pair',recoverPair,restore);
   }
 }
 document.addEventListener('pointerup', handlePairChoiceEvent);
@@ -8984,9 +9055,11 @@ document.addEventListener('click', handlePairChoiceEvent);
 function handlePickTargetEvent(ev){
   const btn = ev.target && ev.target.closest ? ev.target.closest('[data-pick-target-card-id],[data-pick-target-submit]') : null;
   if(!btn || btn.disabled) return;
-  const pp = state && state.pendingPick;
+  const pickId=btn.dataset.pickId || btn.closest('[data-pick-id]')?.dataset.pickId || '';
+  const pp = statePickById(pickId);
   if(!pp || !pp.targetSelectionRequired || pp.targetSelectionDone || state.yourIndex !== pp.pickProviderPid) return;
-  if(!shouldHandleActionEvent(ev,'pick-target')) return;
+  if(!pickId && !shouldHandleActionEvent(ev,'pick-target')) return;
+  if(pickId && !shouldHandleActionEvent(ev,`pick-target:${pickId}`)) return;
   ev.preventDefault();
 
   const need = Math.min(Number(pp.targetCount || 0), (me()?.hand || []).length);
@@ -8996,19 +9069,23 @@ function handlePickTargetEvent(ev){
       return;
     }
     const expectedPicker=pp.pickerPid, expectedProvider=pp.pickProviderPid;
-    setButtonsBusy('#table [data-pick-target-card-id],#table [data-pick-target-submit]',true);
-    const sent=requestPickTargets(pickTargetSelectedIds);
+    const lane=btn.closest('[data-pick-id]') || $('table');
+    lane?.querySelectorAll('[data-pick-target-card-id],[data-pick-target-submit]').forEach(control=>{control.disabled=true;control.setAttribute('aria-busy','true');});
+    const sent=requestPickTargets(pickTargetSelectedIds,pickId);
     if(sent===false){
-      setButtonsBusy('#table [data-pick-target-card-id]',false);
-      updatePickTargetSelectionUI();
+      lane?.querySelectorAll('[data-pick-target-card-id]').forEach(control=>{control.disabled=false;control.removeAttribute('aria-busy');});
+      updatePickTargetSelectionUI(pickId);
     } else {
-      scheduleActionRecovery('pick-target',()=>{
-        const current=state?.pendingPick;
+      const recoverTarget=()=>{
+        const current=statePickById(pickId);
         return !!current && current.targetSelectionRequired && !current.targetSelectionDone && current.pickerPid===expectedPicker && current.pickProviderPid===expectedProvider;
-      },()=>{
-        setButtonsBusy('#table [data-pick-target-card-id]',false);
-        updatePickTargetSelectionUI();
-      });
+      };
+      const restoreTarget=()=>{
+        lane?.querySelectorAll('[data-pick-target-card-id]').forEach(control=>{control.disabled=false;control.removeAttribute('aria-busy');});
+        updatePickTargetSelectionUI(pickId);
+      };
+      if(pickId) scheduleActionRecovery(`pick-target:${pickId}`,recoverTarget,restoreTarget);
+      else scheduleActionRecovery('pick-target',recoverTarget,restoreTarget);
     }
     return;
   }
@@ -9026,7 +9103,7 @@ function handlePickTargetEvent(ev){
     if(pickTargetSelectedIds.length >= need) return;
     pickTargetSelectedIds.push(id);
   }
-  updatePickTargetSelectionUI();
+  updatePickTargetSelectionUI(pickId);
 }
 
 document.addEventListener('pointerup', handlePickTargetEvent);
@@ -9256,11 +9333,20 @@ function connect(after, isReconnect=false){
     let msg;
     try{ msg=JSON.parse(e.data); }catch(err){ return; }
     if(msg.type==='pong') return;
+    if(msg.type==='leftRoom'){
+      const formerRole=participantRole;
+      resetRoomClientState();
+      intentionalLeave=true;intentionalClose=true;
+      setCreateButtonState('idle',formerRole==='spectator'?'観戦から離脱しました。部屋コードを入力すれば新しい参加者として入れます。':'部屋から離脱しました。自動再接続は行いません。');
+      hypeToast('🚪 部屋から離脱しました','info');
+      return;
+    }
     if(msg.type==='roomClosed'){
       handleRoomClosed(msg);
       return;
     }
     if(msg.type==='created'||msg.type==='joined'||msg.type==='reconnected'){
+      intentionalLeave=false;
       reconnectBlockedElsewhere=false;
       pendingConnectIntent='idle';
       myId=msg.playerId;
@@ -9302,6 +9388,16 @@ function connect(after, isReconnect=false){
       if(state.pendingPick && !state.pendingPick.clientReadyAt){
         const ms = Number(state.pendingPick.readyInMs ?? 0);
         state.pendingPick.clientReadyAt = Date.now() + Math.max(0, ms);
+      }
+      for(const pp of currentParallelPickLanes()){
+        if(!pp.clientReadyAt) pp.clientReadyAt=Date.now()+Math.max(0,Number(pp.readyInMs ?? 0));
+      }
+      for(const key of [...__actionRecoveryTimers.keys()]){
+        const parts=String(key).split(':');
+        const action=parts[0],pickId=parts.slice(1).join(':');
+        if(!pickId) continue;
+        const pp=statePickById(pickId);
+        if(!pp || ['completed','skipped'].includes(pp.status) || (action==='pair'&&!pp.pairChoice) || (action==='pick-target'&&(!pp.targetSelectionRequired || pp.targetSelectionDone))) cancelActionRecovery(key);
       }
       if(state.phase==='roundEnd' && typeof state.roundEndAutoContinueInMs==='number'){
         state.roundEndClientAutoContinueAt=Date.now()+Math.max(0,state.roundEndAutoContinueInMs);
@@ -9362,6 +9458,12 @@ function connect(after, isReconnect=false){
     playCommitPending=false;
     updatePlaySelectionUI();
     if($('create')?.classList.contains('is-creating')) setCreateButtonState('error', '接続が切れました。もう一度試してください。');
+    if(intentionalLeave){
+      reconnectInFlight=false;
+      setConnStatus('離脱済み');
+      hideConnectionRecovery();
+      return;
+    }
     if(event.code===4000){
       intentionalClose=true;
       reconnectBlockedElsewhere=true;
@@ -9405,7 +9507,7 @@ function playerIdentityHTML(i, cls=''){
 function playerAvatarHTML(i, cls=''){
   const p = state?.players?.[i];
   const klass = (`cpu-avatar-img ${cls || ''}`).trim();
-  if(p?.avatarImage){
+  if(p?.avatarImage && !p?.displayIdentityKey){
     return `<img src="${escAttr(p.avatarImage)}" alt="${escAttr(p.name || 'CPU')}" class="${escAttr(klass)}" data-player-avatar-fallback="${escAttr(p.avatar || face(i) || '🐷')}">`;
   }
   const emojiClass = (`cpu-avatar-emoji ${cls || ''}`).trim();
@@ -9413,34 +9515,39 @@ function playerAvatarHTML(i, cls=''){
 }
 
 function spectatorRoleClass(pid){
-  const pp=state?.pendingPick;
-  return [state?.current===pid?'current':'',state?.trickReview?.winnerPid===pid?'spectator-winner':'',state?.trickReview?.weakestPid===pid?'spectator-weakest':'',pp?.pickProviderPid===pid?'spectator-provider':'',pp?.pickerPid===pid?'spectator-picker':''].filter(Boolean).join(' ');
+  const lanes=state?.parallelPickGroup?currentParallelPickLanes():[state?.pendingPick].filter(Boolean);
+  return [state?.current===pid?'current':'',state?.trickReview?.winnerPid===pid?'spectator-winner':'',state?.trickReview?.weakestPid===pid?'spectator-weakest':'',lanes.some(pp=>pp.pickProviderPid===pid)?'spectator-provider':'',lanes.some(pp=>pp.pickerPid===pid)?'spectator-picker':''].filter(Boolean).join(' ');
 }
 
 function renderSpectatorView(){
   const view=$('spectatorView');
   if(!view || !state?.isSpectator || state.phase==='lobby' || state.phase==='finished') return;
   const trickByPid=new Map((state.trick || []).map(entry=>[entry.pid,entry]));
-  const pp=state.pendingPick;
-  const roleText=pp?`カード移動：${playerIdentityText(pp.pickProviderPid)} → ${playerIdentityText(pp.pickerPid)}`:state.trickReview?`👑 ${playerIdentityText(state.trickReview.winnerPid)} / 💀 ${playerIdentityText(state.trickReview.weakestPid)}`:`手番：${state.current!=null?playerIdentityText(state.current):'結果確認中'}`;
+  const pp=state.pendingPick,group=state.parallelPickGroup;
+  const roleText=group?'2つのピックが同時進行中':pp?`カード移動：${playerIdentityText(pp.pickProviderPid)} → ${playerIdentityText(pp.pickerPid)}`:state.trickReview?`👑 ${playerIdentityText(state.trickReview.winnerPid)} / 💀 ${playerIdentityText(state.trickReview.weakestPid)}`:`手番：${state.current!=null?playerIdentityText(state.current):'結果確認中'}`;
   if($('spectatorNow')) $('spectatorNow').textContent=`第${state.round || 1}ラウンド · ${roleText}`;
   const trick=$('spectatorTrick');
-  if(trick) trick.innerHTML=`<div class="spectator-trick-grid">${state.players.map((p,pid)=>{
+  const trickKey=JSON.stringify([(state.trick||[]).map(x=>[x.pid,x.card?.id,x.order]),state.current,state.leadSuit,roleText]);
+  if(trick && trick.dataset.renderKey!==trickKey){trick.dataset.renderKey=trickKey;trick.innerHTML=`<div class="spectator-trick-grid">${state.players.map((p,pid)=>{
     const entry=trickByPid.get(pid);
     return `<article class="spectator-trick-card ${spectatorRoleClass(pid)}" data-spectator-trick-pid="${pid}"><b title="${escAttr(`${p.avatar} ${p.name}`)}">${esc(`${p.avatar} ${p.name}`)}</b>${entry?cardHTML(entry.card):'<div class="playing-card back" aria-label="まだ出していません"></div>'}<span class="spectator-hand-meta">${entry?`プレイ順 ${Number(entry.order)+1}`:state.current===pid?'手番':'待機'}</span></article>`;
-  }).join('')}</div><div class="spectator-flow">リード：${state.leadSuit?esc(suitUi(state.leadSuit).name):'未確定'} ／ ${esc(roleText)}</div>`;
+  }).join('')}</div><div class="spectator-flow">リード：${state.leadSuit?esc(suitUi(state.leadSuit).name):'未確定'} ／ ${esc(roleText)}</div>`;}
   const pickFlow=$('spectatorPickFlow');
-  if(pickFlow) pickFlow.innerHTML=pp?`<div class="spectator-flow" data-pick-flow>🐽 <b>カードを取られる人</b> ${esc(playerIdentityText(pp.pickProviderPid))}　→　<b>カードを引く人</b> ${esc(playerIdentityText(pp.pickerPid))}${pp.result?`<br>結果：${esc(pp.result.text || '')}`:''}</div>`:'';
+  const visibleLanes=group?[group.primary,group.secondary].filter(Boolean):pp?[pp]:[];
+  const pickKey=JSON.stringify(visibleLanes.map(lane=>[lane.pickId,lane.status,lane.result?.eventId,lane.pairChoice?.drawn?.id,lane.targetSelectionDone]));
+  if(pickFlow && pickFlow.dataset.renderKey!==pickKey){pickFlow.dataset.renderKey=pickKey;pickFlow.innerHTML=visibleLanes.length?`<div class="${group?'spectator-parallel-grid':''}">${visibleLanes.map(lane=>`<div class="spectator-flow" data-pick-flow data-pick-id="${escAttr(lane.pickId)}">${lane.pickStage==='secondary'?'🥈 2位 → 🥉 3位':'🏆 1位 ↔ 4位'}<br><b>${esc(playerIdentityText(lane.pickProviderPid))}</b> → <b>${esc(playerIdentityText(lane.pickerPid))}</b><br><span>${esc(parallelLaneStatusLabel(lane))}</span>${lane.result?`<br>結果：${esc(lane.result.text || '')}`:''}</div>`).join('')}</div>`:'';}
   const hands=$('spectatorHands');
-  if(hands) hands.innerHTML=`<div class="spectator-hand-list">${state.players.map((p,pid)=>{
+  const handsKey=JSON.stringify(state.players.map((p,pid)=>[p.id,p.name,p.avatar,p.completedRoundTotalScore,p.scorePileCount,(p.hand||[]).map(c=>c.id),spectatorRoleClass(pid)]));
+  if(hands && hands.dataset.renderKey!==handsKey){hands.dataset.renderKey=handsKey;hands.innerHTML=`<div class="spectator-hand-list">${state.players.map((p,pid)=>{
     const hand=Array.isArray(p.hand)?p.hand:[];
-    const markers=[state.current===pid?'手番':'',state.trickReview?.winnerPid===pid?'勝者':'',state.trickReview?.weakestPid===pid?'最弱':'',pp?.pickProviderPid===pid?'提供者':'',pp?.pickerPid===pid?'ピッカー':''].filter(Boolean).join('・');
+    const markers=[state.current===pid?'手番':'',state.trickReview?.winnerPid===pid?'勝者':'',state.trickReview?.weakestPid===pid?'最弱':'',visibleLanes.some(lane=>lane.pickProviderPid===pid)?'提供者':'',visibleLanes.some(lane=>lane.pickerPid===pid)?'ピッカー':''].filter(Boolean).join('・');
     const total=Number(p.completedRoundTotalScore || 0);const totalLabel=`${total>=0?'+':''}${total}`;
     return `<article class="spectator-hand-row ${spectatorRoleClass(pid)}" data-spectator-hand-pid="${pid}"><div class="spectator-hand-head"><b title="${escAttr(`${p.avatar} ${p.name}`)}">${esc(`${p.avatar} ${p.name}`)}</b><span class="spectator-hand-meta">総合${totalLabel} · ${hand.length}枚 · 🍽️${p.scorePileCount}枚/+${p.scorePileScore}点${markers?` · ${esc(markers)}`:''}</span></div><div class="spectator-cards" aria-label="${escAttr(`${p.name}の手札${hand.length}枚、総合${totalLabel}点`)}">${hand.map(card=>`<div class="spectator-card" data-spectator-card-id="${escAttr(card.id)}">${cardHTML(card)}</div>`).join('') || '<span class="spectator-hand-meta">手札なし</span>'}</div></article>`;
-  }).join('')}</div>`;
+  }).join('')}</div>`;}
   const commentary=$('spectatorCommentary');
   const latest=(state.commentary || [])[0];
-  if(commentary) commentary.innerHTML=latest?`<div class="spectator-comment" aria-label="${escAttr(latest.text)}">${esc(latest.avatar || '💬')} <b>${esc(latest.name)}</b>「${esc(latest.text)}」</div>`:'<div class="spectator-comment">実況を待っています。</div>';
+  const commentEventId=latest?.id || (latest?`${latest.pid}:${latest.createdAt}:${latest.text}`:'empty');
+  if(commentary && commentary.dataset.commentEventId!==commentEventId){commentary.dataset.commentEventId=commentEventId;commentary.setAttribute('data-comment-event-id',commentEventId);commentary.innerHTML=latest?`<div class="spectator-comment" aria-label="${escAttr(latest.text)}">${esc(latest.avatar || '💬')} <b>${esc(latest.name)}</b>「${esc(latest.text)}」</div>`:'<div class="spectator-comment">実況を待っています。</div>';}
 }
 
 function rememberAnimationEvent(id){
@@ -9493,7 +9600,9 @@ function animateCardBetween(card,fromRect,toRect,className='card-flight',delay=0
 
 function processStateAnimations(){
   if(!state) return;
-  const eventIds=[state.cardPlayEvent?.eventId,state.trickCollectEvent?.eventId,state.pendingPick?.result?.eventId,state.pairCleanEvent?.id].filter(Boolean);
+  const parallelResults=currentParallelPickLanes().map(pp=>pp.result).filter(Boolean);
+  const pickResults=parallelResults.length?parallelResults:[state.pendingPick?.result].filter(Boolean);
+  const eventIds=[state.cardPlayEvent?.eventId,state.trickCollectEvent?.eventId,...pickResults.map(result=>result?.eventId),state.pairCleanEvent?.id].filter(Boolean);
   if(!__animationStateHydrated){eventIds.forEach(id=>__seenAnimationEventIds.add(id));__animationOrigins.clear();__animationStateHydrated=true;return;}
   const play=state.cardPlayEvent;
   if(play?.eventId && rememberAnimationEvent(play.eventId)){
@@ -9509,13 +9618,12 @@ function processStateAnimations(){
       animateCardBetween(card,source,target,'card-flight trick-collect-flight',240+index*35);
     });
   }
-  const result=state.pendingPick?.result;
-  if(result?.eventId && rememberAnimationEvent(result.eventId)){
+  pickResults.forEach((result,laneIndex)=>{if(result?.eventId && rememberAnimationEvent(result.eventId)){
     const provider=Number(result.pickProviderPid),picker=Number(result.pickerPid);
     const from=rectSnapshot(document.querySelector(`[data-player-pid="${provider}"] .pig`)) || rectSnapshot(document.querySelector(`[data-spectator-hand-pid="${provider}"] .spectator-hand-head`));
     const to=rectSnapshot(document.querySelector(`[data-player-pid="${picker}"] .pig`)) || rectSnapshot(document.querySelector(`[data-spectator-hand-pid="${picker}"] .spectator-hand-head`));
-    animateCardBetween(result.drawn,from,to,'card-flight pick-transfer-flight');
-  }
+    animateCardBetween(result.drawn,from,to,`card-flight pick-transfer-flight ${laneIndex===0?'primary-flight':'secondary-flight'}`,laneIndex*90);
+  }});
   const pair=state.pairCleanEvent;
   if(pair?.id && rememberAnimationEvent(pair.id)){
     const target=rectSnapshot(document.querySelector(`[data-player-pid="${Number(pair.playerPid)}"] .pig`)) || rectSnapshot(document.querySelector(`[data-spectator-hand-pid="${Number(pair.playerPid)}"] .spectator-hand-head`));
@@ -9814,16 +9922,30 @@ function render(){
 
   // ピック確認中はDOMを再生成せず、秒数とボタン状態だけ更新する。
   // これによりピック画面のちらつき・カクつきを防ぐ。
-  if(state.pendingPick && !state.pendingPick.result && !(state.pendingPick.targetSelectionRequired && !state.pendingPick.targetSelectionDone) && !window.__pickReadyTimer){
+  if(state.parallelPickGroup && window.__pickReadyTimer && window.__pickReadyTimerMode!=='parallel'){
+    clearInterval(window.__pickReadyTimer);window.__pickReadyTimer=null;
+  }
+  if(!state.parallelPickGroup && window.__pickReadyTimer && window.__pickReadyTimerMode==='parallel'){
+    clearInterval(window.__pickReadyTimer);window.__pickReadyTimer=null;
+  }
+  if(state.parallelPickGroup && !window.__pickReadyTimer){
+    window.__pickReadyTimerMode='parallel';
+    window.__pickReadyTimer=setInterval(()=>{
+      if(!state?.parallelPickGroup){clearInterval(window.__pickReadyTimer);window.__pickReadyTimer=null;window.__pickReadyTimerMode='';return;}
+      updateParallelPickScreenStatus();
+      if(currentParallelPickLanes().every(pp=>isPickReady(pp) || pp.result || pp.pairChoice || ['completed','skipped','shootDecision','presenting'].includes(pp.status))){clearInterval(window.__pickReadyTimer);window.__pickReadyTimer=null;window.__pickReadyTimerMode='';}
+    },250);
+  }else if(!state.parallelPickGroup && state.pendingPick && !state.pendingPick.result && !(state.pendingPick.targetSelectionRequired && !state.pendingPick.targetSelectionDone) && !window.__pickReadyTimer){
+    window.__pickReadyTimerMode='single';
     window.__pickReadyTimer = setInterval(()=>{
       if(!state || !state.pendingPick || state.pendingPick.result){
-        clearInterval(window.__pickReadyTimer); window.__pickReadyTimer=null;
+        clearInterval(window.__pickReadyTimer); window.__pickReadyTimer=null;window.__pickReadyTimerMode='';
         return;
       }
       updatePickScreenStatus(state.pendingPick);
       if(isPickReady(state.pendingPick)){
         updatePickScreenStatus(state.pendingPick);
-        clearInterval(window.__pickReadyTimer); window.__pickReadyTimer=null;
+        clearInterval(window.__pickReadyTimer); window.__pickReadyTimer=null;window.__pickReadyTimerMode='';
       }
     }, 250);
   }
@@ -10357,7 +10479,7 @@ function renderRoundModal(){
       ${sum.shootBlockedByUnmovedBaba ? `<div class="shoot-blocked-note" role="status"><b>🌕 シュート条件未成立</b>${esc(sum.shootBlockedByUnmovedBaba.name)} はババブタ＋マッド・ピッグを手札に持っていましたが、ババブタがこのラウンド中に一度も移動していません。</div>` : ''}
       <div class="round-reason">${esc(sum.reasonText)}</div>
       <div class="round-grid">${rows}</div>
-      <p class="small round-auto-note" style="text-align:center;margin-top:8px">${spectatorReadOnly?'観戦者は結果確認のみです。プレイヤーの操作または自動進行を待ちます。':'誰かがOKを押すと全員が次へ進みます。操作がなくても45秒後に自動で進行します。'}</p>
+      <p class="small round-auto-note" style="text-align:center;margin-top:8px">${state.cpuOnlyAutoAdvance?'CPUのみの卓です。観戦者の入力を待たず、約3秒で自動進行します。':spectatorReadOnly?'観戦者は結果確認のみです。プレイヤーの操作または自動進行を待ちます。':'誰かがOKを押すと全員が次へ進みます。操作がなくても45秒後に自動で進行します。'}</p>
       ${spectatorReadOnly?'':`<div class="round-actions"><button type="button" class="btn" data-continue-round>OK：次のラウンドへ進む</button></div>`}
     </div>
   </div>`;
@@ -10385,23 +10507,24 @@ function renderCommentary(){
   __commentaryExpiryTimer=0;
   const now=Date.now();
   const list=(state.commentary||[]).filter(c=>!c.expiresAt || Number(c.expiresAt)>now).slice(0,2);
-  const key = list.map(c=>`${c.pid}:${c.text}:${c.compactText||''}:${c.mood||''}:${c.intensity||''}:${c.eventKey||''}:${c.expiresAt||''}`).join('|');
+  const key = list.map(c=>`${c.id || `${c.pid}:${c.createdAt}:${c.text}`}:${c.expiresAt||''}`).join('|');
   if(key === __lastCommentaryRenderKey){
     const nextExpiry=list.map(c=>Number(c.expiresAt||0)).filter(t=>t>now).sort((a,b)=>a-b)[0];
     if(nextExpiry) __commentaryExpiryTimer=window.setTimeout(()=>{__lastCommentaryRenderKey='__force_expiry__';renderCommentary();},Math.max(30,nextExpiry-Date.now()+20));
     return;
   }
   __lastCommentaryRenderKey = key;
-  if(!list.length){ el.className='commentary-layer'; el.innerHTML=''; return; }
+  if(!list.length){ el.className='commentary-layer';el.removeAttribute('data-comment-event-id'); el.innerHTML=''; return; }
   const latest = list[0];
+  el.setAttribute('data-comment-event-id',latest.id || `${latest.pid}:${latest.createdAt}`);
   const latestMood = safeCssToken(latest.mood,'calm');
   const latestIntensity = safeCssToken(latest.intensity,'medium');
   const latestPosition = relativeSeatPosition(latest.pid);
   el.className = `commentary-layer mood-${latestMood} intensity-${latestIntensity} from-${latestPosition}`;
-  const avatar = (c)=> c.avatarImage
+  const avatar = (c)=> c.avatarImage && !c.displayIdentityKey
     ? `<img src="${escAttr(c.avatarImage)}" alt="${escAttr(c.name)}" data-comment-avatar-fallback="${escAttr(c.avatar || face(c.pid))}" class="commentary-avatar">`
     : `<span class="commentary-avatar emoji">${esc(c.avatar || face(c.pid))}</span>`;
-  el.innerHTML = `<div class="table-commentary speech-mode"><div class="table-commentary-title">🎙️ 卓上実況</div><div class="table-commentary-list">${list.map((c,idx)=>{const mood=safeCssToken(c.mood,'calm');const intensity=safeCssToken(c.intensity,'medium');const eventKey=safeCssToken(c.eventKey,'default');const position=relativeSeatPosition(c.pid);return `<div class="speech-bubble ${safeCssToken(c.cpuKey,'cpu')} mood-${mood} intensity-${intensity} event-${eventKey} from-${position} ${idx===0?'latest':''}"><span class="speech-cue" aria-hidden="true">${esc(c.icon || '💬')}</span><div class="speech-face">${avatar(c)}</div><div class="speech-body"><div class="speech-meta"><b title="${escAttr(c.name)}">${esc(c.name)}</b><span class="speech-tag">${esc(c.label || 'COMMENT')}</span></div><p title="${escAttr(c.text)}" aria-label="${escAttr(c.text)}"><span class="commentary-full-text">${esc(c.text)}</span><span class="commentary-compact-text">${esc(c.compactText || c.text)}</span></p></div></div>`;}).join('')}</div></div>`;
+  el.innerHTML = `<div class="table-commentary speech-mode"><div class="table-commentary-title">🎙️ 卓上実況</div><div class="table-commentary-list">${list.map((c,idx)=>{const mood=safeCssToken(c.mood,'calm');const intensity=safeCssToken(c.intensity,'medium');const eventKey=safeCssToken(c.eventKey,'default');const position=relativeSeatPosition(c.pid);return `<div class="speech-bubble ${safeCssToken(c.cpuKey,'cpu')} mood-${mood} intensity-${intensity} event-${eventKey} from-${position} ${idx===0?'latest':''}" data-comment-event-id="${escAttr(c.id || `${c.pid}:${c.createdAt}`)}"><span class="speech-cue" aria-hidden="true">${esc(c.icon || '💬')}</span><div class="speech-face">${avatar(c)}</div><div class="speech-body"><div class="speech-meta"><b title="${escAttr(c.name)}">${esc(c.name)}</b><span class="speech-tag">${esc(c.label || 'COMMENT')}</span></div><p title="${escAttr(c.text)}" aria-label="${escAttr(c.text)}"><span class="commentary-full-text">${esc(c.text)}</span><span class="commentary-compact-text">${esc(c.compactText || c.text)}</span></p></div></div>`;}).join('')}</div></div>`;
   el.querySelectorAll('img[data-comment-avatar-fallback]').forEach(img=>{img.addEventListener('error',()=>{const fallback=document.createElement('span');fallback.className='commentary-avatar emoji';fallback.textContent=img.dataset.commentAvatarFallback || '🐷';img.replaceWith(fallback);},{once:true});});
   const nextExpiry=list.map(c=>Number(c.expiresAt||0)).filter(t=>t>now).sort((a,b)=>a-b)[0];
   if(nextExpiry) __commentaryExpiryTimer=window.setTimeout(()=>{__lastCommentaryRenderKey='__force_expiry__';renderCommentary();},Math.max(30,nextExpiry-Date.now()+20));
@@ -10518,15 +10641,17 @@ function updateInitialPairSelectionUI(){
   renderRoundStatus();
 }
 
-function updatePickTargetSelectionUI(){
-  const pp = state?.pendingPick;
+function updatePickTargetSelectionUI(pickId=''){
+  const pp = statePickById(pickId);
+  if(!pp) return;
+  const root=pickId?document.querySelector(`[data-pick-id="${window.CSS?.escape?CSS.escape(pickId):pickId}"]`):$('table');
   const hand = me()?.hand || [];
   const need = Math.min(Number(pp?.targetCount || 0), hand.length);
   const mandatoryIds=Array.isArray(pp?.mandatoryCandidateIds)?pp.mandatoryCandidateIds.filter(id=>hand.some(c=>c.id===id)):[];
   pickTargetSelectedIds = [...new Set([...mandatoryIds,...pickTargetSelectedIds.filter(id=>hand.some(c=>c.id===id))])];
   const count = pickTargetSelectedIds.length;
 
-  document.querySelectorAll('[data-pick-target-card-id]').forEach(btn=>{
+  root?.querySelectorAll('[data-pick-target-card-id]').forEach(btn=>{
     const id = btn.dataset.pickTargetCardId;
     const selected=pickTargetSelectedIds.includes(id);
     const mandatory=mandatoryIds.includes(id);
@@ -10540,10 +10665,10 @@ function updatePickTargetSelectionUI(){
     if(label) label.textContent = mandatory ? '必須候補' : selected ? '候補' : '選ぶ';
   });
 
-  const countEl = document.getElementById('pickTargetCountText');
+  const countEl = root?.querySelector('[data-pick-target-count],#pickTargetCountText');
   if(countEl) countEl.textContent = `${count}/${need}`;
 
-  const submit = document.querySelector('[data-pick-target-submit]');
+  const submit = root?.querySelector('[data-pick-target-submit]');
   if(submit) submit.disabled = count !== need;
   renderRoundStatus();
 }
@@ -10575,11 +10700,90 @@ function updatePickScreenStatus(pp){
   }
 }
 
+function updateParallelPickScreenStatus(){
+  for(const pp of currentParallelPickLanes()){
+    const root=document.querySelector(`[data-pick-id="${window.CSS?.escape?CSS.escape(pp.pickId):pp.pickId}"]`);
+    if(!root || pp.result || ['completed','skipped'].includes(pp.status)) continue;
+    const status=root.querySelector('[data-pick-status]');
+    const ready=isPickReady(pp),waitSec=pickRemainingSeconds(pp);
+    if(status && !pp.pairChoice && !(pp.targetSelectionRequired && !pp.targetSelectionDone)){
+      status.textContent=state.yourIndex===pp.pickerPid?(ready?'1枚選んでピック！':`確認中…あと${waitSec}秒`):(ready?`${state.players[pp.pickerPid]?.name || 'ピッカー'} が選択中…`:`同時進行 · あと${waitSec}秒`);
+    }
+    root.querySelectorAll('.pick-card').forEach(btn=>{btn.disabled=!ready;});
+  }
+}
+
+function parallelLaneStatusLabel(pp){
+  if(!pp) return '準備中';
+  if(pp.status==='skipped') return 'スキップ';
+  if(pp.status==='completed') return '完了 ✓';
+  if(pp.status==='shootDecision') return '発射選択';
+  if(pp.status==='presenting') return 'シュート演出';
+  if(pp.result) return '結果表示';
+  if(pp.pairChoice) return 'ペア浄化';
+  if(pp.targetSelectionRequired && !pp.targetSelectionDone) return '候補選択中';
+  return isPickReady(pp)?'ピック中':'同時準備中';
+}
+
+function renderParallelPickLane(pp,laneName){
+  if(!pp) return '';
+  const primary=laneName==='primary';
+  const provider=state.players[pp.pickProviderPid] || {};
+  const picker=state.players[pp.pickerPid] || {};
+  const operable=!state.isSpectator && pp.canOperate && !['completed','skipped'].includes(pp.status);
+  const terminal=['completed','skipped'].includes(pp.status);
+  let body='';
+  if(pp.status==='skipped'){
+    body='<div class="parallel-readonly">提供できるカードがないため、このレーンはスキップされました。</div>';
+  }else if(pp.status==='shootDecision'){
+    body=`<div class="parallel-readonly">🌕 ${esc(state.players[pp.trickWinnerPid]?.name || '勝者')} が通常ピックか発射を選択中。secondaryは停止せず進みます。</div>`;
+  }else if(pp.result){
+    body=`<div class="parallel-result"><span>${esc(pp.result.text || '完了')}</span>${pp.result.drawn?cardHTML(pp.result.drawn,true):''}</div>`;
+  }else if(pp.pairChoice){
+    const pc=pp.pairChoice;
+    if(state.yourIndex===pp.pickerPid && Array.isArray(pc.candidates) && !state.isSpectator){
+      body=`<div class="pick-status" data-pick-status>同じ数字を浄化するかスキップ</div><div class="pair-cards">${pc.candidates.map(c=>`<button type="button" class="pair-card-btn" data-pick-id="${escAttr(pp.pickId)}" data-pair-card-id="${escAttr(c.id)}">${cardHTML(c,true)}<span class="small">浄化</span></button>`).join('')}</div><button type="button" class="btn secondary" data-pick-id="${escAttr(pp.pickId)}" data-pair-skip="1">スキップ</button>`;
+    }else body=`<div class="parallel-readonly">${esc(picker.name || 'ピッカー')} がペア浄化を選択中…</div>`;
+  }else if(pp.targetSelectionRequired && !pp.targetSelectionDone){
+    if(state.yourIndex===pp.pickProviderPid && !state.isSpectator){
+      const hand=me()?.hand || [];
+      const mandatory=(pp.mandatoryCandidateIds || []).filter(id=>hand.some(c=>c.id===id));
+      pickTargetSelectedIds=[...new Set([...mandatory,...pickTargetSelectedIds.filter(id=>hand.some(c=>c.id===id))])];
+      const need=Math.min(Number(pp.targetCount || 0),hand.length);
+      body=`<div class="pick-status" data-pick-status>候補を選択 <b data-pick-target-count>${pickTargetSelectedIds.length}/${need}</b></div>${mandatory.length?'<div class="pick-forced-note">🃏 ババブタは必須候補</div>':''}<div class="pick-target-cards">${hand.map(c=>{const selected=pickTargetSelectedIds.includes(c.id),required=mandatory.includes(c.id);return `<button type="button" class="pick-target-card ${selected?'selected':''} ${required?'mandatory-pick-card':''}" data-pick-id="${escAttr(pp.pickId)}" data-pick-target-card-id="${escAttr(c.id)}" aria-pressed="${selected?'true':'false'}" ${required?'disabled':''}>${required?'<span class="mandatory-pick-badge">必須</span>':''}${cardHTML(c,true)}<span class="small">${required?'必須':selected?'候補':'選ぶ'}</span></button>`;}).join('')}</div><button type="button" class="btn" data-pick-id="${escAttr(pp.pickId)}" data-pick-target-submit="1" ${pickTargetSelectedIds.length===need?'':'disabled'}>候補を確定</button>`;
+    }else body=`<div class="parallel-readonly">${esc(provider.name || '提供者')} が候補を${Number(pp.targetCount || 0)}枚に絞っています…</div>`;
+  }else if(pp.forcedJokerCandidate && Number(pp.targetCandidateCount || 0)===1){
+    body='<div class="parallel-readonly">🃏 必須候補1枚を自動処理中…</div>';
+  }else if(state.yourIndex===pp.pickerPid && !state.isSpectator){
+    const count=Number(pp.targetCandidateCount || provider.handCount || 0),ready=isPickReady(pp);
+    body=`<div class="pick-status" data-pick-status>${ready?'1枚選んでピック！':`同時準備中…あと${pickRemainingSeconds(pp)}秒`}</div><div class="pick-hand">${Array.from({length:count},(_,i)=>`<button type="button" class="pick-card" data-pick-id="${escAttr(pp.pickId)}" data-pick-index="${i}" ${ready?'':'disabled'} aria-label="${primary?'primary':'secondary'}候補${i+1}"><div class="playing-card back"></div></button>`).join('')}</div>`;
+  }else{
+    body=`<div class="parallel-readonly" data-pick-status>${esc(picker.name || 'ピッカー')} が${isPickReady(pp)?'ピック中':'準備中'}…</div><div class="pick-hand">${Array.from({length:Number(pp.targetCandidateCount || provider.handCount || 0)},()=>'<div class="playing-card back"></div>').join('')}</div>`;
+  }
+  return `<section class="parallel-pick-lane ${laneName} ${operable?'is-operable':''} ${terminal?'is-complete':''}" data-pick-id="${escAttr(pp.pickId)}" aria-label="${primary?'1位と4位':'2位と3位'}のピック"><header class="parallel-lane-head"><div><b>${primary?'🏆 1位 ↔ 4位 PICK':'🥈 2位 → 🥉 3位 PICK'}</b><small>${operable?'あなたが操作するレーン':'リアルタイム進行'}</small></div><span class="parallel-lane-status">${esc(parallelLaneStatusLabel(pp))}</span></header><div class="parallel-lane-people"><div class="parallel-person"><span class="avatar">${playerAvatarHTML(pp.pickProviderPid)}</span><b>${esc(provider.name || '')}</b><small>提供者</small></div><span class="parallel-arrow">→</span><div class="parallel-person"><span class="avatar">${playerAvatarHTML(pp.pickerPid)}</span><b>${esc(picker.name || '')}</b><small>受取人</small></div></div><div class="parallel-lane-body">${body}</div></section>`;
+}
+
+function renderParallelPickTable(group){
+  const structuralKey=JSON.stringify([group.groupId,...[group.primary,group.secondary].map(pp=>pp&&[pp.pickId,pp.status,pp.targetSelectionDone,pp.result?.eventId,pp.pairChoice?.drawn?.id,pp.canOperate])]);
+  if($('table').dataset.renderKey===structuralKey){updateParallelPickScreenStatus();return;}
+  $('table').classList.add('pick-mode','parallel-pick-mode');$('table').classList.remove('playing-now');
+  $('table').dataset.renderKey=structuralKey;
+  $('table').innerHTML=`<div class="parallel-pick-shell"><header class="parallel-pick-heading"><h3>🐽 PARALLEL PICK</h3><span>2レーン同時進行</span></header><div class="parallel-pick-grid">${renderParallelPickLane(group.primary,'primary')}${renderParallelPickLane(group.secondary,'secondary')}</div></div>`;
+  updateParallelPickScreenStatus();
+}
+
 
 
 function renderTable(){
+  const parallel=state.parallelPickGroup;
   const pp = state.pendingPick;
-  $('gameScreen')?.classList.toggle('is-pick-mode', !!pp);
+  $('gameScreen')?.classList.toggle('is-pick-mode', !!(parallel || pp));
+  if(parallel){
+    __lastTrickMotionIds=[];__lastTableRenderKey='__parallel_pick__';
+    renderParallelPickTable(parallel);
+    return;
+  }
+  $('table').classList.remove('parallel-pick-mode');
   if(pp){
     __lastTrickMotionIds=[];
     __lastTableRenderKey='__pick__';
@@ -10905,34 +11109,34 @@ function requestPlay(id){
   }
 }
 window.play = requestPlay;
-function requestPick(i){
+function requestPick(i,pickId=''){
   if(!ws || ws.readyState!==1){
     $('message').textContent = '通信を再接続しています。復帰後にもう一度操作してください。';
     scheduleReconnect(true);
     return false;
   }
-  return send({type:'pick', index:Number(i)});
+  return send({type:'pick', index:Number(i),pickId:pickId || state?.pendingPick?.pickId || null});
 }
 window.pick = requestPick;
 
-function requestPickTargets(cardIds){
+function requestPickTargets(cardIds,pickId=''){
   if(!ws || ws.readyState!==1){
     $('message').textContent = '通信を再接続しています。復帰後にもう一度操作してください。';
     scheduleReconnect(true);
     return false;
   }
-  const sent=send({type:'pickTargets', cardIds:(cardIds||[]).map(String)});
+  const sent=send({type:'pickTargets', cardIds:(cardIds||[]).map(String),pickId:pickId || state?.pendingPick?.pickId || null});
   if(sent) pickTargetSelectedIds = [];
   return sent;
 }
 
-function requestPairChoice(cardId, skip){
+function requestPairChoice(cardId, skip,pickId=''){
   if(!ws || ws.readyState!==1){
     $('message').textContent = '通信を再接続しています。復帰後にもう一度操作してください。';
     scheduleReconnect(true);
     return false;
   }
-  return send({type:'pairChoice', cardId:cardId ? String(cardId) : null, skip:!!skip});
+  return send({type:'pairChoice', cardId:cardId ? String(cardId) : null, skip:!!skip,pickId:pickId || state?.pendingPick?.pickId || null});
 }
 
 

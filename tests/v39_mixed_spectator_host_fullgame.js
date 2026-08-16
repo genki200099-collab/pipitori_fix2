@@ -27,11 +27,11 @@ function humanAction(client,state){
   if(pick?.targetSelectionRequired&&!pick.targetSelectionDone&&pick.pickProviderPid===state.yourIndex){
     const selectable=pick.targetSelectableCardIds||[],mandatory=pick.mandatoryCandidateIds||[];
     const ordered=[...mandatory,...selectable.filter(id=>!mandatory.includes(id))];
-    const count=Math.min(pick.targetCandidateCount||0,selectable.length);const ids=ordered.slice(0,count);const key=`targets:${pick.readyAt}:${ids.join(',')}`;
-    if(ids.length&&client.last!==key){client.last=key;send(client.socket,{type:'pickTargets',cardIds:ids});}return;
+    const count=Math.min(pick.targetCandidateCount||0,selectable.length);const ids=ordered.slice(0,count);const key=`targets:${pick.pickId}:${ids.join(',')}`;
+    if(ids.length&&client.last!==key){client.last=key;send(client.socket,{type:'pickTargets',pickId:pick.pickId,cardIds:ids});}return;
   }
-  if(pick?.pairChoice&&pick.pickerPid===state.yourIndex){const key=`pair:${pick.pairChoice.drawn?.id}`;if(client.last!==key){client.last=key;send(client.socket,{type:'pairChoice',skip:true});}return;}
-  if(pick&&!pick.result&&pick.pickerPid===state.yourIndex&&pick.ready){const key=`pick:${pick.readyAt}`;if(client.last!==key){client.last=key;send(client.socket,{type:'pick',index:0});}return;}
+  if(pick?.pairChoice&&pick.pickerPid===state.yourIndex){const key=`pair:${pick.pickId}:${pick.pairChoice.drawn?.id}`;if(client.last!==key){client.last=key;send(client.socket,{type:'pairChoice',pickId:pick.pickId,skip:true});}return;}
+  if(pick&&!pick.result&&pick.pickerPid===state.yourIndex&&pick.ready){const key=`pick:${pick.pickId}`;if(client.last!==key){client.last=key;send(client.socket,{type:'pick',pickId:pick.pickId,index:0});}return;}
   if(state.isYourTurn&&state.playableCardIds?.length){const cardId=state.playableCardIds[0];const key=`play:${state.round}:${state.trick?.length}:${cardId}:${state.players[state.yourIndex]?.handCount}`;if(client.last!==key){client.last=key;send(client.socket,{type:'play',cardId});}}
 }
 function connectHuman(index){

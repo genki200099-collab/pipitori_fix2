@@ -1,0 +1,16 @@
+{
+  "publicResponses200": 33,
+  "byteIdenticalResponses": true,
+  "games": [
+    {
+      "players": 3,
+      "hand": 17,
+      "nakato": true
+    },
+    {
+      "players": 5,
+      "hand": 10,
+      "nakato": true
+    }
+  ]
+}

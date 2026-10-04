@@ -1,0 +1,410 @@
+--- v44/public/index.html
++++ v45/public/index.html
+@@ -14,6 +14,7 @@
+   <link rel="icon" type="image/png" sizes="32x32" href="/app-icon-32.png?v=17" />
+   <link rel="icon" type="image/png" sizes="192x192" href="/app-icon-192.png?v=17" />
+   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=17" />
++  <script src="/iphone-ui.js?v=45" defer></script>
+   <style>
+ :root{--bg:#fff6e8;--ink:#3b2118;--red:#b64040;--pink:#ffd6d6;--gold:#d4a536;--line:#efc5a5;--green:#2e8c58;--blue:#4776b8;--shadow:0 8px 24px rgba(66,36,20,.14)}
+ *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 50% 0,#fffaf0,#ffeeda 55%,#ffd9cf);font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Yu Gothic",Meiryo,sans-serif;color:var(--ink)}
+@@ -7488,6 +7489,7 @@
+ body.gameplay-mode.modern-game-ui #gameScreen :is(button,input,select,a):focus-visible{outline:3px solid #ffe08a!important;outline-offset:3px!important}
+ body.gameplay-mode.modern-game-ui #gameScreen #gameUtilityPanel :is(button,input,select,a):focus-visible{outline-color:#086b86!important}
+ </style>
++  <link rel="stylesheet" href="/iphone-ui.css?v=45" />
+ </head>
+ <body class="modern-game-ui">
+ <div id="app">
+@@ -7502,7 +7504,7 @@
+     </div>
+     <section class="lobby-profile" aria-labelledby="playerProfileTitle">
+       <div class="lobby-profile-copy"><span class="menu-eyebrow">STEP 1</span><b id="playerProfileTitle">プレイヤー名を決める</b><small>対戦中に表示される名前です（12文字まで）</small></div>
+-      <label class="profile-name-field"><span>あなたの名前</span><input id="name" class="input" placeholder="例：ピピ" maxlength="12" autocomplete="nickname" /></label>
++      <label class="profile-name-field"><span>あなたの名前</span><input id="name" class="input" placeholder="例：ピピ" maxlength="12" autocomplete="nickname" enterkeyhint="done" autocorrect="off" spellcheck="false" /></label>
+     </section>
+     <fieldset class="participant-role-picker" aria-labelledby="participantRoleTitle">
+       <legend id="participantRoleTitle">参加方法</legend>
+@@ -7702,6 +7704,7 @@
+     <aside id="gameUtilityPanel" class="game-utility-panel" hidden aria-hidden="true">
+       <button type="button" class="utility-backdrop" data-close-game-panel aria-label="閉じる"></button>
+       <div class="utility-sheet" role="dialog" aria-modal="true" aria-labelledby="utilityTitle">
++        <button type="button" class="native-sheet-handle" data-native-sheet-handle aria-label="下にスワイプ、またはタップしてゲーム情報を閉じる"></button>
+         <div class="utility-head"><h2 id="utilityTitle">ゲーム情報</h2><button type="button" class="utility-close" data-close-game-panel aria-label="閉じる">×</button></div>
+         <section class="utility-section utility-log" data-utility-view="log"><h3>進行ログ</h3><div id="log" class="log"></div></section>
+         <section class="utility-section utility-spectators" data-utility-view="spectators"><h3>👁 観戦者</h3><p>観戦者にはプレイヤー全員の手札が公開されています。</p><div id="gameSpectatorList" class="game-spectator-list"></div></section>
+@@ -8318,6 +8321,7 @@
+   branch=branch.parentElement;
+  }
+  const opener=document.activeElement;
++ window.PipitoriNativeUI?.openSheet(root,opener);
+  const trap=ev=>{if(ev.key!=='Tab')return;const items=[...(root.querySelector('[role="dialog"]')||root).querySelectorAll('button,input,select,a[href],[tabindex="0"]')].filter(el=>!el.disabled&&el.getClientRects().length);if(!items.length)return;const first=items[0],last=items.at(-1);if(ev.shiftKey&&document.activeElement===first){ev.preventDefault();last.focus();}else if(!ev.shiftKey&&document.activeElement===last){ev.preventDefault();first.focus();}};
+  root.addEventListener('keydown',trap);uiDialogStates.set(root,{opener,disabled,trap});
+  root.querySelector('.utility-close,.rule-help-close')?.focus({preventScroll:true});
+@@ -8325,6 +8329,7 @@
+ function restoreUiDialog(root){
+  const saved=uiDialogStates.get(root);if(!saved)return;
+  saved.disabled.forEach(el=>el.inert=false);root.removeEventListener('keydown',saved.trap);uiDialogStates.delete(root);
++ window.PipitoriNativeUI?.closeSheet(root);
+  if(saved.opener?.isConnected&&!saved.opener.closest('[hidden]'))saved.opener.focus({preventScroll:true});
+ }
+ function setJoinRequestUi(busy){
+@@ -8340,8 +8345,15 @@
+  try{await navigator.clipboard.writeText($('roomCode').textContent);$('copyCodeFeedback').textContent='コードをコピーしました。友達に送って招待できます。';}
+  catch{const selection=getSelection(),range=document.createRange();range.selectNodeContents($('roomCode'));selection.removeAllRanges();selection.addRange(range);$('copyCodeFeedback').textContent='コードを選択しました。長押しまたはコピー操作で共有してください。';}
+ });
+-$('code').addEventListener('input',()=>{$('code').value=$('code').value.toUpperCase();$('code').removeAttribute('aria-invalid');$('joinFeedback').textContent='';});
+-$('code').addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();$('join').click();}});
++function normalizeRoomCodeInput(ev){
++ if(ev?.isComposing)return;
++ $('code').value=$('code').value.normalize('NFKC').toUpperCase().trim();
++ $('code').removeAttribute('aria-invalid');$('joinFeedback').textContent='';
++}
++$('code').addEventListener('input',normalizeRoomCodeInput);
++$('code').addEventListener('compositionend',normalizeRoomCodeInput);
++$('name').addEventListener('keydown',ev=>{if(ev.key==='Enter'&&!ev.isComposing&&ev.keyCode!==229){ev.preventDefault();ev.currentTarget.blur();}});
++$('code').addEventListener('keydown',ev=>{if(ev.key==='Enter'&&!ev.isComposing&&ev.keyCode!==229){ev.preventDefault();$('join').click();}});
+ 
+ function selectedParticipantRole(){
+   return document.querySelector('input[name="participantRole"]:checked')?.value==='spectator' ? 'spectator' : 'player';
+@@ -8949,6 +8961,7 @@
+       ev.stopPropagation();
+     };
+     const openHelpFromButton = (ev)=>{
++      if(window.PipitoriNativeUI && !window.PipitoriNativeUI.allowAction(ev))return;
+       ev.preventDefault();
+       ev.stopPropagation();
+       const now = Date.now();
+@@ -9287,6 +9300,7 @@
+ }
+ function shouldHandleActionEvent(ev, key){
+   if(!ev) return false;
++  if(window.PipitoriNativeUI && !window.PipitoriNativeUI.allowAction(ev)) return false;
+   const now=Date.now();
+   if(ev.type==='pointerup'){
+     if(ev.isPrimary === false) return false;
+@@ -11799,8 +11813,9 @@
+ </script>
+ 
+ <div id="ruleHelpModal" class="rule-help-modal" aria-hidden="true">
+-  <div class="rule-help-backdrop" data-rule-help-close="1"></div>
++  <button type="button" class="rule-help-backdrop" data-rule-help-close="1" aria-label="ルールヘルプを閉じる" tabindex="-1"></button>
+   <div class="rule-help-panel" role="dialog" aria-modal="true" aria-labelledby="ruleHelpTitle">
++    <button type="button" class="native-sheet-handle" data-native-sheet-handle aria-label="下にスワイプ、またはタップしてルールヘルプを閉じる"></button>
+     <button type="button" class="rule-help-close" data-rule-help-close="1" aria-label="閉じる">×</button>
+     <div class="rule-help-kicker">ルール個別ヘルプ</div>
+     <h3 id="ruleHelpTitle">ヘルプ</h3>
+--- /dev/null
++++ v45/public/iphone-ui.css
+@@ -0,0 +1,61 @@
++/* v45: preserve the existing table layout; enhance sheets and touch controls. */
++:root { --native-visible-height:100dvh; --native-keyboard-inset:0px; }
++body.native-sheet-open {
++  position:fixed!important; top:var(--native-page-top)!important;
++  width:100%!important; overflow:hidden!important; overscroll-behavior:none;
++}
++body.modern-game-ui :is(button,summary,a,input,select) { -webkit-tap-highlight-color:rgba(8,107,134,.15); }
++body.modern-game-ui :is(button,summary) { touch-action:manipulation; }
++body.modern-game-ui button:not(:disabled):active { filter:brightness(.92); }
++body.modern-game-ui :is(.hand-card,.pick-card,.pick-target-card,.pair-card-btn) {
++  -webkit-user-select:none; user-select:none; -webkit-touch-callout:none;
++}
++/* The room code keeps ordinary iOS selection and long-press copy. */
++#roomCode { -webkit-user-select:text; user-select:text; }
++body.modern-game-ui :is(input.input,select.input,textarea) { font-size:max(16px,1rem)!important; scroll-margin-block:24px; }
++.native-sheet-handle { display:none; }
++body.modern-game-ui .utility-sheet,body.modern-game-ui .rule-help-panel {
++  overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain;
++  overflow-wrap:anywhere; scroll-padding-block:80px 32px;
++}
++body.modern-game-ui .rule-help-backdrop { padding:0; border:0; }
++@media(max-width:720px), (max-height:520px) and (pointer:coarse) {
++  body.modern-game-ui :is(.utility-sheet,.rule-help-panel) {
++    inset:auto 0 0!important; width:100%!important; max-width:none!important;
++    max-height:calc(var(--native-visible-height) - max(12px,env(safe-area-inset-top)))!important;
++    padding-inline:max(16px,env(safe-area-inset-left)) max(16px,env(safe-area-inset-right))!important;
++    padding-bottom:max(24px,env(safe-area-inset-bottom))!important;
++    border-radius:24px 24px 0 0!important;
++    transform:translateY(var(--native-drag-y,0px))!important;
++    transition:transform 180ms ease-out;
++  }
++  body.modern-game-ui .utility-sheet { height:min(88dvh,var(--native-visible-height))!important; }
++  body.modern-game-ui .rule-help-panel { position:fixed!important; }
++  body.modern-game-ui .native-dragging { transition:none!important; }
++  body.native-keyboard-open.modern-game-ui :is(.utility-sheet,.rule-help-panel) { bottom:var(--native-keyboard-inset)!important; }
++  .native-sheet-handle {
++    display:flex; position:relative; justify-content:center; align-items:center;
++    width:100%; min-height:44px; margin:0 0 4px; padding:0;
++    color:#3b2118; background:transparent; border:0; border-radius:12px;
++    touch-action:none; cursor:grab;
++  }
++  .native-sheet-handle::before { content:''; width:36px; height:5px; border-radius:999px; background:#766e64; }
++  .native-sheet-handle:focus-visible { outline:3px solid #086b86; outline-offset:-3px; }
++  body.modern-game-ui .utility-head {
++    top:0; margin:0 -16px 12px; padding:8px 16px;
++    min-height:60px; gap:12px;
++  }
++  body.modern-game-ui .utility-head h2 { min-width:0; line-height:1.4; font-size:1.2rem; }
++  body.modern-game-ui :is(.utility-close,.rule-help-close) { flex-shrink:0; min-width:44px; min-height:44px; }
++  body.modern-game-ui .rule-help-close { top:52px!important; right:max(16px,env(safe-area-inset-right))!important; }
++  body.modern-game-ui #ruleHelpTitle { padding-right:48px; line-height:1.4; }
++  body.modern-game-ui .rule-help-body { line-height:1.65; }
++  body.modern-game-ui .utility-sheet .log { overflow-wrap:anywhere; }
++  body.modern-game-ui .room-clear-dialog {
++    max-width:calc(100vw - max(24px,env(safe-area-inset-left)) - max(24px,env(safe-area-inset-right)));
++    max-height:calc(var(--native-visible-height) - 32px); overflow:auto;
++  }
++}
++@media(prefers-reduced-motion:reduce) {
++  body.modern-game-ui :is(.utility-sheet,.rule-help-panel) { transition:none!important; scroll-behavior:auto!important; }
++}
+--- /dev/null
++++ v45/public/iphone-ui.js
+@@ -0,0 +1,153 @@
++/* iPhone interaction layer v45. Game messages and rules remain in index.html. */
++(() => {
++  'use strict';
++  const root = document.documentElement;
++  const sheets = new Map();
++  const gestures = new Map();
++  const suppressed = new WeakMap();
++  const sheetMedia = '(max-width: 720px), (max-height: 520px) and (pointer: coarse)';
++  const actionSelector = '[data-card-id],[data-pass-card-id],[data-pass-submit],[data-initial-card-id],[data-initial-skip],[data-pick-index],[data-pick-target-card-id],[data-pick-target-submit],[data-pair-card-id],[data-pair-skip],.rule-help-btn';
++  let scrollY = 0;
++  let viewportFrame = 0;
++  const editable = el => !!el?.matches?.('input:not([type="radio"]):not([type="checkbox"]):not([type="button"]),textarea,[contenteditable="true"]');
++
++  function updateViewport() {
++    viewportFrame = 0;
++    const viewport = window.visualViewport;
++    const height = viewport?.height || window.innerHeight;
++    const top = viewport?.offsetTop || 0;
++    const zoomed = viewport && Math.abs(viewport.scale - 1) > 0.05;
++    const inset = !zoomed && editable(document.activeElement) ? Math.max(0, window.innerHeight - height - top) : 0;
++    if (!zoomed) root.style.setProperty('--native-visible-height', `${height}px`);
++    root.style.setProperty('--native-keyboard-inset', `${inset > 100 ? inset : 0}px`);
++    document.body.classList.toggle('native-keyboard-open', inset > 100);
++    // Avoid moving the page during pinch zoom or normal reading/scrolling.
++    if (inset > 100 && !zoomed && !sheets.size) {
++      const field = document.activeElement;
++      const rect = field.getBoundingClientRect();
++      if (rect.bottom > top + height - 20 || rect.top < top + 12) {
++        field.scrollIntoView({block:'center', inline:'nearest', behavior:'auto'});
++      }
++    }
++  }
++  function scheduleViewport() {
++    if (!viewportFrame) viewportFrame = requestAnimationFrame(updateViewport);
++  }
++  function openSheet(sheet, opener) {
++    if (sheets.has(sheet)) return;
++    if (!sheets.size) {
++      scrollY = window.scrollY;
++      document.body.style.setProperty('--native-page-top', `${-scrollY}px`);
++      document.body.classList.add('native-sheet-open');
++    }
++    sheets.set(sheet, opener);
++    if (opener?.matches?.('[data-game-panel],.rule-help-btn')) opener.setAttribute('aria-expanded','true');
++    scheduleViewport();
++  }
++  function closeSheet(sheet) {
++    if (!sheets.has(sheet)) return;
++    const opener = sheets.get(sheet);
++    sheets.delete(sheet);
++    opener?.setAttribute?.('aria-expanded','false');
++    if (!sheets.size) {
++      document.body.classList.remove('native-sheet-open');
++      document.body.style.removeProperty('--native-page-top');
++      window.scrollTo({top:scrollY, left:0, behavior:'instant'});
++    }
++  }
++  function allowAction(event) {
++    if (event.type === 'click' && event.detail === 0) return true; // keyboard / assistive activation
++    const target = event.target?.closest?.(actionSelector);
++    return !target || (suppressed.get(target) || 0) <= Date.now();
++  }
++  // Track distance, cancellation and long press, without preventing native scroll.
++  document.addEventListener('pointerdown', event => {
++    if (event.isPrimary === false) { for (const gesture of gestures.values()) gesture.moved = true; return; }
++    const target = event.target?.closest?.(actionSelector);
++    if (!target || event.isPrimary === false || (event.pointerType === 'mouse' && event.button !== 0)) return;
++    suppressed.delete(target);
++    gestures.set(event.pointerId, {target, x:event.clientX, y:event.clientY, at:Date.now(), moved:false});
++  }, {capture:true, passive:true});
++  document.addEventListener('pointermove', event => {
++    const gesture = gestures.get(event.pointerId);
++    if (gesture && Math.hypot(event.clientX - gesture.x, event.clientY - gesture.y) > 12) gesture.moved = true;
++  }, {capture:true, passive:true});
++  function endGesture(event) {
++    const gesture = gestures.get(event.pointerId);
++    if (!gesture) return;
++    const moved = gesture.moved || Math.hypot(event.clientX - gesture.x, event.clientY - gesture.y) > 12;
++    if (event.type === 'pointercancel' || moved || Date.now() - gesture.at >= 550) suppressed.set(gesture.target, Date.now() + 900);
++    gestures.delete(event.pointerId);
++  }
++  document.addEventListener('pointerup', endGesture, {capture:true, passive:true});
++  document.addEventListener('pointercancel', endGesture, {capture:true, passive:true});
++  window.addEventListener('blur', () => gestures.clear());
++
++  function bindDragHandle(handle) {
++    const panel = handle.closest('.utility-sheet,.rule-help-panel');
++    const sheet = handle.closest('#gameUtilityPanel,#ruleHelpModal');
++    let drag = null;
++    let ignoreClickUntil = 0;
++    const reset = () => {
++      const pointerId = drag?.id;
++      drag = null;
++      if (pointerId !== undefined && handle.hasPointerCapture?.(pointerId)) handle.releasePointerCapture(pointerId);
++      panel.style.removeProperty('--native-drag-y');
++      panel.classList.remove('native-dragging');
++    };
++    const dismiss = () => {
++      if (sheet.id === 'gameUtilityPanel') window.closeGameUtilityPanel();
++      else window.closeRuleHelp();
++    };
++    handle.addEventListener('pointerdown', event => {
++      if (!window.matchMedia?.(sheetMedia).matches || event.isPrimary === false || event.button !== 0) return;
++      drag = {id:event.pointerId, x:event.clientX, y:event.clientY, at:Date.now(), distance:0};
++      handle.setPointerCapture?.(event.pointerId);
++    });
++    handle.addEventListener('pointermove', event => {
++      if (!drag || drag.id !== event.pointerId) return;
++      if (Math.abs(event.clientX - drag.x) > 32 && !drag.distance) { ignoreClickUntil = Date.now() + 500; reset(); return; }
++      drag.distance = Math.max(0, event.clientY - drag.y);
++      panel.classList.add('native-dragging');
++      panel.style.setProperty('--native-drag-y', `${Math.min(220, drag.distance)}px`);
++    });
++    handle.addEventListener('pointerup', event => {
++      if (!drag || drag.id !== event.pointerId) return;
++      const distance = Math.max(drag.distance, event.clientY - drag.y);
++      const duration = Math.max(1, Date.now() - drag.at);
++      const shouldClose = distance >= 96 || (distance >= 48 && distance / duration > 0.55) || (distance < 12 && duration < 550);
++      ignoreClickUntil = Date.now() + 500;
++      reset();
++      if (shouldClose) dismiss();
++    });
++    handle.addEventListener('pointercancel', () => { ignoreClickUntil = Date.now() + 500; reset(); });
++    handle.addEventListener('lostpointercapture', reset);
++    handle.addEventListener('click', event => {
++      event.preventDefault();
++      if (event.detail !== 0 && Date.now() < ignoreClickUntil) return;
++      dismiss();
++    });
++  }
++  function setup() {
++    document.querySelectorAll('[data-native-sheet-handle]').forEach(bindDragHandle);
++    document.querySelectorAll('[data-game-panel]').forEach(button => {
++      button.setAttribute('aria-controls','gameUtilityPanel');
++      button.setAttribute('aria-expanded','false');
++      button.setAttribute('aria-haspopup','dialog');
++    });
++    document.querySelectorAll('.rule-help-btn').forEach(button => {
++      button.setAttribute('aria-controls','ruleHelpModal');
++      button.setAttribute('aria-expanded','false');
++      button.setAttribute('aria-haspopup','dialog');
++    });
++    window.visualViewport?.addEventListener('resize', scheduleViewport, {passive:true});
++    window.visualViewport?.addEventListener('scroll', scheduleViewport, {passive:true});
++    window.addEventListener('resize', scheduleViewport, {passive:true});
++    document.addEventListener('focusin', scheduleViewport);
++    document.addEventListener('focusout', scheduleViewport);
++    scheduleViewport();
++  }
++  window.PipitoriNativeUI = {openSheet, closeSheet, allowAction};
++  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', setup, {once:true});
++  else setup();
++})();
+--- /dev/null
++++ v45/tests/native_iphone_v45_behavior.cjs
+@@ -0,0 +1,91 @@
++'use strict';
++// DOM behavior only. jsdom does not render, lay out, or emulate iOS Safari.
++const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict');
++const {JSDOM}=require('jsdom');const vm=require('node:vm');
++const base=path.resolve(__dirname,'..');
++const html=fs.readFileSync(path.join(base,'public/index.html'),'utf8');
++const main=[...html.matchAll(/<script\b(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)][0][1];
++const native=fs.readFileSync(path.join(base,'public/iphone-ui.js'),'utf8');
++const widths=[320,375,390,430,768,1024,1440];
++const fixtures=JSON.parse(fs.readFileSync(path.join(base,'qa/v44/browser-fixtures.json'),'utf8'));
++function run(w,source){return new vm.Script(source).runInContext(w.__context);}
++const rows=[];
++function create(width,height=844,coarse=true){
++ const dom=new JSDOM(html.replace(/<style[^>]*>[\s\S]*?<\/style>/g,'').replace(/<script[^>]*>[\s\S]*?<\/script>/g,''),{url:'http://localhost/',runScripts:'outside-only'});
++ const w=dom.window,d=w.document;w.__context=dom.getInternalVMContext();w.innerWidth=width;w.innerHeight=height;w.scrollY=180;
++ const viewport=new w.EventTarget();Object.assign(viewport,{height,offsetTop:0,scale:1});w.visualViewport=viewport;
++ const raf=[];w.requestAnimationFrame=fn=>{raf.push(fn);return raf.length;};
++ w.matchMedia=q=>({matches:q.includes('max-width: 720') ? width<=720||(height<=520&&coarse):q.includes('max-width:430')?width<=430:q.includes('prefers-reduced-motion')?false:q.includes('pointer: coarse')||q.includes('hover: none')?coarse:false,addEventListener(){}});
++ w.scrollTo=opt=>{w.lastScroll=opt;};w.HTMLElement.prototype.scrollIntoView=function(opt){this.lastScroll=opt;};
++ w.HTMLElement.prototype.getClientRects=function(){return this.closest('[hidden]')?[]:[{width:44,height:44}];};
++ w.getComputedStyle=()=>({fontSize:d.documentElement.style.fontSize==='200%'?'32px':'16px'});
++ w.setInterval=()=>0;w.clearInterval=()=>{};
++ new vm.Script(main).runInContext(dom.getInternalVMContext());new vm.Script(native).runInContext(dom.getInternalVMContext());d.dispatchEvent(new w.Event('DOMContentLoaded'));
++ const flush=()=>{let count=0;while(raf.length){if(++count>100)throw Error('RAF loop');raf.shift()();}};flush();
++ const event=(target,type,opts={})=>{const e=new w.Event(type,{bubbles:true,cancelable:true});Object.assign(e,{pointerId:1,pointerType:'touch',button:0,isPrimary:true,clientX:20,clientY:20,detail:1,...opts});target.dispatchEvent(e);return e;};
++ return {dom,w,d,flush,event};
++}
++try{
++for(const width of widths){
++ const {dom,w,d,flush,event}=create(width);
++ try{
++ d.getElementById('gameScreen').hidden=false;
++ const opener=d.querySelector('[data-game-panel="log"]'),root=d.getElementById('gameUtilityPanel');
++ opener.focus();opener.click();
++ assert.equal(root.hidden,false);assert.equal(opener.getAttribute('aria-expanded'),'true');
++ assert.equal(d.activeElement.className,'utility-close');assert(d.getElementById('playerGameArena').inert);
++ assert(d.body.classList.contains('native-sheet-open'));
++ d.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
++ assert.equal(root.hidden,true);assert.equal(d.activeElement,opener);assert.equal(w.lastScroll.top,180);
++ assert.equal(opener.getAttribute('aria-expanded'),'false');assert(!d.getElementById('playerGameArena').inert);
++ const help=d.querySelector('.rule-help-btn');help.focus();w.openRuleHelp(help.dataset.helpRule);
++ assert(d.getElementById('ruleHelpModal').classList.contains('open'));
++ d.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Escape',bubbles:true}));
++ assert.equal(d.activeElement,help);assert(!d.body.classList.contains('native-sheet-open'));
++ const code=d.getElementById('code');code.value='ａｂ１２';event(code,'input');assert.equal(code.value,'AB12');
++ code.value='ａｂ';event(code,'input',{isComposing:true});assert.equal(code.value,'ａｂ');event(code,'compositionend');assert.equal(code.value,'AB');
++ let joins=0;d.getElementById('join').addEventListener('click',()=>joins++);
++ code.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Enter',isComposing:true,bubbles:true}));assert.equal(joins,0);
++ code.value='';code.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Enter',bubbles:true}));assert.equal(joins,1);
++ const name=d.getElementById('name');name.focus();name.dispatchEvent(new w.KeyboardEvent('keydown',{key:'Enter',bubbles:true}));assert.notEqual(d.activeElement,name);
++ const card=d.createElement('button');card.dataset.cardId='qa-card';d.getElementById('hand').append(card);
++ event(card,'pointerdown');let up=event(card,'pointerup');assert.equal(w.PipitoriNativeUI.allowAction(up),true);
++ event(card,'pointerdown');event(card,'pointermove',{clientY:70});up=event(card,'pointerup',{clientY:70});assert.equal(w.PipitoriNativeUI.allowAction(up),false);
++ assert.equal(w.PipitoriNativeUI.allowAction(event(card,'click')),false);
++ assert.equal(w.PipitoriNativeUI.allowAction(event(card,'click',{detail:0})),true);
++ event(card,'pointerdown');event(card,'pointercancel');assert.equal(w.PipitoriNativeUI.allowAction(event(card,'click')),false);
++ event(card,'pointerdown');up=event(card,'pointerup');assert.equal(w.PipitoriNativeUI.allowAction(up),true);
++ event(card,'pointerdown');event(card,'pointerdown',{isPrimary:false,pointerId:2});up=event(card,'pointerup');assert.equal(w.PipitoriNativeUI.allowAction(up),false);
++ // Exercise the existing card-selection handler and outgoing game message.
++ run(w,`(${fixtures.BASE})();renderHand();ws={readyState:1};window.sent=[];send=payload=>{window.sent.push(payload);return true;};`);
++ const playable=d.querySelector('#hand [data-card-id]');
++ event(playable,'pointerdown');event(playable,'pointermove',{clientY:70});event(playable,'pointerup',{clientY:70});
++ assert.equal(playable.getAttribute('aria-pressed'),'false');assert.equal(w.sent.length,0);
++ event(playable,'pointerdown');event(playable,'pointerup');assert.equal(playable.getAttribute('aria-pressed'),'true');assert.equal(w.sent.length,0);
++ event(playable,'pointerdown');event(playable,'pointerup');assert.equal(w.sent.length,1);assert.equal(w.sent[0].type,'play');
++ event(playable,'click');assert.equal(w.sent.length,1); // pointer + synthesized click cannot send twice
++ d.documentElement.style.fontSize='200%';w.applyDeviceUiMode();assert(d.body.classList.contains('large-text-mode'));d.documentElement.style.fontSize='100%';w.applyDeviceUiMode();
++ const oldNow=w.Date.now;let time=10000;w.Date.now=()=>time;event(card,'pointerdown');time+=600;up=event(card,'pointerup');assert.equal(w.PipitoriNativeUI.allowAction(up),false);w.Date.now=oldNow;
++ if(width<=720){
++ opener.focus();opener.click();const handle=root.querySelector('[data-native-sheet-handle]');
++ event(handle,'pointerdown');event(handle,'pointermove',{clientY:140});event(handle,'pointerup',{clientY:140});assert.equal(root.hidden,true);
++ opener.click();event(handle,'pointerdown');event(handle,'pointermove',{clientY:50});event(handle,'pointercancel');assert.equal(root.hidden,false);
++ event(handle,'click',{detail:0});assert.equal(root.hidden,true);
++ }
++ // visualViewport data is simulated; this checks state and avoids layout claims.
++ const viewport=w.visualViewport;viewport.height=440;
++ code.getBoundingClientRect=()=>({top:600,bottom:648});code.focus();flush();
++ assert.equal(d.documentElement.style.getPropertyValue('--native-keyboard-inset'),'404px');assert(d.body.classList.contains('native-keyboard-open'));assert(code.lastScroll);
++ viewport.scale=1.5;viewport.dispatchEvent(new w.Event('resize'));flush();assert.equal(d.documentElement.style.getPropertyValue('--native-keyboard-inset'),'0px');
++ code.blur();flush();assert(!d.body.classList.contains('native-keyboard-open'));
++ rows.push({width,domBehavior:'passed',sheetFocusAndScroll:true,ime:true,gestureSafety:true,keyboardSimulation:true,largeTextModeSimulation:true,cardSelectionAndSingleSend:true,renderedLayout:'not_checked'});
++ }finally{dom.window.close();}
++}
++// Landscape iPhone uses a sheet; desktop short windows with a mouse do not.
++for(const coarse of [true,false]){
++ const {dom,w,d,event}=create(844,390,coarse);
++ try{const opener=d.querySelector('[data-game-panel="log"]');opener.click();const root=d.getElementById('gameUtilityPanel'),handle=root.querySelector('[data-native-sheet-handle]');event(handle,'pointerdown');event(handle,'pointermove',{clientY:140});event(handle,'pointerup',{clientY:140});assert.equal(root.hidden,coarse);w.closeGameUtilityPanel();rows.push({width:844,height:390,coarse,landscapeGesture:'passed',renderedLayout:'not_checked'});}finally{dom.window.close();}
++}
++const result={result:'passed',method:'jsdom DOM events; no rendered layout or iOS emulation',rows};
++fs.writeFileSync(path.join(base,'qa/v45/native-dom-behavior.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
++}catch(e){console.error(e.stack);process.exitCode=1;}

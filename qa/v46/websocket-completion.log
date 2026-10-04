@@ -1,0 +1,7 @@
+{"progress":1,"seats":3,"provider":"winner"}
+{"progress":2,"seats":3,"provider":"weakest"}
+{"progress":3,"seats":4,"provider":"winner"}
+{"progress":4,"seats":4,"provider":"weakest"}
+{"progress":5,"seats":5,"provider":"winner"}
+{"progress":6,"seats":5,"provider":"weakest"}
+{"result":"passed","method":"real local WebSocket with accelerated test clock","rows":[{"seats":3,"provider":"winner","deal":"reshuffle","rounds":3,"finished":true,"playerPrivacy":true,"spectatorHands":true,"totals":[-16,-4,35]},{"seats":3,"provider":"weakest","deal":"carryOver","rounds":3,"finished":true,"playerPrivacy":true,"spectatorHands":true,"totals":[-43,18,-70]},{"seats":4,"provider":"winner","deal":"reshuffle","rounds":3,"finished":true,"playerPrivacy":true,"spectatorHands":true,"totals":[-30,-4,-63,12]},{"seats":4,"provider":"weakest","deal":"carryOver","rounds":3,"finished":true,"playerPrivacy":true,"spectatorHands":true,"totals":[-12,-47,-18,8]},{"seats":5,"provider":"winner","deal":"reshuffle","rounds":3,"finished":true,"playerPrivacy":true,"spectatorHands":true,"totals":[-26,-50,20,-41,-8]},{"seats":5,"provider":"weakest","deal":"carryOver","rounds":3,"finished":true,"playerPrivacy":true,"spectatorHands":true,"totals":[-28,-21,5,-11,0]}]}

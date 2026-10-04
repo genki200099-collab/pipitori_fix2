@@ -1,0 +1,17 @@
+{
+  "result": "passed",
+  "seed": 46,
+  "mode": "full",
+  "runs": 1152,
+  "tricks": 28813,
+  "roundTransitions": 2304,
+  "shootChoices": 218,
+  "roundsPerMatch": 3,
+  "seats": [
+    3,
+    4,
+    5
+  ],
+  "ownership": "card IDs including trick and all excluded cards",
+  "activeFaceUniqueness": true
+}

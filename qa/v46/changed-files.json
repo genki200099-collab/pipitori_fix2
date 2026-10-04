@@ -1,0 +1,86 @@
+[
+  {
+    "path": "README.md",
+    "status": "modified"
+  },
+  {
+    "path": "RULES_V46_REPORT.md",
+    "status": "added"
+  },
+  {
+    "path": "package-lock.json",
+    "status": "modified"
+  },
+  {
+    "path": "package.json",
+    "status": "modified"
+  },
+  {
+    "path": "public/index.html",
+    "status": "modified"
+  },
+  {
+    "path": "public/multiplayer-ui.css",
+    "status": "added"
+  },
+  {
+    "path": "server.js",
+    "status": "modified"
+  },
+  {
+    "path": "tests/accelerated_clock_v46.cjs",
+    "status": "added"
+  },
+  {
+    "path": "tests/async_progress_smoke.js",
+    "status": "modified"
+  },
+  {
+    "path": "tests/cpu_identity_dialogue_v40_regression.js",
+    "status": "modified"
+  },
+  {
+    "path": "tests/final_snapshot_v46.cjs",
+    "status": "added"
+  },
+  {
+    "path": "tests/game_engine_stress_regression.js",
+    "status": "modified"
+  },
+  {
+    "path": "tests/joker_midtrick_conservation_v46.cjs",
+    "status": "added"
+  },
+  {
+    "path": "tests/multiplayer_lifecycle_v46.cjs",
+    "status": "added"
+  },
+  {
+    "path": "tests/multiplayer_ui_v46.cjs",
+    "status": "added"
+  },
+  {
+    "path": "tests/multiplayer_websocket_v46.cjs",
+    "status": "added"
+  },
+  {
+    "path": "tests/native_iphone_v45_behavior.cjs",
+    "status": "modified"
+  },
+  {
+    "path": "tests/rule_gameplay_matrix_regression.js",
+    "status": "modified"
+  },
+  {
+    "path": "tests/server_test_harness.cjs",
+    "status": "added"
+  },
+  {
+    "path": "tests/v41_followup_regression.js",
+    "status": "modified"
+  },
+  {
+    "path": "tests/websocket_game_smoke.js",
+    "status": "modified"
+  }
+]

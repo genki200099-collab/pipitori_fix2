@@ -1,0 +1,389 @@
+{
+  "result": "passed",
+  "runs": [
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 0,
+      "pickProviderRole": "winner",
+      "steps": 273,
+      "picks": 45,
+      "pairs": 20,
+      "spots": 39,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -65,
+        -28,
+        -61,
+        -41
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 1,
+      "pickProviderRole": "weakest",
+      "steps": 274,
+      "picks": 46,
+      "pairs": 15,
+      "spots": 40,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -72,
+        -10,
+        -43,
+        -37
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 2,
+      "pickProviderRole": "winner",
+      "steps": 291,
+      "picks": 49,
+      "pairs": 16,
+      "spots": 43,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        31,
+        43,
+        -55,
+        -18
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 5,
+      "pickProviderRole": "weakest",
+      "steps": 268,
+      "picks": 44,
+      "pairs": 20,
+      "spots": 38,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        7,
+        74,
+        147,
+        60
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "once",
+      "feastPointPerCard": 0,
+      "pickProviderRole": "winner",
+      "steps": 273,
+      "picks": 46,
+      "pairs": 13,
+      "spots": 40,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -21,
+        -61,
+        -27,
+        -92
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "once",
+      "feastPointPerCard": 1,
+      "pickProviderRole": "weakest",
+      "steps": 266,
+      "picks": 45,
+      "pairs": 13,
+      "spots": 39,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -40,
+        -8,
+        -66,
+        -11
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "once",
+      "feastPointPerCard": 2,
+      "pickProviderRole": "winner",
+      "steps": 338,
+      "picks": 58,
+      "pairs": 18,
+      "spots": 52,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -39,
+        20,
+        21,
+        82
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "once",
+      "feastPointPerCard": 5,
+      "pickProviderRole": "weakest",
+      "steps": 266,
+      "picks": 45,
+      "pairs": 15,
+      "spots": 39,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        103,
+        23,
+        83,
+        5
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 0,
+      "pickProviderRole": "winner",
+      "steps": 295,
+      "picks": 50,
+      "pairs": 17,
+      "spots": 44,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -42,
+        -13,
+        -56,
+        -9
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 1,
+      "pickProviderRole": "weakest",
+      "steps": 286,
+      "picks": 49,
+      "pairs": 8,
+      "spots": 43,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -21,
+        0,
+        -12,
+        -3
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 2,
+      "pickProviderRole": "winner",
+      "steps": 295,
+      "picks": 50,
+      "pairs": 14,
+      "spots": 44,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        21,
+        115,
+        -26,
+        -7
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 5,
+      "pickProviderRole": "weakest",
+      "steps": 273,
+      "picks": 45,
+      "pairs": 18,
+      "spots": 39,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        67,
+        100,
+        160,
+        40
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "once",
+      "feastPointPerCard": 0,
+      "pickProviderRole": "winner",
+      "steps": 286,
+      "picks": 49,
+      "pairs": 12,
+      "spots": 43,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        1
+      ],
+      "totals": [
+        -25,
+        -10,
+        -58,
+        -33
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "once",
+      "feastPointPerCard": 1,
+      "pickProviderRole": "weakest",
+      "steps": 290,
+      "picks": 50,
+      "pairs": 11,
+      "spots": 44,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        1,
+        13,
+        -19,
+        8
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "once",
+      "feastPointPerCard": 2,
+      "pickProviderRole": "winner",
+      "steps": 298,
+      "picks": 52,
+      "pairs": 14,
+      "spots": 46,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        40,
+        -28,
+        33,
+        36
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "once",
+      "feastPointPerCard": 5,
+      "pickProviderRole": "weakest",
+      "steps": 247,
+      "picks": 41,
+      "pairs": 15,
+      "spots": 35,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        100,
+        51,
+        96,
+        40
+      ]
+    }
+  ]
+}

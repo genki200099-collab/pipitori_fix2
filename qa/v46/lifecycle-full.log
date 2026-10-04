@@ -1,0 +1,13 @@
+{"progress":96,"tricks":3081,"roundTransitions":192,"shootChoices":43}
+{"progress":192,"tricks":6191,"roundTransitions":384,"shootChoices":82}
+{"progress":288,"tricks":9261,"roundTransitions":576,"shootChoices":101}
+{"progress":384,"tricks":12365,"roundTransitions":768,"shootChoices":127}
+{"progress":480,"tricks":14707,"roundTransitions":960,"shootChoices":143}
+{"progress":576,"tricks":17035,"roundTransitions":1152,"shootChoices":155}
+{"progress":672,"tricks":19372,"roundTransitions":1344,"shootChoices":168}
+{"progress":768,"tricks":21704,"roundTransitions":1536,"shootChoices":185}
+{"progress":864,"tricks":23478,"roundTransitions":1728,"shootChoices":197}
+{"progress":960,"tricks":25247,"roundTransitions":1920,"shootChoices":202}
+{"progress":1056,"tricks":27035,"roundTransitions":2112,"shootChoices":208}
+{"progress":1152,"tricks":28813,"roundTransitions":2304,"shootChoices":218}
+{"result":"passed","seed":46,"mode":"full","runs":1152,"tricks":28813,"roundTransitions":2304,"shootChoices":218,"roundsPerMatch":3,"seats":[3,4,5],"ownership":"card IDs including trick and all excluded cards","activeFaceUniqueness":true}

@@ -1,0 +1,1447 @@
+--- v45/README.md
++++ v46/README.md
+@@ -1,10 +1,10 @@
+-# v45 iPhone操作改善
++# v46 人数・ルール整合性改善
+ 
+-Render用の最新配布版です。変更と検証範囲は `IPHONE_V45_REPORT.md`、証拠は `qa/v45/` にあります。実画面・実機iPhone・v45のRender反映は未確認です。ゲーム・CPU・サーバーと依存関係はv44のまま維持しています。
++Render用の最新配布版です。v45を基に、カード消失・最終得点内訳・3/5人の席表示・設定説明・CPU評価を修正しました。内容と検証範囲は `RULES_V46_REPORT.md`、証拠は `qa/v46/` を参照してください。既存 `npm test` と新しい `npm run test:v46` が終了コード0で完了しました。実画面・実機iPhone・Render反映は未確認です。
+ 
+-# ピピトリ オンライン v44（整理版）
++# ピピトリ オンライン v46
+ 
+-3〜5人で遊ぶ、トリックテイキング × ババ抜きのオンラインカードゲームです。ゲーム内容はv44 UI/UX改善版のままです。
++3〜5人で遊ぶ、トリックテイキング × ババ抜きのオンラインカードゲームです。既存ルールと機能を維持し、人数追加後の不整合を修正しています。
+ 
+ ## 起動・Renderへの反映
+ 
+@@ -50,4 +50,14 @@
+ - `UIUX_V44_REPORT.md`：UI改善と検証済み・未確認事項
+ - `SLIM_REPORT.md`：今回の整理内容、削除一覧、容量比較
+ 
+-過去版の監査記録・結果JSON・スクリーンショットは配布ZIPから除外しました。実行コード、使用中の画像、設定、回帰テストを維持しています。全 `npm test` の通過は宣言していません。旧仕様を前提にした既存テストについてはUI検証報告を参照してください。
++過去版の監査記録・結果JSON・スクリーンショットは配布ZIPから除外しました。実行コード、使用中の画像、設定、回帰テストを維持しています。v44/v45報告は過去の検証記録です。最新の確認状況は `RULES_V46_REPORT.md` を参照してください。
++
++## v46の再検証
++
++```sh
++npm ci
++npm test
++npm run test:v46
++```
++
++DOM検証はjsdomを使うため開発依存も必要です。確認済み環境はNode.js 24.19.0。Render向けNode.js 22環境は未確認です。時計高速化はv46 WebSocketテストの子プロセス限定で、製品には適用されません。画面描画やiOS実機の検証はこのテストに含まれません。
+--- v45/RULES_V46_REPORT.md
++++ v46/RULES_V46_REPORT.md
+@@ -0,0 +1,66 @@
++# v46 人数・ルール・UI監査報告
++
++## 現在の結論
++最新配布版 v45 を正本として、3/4/5人の実装を監査・修正した Render 用 v46。カード消失と最終得点内訳の不一致を旧コードで再現して修正した。既存機能を維持し、人数・設定を参照する処理を共通化した。Renderへの反映、実画面、実機iPhoneは未確認。
++
++## 正本と対象
++入力: `pipi_tori_online_v45_iphone.zip`（同一配布ファイルの版9）。別のSitesコードとは統合していない。
++対象: 配札、順位、基本/中位ピック、並列進行、強制ババ候補、ペア浄化、シュート、得点、ラウンド遷移、CPU評価、観戦、再接続、人数に応じた表示。
++既存の3/4/5人、4種類のCPU、旧方向ピック、持ち越し設定、iPhone操作を維持。バランスの新ルール追加、大規模なサーバー分割、ホスティング移行は行っていない。
++
++## 発見事項と改善
++|問題|修正・判断|証拠|
++|---|---|---|
++|トリック途中でババ1枚だけの手番に到達すると、場札が消えてから得点計算される|終了処理を共通箇所で保護。未完成の場札を元の所有者へ戻して得点確定。通常の手札0枚はトリック完了まで待つ|`joker-midtrick-baseline.log` は旧コードで失敗、修正後3/4/5人で53枚保存|
++|「ババ失点はゲーム最後」で、実得点には失点があるが最終内訳・ラウンド戦績にはない|最終ラウンドで確定済みババ失点をスナップショットへ反映。途中は保留表示、最終では保留0。再計算で二重加算しない|`final-snapshot-baseline.log`、修正後-20点と内訳・戦績の一致、両タイミング×3人数|
++|場札が4人固定の位置計算で、3人の席と不一致・5人は重複|アバターと場札を共通の相対席関数で対応づけ。3/5人のカード列を独立スクロールにし、結果帯をスクロール領域外に保持|84 DOMケース。CSS構文確認。実画面は未確認|
++|CPUの獲得価値が常に4枚、順位配列の復旧が5要素固定|部屋人数から獲得枚数と順位配列長を算出|ルール・完走マトリクス|
++|従来方向でもピック説明が1位→最弱、開始リトライ表示は4人固定|サーバー説明とUIを実際の方向・人数へ統一|UI DOM検証、WebSocket試合|
++|3人で実施しない中位ピックがONとして保持される|3人ではサーバーの有効設定をOFF。UIの設定も無効化して理由を表示|3/4/5人の設定と完走検証|
++|ヘルプが13枚上限・持ち越し13枚固定・マッド必須と説明|候補上限17枚、17/13/10枚補充、マッドOFF時は通常の11として説明|差分・DOM検証|
++|既存テストが単一ピック/3種類CPU/シュート初期ONを前提とする|現行の並列レーン識別子、ババ必須候補、4種類CPU、初期OFFに更新。識別子保護を削除せずテスト側を修正|`npm-test.log`、`legacy-websocket-smoke.log`|
++
++## ゲーム・UI/UXの判断
++- ゲーム状態はサーバーを正本とする。画面側で独自の順位・得点を推定せず、人数だけを共通ヘルパーで解決する。
++- 「誰から誰へ」「何人用か」「今の得点と失点内訳」を一致させる。見た目の刷新より、説明と動作が一致することを優先した。
++- 並列ピックは待ち時間短縮のため維持する。3人ではなし、4人2→3位、5人2→4位という現行ルールを維持し、5人3位に新たな権利は追加していない。
++- ババだけのプレイヤーが未完成トリックへ参加できない場合、その場札を得点山へ移す根拠がないため所有者へ返却する。
++- 200%文字、Safe Area、Sheet、ジェスチャー抑制、IME、キーボード追従の既存実装を保持。二重送信やスクロール後の誤タップをDOMイベントで回帰確認した。
++- 低リスクな共通化と境界修正に限定。巨大な既存HTML/サーバーを一度に分割すると状態遷移の変更が混ざるため、全面分割は別課題とした。
++
++## 実行した検証
++環境: Node.js v24.19.0。Render指定のNode 22環境では未実行。新しいDOMテストのjsdomを開発依存に追加しロックファイルを更新。現行ロックのDOM依存はNode 22.22.2以上または24.15以上を要する。実行時依存のwsは変更していない。
++
++|検証|結果・範囲|証拠|
++|---|---|---|
++|`npm test`|終了コード0。既存の全チェーンとv40/v41回帰が完了|`npm-test.log` の `NPM_TEST_EXIT=0`|
++|`npm run test:v46`|終了コード0|`v46-suite.log` の `V46_TEST_EXIT=0`|
++|3ラウンド完走マトリクス|1,152試合、28,813トリック、2,304ラウンド遷移、218シュート選択。カード所有ID、53枚保存、アクティブな札の重複、ババ1枚、順位人数、得点有限、最終戦績一致|`lifecycle-matrix.json`|
++|既存ルール実プレイマトリクス|3/4/5人×1,536=4,608ケース（各1ラウンド）|`npm-test.log`、`legacy-rule-matrix.log`|
++|既存設定組合せ検証|589,824組。これは設定の静的/ロジック検証で、試合完走数ではない|`npm-test.log`|
++|実WebSocket完走|3/4/5人×両ピック方向=6試合。各3R、対戦中再接続、観戦全手札、本人以外の手札非公開、3枚パス、旧方向では開始ペア設定もON|`websocket-completion.json`|
++|旧WebSocketスモーク|1人+CPU、通常の出札・候補選択・ピック・ペア選択・最終得点|`legacy-websocket-smoke.log`|
++|人数UI DOM|320/375/390/430/768/1024/1440px設定×3人数×各視点=84ケース。席対応、方向、リトライ表示、3人の設定無効化|`multiplayer-ui.json`|
++|iPhone向けDOM回帰|7幅、横向き844×390のtouch/mouse。Sheetフォーカスと閉じ操作、IME、スクロール/長押し/多点タッチ抑制、二重送信、キーボード/200%文字の状態シミュレーション|`native-dom-behavior.json`|
++|Static / Diff Review|JS構文、HTML/CSSパース、ID/関数重複、既存UI回帰、新CSSパース、v45比較|`source-integrity.log`、`css-parse.log`、`ui-followup.log`、`changes.diff`|
++
++新完走マトリクスは、人数×4失点方式×2配り方×3シュート方式×中位ON/OFF×2方向×4候補数を直積で試す。ババ失点タイミング、マッド、発射制限、ごちそう点、強制候補、移動条件、開始オプションはケースごとに切り替える。乱数はseed46固定。あらゆる設定・乱数・ネットワーク順序の網羅を意味しない。
++WebSocket完走・旧スモークはテスト専用時計を30倍速にした。通信は実際のローカルTCP/WebSocket。製品の待ち時間は変更していない。CPU/進行ストレスと非高速化の既存WebSocket回帰も`npm test`に含まれる。
++最後のカード列スクロール構造の調整後、人数UI・iPhone DOM・ソース整合性・UIフォローアップ・CSSパースを再実行した。全マトリクスはゲーム処理の最終変更後に実行している。
++
++## 主要ファイル
++`server.js`、`public/index.html`、新規 `public/multiplayer-ui.css`、`tests/*v46.cjs`、既存回帰テスト、`package.json` / `package-lock.json`。
++`public/iphone-ui.js` / `public/iphone-ui.css`、CPUの人格・台詞データ、画像は変更していない。
++
++## 未確認・残課題
++- Visualは未実施。DOMはレイアウトエンジンを持たず、幅を指定しても実画面のoverflow・カード間隔・結果帯の位置が適正とは断定できない。
++- iPhone Safariの実キーボード、Safe Area、VoiceOver読み上げ、実機Dynamic Type/200%文字、コントラストとフォーカスの実表示は未確認。
++- 新3/5人カード列の横スクロール・縦横切替を実ブラウザーで確認する必要がある。特に5人320pxと結果表示中を確認する。
++- Renderへの公開、公開先の新コードへの疎通、負荷・不安定通信・多数部屋の検証は未実施。
++- 持ち越しは旧仕様通り、山・浄化札を残し通常札を補充する。履歴込み総枚数を53に固定する方式ではない。仕様変更としては扱っていない。
++- 巨大HTMLのスタイル/描画処理とサーバーの機能別分割、人数別の勝率・手札推移を測る長期バランス評価は別課題。
++
++## 次の作業
++このZIPをRenderの既存プロジェクトへ反映し、3/4/5人の画面を320/375/390/430pxおよび縦横で確認する。デプロイは対戦状態をリセットするため、進行中の試合終了後に行う。
++
++入力ZIP SHA-256: `c1c0cad1b40c6714b2ecf844824a03752a8a2749abf1a1ed2029a752f09e1bae`
+--- v45/package-lock.json
++++ v46/package-lock.json
+@@ -13,10 +13,215 @@
+       "devDependencies": {
+         "acorn": "^8.17.0",
+         "css-tree": "^3.2.1",
++        "jsdom": "^30.1.1",
+         "parse5": "^8.0.1"
+       },
+       "engines": {
+         "node": "22.x"
++      }
++    },
++    "node_modules/@asamuzakjp/css-color": {
++      "version": "7.1.3",
++      "resolved": "https://registry.npmjs.org/@asamuzakjp/css-color/-/css-color-7.1.3.tgz",
++      "integrity": "sha512-1t1U8Cm3RBl9vh3RAZhjkPaduzLSvQJRToRrxpGR/eDRW99mOREleuu+mWfiFa795bUzjwht7NgphCKTs2ianQ==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "@csstools/css-calc": "^3.4.2",
++        "@csstools/css-color-parser": "^4.2.5",
++        "@csstools/css-parser-algorithms": "^4.0.2",
++        "@csstools/css-tokenizer": "^4.0.2",
++        "lru-cache": "^11.5.3"
++      },
++      "engines": {
++        "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
++      }
++    },
++    "node_modules/@asamuzakjp/dom-selector": {
++      "version": "9.2.4",
++      "resolved": "https://registry.npmjs.org/@asamuzakjp/dom-selector/-/dom-selector-9.2.4.tgz",
++      "integrity": "sha512-YnVzxDxLaqL0t7Q4wfcgHZjg55Wm6y5EaO7Bhu3q9J7wq/8iw3PhsnWiOQhYekx4VexnbkgWpTT6n+QIV7kczw==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "bidi-js": "^1.1.0",
++        "css-tree": "^3.2.1",
++        "is-potential-custom-element-name": "^1.0.1",
++        "lru-cache": "^11.5.3"
++      },
++      "engines": {
++        "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
++      }
++    },
++    "node_modules/@bramus/specificity": {
++      "version": "2.4.2",
++      "resolved": "https://registry.npmjs.org/@bramus/specificity/-/specificity-2.4.2.tgz",
++      "integrity": "sha512-ctxtJ/eA+t+6q2++vj5j7FYX3nRu311q1wfYH3xjlLOsczhlhxAg2FWNUXhpGvAw3BWo1xBcvOV6/YLc2r5FJw==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "css-tree": "^3.0.0"
++      },
++      "bin": {
++        "specificity": "bin/cli.js"
++      }
++    },
++    "node_modules/@csstools/color-helpers": {
++      "version": "6.1.2",
++      "resolved": "https://registry.npmjs.org/@csstools/color-helpers/-/color-helpers-6.1.2.tgz",
++      "integrity": "sha512-grhRy3OKmniaAEKXMjua5z/EODX0MSqBGjunw8+j/3HQjOnahs2AGhvEOIYVUWcU6ScApbhLhVrQTX8XqrMrow==",
++      "dev": true,
++      "funding": [
++        {
++          "type": "github",
++          "url": "https://github.com/sponsors/csstools"
++        },
++        {
++          "type": "opencollective",
++          "url": "https://opencollective.com/csstools"
++        }
++      ],
++      "license": "MIT-0",
++      "engines": {
++        "node": ">=20.19.0"
++      }
++    },
++    "node_modules/@csstools/css-calc": {
++      "version": "3.4.3",
++      "resolved": "https://registry.npmjs.org/@csstools/css-calc/-/css-calc-3.4.3.tgz",
++      "integrity": "sha512-iex20d8CHVkyvg6B7UKV7uHnI2Bqo9g+EFfT9E0y+GvTvhZ/DwONJ+9aKb1dlqm0ZiGsL5RXjp0fCoJYnkeDjA==",
++      "dev": true,
++      "funding": [
++        {
++          "type": "github",
++          "url": "https://github.com/sponsors/csstools"
++        },
++        {
++          "type": "opencollective",
++          "url": "https://opencollective.com/csstools"
++        }
++      ],
++      "license": "MIT",
++      "engines": {
++        "node": ">=20.19.0"
++      },
++      "peerDependencies": {
++        "@csstools/css-parser-algorithms": "^4.0.2",
++        "@csstools/css-tokenizer": "^4.0.2"
++      }
++    },
++    "node_modules/@csstools/css-color-parser": {
++      "version": "4.2.6",
++      "resolved": "https://registry.npmjs.org/@csstools/css-color-parser/-/css-color-parser-4.2.6.tgz",
++      "integrity": "sha512-iiPQ3iRWwnJkeEn6RIu6SJPr7hYrLz6XZ9s/QZl+2/LI5KQVjpl2fdmDSZKuD4xP6GMmMPgHFFXg6k1Wkz0Trg==",
++      "dev": true,
++      "funding": [
++        {
++          "type": "github",
++          "url": "https://github.com/sponsors/csstools"
++        },
++        {
++          "type": "opencollective",
++          "url": "https://opencollective.com/csstools"
++        }
++      ],
++      "license": "MIT",
++      "dependencies": {
++        "@csstools/color-helpers": "^6.1.2",
++        "@csstools/css-calc": "^3.4.3"
++      },
++      "engines": {
++        "node": ">=20.19.0"
++      },
++      "peerDependencies": {
++        "@csstools/css-parser-algorithms": "^4.0.2",
++        "@csstools/css-tokenizer": "^4.0.2"
++      }
++    },
++    "node_modules/@csstools/css-parser-algorithms": {
++      "version": "4.0.2",
++      "resolved": "https://registry.npmjs.org/@csstools/css-parser-algorithms/-/css-parser-algorithms-4.0.2.tgz",
++      "integrity": "sha512-40cSKyMvK+tq4qz6Awrlye2WGuOKt3FwPgtGg6KTfbHOWNw+Rk1rzbAtZnZ6IBhsY491HLRnDXwoyBAijmmILA==",
++      "dev": true,
++      "funding": [
++        {
++          "type": "github",
++          "url": "https://github.com/sponsors/csstools"
++        },
++        {
++          "type": "opencollective",
++          "url": "https://opencollective.com/csstools"
++        }
++      ],
++      "license": "MIT",
++      "engines": {
++        "node": ">=20.19.0"
++      },
++      "peerDependencies": {
++        "@csstools/css-tokenizer": "^4.0.2"
++      }
++    },
++    "node_modules/@csstools/css-syntax-patches-for-csstree": {
++      "version": "1.1.15",
++      "resolved": "https://registry.npmjs.org/@csstools/css-syntax-patches-for-csstree/-/css-syntax-patches-for-csstree-1.1.15.tgz",
++      "integrity": "sha512-J0u7HkVl2nzSlhsiTOp4AmwcUQ3D+mGEEKfBy/7To5/y7F2OHwyLrXfrhR0SMgr4p5Lo+eaMVSeai24zUcBIxA==",
++      "dev": true,
++      "funding": [
++        {
++          "type": "github",
++          "url": "https://github.com/sponsors/csstools"
++        },
++        {
++          "type": "opencollective",
++          "url": "https://opencollective.com/csstools"
++        }
++      ],
++      "license": "MIT-0",
++      "peerDependencies": {
++        "css-tree": "^3.2.1"
++      },
++      "peerDependenciesMeta": {
++        "css-tree": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/@csstools/css-tokenizer": {
++      "version": "4.0.2",
++      "resolved": "https://registry.npmjs.org/@csstools/css-tokenizer/-/css-tokenizer-4.0.2.tgz",
++      "integrity": "sha512-OoKoR0f76dCY666JlcbhmVTs2drYj1GUXZTYTcbUgJjh9Nv41aFfZ21bPQTERm5+L5cBDo466NltB2lplS5GBw==",
++      "dev": true,
++      "funding": [
++        {
++          "type": "github",
++          "url": "https://github.com/sponsors/csstools"
++        },
++        {
++          "type": "opencollective",
++          "url": "https://opencollective.com/csstools"
++        }
++      ],
++      "license": "MIT",
++      "engines": {
++        "node": ">=20.19.0"
++      }
++    },
++    "node_modules/@exodus/bytes": {
++      "version": "1.16.0",
++      "resolved": "https://registry.npmjs.org/@exodus/bytes/-/bytes-1.16.0.tgz",
++      "integrity": "sha512-IcpW84uEn3N7ETtNZMlxKhfl6Pec8rUNGOTBtWbK1FKhJxIFAptZyVrvVRVBimAJxJCgc3PxepxkdWWG4DVzfA==",
++      "dev": true,
++      "license": "MIT",
++      "engines": {
++        "node": "^20.19.0 || ^22.12.0 || >=24.0.0"
++      },
++      "peerDependencies": {
++        "@noble/hashes": "^1.8.0 || ^2.0.0"
++      },
++      "peerDependenciesMeta": {
++        "@noble/hashes": {
++          "optional": true
++        }
+       }
+     },
+     "node_modules/acorn": {
+@@ -32,6 +237,16 @@
+         "node": ">=0.4.0"
+       }
+     },
++    "node_modules/bidi-js": {
++      "version": "1.1.0",
++      "resolved": "https://registry.npmjs.org/bidi-js/-/bidi-js-1.1.0.tgz",
++      "integrity": "sha512-fX1Onk0tdVPC7obPWB5EbJ1z7NVhLq4m2xZLq2YXBkxzMXIGRpNMU88n0EPgWseKl12J7zXs7qrDxPK4sRs2fg==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "require-from-string": "^2.0.2"
++      }
++    },
+     "node_modules/css-tree": {
+       "version": "3.2.1",
+       "resolved": "https://registry.npmjs.org/css-tree/-/css-tree-3.2.1.tgz",
+@@ -46,6 +261,42 @@
+         "node": "^10 || ^12.20.0 || ^14.13.0 || >=15.0.0"
+       }
+     },
++    "node_modules/data-urls": {
++      "version": "7.0.0",
++      "resolved": "https://registry.npmjs.org/data-urls/-/data-urls-7.0.0.tgz",
++      "integrity": "sha512-23XHcCF+coGYevirZceTVD7NdJOqVn+49IHyxgszm+JIiHLoB2TkmPtsYkNWT1pvRSGkc35L6NHs0yHkN2SumA==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "whatwg-mimetype": "^5.0.0",
++        "whatwg-url": "^16.0.0"
++      },
++      "engines": {
++        "node": "^20.19.0 || ^22.12.0 || >=24.0.0"
++      }
++    },
++    "node_modules/data-urls/node_modules/whatwg-url": {
++      "version": "16.0.1",
++      "resolved": "https://registry.npmjs.org/whatwg-url/-/whatwg-url-16.0.1.tgz",
++      "integrity": "sha512-1to4zXBxmXHV3IiSSEInrreIlu02vUOvrhxJJH5vcxYTBDAx51cqZiKdyTxlecdKNSjj8EcxGBxNf6Vg+945gw==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "@exodus/bytes": "^1.11.0",
++        "tr46": "^6.0.0",
++        "webidl-conversions": "^8.0.1"
++      },
++      "engines": {
++        "node": "^20.19.0 || ^22.12.0 || >=24.0.0"
++      }
++    },
++    "node_modules/decimal.js": {
++      "version": "10.6.0",
++      "resolved": "https://registry.npmjs.org/decimal.js/-/decimal.js-10.6.0.tgz",
++      "integrity": "sha512-YpgQiITW3JXGntzdUmyUR1V812Hn8T1YVXhCu+wO3OpS4eU9l4YdD3qjyiKdV6mvV29zapkMeD390UVEf2lkUg==",
++      "dev": true,
++      "license": "MIT"
++    },
+     "node_modules/entities": {
+       "version": "8.0.0",
+       "resolved": "https://registry.npmjs.org/entities/-/entities-8.0.0.tgz",
+@@ -59,6 +310,76 @@
+         "url": "https://github.com/fb55/entities?sponsor=1"
+       }
+     },
++    "node_modules/html-encoding-sniffer": {
++      "version": "7.0.0",
++      "resolved": "https://registry.npmjs.org/html-encoding-sniffer/-/html-encoding-sniffer-7.0.0.tgz",
++      "integrity": "sha512-UikN5yr7xsCDAq87Or5or0PAlD3HJJOKVzM05az588WnpDJ4Ux7a2A53Qi6gofGg2/EtvF/H4hCi/TXfCW4Y6w==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "@exodus/bytes": "^1.15.1"
++      },
++      "engines": {
++        "node": "^22.13.0 || >=24.0.0"
++      }
++    },
++    "node_modules/is-potential-custom-element-name": {
++      "version": "1.0.1",
++      "resolved": "https://registry.npmjs.org/is-potential-custom-element-name/-/is-potential-custom-element-name-1.0.1.tgz",
++      "integrity": "sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==",
++      "dev": true,
++      "license": "MIT"
++    },
++    "node_modules/jsdom": {
++      "version": "30.1.1",
++      "resolved": "https://registry.npmjs.org/jsdom/-/jsdom-30.1.1.tgz",
++      "integrity": "sha512-FahmoPK5vbPc+jxV1iErMHmAZypCZ942NHF4+qqaWAuvaKKTBZxawnmAtrbGWLU7MtlxfqIP0qw6aSI+aWGtLg==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "@asamuzakjp/css-color": "^7.0.0",
++        "@asamuzakjp/dom-selector": "^9.2.1",
++        "@bramus/specificity": "^2.4.2",
++        "@csstools/css-syntax-patches-for-csstree": "^1.1.13",
++        "@exodus/bytes": "^1.15.1",
++        "css-tree": "^3.2.1",
++        "data-urls": "^7.0.0",
++        "decimal.js": "^10.6.0",
++        "html-encoding-sniffer": "^7.0.0",
++        "is-potential-custom-element-name": "^1.0.1",
++        "lru-cache": "^11.5.2",
++        "parse5": "^8.0.1",
++        "saxes": "^6.0.0",
++        "tough-cookie": "^6.0.2",
++        "undici": "^8.10.2",
++        "w3c-xmlserializer": "^6.0.0",
++        "webidl-conversions": "^8.0.1",
++        "whatwg-mimetype": "^5.0.0",
++        "whatwg-url": "^17.1.1",
++        "xml-name-validator": "^5.0.0"
++      },
++      "engines": {
++        "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
++      },
++      "peerDependencies": {
++        "canvas": "^3.2.3"
++      },
++      "peerDependenciesMeta": {
++        "canvas": {
++          "optional": true
++        }
++      }
++    },
++    "node_modules/lru-cache": {
++      "version": "11.5.3",
++      "resolved": "https://registry.npmjs.org/lru-cache/-/lru-cache-11.5.3.tgz",
++      "integrity": "sha512-U4N8FgzmWxc8k1VH8Kr6lQg18U7Fjvby6wXHVRX/ZZ7IwWbRMgrRbP0Wrb5q5NVinryp4SQampHKdvtecItxUg==",
++      "dev": true,
++      "license": "BlueOak-1.0.0",
++      "engines": {
++        "node": "20 || >=22"
++      }
++    },
+     "node_modules/mdn-data": {
+       "version": "2.27.1",
+       "resolved": "https://registry.npmjs.org/mdn-data/-/mdn-data-2.27.1.tgz",
+@@ -79,6 +400,39 @@
+         "url": "https://github.com/inikulin/parse5?sponsor=1"
+       }
+     },
++    "node_modules/punycode": {
++      "version": "2.3.1",
++      "resolved": "https://registry.npmjs.org/punycode/-/punycode-2.3.1.tgz",
++      "integrity": "sha512-vYt7UD1U9Wg6138shLtLOvdAu+8DsC/ilFtEVHcH+wydcSpNE20AfSOduf6MkRFahL5FY7X1oU7nKVZFtfq8Fg==",
++      "dev": true,
++      "license": "MIT",
++      "engines": {
++        "node": ">=6"
++      }
++    },
++    "node_modules/require-from-string": {
++      "version": "2.0.2",
++      "resolved": "https://registry.npmjs.org/require-from-string/-/require-from-string-2.0.2.tgz",
++      "integrity": "sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==",
++      "dev": true,
++      "license": "MIT",
++      "engines": {
++        "node": ">=0.10.0"
++      }
++    },
++    "node_modules/saxes": {
++      "version": "6.0.0",
++      "resolved": "https://registry.npmjs.org/saxes/-/saxes-6.0.0.tgz",
++      "integrity": "sha512-xAg7SOnEhrm5zI3puOOKyy1OMcMlIJZYNJY7xLBwSze0UjhPLnWfj2GF2EpT0jmzaJKIWKHLsaSSajf35bcYnA==",
++      "dev": true,
++      "license": "ISC",
++      "dependencies": {
++        "xmlchars": "^2.2.0"
++      },
++      "engines": {
++        "node": ">=v12.22.7"
++      }
++    },
+     "node_modules/source-map-js": {
+       "version": "1.2.1",
+       "resolved": "https://registry.npmjs.org/source-map-js/-/source-map-js-1.2.1.tgz",
+@@ -89,6 +443,110 @@
+         "node": ">=0.10.0"
+       }
+     },
++    "node_modules/tldts": {
++      "version": "7.4.16",
++      "resolved": "https://registry.npmjs.org/tldts/-/tldts-7.4.16.tgz",
++      "integrity": "sha512-QwBER5KMR86IIjpIiO7H/Z3IMJPsZ1A6RKPAqzTTgOyUQUSt9FdnKcqhTaJmkY6HVrgouZHZR0ncK5QxvmnQeg==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "tldts-core": "^7.4.16"
++      },
++      "bin": {
++        "tldts": "bin/cli.js"
++      }
++    },
++    "node_modules/tldts-core": {
++      "version": "7.4.16",
++      "resolved": "https://registry.npmjs.org/tldts-core/-/tldts-core-7.4.16.tgz",
++      "integrity": "sha512-MDolfaSJtlSK5Y0A1xl3277ekubZwobpBjugknDizI9O5Rm60a1m8k4ICK+MRsCDzPygT81mp3BBf5RKDlFRfA==",
++      "dev": true,
++      "license": "MIT"
++    },
++    "node_modules/tough-cookie": {
++      "version": "6.0.2",
++      "resolved": "https://registry.npmjs.org/tough-cookie/-/tough-cookie-6.0.2.tgz",
++      "integrity": "sha512-exgYmnmL/sJpR3upZfXG5PoatXQii55xAiXGXzY+sROLZ/Y+SLcp9PgJNI9Vz37HpQ74WvDcLT8eqm+kV3FzrA==",
++      "dev": true,
++      "license": "BSD-3-Clause",
++      "dependencies": {
++        "tldts": "^7.0.5"
++      },
++      "engines": {
++        "node": ">=16"
++      }
++    },
++    "node_modules/tr46": {
++      "version": "6.0.0",
++      "resolved": "https://registry.npmjs.org/tr46/-/tr46-6.0.0.tgz",
++      "integrity": "sha512-bLVMLPtstlZ4iMQHpFHTR7GAGj2jxi8Dg0s2h2MafAE4uSWF98FC/3MomU51iQAMf8/qDUbKWf5GxuvvVcXEhw==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "punycode": "^2.3.1"
++      },
++      "engines": {
++        "node": ">=20"
++      }
++    },
++    "node_modules/undici": {
++      "version": "8.11.2",
++      "resolved": "https://registry.npmjs.org/undici/-/undici-8.11.2.tgz",
++      "integrity": "sha512-u4UB2/IrKdU6lFxumHmmo1a3fCQO5tzQllRorfoRS63txhrB7xTpSn1PftwC4qEHkOaqP95fCWW4lJzwErwzhQ==",
++      "dev": true,
++      "license": "MIT",
++      "engines": {
++        "node": ">=22.19.0"
++      }
++    },
++    "node_modules/w3c-xmlserializer": {
++      "version": "6.0.0",
++      "resolved": "https://registry.npmjs.org/w3c-xmlserializer/-/w3c-xmlserializer-6.0.0.tgz",
++      "integrity": "sha512-4Nsy8K5Tr6SPDH9jhKJOHf7ChDrc1zufZTVSF7x72hwuEXBqxqk9G6cK+K2NRUtB3iELRJqjXb4JPDMBjMTl2Q==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "xml-name-validator": "^5.0.0"
++      },
++      "engines": {
++        "node": "^22.22.2 || ^24.15.0 || >=26.0.0"
++      }
++    },
++    "node_modules/webidl-conversions": {
++      "version": "8.0.1",
++      "resolved": "https://registry.npmjs.org/webidl-conversions/-/webidl-conversions-8.0.1.tgz",
++      "integrity": "sha512-BMhLD/Sw+GbJC21C/UgyaZX41nPt8bUTg+jWyDeg7e7YN4xOM05YPSIXceACnXVtqyEw/LMClUQMtMZ+PGGpqQ==",
++      "dev": true,
++      "license": "BSD-2-Clause",
++      "engines": {
++        "node": ">=20"
++      }
++    },
++    "node_modules/whatwg-mimetype": {
++      "version": "5.0.0",
++      "resolved": "https://registry.npmjs.org/whatwg-mimetype/-/whatwg-mimetype-5.0.0.tgz",
++      "integrity": "sha512-sXcNcHOC51uPGF0P/D4NVtrkjSU2fNsm9iog4ZvZJsL3rjoDAzXZhkm2MWt1y+PUdggKAYVoMAIYcs78wJ51Cw==",
++      "dev": true,
++      "license": "MIT",
++      "engines": {
++        "node": ">=20"
++      }
++    },
++    "node_modules/whatwg-url": {
++      "version": "17.1.2",
++      "resolved": "https://registry.npmjs.org/whatwg-url/-/whatwg-url-17.1.2.tgz",
++      "integrity": "sha512-TEZA+Zqxin7Jjsm2cjRohCmen5awh+hT6Zi3VZdqZlNRk7zvOI/9WpBFg/DWlA56bWnzwm6DuB8NS0EsxQH9uQ==",
++      "dev": true,
++      "license": "MIT",
++      "dependencies": {
++        "@exodus/bytes": "^1.15.1",
++        "tr46": "^6.0.0",
++        "webidl-conversions": "^8.0.1"
++      },
++      "engines": {
++        "node": "^22.14.0 || >=24.0.0"
++      }
++    },
+     "node_modules/ws": {
+       "version": "8.21.1",
+       "resolved": "https://registry.npmjs.org/ws/-/ws-8.21.1.tgz",
+@@ -109,6 +567,23 @@
+           "optional": true
+         }
+       }
++    },
++    "node_modules/xml-name-validator": {
++      "version": "5.0.0",
++      "resolved": "https://registry.npmjs.org/xml-name-validator/-/xml-name-validator-5.0.0.tgz",
++      "integrity": "sha512-EvGK8EJ3DhaHfbRlETOWAS5pO9MZITeauHKJyb8wyajUfQUenkIg2MvLDTZ4T/TgIcm3HU0TFBgWWboAZ30UHg==",
++      "dev": true,
++      "license": "Apache-2.0",
++      "engines": {
++        "node": ">=18"
++      }
++    },
++    "node_modules/xmlchars": {
++      "version": "2.2.0",
++      "resolved": "https://registry.npmjs.org/xmlchars/-/xmlchars-2.2.0.tgz",
++      "integrity": "sha512-JZnDKK8B0RCDw84FNdDAIpZK+JuJw+s7Lz8nksI7SIuU3UXJJslUthsi+uWBUYOwPFwW7W7PRLRfUKpxjtjFCw==",
++      "dev": true,
++      "license": "MIT"
+     }
+   }
+ }
+--- v45/package.json
++++ v46/package.json
+@@ -22,7 +22,8 @@
+     "test:v38": "node tests/baba_movement_rules_v38_regression.js && node tests/cpu4_spectator_v38_fullgame.js",
+     "test:v39": "node tests/pipitori_v39_regression.js && node tests/v39_shoot_ui_regression.js && node tests/v39_cpu_seat_websocket.js && node tests/v39_cpu4_featured_fullgame.js && node tests/v39_mixed_spectator_host_fullgame.js",
+     "test:v40": "node tests/intentional_leave_v40_regression.js && node tests/cpu_identity_dialogue_v40_regression.js && node tests/cpu_only_round_advance_v40_regression.js && node tests/parallel_middle_pick_v40_regression.js && node tests/v40_ui_lifecycle_regression.js",
+-    "test:v41": "npm run test:v40 --offline && node tests/v41_followup_regression.js"
++    "test:v41": "npm run test:v40 --offline && node tests/v41_followup_regression.js",
++    "test:v46": "node tests/joker_midtrick_conservation_v46.cjs && node tests/final_snapshot_v46.cjs && node tests/multiplayer_lifecycle_v46.cjs && node tests/multiplayer_websocket_v46.cjs && node tests/multiplayer_ui_v46.cjs && UI_QA_DIR=qa/v46 node tests/native_iphone_v45_behavior.cjs"
+   },
+   "dependencies": {
+     "ws": "^8.18.0"
+@@ -30,6 +31,7 @@
+   "devDependencies": {
+     "acorn": "^8.17.0",
+     "css-tree": "^3.2.1",
++    "jsdom": "^30.1.1",
+     "parse5": "^8.0.1"
+   },
+   "engines": {
+--- v45/public/index.html
++++ v46/public/index.html
+@@ -7490,6 +7490,7 @@
+ body.gameplay-mode.modern-game-ui #gameScreen #gameUtilityPanel :is(button,input,select,a):focus-visible{outline-color:#086b86!important}
+ </style>
+   <link rel="stylesheet" href="/iphone-ui.css?v=45" />
++  <link rel="stylesheet" href="/multiplayer-ui.css?v=46" />
+ </head>
+ <body class="modern-game-ui">
+ <div id="app">
+@@ -7515,7 +7516,7 @@
+     <div class="lobby-route-grid" aria-label="遊び方を選択">
+       <section class="lobby-route-card create-route">
+         <span class="menu-eyebrow">HOST</span><h3>新しい部屋を作る</h3><p>3人・4人・5人から選び、友達またはCPUと遊びます。</p>
+-        <label class="input-label seat-count-picker"><span class="rule-title">遊ぶ人数</span><select id="playerCount" class="input" aria-label="遊ぶ人数"><option value="3">3人（17枚ずつ・1位→3位ピック）</option><option value="4" selected>4人（13枚ずつ・標準）</option><option value="5">5人（10枚ずつ・2組のピック）</option></select><em>3人は1位→3位、5人は1位→5位と2位→4位</em></label>
++        <label class="input-label seat-count-picker"><span class="rule-title">遊ぶ人数</span><select id="playerCount" class="input" aria-label="遊ぶ人数"><option value="3">3人（17枚ずつ・1位→3位ピック）</option><option value="4" selected>4人（13枚ずつ・標準）</option><option value="5">5人（10枚ずつ）</option></select><em><span id="playerCountHint">4人は13枚ずつ。追加ピックONなら2位→3位も同時進行します。</span></em></label>
+         <details class="room-setup-options"><summary>ルールを選ぶ・調整する<span id="setupRuleSummary">標準は3ラウンド・シュートOFF</span></summary>
+     <section class="rule-preset-panel" aria-labelledby="rulePresetTitle">
+       <div class="preset-panel-head"><div><span class="menu-eyebrow">STEP 2 · HOST RULES</span><h3 id="rulePresetTitle">遊び方を選ぶ</h3><p>迷ったら「スタンダード」。選んだ後に細かく調整できます。</p></div><span class="recommended-pill">おすすめから選択</span></div>
+@@ -7560,7 +7561,7 @@
+           <div class="settings-grid compact-grid">
+             <label class="input-label"><span class="rule-title"><span>ラウンド数</span><button type="button" class="rule-help-btn" data-help-rule="rounds" aria-label="ラウンド数のヘルプ">?</button></span><select id="rounds" class="input"><option>1</option><option>2</option><option selected>3</option><option>4</option><option>5</option><option>6</option></select><em>標準は3ラウンド</em></label>
+             <label class="input-label option-toggle"><span class="rule-title"><span>次ラウンドの配り方</span><button type="button" class="rule-help-btn" data-help-rule="roundDealMode" aria-label="次ラウンドの配り方のヘルプ">?</button></span><select id="roundDealMode" class="input"><option value="reshuffle" selected>全カードを回収してシャッフル</option><option value="carryOver">残りカードを持ち越して補充</option></select><em>標準は毎ラウンド全シャッフル</em></label>
+-            <label class="input-label"><span class="rule-title"><span>ごちそう山の得点（1枚あたり）</span><button type="button" class="rule-help-btn" data-help-rule="feastPointPerCard" aria-label="ごちそう山の得点のヘルプ">?</button></span><input id="feastPointPerCard" class="input" type="number" value="1" min="0" max="10" step="1" inputmode="numeric" /><em>標準は1枚1点（通常1トリック4点）</em></label>
++            <label class="input-label"><span class="rule-title"><span>ごちそう山の得点（1枚あたり）</span><button type="button" class="rule-help-btn" data-help-rule="feastPointPerCard" aria-label="ごちそう山の得点のヘルプ">?</button></span><input id="feastPointPerCard" class="input" type="number" value="1" min="0" max="10" step="1" inputmode="numeric" /><em>標準は1枚1点（通常1トリックは参加人数ぶんの点数）</em></label>
+             <label class="input-label option-toggle"><span class="rule-title"><span>残り手札の失点</span><button type="button" class="rule-help-btn" data-help-rule="penaltyMode" aria-label="残り手札の失点のヘルプ">?</button></span><select id="penaltyMode" class="input"><option value="mud6" selected>リンゴ・トウモロコシ・キャベツは-3点、通常の💧は-6点</option><option value="flat3">全スート1枚ごとに-3点</option><option value="faceValue">数字分だけ失点</option><option value="mudSuit">1枚ごとに-1点、💧スートは-3点</option></select><em>標準は💧-6点・他-3点</em></label>
+           </div>
+         </section>
+@@ -7715,7 +7716,7 @@
+         <div class="rule-card">
+           <h3>基本</h3>
+           <ul>
+-            <li>3〜5人で遊べます。3人は17枚、4人は13枚、5人は10枚ずつ配ります。ババブタとマッド・ピッグは必ず使用します。</li>
++            <li>3〜5人で遊べます。3人は17枚、4人は13枚、5人は10枚ずつ配ります。ババブタは必ず使用し、💧11はマッド・ピッグONの部屋では危険カードになります。</li>
+             <li>強さ：13 ＞ 12 ＞ … ＞ 1。1が最弱、13が最強。</li>
+             <li>リードスートがあれば必ず出す。ババブタは場に出せない。</li>
+             <li>勝者はリードスートで一番強いカード。</li>
+@@ -7727,7 +7728,7 @@
+           <ul>
+             <li>トリックの勝者は、その場に出た全カードをごちそう山へ。</li>
+             <li>標準は勝者が自分の手札から候補を出し、最弱者が1枚引いて受け取る。従来方向も選択可。</li>
+-            <li>カードを取られる側が候補を2枚に絞る。絞らない/1〜13枚にも変更可。</li>
++            <li>カードを取られる側が候補を2枚に絞る。絞らない/1〜17枚にも変更可。手札が少ない場合は、その枚数までが候補になります。</li>
+             <li>任意で「ババブタ必須候補」をONにできる。候補1枚ならババが自動確定。「絞らない」は元々全手札候補なので変化なし。</li>
+             <li>中位の追加ピックをONにすると、4人は2位→3位、5人は2位→4位を、1位と最弱のピックと別レーンで同時進行します。3人用では追加ピックはありません。</li>
+             <li>提供者の候補選択画面はスート順→数字順。ピッカー側は公平なランダム順。</li>
+@@ -7767,7 +7768,7 @@
+           <ul>
+             <li>3ラウンド / ピック対象2枚 / リンゴ・トウモロコシ・キャベツは-3点・通常の💧は-6点。</li>
+             <li>マッド・ピッグあり / ババブタ-20点・ラウンド毎。</li>
+-            <li>2位→3位ピックON / 装填→発射OFF / ババ必須候補ON / シュート移動条件OFF / 3枚パスなし / 開始時ペア捨てなし / シュートOFF（ON時は両方とも手札・無制限）。</li>
++            <li>中位ピックON（4人は2位→3位、5人は2位→4位、3人は対象外） / 装填→発射OFF / ババ必須候補ON / シュート移動条件OFF / 3枚パスなし / 開始時ペア捨てなし / シュートOFF（ON時は両方とも手札・無制限）。</li>
+           </ul>
+         </div>
+       </div>
+@@ -8556,7 +8557,7 @@
+     title:'次ラウンドの配り方',
+     body:[
+       '標準は「全カードを回収してシャッフル」です。ラウンド終了時に得点を確定し、手札・ごちそう山・ペア浄化済みカードをすべて回収して、3人は17枚、4人は13枚、5人は10枚を新しく配ります。',
+-      '「残りカードを持ち越して補充」は旧ルール互換です。残り手札、ごちそう山、ペア浄化済みカードを保持し、手札だけ13枚まで通常カードで補充します。',
++      '「残りカードを持ち越して補充」は旧ルール互換です。残り手札、ごちそう山、ペア浄化済みカードを保持し、手札だけ、3人は17枚、4人は13枚、5人は10枚まで通常カードで補充します。',
+       'どちらを選んでも、ラウンドごとの得点、ババブタ失点、シュート失点はゲーム終了まで正しく累計されます。',
+       '開始時3枚パスと開始時ペア捨ては、ゲーム開始時の第1ラウンドだけ実施します。'
+     ]
+@@ -8636,7 +8637,7 @@
+     ]
+   },
+   enableMiddleRankPick:{
+-    title:'2位と3位の間でもピック',
++    title:'中位の追加ピック',
+     body:[
+       'ONでは通常の1位↔最弱ピックと同時に、トリック2位が候補を出して3位が1枚受け取ります。標準はONです。',
+       '順位はトリック解決時に一度だけ確定し、最初のピック後も変わりません。次のリードは従来どおり1位です。',
+@@ -8649,7 +8650,7 @@
+       'ONでは手札にババブタ＋マッド・ピッグが揃うと、本人だけに「装填完了」を知らせます。装填情報は他プレイヤーへ公開されません。',
+       '装填者がトリック1位になると、通常ピックか「発射する！」を本人が選びます。自動発射はしません。',
+       '発射時は1位→最弱の通常ピックを置き換え、ババブタを最弱者へ直接渡します。マッド・ピッグは発射者の手札に残ります。',
+-      '2位→3位ピックがONなら、必殺技演出中もその追加ピックの状態処理は並行して進みます。卓全体で1ラウンド1発です。',
++      '中位の追加ピックがONなら、4人は2位→3位、5人は2位→4位が必殺技演出中も並行して進みます。3人では追加ピックを行いません。卓全体で1ラウンド1発です。',
+       'このモードでは「シュートにはババ移動が必要」は使わず、サーバーでもOFFへ正規化します。標準はOFFで、OFF時は従来のラウンド終了判定を維持します。'
+     ]
+   },
+@@ -8762,6 +8763,14 @@
+   updateRulePresetUi();
+ }
+ 
++function syncPlayerCountUi(){
++ const count=Number($('playerCount')?.value || 4);
++ const middle=$('enableMiddleRankPick');
++ if(middle){middle.disabled=count===3;middle.setAttribute('aria-disabled',String(count===3));}
++ const primary=$('pickProviderRole')?.value==='weakest'?`${count}位→1位`:`1位→${count}位`;
++ const additional=count===3?'3人では追加ピックを行いません。':middle?.value==='true'?`追加ピックON：${count===5?'2位→4位':'2位→3位'}も同時進行。`:'追加ピックはOFFです。';
++ if($('playerCountHint'))$('playerCountHint').textContent=`${count}人は${Math.floor(52/count)}枚ずつ。${primary}ピック。${additional}`;
++}
+ function readRuleSelectionForTrend(){
+   return {
+     playerCount:Number($('playerCount')?.value || 4),
+@@ -8774,7 +8783,7 @@
+     jokerTiming:$('jokerPenaltyTiming')?.value || 'perRound',
+     shoot:$('shootThePigEnabled')?.value === 'true' && $('madPigEnabled')?.value === 'true',
+     shootLimit:$('shootThePigLimit')?.value === 'once' ? 'once' : 'unlimited',
+-    enableMiddleRankPick:$('enableMiddleRankPick')?.value === 'true',
++    enableMiddleRankPick:Number($('playerCount')?.value || 4)!==3 && $('enableMiddleRankPick')?.value === 'true',
+     shootLoadFireMode:$('shootLoadFireMode')?.value === 'true' && $('shootThePigEnabled')?.value === 'true' && $('madPigEnabled')?.value === 'true',
+     forceJokerPickCandidate:$('forceJokerPickCandidate')?.value === 'true',
+     shootRequiresBabaMoved:$('shootRequiresBabaMoved')?.value === 'true' && $('shootLoadFireMode')?.value !== 'true',
+@@ -8891,6 +8900,7 @@
+ }
+ 
+ function updateMatchTrendExplanation(){
++  syncPlayerCountUi();
+   const panel = $('matchTrendPanel');
+   if(!panel) return;
+   syncShootThePigAvailability();
+@@ -9171,7 +9181,7 @@
+   pendingConnectIntent='create';
+   setCreateButtonState('creating');
+   participantRole=selectedParticipantRole();
+-  connect(()=>send({type:'create', playerCount:Number($('playerCount')?.value || 4), participantRole, name:$('name').value, rounds:Number($('rounds').value || 3), roundDealMode:$('roundDealMode').value || 'reshuffle', feastPointPerCard:Number($('feastPointPerCard').value ?? 1), madPigEnabled:$('madPigEnabled').value==='true', shootThePigEnabled:$('shootThePigEnabled').value==='true', shootThePigLimit:$('shootThePigLimit').value || 'unlimited', enableMiddleRankPick:$('enableMiddleRankPick').value==='true', shootLoadFireMode:$('shootLoadFireMode').value==='true', forceJokerPickCandidate:$('forceJokerPickCandidate').value==='true', shootRequiresBabaMoved:$('shootLoadFireMode').value!=='true' && $('shootRequiresBabaMoved').value==='true', jokerPenalty:Number($('jokerPenalty').value || -20), jokerPenaltyTiming:$('jokerPenaltyTiming').value, initialPairDiscardEnabled:$('initialPairDiscardEnabled').value==='true', passThreeEnabled:$('passThreeEnabled').value==='true', penaltyMode:$('penaltyMode').value, pickProviderRole:$('pickProviderRole').value || 'winner', pickTargetCount:Number($('pickTargetCount').value || 2)}));
++  connect(()=>send({type:'create', playerCount:Number($('playerCount')?.value || 4), participantRole, name:$('name').value, rounds:Number($('rounds').value || 3), roundDealMode:$('roundDealMode').value || 'reshuffle', feastPointPerCard:Number($('feastPointPerCard').value ?? 1), madPigEnabled:$('madPigEnabled').value==='true', shootThePigEnabled:$('shootThePigEnabled').value==='true', shootThePigLimit:$('shootThePigLimit').value || 'unlimited', enableMiddleRankPick:Number($('playerCount')?.value || 4)!==3 && $('enableMiddleRankPick').value==='true', shootLoadFireMode:$('shootLoadFireMode').value==='true', forceJokerPickCandidate:$('forceJokerPickCandidate').value==='true', shootRequiresBabaMoved:$('shootLoadFireMode').value!=='true' && $('shootRequiresBabaMoved').value==='true', jokerPenalty:Number($('jokerPenalty').value || -20), jokerPenaltyTiming:$('jokerPenaltyTiming').value, initialPairDiscardEnabled:$('initialPairDiscardEnabled').value==='true', passThreeEnabled:$('passThreeEnabled').value==='true', penaltyMode:$('penaltyMode').value, pickProviderRole:$('pickProviderRole').value || 'winner', pickTargetCount:Number($('pickTargetCount').value || 2)}));
+ };
+ $('join').onclick=()=>{
+   setCreateButtonState('idle', '部屋コードで参加します。');
+@@ -9211,7 +9221,7 @@
+   if(!btn) return;
+   btn.classList.toggle('is-starting',!!starting);
+   btn.setAttribute('aria-busy',starting?'true':'false');
+-  btn.textContent=starting?'ゲーム開始中…':'4人で遊ぶ';
++  btn.textContent=starting?'ゲーム開始中…':`${configuredPlayerCount()}人で遊ぶ`;
+ }
+ $('start').onclick=()=>{
+   const btn=$('start');
+@@ -9894,6 +9904,7 @@
+   const pp=state.pendingPick,group=state.parallelPickGroup;
+   const roleText=group?'2つのピックが同時進行中':pp?`カード移動：${playerIdentityText(pp.pickProviderPid)} → ${playerIdentityText(pp.pickerPid)}`:state.trickReview?`👑 ${playerIdentityText(state.trickReview.winnerPid)} / 💀 ${playerIdentityText(state.trickReview.weakestPid)}`:`手番：${state.current!=null?playerIdentityText(state.current):'結果確認中'}`;
+   if($('spectatorNow')) $('spectatorNow').textContent=`${state.playerSeatCapacity}人卓・第${state.round || 1}ラウンド · ${roleText}`;
++  $('spectatorTrick')?.style.setProperty('--spectator-seat-count',String(configuredPlayerCount()));
+   const handsTitle=$('spectatorHandsTitle');if(handsTitle) handsTitle.textContent=`${state.playerSeatCapacity}人の全手札`;
+   const trick=$('spectatorTrick');
+   const trickKey=JSON.stringify([(state.trick||[]).map(x=>[x.pid,x.card?.id,x.order]),state.current,state.leadSuit,roleText]);
+@@ -10015,17 +10026,21 @@
+   const token=String(value || '');
+   return /^[a-z0-9-]{1,24}$/i.test(token) ? token : fallback;
+ }
++function configuredPlayerCount(){
++ const count=Number(state?.playerSeatCapacity || state?.playerCount || $('playerCount')?.value || 4);
++ return [3,4,5].includes(count)?count:4;
++}
+ function relativeSeatPosition(pid){
+   const base = Number.isInteger(state?.yourIndex) && state.yourIndex >= 0 ? state.yourIndex : 0;
+-  const count=Number(state?.playerSeatCapacity || state?.players?.length || 4);
++  const count=configuredPlayerCount();
+   const delta=((Number(pid)-base+count)%count+count)%count;
+   if(delta===0) return 'bottom';
+   if(count===3) return delta===1?'left':'right';
+   if(count===5) return ['','left','upper-left','upper-right','right'][delta] || 'top';
+   return ['','left','top','right'][delta] || 'top';
+ }
+-function secondaryPickLabel(){const n=Number(state?.playerSeatCapacity||state?.players?.length||4);return n===5?'2位→4位':n===3?'追加ピックなし':'2位→3位';}
+-function primaryPickLabel(){const n=Number(state?.playerSeatCapacity||state?.players?.length||4);return `1位↔${n}位`;}
++function secondaryPickLabel(){const n=configuredPlayerCount();return n===5?'2位→4位':n===3?'追加ピックなし':'2位→3位';}
++function primaryPickLabel(){const n=configuredPlayerCount();return state?.pickProviderRole==='weakest'?`${n}位→1位`:`1位→${n}位`;}
+ 
+ 
+ 
+@@ -10912,7 +10927,7 @@
+ 
+ function renderPlayers(){
+   const base = Number.isInteger(state.yourIndex) && state.yourIndex >= 0 ? state.yourIndex : 0;
+-  const count=Number(state.playerSeatCapacity || state.players.length || 4);
++  const count=configuredPlayerCount();
+   const positions=count===3?['left','right']:count===5?['left','upper-left','upper-right','right']:['left','top','right'];
+   const placements=positions.map((position,index)=>({pid:(base+index+1)%count,position}));
+   placements.push({pid:base,position:'bottom'});
+@@ -11188,9 +11203,9 @@
+ 
+     const secondary=pp.pickStage==='secondary';
+     const providerRank=secondary?'🥈 2位':providerPid===(pp.trickWinnerPid ?? pp.winnerPid)?'👑 勝者':'💀 最弱';
+-    const pickerRank=secondary?'🥉 3位':pickerPid===(pp.trickWinnerPid ?? pp.winnerPid)?'👑 勝者':'💀 最弱';
++    const pickerRank=secondary?`${configuredPlayerCount()===5?'4':'3'}位`:pickerPid===(pp.trickWinnerPid ?? pp.winnerPid)?'👑 勝者':'💀 最弱';
+     let html=`<div class="pick-stage ${secondary?'secondary-pick-stage':''}">
+-      <h3>🐽 ${secondary?`${secondaryPickLabel()} ピック`:`1位 → ${Number(state.playerSeatCapacity)-0}位 ピック`}</h3>
++      <h3>🐽 ${secondary?`${secondaryPickLabel()} ピック`:`${primaryPickLabel()} ピック`}</h3>
+       <div class="pick-main">
+         <div class="pick-person provider"><div class="big">${playerAvatarHTML(providerPid)}</div><span class="pick-system-role">カードを取られる人</span><span class="pick-trick-role">${providerRank}</span><span class="pick-person-name" title="${escAttr(playerIdentityText(providerPid))}">${esc(provider.name)}</span></div>
+         <div class="pick-big-arrow">➡<small>カードの移動</small></div>
+@@ -11296,7 +11311,7 @@
+       <div class="review-outcome result-winner"><span>👑 勝者</span><b title="${escAttr(winnerName)}">${esc(winnerName)}</b></div>
+       <div class="review-outcome result-weakest"><span>💀 最弱</span><b title="${escAttr(weakestName)}">${esc(weakestName)}</b></div>
+     </div>
+-    <div class="review-feast">🍽️ ごちそう${Number(lt?.feastCardCount||4)}枚獲得　＋${Number(lt?.feastScore ?? (4*Number(state.feastPointPerCard??1)))}点</div>
++    <div class="review-feast">🍽️ ごちそう${Number(lt?.feastCardCount??configuredPlayerCount())}枚獲得　＋${Number(lt?.feastScore ?? (configuredPlayerCount()*Number(state.feastPointPerCard??1)))}点</div>
+     <div class="review-countdown"><span>結果確認</span><b id="reviewSeconds">${review}</b><span>秒後にピック</span></div>
+   </div>` : '';
+   const trail = flow.map((pid,idx)=>{
+@@ -11304,8 +11319,7 @@
+     const cur = state.current===pid && !done;
+     return `<span class="trail-step ${done?'done':''} ${cur?'current':''}" title="${escAttr(playerIdentityText(pid))}">${orderBadge(idx)} ${esc(playerIdentityText(pid))}</span>${idx<flow.length-1?'<span class="trail-arrow">➜</span>':''}`;
+   }).join('');
+-  const base = Number.isInteger(state.yourIndex) && state.yourIndex >= 0 ? state.yourIndex : 0;
+-  const slotByDelta = ['bottom','left','top','right'];
++  const seatCount=configuredPlayerCount();
+   const currentTrickMotionIds=(state.trick||[]).map(t=>t.card?.id).filter(Boolean);
+   const previousTrickMotionIds=new Set(__lastTrickMotionIds);
+   // 途中参加・復帰時に場の全カードが一斉に飛び込む誤表現を避ける。
+@@ -11313,8 +11327,7 @@
+   const canAnimateNewTrickCard=!state.cardPlayEvent?.eventId && (__lastTrickMotionIds.length>0 || currentTrickMotionIds.length===1);
+   const slots = order.map(pid=>{
+     const x=trickMap.get(pid);
+-    const delta = (pid - base + 4) % 4;
+-    const position = slotByDelta[delta];
++    const position = relativeSeatPosition(pid);
+     const isWinner=!!lt && lt.winnerPid===pid;
+     const isWeakest=!!lt && lt.weakestPid===pid;
+     const cls = `${isWinner ? ' win' : ''}${isWeakest ? ' weak' : ''}${state.current===pid&&!state.pendingPick ? ' current' : ''}`;
+@@ -11329,9 +11342,10 @@
+       <div class="trick-slot-label${resultClass}" title="${escAttr(label)}">${esc(label)}</div>
+     </div>`;
+   }).join('');
++  const tableSlots=seatCount===4?slots:`<div class="multiplayer-trick-slots" style="--trick-seat-count:${seatCount}">${slots}</div>`;
+   const centerLead = state.leadSuit ? `リード ${suitShortDisplay(state.leadSuit)}` : 'リード待ち';
+   const centerTurn = state.current!=null&&!state.pendingPick ? playerIdentityText(state.current) : '結果確認中';
+-  $('table').innerHTML=`<div class="trick-board collision-safe-layout-v10 trick-result-layout-v11${review?' reviewing':''}" data-layout="collision-safe">${reviewBanner}<div class="play-trail">${trail}</div>${slots}<div class="trick-center"><div><span class="clockwise">↻</span><b>${esc(centerLead)}</b><span>次：${esc(centerTurn)}</span></div></div></div>`;
++  $('table').innerHTML=`<div class="trick-board collision-safe-layout-v10 trick-result-layout-v11${review?' reviewing':''}" data-layout="collision-safe" data-player-count="${seatCount}">${reviewBanner}<div class="play-trail">${trail}</div>${tableSlots}<div class="trick-center"><div><span class="clockwise">↻</span><b>${esc(centerLead)}</b><span>次：${esc(centerTurn)}</span></div></div></div>`;
+   __lastTrickMotionIds=currentTrickMotionIds;
+ }
+ 
+--- v45/public/multiplayer-ui.css
++++ v46/public/multiplayer-ui.css
+@@ -0,0 +1,13 @@
++/* v46: keep result banners outside the scrollable three/five-seat card row. */
++body.modern-game-ui .trick-board.collision-safe-layout-v10:is([data-player-count="3"],[data-player-count="5"]){
++  display:block!important;width:100%!important;max-width:100%;overflow:visible!important;
++}
++body.modern-game-ui .multiplayer-trick-slots{
++  display:grid;grid-template-columns:repeat(var(--trick-seat-count),var(--card-w));
++  column-gap:6px;justify-content:start;justify-content:safe center;
++  max-width:100%;box-sizing:border-box;padding:12px 6px;overflow-x:auto;
++  overscroll-behavior-inline:contain;
++}
++body.modern-game-ui .multiplayer-trick-slots .trick-slot{grid-column:auto!important;grid-row:1!important}
++body.modern-game-ui .spectator-trick-grid{grid-template-columns:repeat(var(--spectator-seat-count,4),minmax(0,1fr))}
++body.modern-game-ui #enableMiddleRankPick:disabled{opacity:.65;cursor:default}
+--- v45/server.js
++++ v46/server.js
+@@ -1158,7 +1158,7 @@
+   if(canWin){
+     const over = Number(card.val || 0) - cpuCurrentLeadHigh(room);
+     score += (82 - over * 7.5) * w.win;
+-    score += normalizeFeastPointPerCard(room.feastPointPerCard) * 4 * 2.8;
++    score += normalizeFeastPointPerCard(room.feastPointPerCard) * roomSeatCapacity(room) * 2.8;
+     // 新標準は勝者が提供者となり、勝利後に不要札を相手へ渡せる。
+     // 従来モードは勝者がカードを受け取るため、同じ勝利でも手札増加リスクを見込む。
+     if(normalizePickProviderRole(room.pickProviderRole)==='winner') score += 34 * w.dump;
+@@ -2111,7 +2111,7 @@
+ 
+ function normalizeRoundDealMode(v){
+   // 標準は毎ラウンド全カードを回収して配り直す。
+-  // carryOver は旧ルール互換：残り手札・ごちそう山・ペアを保持して13枚まで補充。
++  // carryOver は旧ルール互換：残り手札・ごちそう山・ペアを保持して人数別の枚数まで補充。
+   return v === 'carryOver' ? 'carryOver' : 'reshuffle';
+ }
+ function roundDealModeLabel(room){
+@@ -2807,7 +2807,7 @@
+   const normalizedLoadFire=normalizedShootEnabled && normalizeShootLoadFireMode(shootLoadFireMode);
+   const normalizedMoveRequirement=normalizedShootEnabled && !normalizedLoadFire && normalizeShootRequiresBabaMoved(shootRequiresBabaMoved);
+   const seats=[3,4,5].includes(Number(playerCount))?Number(playerCount):4;
+-  const room = {code:c, hostId:null, players:[], spectators:[], seatCapacity:seats, handSize:Math.floor(52/seats), phase:'lobby', round:1, totalRounds: normalizeRoundCount(totalRounds), roundDealMode:normalizeRoundDealMode(roundDealMode), feastPointPerCard:normalizeFeastPointPerCard(feastPointPerCard), pickProviderRole:normalizePickProviderRole(pickProviderRole), enableMiddleRankPick:normalizeEnableMiddleRankPick(enableMiddleRankPick), shootLoadFireMode:normalizedLoadFire, forceJokerPickCandidate:normalizeForceJokerPickCandidate(forceJokerPickCandidate), shootRequiresBabaMoved:normalizedMoveRequirement, babaMovedThisRound:false, babaMoveCountThisRound:0, babaMoveHistory:[], babaMoveEvent:null, madPigEnabled:normalizedMadPigEnabled, jokerPenalty: normalizeJokerPenalty(jokerPenalty), jokerPenaltyTiming: normalizeJokerPenaltyTiming(jokerPenaltyTiming), shootThePigEnabled:normalizedShootEnabled, shootThePigLimit:normalizeShootThePigLimit(shootThePigLimit), initialPairDiscardEnabled: normalizeInitialPairDiscardEnabled(initialPairDiscardEnabled), passThreeEnabled: normalizePassThreeEnabled(passThreeEnabled), penaltyMode: normalizePenaltyMode(penaltyMode), pickTargetCount: normalizePickTargetCount(pickTargetCount), initialPairDone:[], passDone:[], passSelections:{}, lead:0, current:0, leadSuit:null, trick:[], stock:[], log:[], message:`${seats}人そろったら開始できます。空席へCPUを追加できます。`, pendingPick:null, parallelPickGroup:null, pendingShootDecision:null, postTrickFlow:null, completedRoundTotalScores:Array(seats).fill(0), jokerPenaltyAppliedByRound:{}, shootFiredThisRound:false, shootFiredByPid:null, shootFireEvent:null, commentary:[], lastTrick:null, cardPlayEvent:null, trickCollectEvent:null, shootPigEvent:null, madPigEvent:null, pairCleanEvent:null, spotlightEvent:null, pendingSpotlightPlans:null, spotlightHistory:[], spotlightRoundCounts:{}, lastSpotlightSpeakerPid:null, transientTimers:new Map(), emptySince:null, cleanupTimer:null, closed:false};
++  const room = {code:c, hostId:null, players:[], spectators:[], seatCapacity:seats, handSize:Math.floor(52/seats), phase:'lobby', round:1, totalRounds: normalizeRoundCount(totalRounds), roundDealMode:normalizeRoundDealMode(roundDealMode), feastPointPerCard:normalizeFeastPointPerCard(feastPointPerCard), pickProviderRole:normalizePickProviderRole(pickProviderRole), enableMiddleRankPick:seats!==3 && normalizeEnableMiddleRankPick(enableMiddleRankPick), shootLoadFireMode:normalizedLoadFire, forceJokerPickCandidate:normalizeForceJokerPickCandidate(forceJokerPickCandidate), shootRequiresBabaMoved:normalizedMoveRequirement, babaMovedThisRound:false, babaMoveCountThisRound:0, babaMoveHistory:[], babaMoveEvent:null, madPigEnabled:normalizedMadPigEnabled, jokerPenalty: normalizeJokerPenalty(jokerPenalty), jokerPenaltyTiming: normalizeJokerPenaltyTiming(jokerPenaltyTiming), shootThePigEnabled:normalizedShootEnabled, shootThePigLimit:normalizeShootThePigLimit(shootThePigLimit), initialPairDiscardEnabled: normalizeInitialPairDiscardEnabled(initialPairDiscardEnabled), passThreeEnabled: normalizePassThreeEnabled(passThreeEnabled), penaltyMode: normalizePenaltyMode(penaltyMode), pickTargetCount: normalizePickTargetCount(pickTargetCount), initialPairDone:[], passDone:[], passSelections:{}, lead:0, current:0, leadSuit:null, trick:[], stock:[], log:[], message:`${seats}人そろったら開始できます。空席へCPUを追加できます。`, pendingPick:null, parallelPickGroup:null, pendingShootDecision:null, postTrickFlow:null, completedRoundTotalScores:Array(seats).fill(0), jokerPenaltyAppliedByRound:{}, shootFiredThisRound:false, shootFiredByPid:null, shootFireEvent:null, commentary:[], lastTrick:null, cardPlayEvent:null, trickCollectEvent:null, shootPigEvent:null, madPigEvent:null, pairCleanEvent:null, spotlightEvent:null, pendingSpotlightPlans:null, spotlightHistory:[], spotlightRoundCounts:{}, lastSpotlightSpeakerPid:null, transientTimers:new Map(), emptySince:null, cleanupTimer:null, closed:false};
+   const participant=createHumanParticipant(room,name,ws,role);
+   room.hostId=participant.id;
+   if(role==='spectator') room.spectators.push(participant); else room.players.push(participant);
+@@ -3120,7 +3120,9 @@
+ 
+ 
+ function buildPostTrickFlow(room,winnerPid,weakestPid){
+-  const rankings=Array.isArray(room.trickRankings)?room.trickRankings.slice():[winnerPid,null,null,null,weakestPid];
++  const rankings=Array.isArray(room.trickRankings)&&room.trickRankings.length===roomSeatCapacity(room)
++    ? room.trickRankings.slice()
++    : Array.from({length:roomSeatCapacity(room)},(_,rank)=>rank===0?winnerPid:rank===roomSeatCapacity(room)-1?weakestPid:null);
+   const primaryRoles=resolvedPickRoles(room,winnerPid,weakestPid);
+   const steps=[{pickStage:'primary',highPid:winnerPid,lowPid:weakestPid,pickProviderPid:primaryRoles.pickProviderPid,pickerPid:primaryRoles.pickerPid}];
+   const secondaryRanks=secondaryPickRanks(room);
+@@ -3179,7 +3181,8 @@
+     log(room,`🃏 強制候補ルール：${provider.name} のババブタを${step.pickStage==='secondary'?'中位':''}ピック候補へ固定しました。`);
+   }
+   const secondary=secondaryPickRanks(room);
+-  const stageLabel=step.pickStage==='secondary'?`${secondary?.[0] || 2}位→${secondary?.[1] || 3}位ピック`:`1位→${roomSeatCapacity(room)}位ピック`;
++  const primaryRanks=step.pickProviderPid===step.highPid?[1,roomSeatCapacity(room)]:[roomSeatCapacity(room),1];
++  const stageLabel=step.pickStage==='secondary'?`${secondary?.[0] || 2}位→${secondary?.[1] || 3}位ピック`:`${primaryRanks[0]}位→${primaryRanks[1]}位ピック`;
+   if(targetSelectionRequired){
+     room.message=`🐽 ${stageLabel}：${provider.name} が候補を${targetCount}枚に絞ります。`;
+     log(room,`🎯 ${stageLabel}：${provider.name} が${targetCount}枚を選び、${picker.name} が1枚引きます。`);
+@@ -4283,11 +4286,11 @@
+     return false;
+   }
+ 
+-  // 5枚目以降は消さず、必ず持ち主へ戻す。
++  // 参加人数を超える場札は消さず、必ず持ち主へ戻す。
+   if(room.trick.length > roomSeatCapacity(room)){
+     const extras=room.trick.splice(roomSeatCapacity(room));
+     const restored=restoreTrickCardsToOwners(room, extras);
+-    log(room, `⚠️ 場に余分な${extras.length}枚があったため、${restored}枚を持ち主の手札へ戻して先頭4枚で復旧しました。`);
++    log(room, `⚠️ 場に余分な${extras.length}枚があったため、${restored}枚を持ち主の手札へ戻して先頭${roomSeatCapacity(room)}枚で復旧しました。`);
+   }
+ 
+   const core=room.trick.slice(0,roomSeatCapacity(room));
+@@ -4793,14 +4796,17 @@
+     const shootPigMadPigWaived = shootThePig;
+ 
+     const roundJokerPenalty = (jokerPenaltyTiming === 'perRound' && hasJoker && !shootThePig) ? jokerPenaltyValue : 0;
+-    const pendingFinalJokerPenalty = (jokerPenaltyTiming === 'gameEnd' && hasJoker && !shootThePig) ? jokerPenaltyValue : 0;
++    const gameEndJokerPenalty = (jokerPenaltyTiming === 'gameEnd' && hasJoker && !shootThePig) ? jokerPenaltyValue : 0;
++    const isFinalRound=(room.round || 1)>=(room.totalRounds || 3);
++    const finalJokerPenalty=isFinalRound?gameEndJokerPenalty:0;
++    const pendingFinalJokerPenalty=isFinalRound?0:gameEndJokerPenalty;
+     const jokerPenaltyApplyKey=`${room.round || 1}:${i}`;
+     if(roundJokerPenalty && !room.jokerPenaltyAppliedByRound[jokerPenaltyApplyKey]){
+       p.jokerPenaltyBank = (p.jokerPenaltyBank || 0) + roundJokerPenalty;
+       room.jokerPenaltyAppliedByRound[jokerPenaltyApplyKey]=roundJokerPenalty;
+     }
+-    const jokerPenaltyTotal = jokerPenaltyTiming === 'perRound' ? (p.jokerPenaltyBank || 0) : 0;
+-    const jokerPenalty = jokerPenaltyTiming === 'perRound' ? roundJokerPenalty : 0;
++    const jokerPenaltyTotal = jokerPenaltyTiming === 'perRound' ? (p.jokerPenaltyBank || 0) : finalJokerPenalty;
++    const jokerPenalty = jokerPenaltyTiming === 'perRound' ? roundJokerPenalty : finalJokerPenalty;
+     const rawMadPigPenalty = madPigPenaltyForRoom(room, p);
+     const madPigPenalty = shootPigMadPigWaived ? 0 : rawMadPigPenalty;
+     const rawHandPenalty = handPenaltyForRoom(room, p);
+@@ -5082,6 +5088,13 @@
+ 
+   const out = room.players[outPid];
+   const onlyJoker = isJokerOnlyHand(out);
++  // Every caller must preserve uncaptured cards when ending a round. An empty
++  // hand waits for the completed trick; a Joker-only turn cannot play a card,
++  // so its partial trick is cancelled and returned before scoring.
++  if(activeTrickInProgress(room)){
++    if(!onlyJoker){ rememberEndAfterTrick(room,outPid); return false; }
++    cancelCorruptTrick(room,room.trick.slice(),'ババブタだけの手番に到達したため未完了の場札を返却');
++  }
+   clearAllProgressTimers(room);
+   // ラウンド結果・最終結果へ、直前トリックの中央セリフを持ち越さない。
+   room.spotlightEvent = null;
+--- v45/tests/accelerated_clock_v46.cjs
++++ v46/tests/accelerated_clock_v46.cjs
+@@ -0,0 +1,7 @@
++'use strict';
++// Only loaded by the local integration test child; production timings are untouched.
++const scale=30,realNow=Date.now.bind(Date),origin=realNow(),start=Date.now();
++Date.now=()=>start+(realNow()-origin)*scale;
++const timeout=global.setTimeout,interval=global.setInterval;
++global.setTimeout=(fn,ms,...args)=>timeout(fn,Math.max(1,Number(ms)/scale),...args);
++global.setInterval=(fn,ms,...args)=>interval(fn,Math.max(1,Number(ms)/scale),...args);
+--- v45/tests/async_progress_smoke.js
++++ v46/tests/async_progress_smoke.js
+@@ -2,7 +2,7 @@
+ const fs=require('fs'),path=require('path'),assert=require('assert');
+ const root=path.resolve(__dirname,'..');let source=fs.readFileSync(path.join(root,'server.js'),'utf8');
+ source=source.replace("const WebSocket = require('ws');",`const WebSocket={OPEN:1,Server:class DummyServer{constructor(){this.clients=new Set()}on(){}}};`);
+-source=source.replace(/server\.listen\(PORT,[\s\S]*?\);\s*$/m,`module.exports={rooms,createRoom,addCpu,startGame,playCard,doPick,submitPickTargets,resolvePairChoice,ensureRoomProgress,playableIds,clearAllProgressTimers};`);
++source=source.replace(/server\.listen\(PORT,[\s\S]*?\);\s*$/m,`module.exports={rooms,createRoom,addCpu,startGame,playCard,doPick,submitPickTargets,resolvePairChoice,ensureRoomProgress,playableIds,clearAllProgressTimers,activePickLanes};`);
+ const runtime=path.join(root,'.async_progress_runtime.cjs');fs.writeFileSync(runtime,source);
+ const original={setTimeout:global.setTimeout,clearTimeout:global.clearTimeout,setInterval:global.setInterval,clearInterval:global.clearInterval};
+ // Keep timer ordering but compress long UI waits for a deterministic async smoke run.
+@@ -16,11 +16,11 @@
+  let loops=0,humanActions=0,spotlights=0;
+  while(room.phase!=='finished'&&loops++<5000){
+    api.ensureRoomProgress(room);
+-   const pp=room.pendingPick;
++   const pp=api.activePickLanes(room).find(p=>p.pickProviderPid===0||p.pickerPid===0);
+    if(pp){
+-     if(pp.targetSelectionRequired&&!pp.targetSelectionDone&&pp.pickProviderPid===0){const p=room.players[0];api.submitPickTargets(room,p.id,p.hand.slice(0,pp.targetCount).map(c=>c.id),true);humanActions++;}
+-     else if(pp.pairChoice&&!pp.result&&pp.pickerPid===0){api.resolvePairChoice(room,room.players[0].id,pp.pairChoice.candidates[0]?.id,false);humanActions++;}
+-     else if(!pp.result&&pp.pickerPid===0){pp.readyAt=0;api.doPick(room,room.players[0].id,0);humanActions++;}
++     if(pp.targetSelectionRequired&&!pp.targetSelectionDone&&pp.pickProviderPid===0){const p=room.players[0];api.submitPickTargets(room,p.id,[...(pp.mandatoryCandidateIds||[]),...p.hand.map(c=>c.id).filter(id=>!(pp.mandatoryCandidateIds||[]).includes(id))].slice(0,pp.targetCount),true,pp.pickId);humanActions++;}
++     else if(pp.pairChoice&&!pp.result&&pp.pickerPid===0){api.resolvePairChoice(room,room.players[0].id,pp.pairChoice.candidates[0]?.id,false,pp.pickId);humanActions++;}
++     else if(!pp.result&&pp.pickerPid===0){pp.readyAt=0;api.doPick(room,room.players[0].id,0,pp.pickId);humanActions++;}
+    }else if(room.phase==='playing'&&room.current===0&&!room.trickReview){const ids=[...api.playableIds(room,0)];if(ids.length){api.playCard(room,room.players[0].id,ids[0]);humanActions++;}}
+    if(room.spotlightEvent)spotlights++;
+    await sleep(2);
+--- v45/tests/cpu_identity_dialogue_v40_regression.js
++++ v46/tests/cpu_identity_dialogue_v40_regression.js
+@@ -33,12 +33,9 @@
+   assert.deepStrictEqual(latest.players.slice(0,3).map(p=>p.displayIdentityKey),[null,null,null],'fixed personas use their authored portraits');
+   assert.deepStrictEqual(latest.players.slice(0,3).map(p=>p.cpuKey),['kamomodoki','wakumodoki','rikumodoki']);
+   const fourth=latest.players[3];
+-  assert(fourth.displayIdentityKey&&fourth.displayIdentityKey===`${fourth.name}:${fourth.avatar}`,'only the fourth CPU receives a paired animal display identity');
+-  assert(!names.slice(0,3).includes(fourth.name),'fourth display name does not replace a fixed persona');
+-  assert.strictEqual(new Set(names).size,4,'CPU display names are unique in one room');
+-  assert.strictEqual(new Set(avatars).size,4,'CPU icons are unique in one room');
+-  assert(names.every(name=>!/^CPU\d+$/i.test(name)),'internal CPU slot names never become display names');
+-  assert(latest.players.every(p=>['kamomodoki','wakumodoki','rikumodoki'].includes(p.cpuKey)),'three personality algorithms remain separate');
++  assert.equal(fourth.cpuKey,'nakato_modoki');assert.equal(fourth.name,'なかとーもどき');assert.equal(fourth.displayIdentityKey,null);
++  assert.strictEqual(new Set(names).size,4,'all four authored CPU names are distinct');
++  assert(latest.players.every(p=>['kamomodoki','wakumodoki','rikumodoki','nakato_modoki'].includes(p.cpuKey)));
+   const stable=latest.players.map(p=>[p.id,p.name,p.avatar,p.cpuKey]);
+   host.send({type:'ping'});await host.next(m=>m.type==='pong');
+   latest=(await sendAwait(host,{type:'removeCpu'},m=>m.type==='state'&&m.state?.players?.length===3)).state;
+@@ -59,5 +56,5 @@
+   assert(guard>=0&&rewrite>guard,'spectator bubble innerHTML is guarded by stable event id');
+ 
+   host.ws.close();child.kill('SIGTERM');
+-  console.log(JSON.stringify({result:'passed',suite:'cpu-identity-dialogue-v40',cpuCount:4,names,avatars,fixedPersonas:names.slice(0,3),randomAnimalFourth:names[3],personalitySeparated:true,commentDomStable:true}));
++  console.log(JSON.stringify({result:'passed',suite:'cpu-identity-dialogue-v40',cpuCount:4,names,avatars,fixedPersonas:names.slice(0,3),authoredFourth:names[3],personalitySeparated:true,commentDomStable:true}));
+ })().catch(error=>{child.kill('SIGTERM');console.error(error.stack||error);if(stderr)console.error(stderr);process.exitCode=1;});
+--- v45/tests/final_snapshot_v46.cjs
++++ v46/tests/final_snapshot_v46.cjs
+@@ -0,0 +1,14 @@
++'use strict';
++const assert=require('assert'),api=require('./server_test_harness.cjs')(4602);
++for(const seats of [3,4,5])for(const timing of ['perRound','gameEnd']){
++ const ws={readyState:1,send(){}};api.createRoom(ws,'QA',1,false,-20,false,false,'mud6',2,timing,false,'reshuffle','unlimited',1,'winner','player',true,false,true,false,seats);
++ const room=api.rooms.get(ws.roomCode);for(let i=1;i<seats;i++)api.addCpu(room,room.hostId);api.startGame(room,room.hostId);
++ const cards=room.players.flatMap(p=>p.hand);room.players.forEach(p=>p.hand=[]);
++ room.players[1].hand=cards.filter(c=>c.joker);room.players[2].hand=cards.filter(c=>!c.joker);
++ api.checkRoundEnd(room,0);assert.equal(room.phase,'finished');assert.equal(room.players[1].final.total,-20);
++ const row=room.finalRoundSummary.rows[1];assert.equal(row.total,-20,'final snapshot includes final Joker loss');assert.equal(row.jokerPenalty,20);assert.equal(row.pendingFinalJokerPenalty,0);
++ assert.equal(room.players[1].matchStats.roundScores.at(-1).score,-20);
++ const repeated=api.makeRoundSnapshot(room,0,'repeat');assert.equal(repeated.rows[1].total,-20,'recalculating cannot double charge');
++ api.clearAllProgressTimers(room);api.rooms.delete(room.code);
++}
++console.log(JSON.stringify({result:'passed',seats:[3,4,5],timings:['perRound','gameEnd'],expectedJokerHolderScore:-20,finalSnapshotMatches:true,idempotent:true}));
+--- v45/tests/game_engine_stress_regression.js
++++ v46/tests/game_engine_stress_regression.js
+@@ -1,13 +1,13 @@
+ 'use strict';
+ const fs=require('fs'),path=require('path'),assert=require('assert');const root=path.resolve(__dirname,'..');let source=fs.readFileSync(path.join(root,'server.js'),'utf8');
+ source=source.replace("const WebSocket = require('ws');",`const WebSocket={OPEN:1,Server:class DummyServer{constructor(){this.clients=new Set()}on(){}}};`);
+-source=source.replace(/server\.listen\(PORT,[\s\S]*?\);\s*$/m,`module.exports={rooms,createRoom,addCpu,startGame,playCard,advanceReviewToPick,doPick,submitPickTargets,resolvePairChoice,finishAfterPick,beginNextRound,ensureRoomProgress,playableIds,clearAllProgressTimers};`);
++source=source.replace(/server\.listen\(PORT,[\s\S]*?\);\s*$/m,`module.exports={rooms,createRoom,addCpu,startGame,playCard,advanceReviewToPick,doPick,submitPickTargets,resolvePairChoice,finishAfterPick,beginNextRound,ensureRoomProgress,playableIds,clearAllProgressTimers,activePickLanes,finishPickLane};`);
+ const runtime=path.join(root,'.game_engine_stress_runtime.cjs');fs.writeFileSync(runtime,source);
+ const original={setTimeout:global.setTimeout,clearTimeout:global.clearTimeout,setInterval:global.setInterval,clearInterval:global.clearInterval};const handle=()=>({unref(){}});global.setTimeout=()=>handle();global.clearTimeout=()=>{};global.setInterval=()=>handle();global.clearInterval=()=>{};let api;try{api=require(runtime);}finally{fs.unlinkSync(runtime);}
+-function fakeWs(){return{readyState:1,sent:[],send(raw){this.sent.push(JSON.parse(raw));}};}
++function fakeWs(){return{readyState:1,send(){}};}
+ function createGame(rounds,dealMode,shootLimit,feastPointPerCard,pickProviderRole){const socket=fakeWs();api.createRoom(socket,`Human-${rounds}-${dealMode}-${shootLimit}`,rounds,true,-20,false,false,'mud6',2,'perRound',true,dealMode,shootLimit,feastPointPerCard,pickProviderRole);const room=[...api.rooms.values()].at(-1);for(let i=0;i<3;i++)api.addCpu(room,room.hostId);assert.strictEqual(api.startGame(room,room.hostId),true);return room;}
+ function cards(room){const a=[];for(const p of room.players)a.push(...p.hand,...p.scorePile,...p.pairs);a.push(...(room.stock||[]));if(room.removedCard)a.push(room.removedCard);return a;}
+ function integrity(room,label){const ids=cards(room).map(c=>c?.id).filter(Boolean);assert.strictEqual(new Set(ids).size,ids.length,`${label}: duplicate active card id`);}
+-function drive(rounds,dealMode,shootLimit,seed){const feastPointPerCard=[0,1,2,5][seed%4];const pickProviderRole=seed%2?'weakest':'winner';const room=createGame(rounds,dealMode,shootLimit,feastPointPerCard,pickProviderRole);let steps=0,picks=0,pairs=0,spots=0,roundEnds=0;while(room.phase!=='finished'&&steps++<4000){integrity(room,`step ${steps}`);if(room.phase==='roundEnd'){roundEnds++;assert.strictEqual(room.spotlightEvent,null);api.beginNextRound(room);continue;}assert.strictEqual(room.phase,'playing');if(room.trickReview){const r=room.trickReview;api.advanceReviewToPick(room,r.until,r.winnerPid,r.weakestPid);continue;}const pp=room.pendingPick;if(pp){if(pp.targetSelectionRequired&&!pp.targetSelectionDone){const provider=room.players[pp.pickProviderPid];api.submitPickTargets(room,provider.id,provider.hand.slice(0,pp.targetCount).map(c=>c.id),true);continue;}if(pp.pairChoice&&!pp.result){pairs++;const skip=(seed+steps)%3===0;api.resolvePairChoice(room,room.players[pp.pickerPid].id,skip?null:pp.pairChoice.candidates[0]?.id,skip);continue;}if(!pp.result){picks++;pp.readyAt=0;api.doPick(room,room.players[pp.pickerPid].id,(seed+steps)%Math.max(1,pp.targetCount||1));continue;}if(room.spotlightEvent)spots++;api.finishAfterPick(room,pp.winnerPid);continue;}if(room.current==null){api.ensureRoomProgress(room);continue;}const playable=[...api.playableIds(room,room.current)];if(!playable.length){api.ensureRoomProgress(room);continue;}api.playCard(room,room.players[room.current].id,playable[(seed+steps)%playable.length]);}
+-assert.ok(steps<4000);assert.strictEqual(room.phase,'finished');assert.strictEqual(room.spotlightEvent,null);assert.ok(room.players.every(p=>p.final&&Number.isFinite(p.final.total)&&p.final.feastPointPerCard===feastPointPerCard));integrity(room,'finished');api.clearAllProgressTimers(room);return{rounds,dealMode,shootLimit,feastPointPerCard,pickProviderRole,steps,picks,pairs,spots,roundEnds,shootCounts:room.players.map(p=>p.shootPigActivatedRounds?.length||0),totals:room.players.map(p=>p.final.total)};}
++function drive(rounds,dealMode,shootLimit,seed){const feastPointPerCard=[0,1,2,5][seed%4];const pickProviderRole=seed%2?'weakest':'winner';const room=createGame(rounds,dealMode,shootLimit,feastPointPerCard,pickProviderRole);let steps=0,picks=0,pairs=0,spots=0,roundEnds=0;while(room.phase!=='finished'&&steps++<4000){integrity(room,`step ${steps}`);if(room.phase==='roundEnd'){roundEnds++;assert.strictEqual(room.spotlightEvent,null);api.beginNextRound(room);continue;}assert.strictEqual(room.phase,'playing');if(room.trickReview){const r=room.trickReview;api.advanceReviewToPick(room,r.until,r.winnerPid,r.weakestPid);continue;}const pp=api.activePickLanes(room)[0];if(pp){if(pp.targetSelectionRequired&&!pp.targetSelectionDone){const provider=room.players[pp.pickProviderPid];api.submitPickTargets(room,provider.id,[...(pp.mandatoryCandidateIds||[]),...provider.hand.map(c=>c.id).filter(id=>!(pp.mandatoryCandidateIds||[]).includes(id))].slice(0,pp.targetCount),true,pp.pickId);continue;}if(pp.pairChoice&&!pp.result){pairs++;const skip=(seed+steps)%3===0;api.resolvePairChoice(room,room.players[pp.pickerPid].id,skip?null:pp.pairChoice.candidates[0]?.id,skip,pp.pickId);continue;}if(!pp.result){picks++;pp.readyAt=0;api.doPick(room,room.players[pp.pickerPid].id,(seed+steps)%Math.max(1,pp.targetCount||1),pp.pickId);continue;}if(room.spotlightEvent)spots++;api.finishPickLane(room,pp,pp.winnerPid);continue;}if(room.current==null){api.ensureRoomProgress(room);continue;}const playable=[...api.playableIds(room,room.current)];if(!playable.length){api.ensureRoomProgress(room);continue;}api.playCard(room,room.players[room.current].id,playable[(seed+steps)%playable.length]);}
++assert.ok(steps<4000);assert.strictEqual(room.phase,'finished');assert.strictEqual(room.spotlightEvent,null);assert.ok(room.players.every(p=>p.final&&Number.isFinite(p.final.total)&&p.final.feastPointPerCard===feastPointPerCard));integrity(room,'finished');api.clearAllProgressTimers(room);api.rooms.delete(room.code);return{rounds,dealMode,shootLimit,feastPointPerCard,pickProviderRole,steps,picks,pairs,spots,roundEnds,shootCounts:room.players.map(p=>p.shootPigActivatedRounds?.length||0),totals:room.players.map(p=>p.final.total)};}
+ const runs=[];for(const mode of ['reshuffle','carryOver'])for(const limit of ['unlimited','once'])for(let seed=0;seed<4;seed++)runs.push(drive(3,mode,limit,seed));Object.assign(global,original);console.log(JSON.stringify({result:'passed',runs},null,2));
+--- v45/tests/joker_midtrick_conservation_v46.cjs
++++ v46/tests/joker_midtrick_conservation_v46.cjs
+@@ -0,0 +1,16 @@
++'use strict';
++const assert=require('assert'),api=require('./server_test_harness.cjs')(4601);
++for(const seats of [3,4,5]){
++ const ws={readyState:1,send(){}};api.createRoom(ws,'QA',1,true,-20,false,false,'mud6',2,'perRound',false,'reshuffle','unlimited',1,'winner','player',true,false,true,false,seats);
++ const room=api.rooms.get(ws.roomCode);for(let i=1;i<seats;i++)api.addCpu(room,room.hostId);api.startGame(room,room.hostId);
++ const held=[];for(const p of room.players){held.push(...p.hand.filter(c=>c.joker));p.hand=p.hand.filter(c=>!c.joker);}
++ room.players[2].hand.push(...room.players[1].hand);room.players[1].hand=held;
++ room.current=0;room.lead=0;room.leadSuit=null;
++ const card=room.players[0].hand[0];api.playCard(room,room.players[0].id,card.id);assert.equal(room.trick.length,1);
++ api.ensureRoomProgress(room);
++ assert.equal(room.phase,'finished');assert(room.players[0].hand.some(c=>c.id===card.id),'partial trick must return to its owner before Joker-only finish');
++ const cards=room.players.flatMap(p=>[...p.hand,...p.scorePile,...p.pairs]).concat(room.stock,room.removedCards);
++ assert.equal(cards.length,53);assert.equal(new Set(cards.map(c=>c.id)).size,53);assert.equal(room.players[0].scorePile.length,0);
++ api.clearAllProgressTimers(room);api.rooms.delete(room.code);
++}
++console.log(JSON.stringify({result:'passed',seats:[3,4,5],jokerOnlyMidTrick:'returned before scoring',cardConservation:53}));
+--- v45/tests/multiplayer_lifecycle_v46.cjs
++++ v46/tests/multiplayer_lifecycle_v46.cjs
+@@ -0,0 +1,69 @@
++'use strict';
++const assert=require('assert'),fs=require('fs'),path=require('path');
++const api=require('./server_test_harness.cjs')(46);
++let runs=0,tricks=0,shootChoices=0,roundTransitions=0;
++function fakeWs(){return{readyState:1,send(){}};}
++function ownedCards(room){const owned=room.players.flatMap(p=>[...p.hand,...p.scorePile,...p.pairs]);const scored=new Set(room.players.flatMap(p=>p.scorePile).map(c=>c.id));return owned.concat(room.trick.map(t=>t.card).filter(c=>!scored.has(c.id)),room.stock,room.removedCards||[]);}
++function check(room,context,expected){
++ const cards=ownedCards(room);assert(cards.every(Boolean),context+': missing card');
++ assert.equal(new Set(cards.map(c=>c.id)).size,cards.length,context+': duplicate ownership');
++ if(room.roundDealMode==='reshuffle')assert.equal(cards.length,53,context+': card conservation');
++ const active=room.players.flatMap(p=>p.hand).concat(room.trick.map(t=>t.card),room.stock);
++ assert.equal(new Set(active.map(c=>c.joker?'JOKER':c.suit+':'+c.rank)).size,active.length,context+': duplicate active face');
++ assert.equal(active.filter(c=>c.joker).length,1,context+': Joker preserved');
++ if(expected)assert.deepEqual(room.players.map(p=>p.hand.length),Array(room.seatCapacity).fill(expected),context+': refill count');
++}
++function run(c,index){
++ const ws=fakeWs();api.createRoom(ws,'QA',c.rounds||3,c.mad,-20,c.initial,c.pass,c.penalty,c.pick,c.timing,c.shoot,c.deal,c.limit,c.feast,c.provider,'player',c.force,c.move,c.middle,c.load,c.seats);
++ const room=api.rooms.get(ws.roomCode);assert.equal(room.enableMiddleRankPick,c.seats!==3&&c.middle,'effective middle-pick setting');for(let i=1;i<c.seats;i++)api.addCpu(room,room.hostId);
++ api.startGame(room,room.hostId);let steps=0;
++ while(room.phase!=='finished'&&steps++<2500){
++ const context=`run ${index} ${JSON.stringify(c)} round ${room.round} step ${steps}`;check(room,context);
++ if(room.phase==='passing'){api.submitPassThree(room,room.players[0].id,room.players[0].hand.filter(c=>!c.joker).slice(0,3).map(c=>c.id),true);continue;}
++ if(room.phase==='initialPair'){api.skipInitialPairs(room,room.players[0].id);continue;}
++ if(room.phase==='roundEnd'){
++  const summary=room.roundEndSummary;
++  for(const row of summary.rows)assert(Number.isFinite(row.total),context+': score finite');
++  api.beginNextRound(room);roundTransitions++;check(room,context,Math.floor(52/c.seats));continue;
++ }
++ if(room.trickReview){
++  tricks++;assert.equal(room.lastTrick.feastCardCount,c.seats);assert.equal(room.lastTrick.feastScore,c.seats*c.feast);
++  assert.equal(new Set(room.trickRankings).size,c.seats);
++  const r=room.trickReview;api.advanceReviewToPick(room,r.until,r.winnerPid,r.weakestPid);continue;
++ }
++ if(room.pendingShootDecision){shootChoices++;api.resolveShootDecision(room,room.players[room.pendingShootDecision.shooterPid].id,index%2===0);continue;}
++ if(room.pendingShootTransition){api.finishShootPresentation(room,room.pendingShootTransition.id);continue;}
++ const pp=api.activePickLanes(room)[0];
++ if(pp){
++  const provider=room.players[pp.pickProviderPid],picker=room.players[pp.pickerPid];
++  if(pp.targetSelectionRequired&&!pp.targetSelectionDone){const mandatory=pp.mandatoryCandidateIds||[];const ids=[...mandatory,...provider.hand.map(c=>c.id).filter(id=>!mandatory.includes(id))].slice(0,pp.targetCount);api.submitPickTargets(room,provider.id,ids,true,pp.pickId);continue;}
++  if(pp.pairChoice&&!pp.result){api.resolvePairChoice(room,picker.id,pp.pairChoice.candidates[0]?.id,index%3===0,pp.pickId);continue;}
++  if(!pp.result){pp.readyAt=0;api.doPick(room,picker.id,0,pp.pickId);continue;}
++  api.finishPickLane(room,pp,pp.winnerPid);continue;
++ }
++ if(room.current==null){api.ensureRoomProgress(room);continue;}
++ const playable=[...api.playableIds(room,room.current)];
++ if(!playable.length){api.ensureRoomProgress(room);continue;}
++ api.playCard(room,room.players[room.current].id,playable[(index+steps)%playable.length]);
++ }
++ assert(steps<2500,`stalled ${index}: ${JSON.stringify(c)}`);assert.equal(room.phase,'finished');check(room,'finished '+index);
++ assert.equal(room.round,c.rounds||3);
++ for(const p of room.players){assert(Number.isFinite(p.final.total));assert.equal(p.matchStats.roundScores.length,c.rounds||3);assert.equal(p.final.total,p.matchStats.roundScores.at(-1).score,`final snapshot mismatch ${index}: ${JSON.stringify(c)}`);}
++ api.clearAllProgressTimers(room);api.rooms.delete(room.code);runs++;
++}
++let index=0;
++const mode=process.env.V46_MATRIX_MODE||'full';
++for(const seats of [3,4,5])
++for(const penalty of ['mud6','flat3','faceValue','mudSuit'])
++for(const deal of ['reshuffle','carryOver'])
++for(const shootMode of ['off','roundEnd','loadFire'])
++for(const middle of [false,true])
++for(const provider of ['winner','weakest'])
++for(const pick of [0,1,2,17]){
++ const i=index++;
++ const c={seats,penalty,deal,middle,provider,pick,rounds:3,mad:i%7!==0,shoot:shootMode!=='off',load:shootMode==='loadFire',timing:i%2?'gameEnd':'perRound',limit:i%3?'unlimited':'once',feast:[0,1,2,5][Math.floor(i/3)%4],force:i%2===0,move:Math.floor(i/2)%2===0,pass:i%4===1||i%4===3,initial:i%4>=2};
++ if(mode==='smoke'&&i%32!==0)continue;
++ run(c,i);if(runs%96===0)console.log(JSON.stringify({progress:runs,tricks,roundTransitions,shootChoices}));
++}
++const result={result:'passed',seed:46,mode,runs,tricks,roundTransitions,shootChoices,roundsPerMatch:3,seats:[3,4,5],ownership:'card IDs including trick and all excluded cards',activeFaceUniqueness:true};
++fs.mkdirSync(path.join(__dirname,'../qa/v46'),{recursive:true});fs.writeFileSync(path.join(__dirname,'../qa/v46/lifecycle-matrix.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
+--- v45/tests/multiplayer_ui_v46.cjs
++++ v46/tests/multiplayer_ui_v46.cjs
+@@ -0,0 +1,27 @@
++'use strict';
++const assert=require('assert'),fs=require('fs'),path=require('path'),vm=require('vm'),{JSDOM}=require('jsdom');
++const root=path.resolve(__dirname,'..'),source=fs.readFileSync(process.env.V46_UI_SOURCE || path.join(root,'public/index.html'),'utf8');
++const main=[...source.matchAll(/<script\b(?![^>]*\bsrc=)[^>]*>([\s\S]*?)<\/script>/gi)][0][1];
++const fixtures=JSON.parse(fs.readFileSync(path.join(root,'qa/v44/browser-fixtures.json')));
++const rows=[];
++for(const width of [320,375,390,430,768,1024,1440]){
++ const dom=new JSDOM(source.replace(/<style[^>]*>[\s\S]*?<\/style>/g,'').replace(/<script[^>]*>[\s\S]*?<\/script>/g,''),{url:'http://localhost/',runScripts:'outside-only'}),w=dom.window,d=w.document,context=dom.getInternalVMContext();
++ const run=s=>new vm.Script(s).runInContext(context);w.innerWidth=width;w.innerHeight=844;w.setInterval=()=>0;w.requestAnimationFrame=()=>0;w.scrollTo=()=>{};w.matchMedia=()=>({matches:false});w.getComputedStyle=()=>({fontSize:'16px'});
++ try{
++ run(main);
++ for(const count of [3,4,5])for(let viewer=0;viewer<count;viewer++){
++ run(`(${fixtures.BASE})();state.playerSeatCapacity=${count};state.playerCount=${count};state.cardsPerPlayer=Math.floor(52/${count});state.players=state.players.slice(0,${count});while(state.players.length<${count})state.players.push({...state.players[1],id:'C4',name:'なかとーもどき',cpuKey:'nakato_modoki'});state.yourIndex=${viewer};state.you=state.players[${viewer}].id;state.current=0;__lastTableRenderKey='';__lastPlayersRenderKey='';renderPlayers();renderTable();`);
++ const players=[...d.querySelectorAll('#players [data-player-pid]')],slots=[...d.querySelectorAll('#table [data-trick-pid]')];
++ assert.equal(players.length,count);assert.equal(slots.length,count);assert.equal(d.querySelectorAll('#table .multiplayer-trick-slots').length,count===4?0:1,'scroll only the cards, preserve outside result banner');
++ assert.equal(new Set(slots.map(e=>e.className.match(/slot-(\S+)/)[1])).size,count,'one distinct relative position per participant');
++ for(const slot of slots){const pid=slot.dataset.trickPid;const player=players.find(p=>p.dataset.playerPid===pid);const position=player.className.match(/position-(\S+)/)[1];assert(slot.classList.contains('slot-'+position),'table and player seat agree');}
++ for(const provider of ['winner','weakest']){
++  run(`state.pickProviderRole='${provider}';`);assert.equal(run('primaryPickLabel()'),provider==='winner'?`1位→${count}位`:`${count}位→1位`);
++ }
++ run(`setStartRequestUi(false);`);assert.equal(d.getElementById('start').textContent,`${count}人で遊ぶ`);
++ run(`state=null;`);d.getElementById('playerCount').value=String(count);run('syncPlayerCountUi();');assert.equal(d.getElementById('enableMiddleRankPick').disabled,count===3);assert(d.getElementById('playerCountHint').textContent.includes(`${Math.floor(52/count)}枚`));
++ rows.push({width,count,viewer,seatIdentity:'passed',direction:'passed',startRetry:'passed',settings:'passed',renderedLayout:'not_checked'});
++ }
++ }finally{dom.window.close();}
++}
++const result={result:'passed',method:'DOM behavior; no rendered layout',cases:rows.length,rows};fs.writeFileSync(path.join(root,'qa/v46/multiplayer-ui.json'),JSON.stringify(result,null,2));console.log(JSON.stringify({result:'passed',cases:rows.length,widths:[320,375,390,430,768,1024,1440],renderedLayout:'not_checked'}));
+--- v45/tests/multiplayer_websocket_v46.cjs
++++ v46/tests/multiplayer_websocket_v46.cjs
+@@ -0,0 +1,52 @@
++'use strict';
++const assert=require('assert'),fs=require('fs'),path=require('path'),{spawn}=require('child_process'),WS=require('ws');
++const root=path.resolve(__dirname,'..'),port=35080+(process.pid%10000),peers=[],rows=[];let active=null,started=false;let errors='';
++const child=spawn(process.execPath,['-r','./tests/accelerated_clock_v46.cjs','server.js'],{cwd:root,env:{...process.env,PORT:String(port)},stdio:['ignore','pipe','pipe']});child.stderr.on('data',d=>errors+=d);
++class Peer{
++ constructor(ws,index){this.ws=ws;this.index=index;this.last=new Set();this.queue=[];this.wait=[];ws.on('message',raw=>{const m=JSON.parse(raw);try{if(m.type==='errorMsg')throw Error(m.message);if(m.type==='state')this.drive(m.state);const i=this.wait.findIndex(w=>w.pred(m));if(i>=0)this.wait.splice(i,1)[0].resolve(m);else this.queue.push(m);}catch(e){finish(e);}});}
++ next(pred){const i=this.queue.findIndex(pred);return i>=0?Promise.resolve(this.queue.splice(i,1)[0]):new Promise(resolve=>this.wait.push({pred,resolve}));}
++ send(msg){this.ws.send(JSON.stringify(msg));}
++ once(key,msg){if(this.last.has(key))return;this.last.add(key);this.send(msg);}
++ drive(s){
++  if(!active||s.code!==active.code||this.spectator||this.suspended)return;
++  if(s.phase==='lobby')return;
++  assert.equal(s.playerSeatCapacity,active.seats);assert.equal(s.players.length,active.seats);
++  assert(s.players.every((p,i)=>i===s.yourIndex?Array.isArray(p.hand):p.hand===null),'only own hand is visible');
++  if(s.phase==='finished'){if(this.index===0)active.resolve(s);return;}
++  if(s.phase==='roundEnd'){if(this.index===0)this.once('next:'+s.round,{type:'continueRound'});return;}
++  if(s.phase==='passing'){const ids=s.passableCardIds.slice(0,3);this.once('pass',{type:'passThree',cardIds:ids});return;}
++  if(s.phase==='initialPair'){this.once('initial',{type:'skipInitialPairs'});return;}
++  if(s.pendingShootDecision?.shooterPid===s.yourIndex){this.once('shoot:'+s.pendingShootDecision.id,{type:'shootDecision',fire:true});return;}
++  const lanes=s.parallelPickGroup?[s.parallelPickGroup.primary,s.parallelPickGroup.secondary].filter(Boolean):[s.pendingPick].filter(Boolean);
++  for(const pp of lanes){
++   if(pp.status==='shootDecision'||pp.status==='presenting'||pp.status==='completed'||pp.status==='skipped')continue;
++   if(pp.targetSelectionRequired&&!pp.targetSelectionDone&&pp.pickProviderPid===s.yourIndex){const mandatory=pp.mandatoryCandidateIds||[];const ids=[...mandatory,...(pp.targetSelectableCardIds||[]).filter(id=>!mandatory.includes(id))].slice(0,pp.targetCount);this.once('target:'+pp.pickId,{type:'pickTargets',pickId:pp.pickId,cardIds:ids});}
++   else if(pp.pairChoice&&!pp.result&&pp.pickerPid===s.yourIndex)this.once('pair:'+pp.pickId,{type:'pairChoice',pickId:pp.pickId,skip:true});
++   else if(!pp.result&&pp.ready&&pp.pickerPid===s.yourIndex)this.once('pick:'+pp.pickId,{type:'pick',pickId:pp.pickId,index:0});
++  }
++  if(s.isYourTurn&&s.playableCardIds.length)this.once('play:'+s.round+':'+s.playableCardIds[0],{type:'play',cardId:s.playableCardIds[0]});
++ }
++}
++function open(index){return new Promise((resolve,reject)=>{const s=new WS(`ws://127.0.0.1:${port}`);s.once('open',()=>{const p=new Peer(s,index);peers.push(p);resolve(p)});s.once('error',reject);});}
++let finished=false;const deadline=setTimeout(()=>finish(Error('integration timeout')),90000);
++function finish(error){if(finished)return;finished=true;clearTimeout(deadline);peers.forEach(p=>p.ws.close());child.kill();if(error){console.error(error.stack,errors);process.exitCode=1;}else{const result={result:'passed',method:'real local WebSocket with accelerated test clock',rows};fs.writeFileSync(path.join(root,'qa/v46/websocket-completion.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));}}
++async function run(){
++ for(const seats of [3,4,5])for(const provider of ['winner','weakest']){
++  const host=await open(0);const created=host.next(m=>m.type==='created');host.send({type:'create',name:'QA',playerCount:seats,rounds:3,pickProviderRole:provider,roundDealMode:provider==='winner'?'reshuffle':'carryOver',enableMiddleRankPick:true,forceJokerPickCandidate:true,passThreeEnabled:true,initialPairDiscardEnabled:provider==='weakest'});
++  const ack=await created;active={code:ack.code,seats};
++  let returning,identity;
++  for(let i=1;i<seats;i++){const p=await open(i);const waiting=p.next(m=>m.type==='joined');p.send({type:'join',code:ack.code,name:'QA'+i});const joined=await waiting;returning=p;identity=joined;}
++  // Spectator sees every hand; players above only see their own.
++  const watch=await open(-1);watch.spectator=true;watch.send({type:'join',code:ack.code,name:'watch',participantRole:'spectator'});await watch.next(m=>m.type==='joined');
++  const completed=new Promise(resolve=>active.resolve=resolve);host.send({type:'start'});
++  const observation=await watch.next(m=>m.type==='state'&&m.state.phase==='playing');assert(observation.state.players.every(p=>Array.isArray(p.hand)));
++  returning.suspended=true;await new Promise(resolve=>{returning.ws.once('close',resolve);returning.ws.close();});
++  const restored=await open(seats-1);restored.last=returning.last;const resumed=restored.next(m=>m.type==='reconnected');restored.send({type:'reconnect',code:ack.code,playerId:identity.playerId,name:identity.name,resumeToken:identity.resumeToken});const recovered=await resumed;assert.equal(recovered.playerId,identity.playerId);
++  const resumedState=await restored.next(m=>m.type==='state');assert.equal(resumedState.state.yourIndex,seats-1);assert(Array.isArray(resumedState.state.players[seats-1].hand));
++  const final=await completed;assert.equal(final.round,3);assert(final.players.every(p=>Number.isFinite(p.final.total)));
++  rows.push({seats,provider,deal:provider==='winner'?'reshuffle':'carryOver',rounds:final.round,finished:true,playerPrivacy:true,spectatorHands:true,reconnect:true,initialPairs:provider==='weakest',totals:final.players.map(p=>p.final.total)});console.log(JSON.stringify({progress:rows.length,seats,provider}));
++  for(const p of peers.filter(p=>p.ws.readyState===1))p.ws.close();active=null;
++ }
++ finish();
++}
++child.stdout.on('data',d=>{if(!started&&String(d).includes('server listening')){started=true;run().catch(finish);}});child.on('exit',c=>{if(!finished)finish(Error('server exited '+c));});
+--- v45/tests/native_iphone_v45_behavior.cjs
++++ v46/tests/native_iphone_v45_behavior.cjs
+@@ -87,5 +87,5 @@
+  try{const opener=d.querySelector('[data-game-panel="log"]');opener.click();const root=d.getElementById('gameUtilityPanel'),handle=root.querySelector('[data-native-sheet-handle]');event(handle,'pointerdown');event(handle,'pointermove',{clientY:140});event(handle,'pointerup',{clientY:140});assert.equal(root.hidden,coarse);w.closeGameUtilityPanel();rows.push({width:844,height:390,coarse,landscapeGesture:'passed',renderedLayout:'not_checked'});}finally{dom.window.close();}
+ }
+ const result={result:'passed',method:'jsdom DOM events; no rendered layout or iOS emulation',rows};
+-fs.writeFileSync(path.join(base,'qa/v45/native-dom-behavior.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
++fs.writeFileSync(path.join(base,process.env.UI_QA_DIR || 'qa/v45','native-dom-behavior.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result));
+ }catch(e){console.error(e.stack);process.exitCode=1;}
+--- v45/tests/rule_gameplay_matrix_regression.js
++++ v46/tests/rule_gameplay_matrix_regression.js
+@@ -3,12 +3,12 @@
+ const root=path.resolve(__dirname,'..');
+ let source=fs.readFileSync(path.join(root,'server.js'),'utf8');
+ source=source.replace("const WebSocket = require('ws');",`const WebSocket={OPEN:1,Server:class DummyServer{constructor(){this.clients=new Set()}on(){}}};`);
+-source=source.replace(/server\.listen\(PORT,[\s\S]*?\);\s*$/m,`module.exports={rooms,createRoom,addCpu,startGame,playCard,advanceReviewToPick,doPick,submitPickTargets,resolvePairChoice,finishAfterPick,beginNextRound,ensureRoomProgress,playableIds,clearAllProgressTimers,submitPassThree,skipInitialPairs};`);
++source=source.replace(/server\.listen\(PORT,[\s\S]*?\);\s*$/m,`module.exports={rooms,createRoom,addCpu,startGame,playCard,advanceReviewToPick,doPick,submitPickTargets,resolvePairChoice,finishAfterPick,beginNextRound,ensureRoomProgress,playableIds,clearAllProgressTimers,submitPassThree,skipInitialPairs,activePickLanes,finishPickLane};`);
+ const runtime=path.join(root,'.rule_gameplay_matrix_runtime.cjs');fs.writeFileSync(runtime,source);
+ const original={setTimeout:global.setTimeout,clearTimeout:global.clearTimeout,setInterval:global.setInterval,clearInterval:global.clearInterval};
+ const handle=()=>({unref(){}});global.setTimeout=()=>handle();global.clearTimeout=()=>{};global.setInterval=()=>handle();global.clearInterval=()=>{};
+ let api;try{api=require(runtime);}finally{fs.unlinkSync(runtime);}
+-function fakeWs(){return{readyState:1,sent:[],send(raw){this.sent.push(JSON.parse(raw));}};}
++function fakeWs(){return{readyState:1,send(){}};}
+ function allCards(room){const out=[];for(const p of room.players)out.push(...p.hand,...p.scorePile,...p.pairs);out.push(...(room.stock||[]));if(room.removedCard)out.push(room.removedCard);return out;}
+ function integrity(room,label){const ids=allCards(room).map(c=>c?.id).filter(Boolean);assert.strictEqual(new Set(ids).size,ids.length,`${label}: duplicate card id`);}
+ function setup(room){
+@@ -22,13 +22,13 @@
+       api.skipInitialPairs(room,room.players[0].id);
+     }
+   }
+-  assert.strictEqual(room.phase,'playing','setup phase did not complete');
++  assert(['playing','finished'].includes(room.phase),'setup must enter play or resolve an empty-hand finish');
+ }
+-function run(config,index){
++function run(config,index,seats=4){
+   const ws=fakeWs();
+-  api.createRoom(ws,`H${index}`,1,config.mad,-20,config.initialPair,config.pass,config.penalty,config.pick,config.timing,config.shoot,config.deal,config.limit,config.feast,config.providerRole,'player',config.forceJokerPickCandidate,config.shootRequiresBabaMoved);
++  api.createRoom(ws,`H${index}`,1,config.mad,-20,config.initialPair,config.pass,config.penalty,config.pick,config.timing,config.shoot,config.deal,config.limit,config.feast,config.providerRole,'player',config.forceJokerPickCandidate,config.shootRequiresBabaMoved,true,false,seats);
+   const room=[...api.rooms.values()].at(-1);
+-  for(let i=0;i<3;i++)api.addCpu(room,room.hostId);
++  for(let i=0;i<seats-1;i++)api.addCpu(room,room.hostId);
+   assert.strictEqual(api.startGame(room,room.hostId),true);
+   setup(room);
+   let steps=0,picks=0,pairs=0;
+@@ -36,12 +36,12 @@
+     integrity(room,`run ${index} step ${steps}`);
+     if(room.phase==='roundEnd'){api.beginNextRound(room);continue;}
+     if(room.trickReview){const r=room.trickReview;api.advanceReviewToPick(room,r.until,r.winnerPid,r.weakestPid);continue;}
+-    const pp=room.pendingPick;
++    const pp=api.activePickLanes(room)[0];
+     if(pp){
+-      if(pp.targetSelectionRequired&&!pp.targetSelectionDone){const provider=room.players[pp.pickProviderPid];const mandatory=pp.mandatoryCandidateIds||[];const ids=[...mandatory,...provider.hand.map(c=>c.id).filter(id=>!mandatory.includes(id))].slice(0,pp.targetCount);api.submitPickTargets(room,provider.id,ids,true);continue;}
+-      if(pp.pairChoice&&!pp.result){pairs++;api.resolvePairChoice(room,room.players[pp.pickerPid].id,pp.pairChoice.candidates[0]?.id,false);continue;}
+-      if(!pp.result){picks++;pp.readyAt=0;api.doPick(room,room.players[pp.pickerPid].id,(index+steps)%Math.max(1,(pp.targetCandidateIds||[]).length||pp.targetCount||1));continue;}
+-      api.finishAfterPick(room,pp.winnerPid);continue;
++      if(pp.targetSelectionRequired&&!pp.targetSelectionDone){const provider=room.players[pp.pickProviderPid];const mandatory=pp.mandatoryCandidateIds||[];const ids=[...mandatory,...provider.hand.map(c=>c.id).filter(id=>!mandatory.includes(id))].slice(0,pp.targetCount);api.submitPickTargets(room,provider.id,ids,true,pp.pickId);continue;}
++      if(pp.pairChoice&&!pp.result){pairs++;api.resolvePairChoice(room,room.players[pp.pickerPid].id,pp.pairChoice.candidates[0]?.id,false,pp.pickId);continue;}
++      if(!pp.result){picks++;pp.readyAt=0;api.doPick(room,room.players[pp.pickerPid].id,(index+steps)%Math.max(1,(pp.targetCandidateIds||[]).length||pp.targetCount||1),pp.pickId);continue;}
++      api.finishPickLane(room,pp,pp.winnerPid);continue;
+     }
+     if(room.current==null){api.ensureRoomProgress(room);continue;}
+     const playable=[...api.playableIds(room,room.current)];
+@@ -52,7 +52,7 @@
+   assert.strictEqual(room.phase,'finished');
+   assert(room.players.every(p=>p.final&&Number.isFinite(p.final.total)));
+   integrity(room,`run ${index} finished`);
+-  api.clearAllProgressTimers(room);
++  api.clearAllProgressTimers(room);api.rooms.delete(room.code);
+   return {steps,picks,pairs,totals:room.players.map(p=>p.final.total)};
+ }
+ const configs=[];
+@@ -70,6 +70,6 @@
+   configs.push({penalty,mad,timing,shoot,deal,limit,pick,forceJokerPickCandidate,shootRequiresBabaMoved,feast:[0,1,2,5][idx%4],providerRole:idx%2?'winner':'weakest',pass:setupMode===1||setupMode===3,initialPair:setupMode===2||setupMode===3});
+ }
+ const samples=[];
+-configs.forEach((config,index)=>{const r=run(config,index);if(index%48===0)samples.push({config,...r});});
++for(const seats of [3,4,5]) configs.forEach((config,index)=>{const r=run(config,index,seats);if(index%48===0)samples.push({seats,config,...r});});
+ Object.assign(global,original);
+-console.log(JSON.stringify({result:'passed',runs:configs.length,samples},null,2));
++console.log(JSON.stringify({result:'passed',runs:configs.length*3,seats:[3,4,5],samples},null,2));
+--- v45/tests/server_test_harness.cjs
++++ v46/tests/server_test_harness.cjs
+@@ -0,0 +1,21 @@
++'use strict';
++const fs=require('fs'),path=require('path'),vm=require('vm'),crypto=require('crypto');
++module.exports=function(seed=46){
++ const root=path.resolve(__dirname,'..');let value=seed>>>0;
++ const random=()=>{value=(Math.imul(value,1664525)+1013904223)>>>0;return value/4294967296;};
++ const math=Object.create(Math);math.random=random;
++ const timer=()=>({unref(){}});
++ class FakeServer{constructor(){this.clients=new Set();}on(){}}
++ const sandbox={console:{log(){},error:console.error},Math:math,process:{env:{}},__dirname:root,setTimeout:timer,clearTimeout(){},setInterval:timer,clearInterval(){},require(name){
++ if(name==='http')return {createServer:()=>({listen(){}})};
++ if(name==='ws')return{Server:FakeServer,OPEN:1};
++ if(name==='crypto')return crypto;
++ if(name==='fs')return fs;
++ if(name==='path')return path;
++ if(name.startsWith('./'))return require(path.join(root,name));
++ throw Error('Unexpected module '+name);
++ }};
++ const source=fs.readFileSync(process.env.V46_SERVER_SOURCE || path.join(root,'server.js'),'utf8');
++ vm.runInNewContext(source+`\nglobalThis.api={rooms,createRoom,addCpu,startGame,playCard,advanceReviewToPick,doPick,submitPickTargets,resolvePairChoice,beginNextRound,ensureRoomProgress,playableIds,clearAllProgressTimers,submitPassThree,skipInitialPairs,activePickLanes,finishPickLane,resolveShootDecision,finishShootPresentation,rankTrickPlayers,roomSeatCapacity,roomHandSize,secondaryPickRanks,publicState,buildPostTrickFlow,cpuCardPlayScore,makeRoundSnapshot,checkRoundEnd};`,sandbox,{filename:'server.js'});
++ return sandbox.api;
++};
+--- v45/tests/v41_followup_regression.js
++++ v46/tests/v41_followup_regression.js
+@@ -62,11 +62,13 @@
+ for(const stale of ['通常ピック後に2位','続けて2位→3位','1位→最弱に続いて2位→3位','必殺技演出の後にその追加ピック']){
+   assert(!html.includes(stale),`serial wording removed: ${stale}`);
+ }
+-assert(html.includes('1位↔4位と2位→3位を同時進行します'));
++assert(html.includes('同時進行します'));
++assert(html.includes('secondaryPickLabel()'));
++assert(html.includes("n===5?'2位→4位'"));
+ 
+ console.log(JSON.stringify({
+   result:'passed',suite:'v41-followup-regression',cssParsed:true,
+-  fixedCpuPersonas:3,randomAnimalSeat:4,parallelCommentAfterBoth:true,
++  fixedCpuPersonas:4,duplicatePersonaAnimalIdentity:true,parallelCommentAfterBoth:true,
+   lobbyRoleHorizontal:true,targetConfirmSticky:true,pairCopyExplicit:true,
+   portraitCases
+ }));
+--- v45/tests/websocket_game_smoke.js
++++ v46/tests/websocket_game_smoke.js
+@@ -71,7 +71,7 @@
+ 
+   assert.strictEqual(state.penaltyMode, 'mud6');
+   assert.strictEqual(state.pickTargetCount, 2);
+-  assert.strictEqual(state.shootThePigEnabled, true);
++  assert.strictEqual(state.shootThePigEnabled, false);
+   assert.strictEqual(state.shootThePigLimit, 'unlimited');
+   assert.strictEqual(state.shootThePigPerPlayerLimit, null);
+   assert.ok((state.players || []).every(p=>typeof p.shootUsed === 'boolean'));
+@@ -103,33 +103,35 @@
+   }
+ 
+   if(state.phase === 'playing'){
+-    const pp = state.pendingPick;
++    const lanes=state.parallelPickGroup?[state.parallelPickGroup.primary,state.parallelPickGroup.secondary]:[state.pendingPick];
++    const pp=lanes.find(p=>p&&!['completed','skipped','presenting','shootDecision'].includes(p.status)&&(p.pickProviderPid===state.yourIndex||p.pickerPid===state.yourIndex));
+     if(pp?.targetSelectionRequired && !pp.targetSelectionDone && pp.pickProviderPid === state.yourIndex){
+-      const count = Math.min(pp.targetCandidateCount || 0, pp.targetSelectableCardIds?.length || 0);
+-      const ids = (pp.targetSelectableCardIds || []).slice(0, count);
+-      const key = `${pp.readyAt}:${ids.join(',')}`;
++      const mandatory=pp.mandatoryCandidateIds || [];
++      const count=pp.targetCount ?? pp.targetCandidateCount ?? 0;
++      const ids=[...mandatory,...(pp.targetSelectableCardIds || []).filter(id=>!mandatory.includes(id))].slice(0,count);
++      const key=pp.pickId;
+       if(ids.length && key !== lastTargetKey){
+         lastTargetKey = key;
+         humanTargetSelections++;
+-        send({type:'pickTargets', cardIds:ids});
++        send({type:'pickTargets', pickId:pp.pickId,cardIds:ids});
+       }
+       return;
+     }
+     if(pp?.pairChoice && pp.pickerPid === state.yourIndex){
+-      const key = String(pp.pairChoice.drawn?.id || pp.readyAt);
++      const key=pp.pickId;
+       if(key !== lastPairKey){
+         lastPairKey = key;
+         humanPairChoices++;
+-        send({type:'pairChoice', skip:true});
++        send({type:'pairChoice', pickId:pp.pickId,skip:true});
+       }
+       return;
+     }
+     if(pp && !pp.result && pp.pickerPid === state.yourIndex && pp.ready){
+-      const key = String(pp.readyAt);
++      const key=pp.pickId;
+       if(key !== lastPickKey){
+         lastPickKey = key;
+         humanPicks++;
+-        send({type:'pick', index:0});
++        send({type:'pick', pickId:pp.pickId,index:0});
+       }
+       return;
+     }

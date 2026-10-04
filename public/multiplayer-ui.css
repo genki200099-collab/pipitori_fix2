@@ -1,0 +1,13 @@
+/* v46: keep result banners outside the scrollable three/five-seat card row. */
+body.modern-game-ui .trick-board.collision-safe-layout-v10:is([data-player-count="3"],[data-player-count="5"]){
+  display:block!important;width:100%!important;max-width:100%;overflow:visible!important;
+}
+body.modern-game-ui .multiplayer-trick-slots{
+  display:grid;grid-template-columns:repeat(var(--trick-seat-count),var(--card-w));
+  column-gap:6px;justify-content:start;justify-content:safe center;
+  max-width:100%;box-sizing:border-box;padding:12px 6px;overflow-x:auto;
+  overscroll-behavior-inline:contain;
+}
+body.modern-game-ui .multiplayer-trick-slots .trick-slot{grid-column:auto!important;grid-row:1!important}
+body.modern-game-ui .spectator-trick-grid{grid-template-columns:repeat(var(--spectator-seat-count,4),minmax(0,1fr))}
+body.modern-game-ui #enableMiddleRankPick:disabled{opacity:.65;cursor:default}

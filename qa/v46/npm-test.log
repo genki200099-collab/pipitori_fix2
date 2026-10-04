@@ -1,0 +1,3076 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pipi-tori-online@0.1.0 test
+> node tests/nakato_modoki_cpu_regression.js && node tests/player_count_3_5_regression.js && node tests/default_rules_regression.js && node tests/identity_room_score_pick_v36_regression.js && node tests/baba_movement_rules_v38_regression.js && node tests/pipitori_v39_regression.js && node tests/v39_shoot_ui_regression.js && node tests/v39_cpu_seat_websocket.js && node tests/result_evaluation_animation_v37_regression.js && node tests/websocket_spectator_v37.js && node tests/spectator_cleanup_v37.js && node tests/websocket_room_clear_v36.js && node tests/shoot_limit_regression.js && node tests/v34_senior_audit_regression.js && node tests/rule_combination_matrix_regression.js && node tests/rule_gameplay_matrix_regression.js && node tests/full_audit_regression.js && node tests/commentary_readability_regression.js && node tests/cpu_personality_dialogue_regression.js && node tests/dialogue_object_context_regression.js && node tests/spotlight_priority_regression.js && node tests/spotlight_flow_regression.js && node tests/match_lifecycle_regression.js && node tests/transient_visual_lifecycle_regression.js && node tests/final_result_scroll_regression.js && node tests/final_result_contrast_regression.js && node tests/action_and_result_resilience_regression.js && node tests/interaction_accessibility_regression.js && node tests/game_engine_stress_regression.js && node tests/async_progress_smoke.js && node tests/mobile_ui_regression.js && node tests/layout_collision_regression.js && node tests/source_integrity_regression.js && node tests/app_icon_regression.js && npm run test:v41 --offline
+
+nakato-modoki CPU selection, dialogue, portraits and lobby regression: all assertions passed
+3/4/5 player rules and deal regression: all assertions passed
+default rules regression: all assertions passed
+{
+  "result": "passed",
+  "suite": "identity-room-score-pick-v36",
+  "identities": [
+    {
+      "name": "子ブタ",
+      "avatar": "🐷"
+    },
+    {
+      "name": "子ネコ",
+      "avatar": "🐱"
+    },
+    {
+      "name": "子イヌ",
+      "avatar": "🐶"
+    },
+    {
+      "name": "子ウサギ",
+      "avatar": "🐰"
+    }
+  ]
+}
+{
+  "result": "passed",
+  "suite": "baba-movement-rules-v38",
+  "ruleStates": 4,
+  "assertions": "A/B/CPU/public-state/UI/evaluation"
+}
+{"result":"passed","suite":"pipitori-v39-regression","middlePick":true,"loadFire":true,"privacy":true,"cumulativeScores":true}
+{"result":"passed","suite":"v39-shoot-ui-regression","durationMs":3500,"reducedMotion":true,"viewports":["320x568","568x320"],"pointerBlocking":false}
+{"result":"passed","suite":"v39-cpu-seat-websocket","spectatorCounts":[0,1,3,12],"spectatorHost":true,"reconnect":true,"roleChange":true,"removeAdd":true}
+{"result":"passed","suite":"result-evaluation-animation-v37","evaluations":[3,2,3,3],"privacy":"passed"}
+{"result":"passed","suite":"websocket-spectator-v37","players":4,"spectators":3,"privacy":"viewer-specific"}
+{"result":"passed","suite":"spectator-cleanup-v37","ttlMs":180,"spectatorOnlyExpired":true}
+{"result":"passed","oldCode":"4YGB","newCode":"CYC3","identities":["🐷子ブタ","🐱子ネコ"]}
+shoot limit regression: all assertions passed
+v34 senior audit regression: all assertions passed
+{
+  "result": "passed",
+  "combinations": 589824
+}
+{
+  "result": "passed",
+  "runs": 4608,
+  "seats": [
+    3,
+    4,
+    5
+  ],
+  "samples": [
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 79,
+      "picks": 12,
+      "pairs": 3,
+      "totals": [
+        -20,
+        -3,
+        8
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 77,
+      "picks": 12,
+      "pairs": 5,
+      "totals": [
+        5,
+        9,
+        -26
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 63,
+      "picks": 9,
+      "pairs": 5,
+      "totals": [
+        -18,
+        -29,
+        11
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 72,
+      "picks": 11,
+      "pairs": 2,
+      "totals": [
+        -35,
+        -6,
+        8
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 73,
+      "picks": 11,
+      "pairs": 7,
+      "totals": [
+        15,
+        6,
+        -17
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 66,
+      "picks": 10,
+      "pairs": 6,
+      "totals": [
+        -32,
+        15,
+        0
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 60,
+      "picks": 9,
+      "pairs": 6,
+      "totals": [
+        -32,
+        -30,
+        21
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 81,
+      "picks": 13,
+      "pairs": 3,
+      "totals": [
+        -29,
+        21,
+        12
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 66,
+      "picks": 10,
+      "pairs": 6,
+      "totals": [
+        -13,
+        -26,
+        15
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 77,
+      "picks": 12,
+      "pairs": 5,
+      "totals": [
+        9,
+        18,
+        -36
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 65,
+      "picks": 10,
+      "pairs": 5,
+      "totals": [
+        -1,
+        -3,
+        -29
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 68,
+      "picks": 10,
+      "pairs": 8,
+      "totals": [
+        15,
+        -27,
+        -3
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 79,
+      "picks": 12,
+      "pairs": 4,
+      "totals": [
+        -5,
+        9,
+        -6
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 79,
+      "picks": 12,
+      "pairs": 5,
+      "totals": [
+        -8,
+        12,
+        0
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 59,
+      "picks": 9,
+      "pairs": 5,
+      "totals": [
+        -35,
+        21,
+        -18
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 75,
+      "picks": 12,
+      "pairs": 3,
+      "totals": [
+        -26,
+        21,
+        -3
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 61,
+      "picks": 9,
+      "pairs": 7,
+      "totals": [
+        -46,
+        5,
+        8
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 75,
+      "picks": 11,
+      "pairs": 5,
+      "totals": [
+        18,
+        -45,
+        -25
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 59,
+      "picks": 9,
+      "pairs": 5,
+      "totals": [
+        21,
+        -57,
+        -86
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 82,
+      "picks": 13,
+      "pairs": 4,
+      "totals": [
+        15,
+        -35,
+        -22
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 86,
+      "picks": 14,
+      "pairs": 2,
+      "totals": [
+        18,
+        -23,
+        -7
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 76,
+      "picks": 11,
+      "pairs": 6,
+      "totals": [
+        15,
+        15,
+        -22
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 68,
+      "picks": 10,
+      "pairs": 6,
+      "totals": [
+        0,
+        -8,
+        -36
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 72,
+      "picks": 11,
+      "pairs": 6,
+      "totals": [
+        -5,
+        -42,
+        15
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 71,
+      "picks": 11,
+      "pairs": 5,
+      "totals": [
+        -38,
+        18,
+        7
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 63,
+      "picks": 9,
+      "pairs": 7,
+      "totals": [
+        -13,
+        -8,
+        6
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 65,
+      "picks": 9,
+      "pairs": 7,
+      "totals": [
+        -10,
+        -18,
+        18
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 81,
+      "picks": 13,
+      "pairs": 3,
+      "totals": [
+        8,
+        -16,
+        5
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 78,
+      "picks": 12,
+      "pairs": 6,
+      "totals": [
+        -18,
+        12,
+        18
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 76,
+      "picks": 12,
+      "pairs": 4,
+      "totals": [
+        -19,
+        6,
+        21
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 69,
+      "picks": 10,
+      "pairs": 5,
+      "totals": [
+        -1,
+        -16,
+        21
+      ]
+    },
+    {
+      "seats": 3,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 80,
+      "picks": 12,
+      "pairs": 4,
+      "totals": [
+        21,
+        6,
+        -17
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 82,
+      "picks": 17,
+      "pairs": 3,
+      "totals": [
+        -14,
+        4,
+        8,
+        -28
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 77,
+      "picks": 15,
+      "pairs": 7,
+      "totals": [
+        -15,
+        -3,
+        3,
+        -1
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 61,
+      "picks": 12,
+      "pairs": 5,
+      "totals": [
+        -25,
+        -22,
+        -24,
+        -1
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 89,
+      "picks": 18,
+      "pairs": 5,
+      "totals": [
+        10,
+        -3,
+        -12,
+        -10
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 86,
+      "picks": 18,
+      "pairs": 3,
+      "totals": [
+        0,
+        -7,
+        7,
+        -20
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 77,
+      "picks": 15,
+      "pairs": 7,
+      "totals": [
+        -1,
+        -20,
+        -3,
+        12
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 75,
+      "picks": 14,
+      "pairs": 7,
+      "totals": [
+        4,
+        -31,
+        8,
+        16
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 84,
+      "picks": 17,
+      "pairs": 5,
+      "totals": [
+        -22,
+        5,
+        12,
+        6
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 85,
+      "picks": 17,
+      "pairs": 6,
+      "totals": [
+        -2,
+        9,
+        -17,
+        4
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 85,
+      "picks": 17,
+      "pairs": 6,
+      "totals": [
+        5,
+        -18,
+        8,
+        -1
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 76,
+      "picks": 15,
+      "pairs": 6,
+      "totals": [
+        0,
+        12,
+        -43,
+        9
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 77,
+      "picks": 15,
+      "pairs": 7,
+      "totals": [
+        -5,
+        2,
+        8,
+        -21
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 73,
+      "picks": 14,
+      "pairs": 8,
+      "totals": [
+        -9,
+        -1,
+        13,
+        -16
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 84,
+      "picks": 16,
+      "pairs": 7,
+      "totals": [
+        16,
+        20,
+        0,
+        -23
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 77,
+      "picks": 15,
+      "pairs": 7,
+      "totals": [
+        13,
+        -26,
+        16,
+        -6
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 77,
+      "picks": 15,
+      "pairs": 7,
+      "totals": [
+        1,
+        -18,
+        2,
+        12
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 84,
+      "picks": 17,
+      "pairs": 5,
+      "totals": [
+        8,
+        14,
+        12,
+        -54
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 67,
+      "picks": 14,
+      "pairs": 4,
+      "totals": [
+        -18,
+        -19,
+        -34,
+        -48
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 82,
+      "picks": 16,
+      "pairs": 5,
+      "totals": [
+        8,
+        16,
+        -17,
+        -44
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 92,
+      "picks": 19,
+      "pairs": 4,
+      "totals": [
+        20,
+        -25,
+        8,
+        -37
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 61,
+      "picks": 12,
+      "pairs": 7,
+      "totals": [
+        -4,
+        -27,
+        -45,
+        -24
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 81,
+      "picks": 16,
+      "pairs": 7,
+      "totals": [
+        -3,
+        -29,
+        8,
+        -8
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 83,
+      "picks": 16,
+      "pairs": 6,
+      "totals": [
+        16,
+        -11,
+        -24,
+        16
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 72,
+      "picks": 14,
+      "pairs": 6,
+      "totals": [
+        -20,
+        -15,
+        -9,
+        -12
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 82,
+      "picks": 16,
+      "pairs": 5,
+      "totals": [
+        16,
+        -25,
+        8,
+        -1
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 89,
+      "picks": 18,
+      "pairs": 4,
+      "totals": [
+        -1,
+        7,
+        -5,
+        -4
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 77,
+      "picks": 15,
+      "pairs": 7,
+      "totals": [
+        -7,
+        16,
+        3,
+        -18
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 85,
+      "picks": 17,
+      "pairs": 6,
+      "totals": [
+        8,
+        -22,
+        11,
+        3
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 84,
+      "picks": 17,
+      "pairs": 5,
+      "totals": [
+        12,
+        9,
+        -16,
+        0
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 76,
+      "picks": 15,
+      "pairs": 6,
+      "totals": [
+        16,
+        5,
+        -8,
+        -16
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 70,
+      "picks": 14,
+      "pairs": 5,
+      "totals": [
+        -9,
+        1,
+        1,
+        -4
+      ]
+    },
+    {
+      "seats": 4,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 75,
+      "picks": 15,
+      "pairs": 5,
+      "totals": [
+        24,
+        3,
+        -5,
+        -23
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 83,
+      "picks": 16,
+      "pairs": 3,
+      "totals": [
+        -15,
+        9,
+        5,
+        2,
+        10
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 65,
+      "picks": 12,
+      "pairs": 5,
+      "totals": [
+        -9,
+        -10,
+        10,
+        -1,
+        -23
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 64,
+      "picks": 12,
+      "pairs": 4,
+      "totals": [
+        -15,
+        10,
+        -26,
+        1,
+        -9
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mud6",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 73,
+      "picks": 14,
+      "pairs": 3,
+      "totals": [
+        -26,
+        7,
+        -12,
+        4,
+        -1
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 70,
+      "picks": 14,
+      "pairs": 0,
+      "totals": [
+        20,
+        -21,
+        -18,
+        -1,
+        -19
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 67,
+      "picks": 12,
+      "pairs": 7,
+      "totals": [
+        -18,
+        -9,
+        4,
+        5,
+        10
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 74,
+      "picks": 14,
+      "pairs": 4,
+      "totals": [
+        -26,
+        17,
+        5,
+        4,
+        -6
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mud6",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 63,
+      "picks": 11,
+      "pairs": 5,
+      "totals": [
+        10,
+        1,
+        -1,
+        -23,
+        -13
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 74,
+      "picks": 14,
+      "pairs": 4,
+      "totals": [
+        10,
+        -21,
+        0,
+        -1,
+        -4
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 55,
+      "picks": 10,
+      "pairs": 5,
+      "totals": [
+        -21,
+        -21,
+        2,
+        -2,
+        5
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 72,
+      "picks": 14,
+      "pairs": 2,
+      "totals": [
+        -9,
+        -37,
+        -1,
+        20,
+        -1
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "flat3",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 72,
+      "picks": 13,
+      "pairs": 4,
+      "totals": [
+        -27,
+        10,
+        15,
+        -3,
+        -11
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 73,
+      "picks": 14,
+      "pairs": 3,
+      "totals": [
+        9,
+        5,
+        -9,
+        -8,
+        -6
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 70,
+      "picks": 12,
+      "pairs": 5,
+      "totals": [
+        -10,
+        7,
+        -4,
+        -4,
+        -6
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 72,
+      "picks": 13,
+      "pairs": 4,
+      "totals": [
+        15,
+        -13,
+        -3,
+        -4,
+        2
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "flat3",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 55,
+      "picks": 10,
+      "pairs": 5,
+      "totals": [
+        -6,
+        -4,
+        -27,
+        -15,
+        15
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 72,
+      "picks": 13,
+      "pairs": 4,
+      "totals": [
+        -27,
+        -25,
+        -4,
+        -7,
+        0
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 73,
+      "picks": 13,
+      "pairs": 5,
+      "totals": [
+        5,
+        -7,
+        -4,
+        10,
+        -56
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 75,
+      "picks": 14,
+      "pairs": 5,
+      "totals": [
+        -27,
+        15,
+        -5,
+        -22,
+        -10
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "faceValue",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 64,
+      "picks": 12,
+      "pairs": 4,
+      "totals": [
+        -14,
+        -9,
+        -38,
+        -25,
+        -12
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 72,
+      "picks": 13,
+      "pairs": 4,
+      "totals": [
+        5,
+        -5,
+        15,
+        -11,
+        -46
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 61,
+      "picks": 11,
+      "pairs": 3,
+      "totals": [
+        -14,
+        -45,
+        10,
+        -49,
+        20
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 64,
+      "picks": 12,
+      "pairs": 4,
+      "totals": [
+        -1,
+        -24,
+        -9,
+        -58,
+        10
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "faceValue",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 64,
+      "picks": 12,
+      "pairs": 4,
+      "totals": [
+        10,
+        -21,
+        -38,
+        -23,
+        -7
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 63,
+      "picks": 12,
+      "pairs": 3,
+      "totals": [
+        -1,
+        2,
+        -2,
+        0,
+        -25
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 62,
+      "picks": 12,
+      "pairs": 2,
+      "totals": [
+        10,
+        -2,
+        -19,
+        -19,
+        7
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 73,
+      "picks": 14,
+      "pairs": 3,
+      "totals": [
+        15,
+        -14,
+        2,
+        0,
+        -13
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": true,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 62,
+      "picks": 12,
+      "pairs": 2,
+      "totals": [
+        3,
+        -23,
+        5,
+        -2,
+        -5
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 71,
+      "picks": 13,
+      "pairs": 3,
+      "totals": [
+        9,
+        15,
+        -5,
+        -18,
+        2
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "perRound",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 64,
+      "picks": 12,
+      "pairs": 4,
+      "totals": [
+        -20,
+        -7,
+        9,
+        4,
+        5
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": true,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 74,
+      "picks": 14,
+      "pairs": 4,
+      "totals": [
+        9,
+        -1,
+        -16,
+        11,
+        0
+      ]
+    },
+    {
+      "seats": 5,
+      "config": {
+        "penalty": "mudSuit",
+        "mad": false,
+        "timing": "gameEnd",
+        "shoot": false,
+        "deal": "reshuffle",
+        "limit": "unlimited",
+        "pick": 0,
+        "forceJokerPickCandidate": false,
+        "shootRequiresBabaMoved": false,
+        "feast": 1,
+        "providerRole": "winner",
+        "pass": false,
+        "initialPair": false
+      },
+      "steps": 72,
+      "picks": 13,
+      "pairs": 4,
+      "totals": [
+        -11,
+        -1,
+        15,
+        9,
+        -7
+      ]
+    }
+  ]
+}
+full audit regression: all assertions passed
+commentary readability regression: all assertions passed
+cpu personality dialogue regression: all assertions passed
+dialogue object context regression: all assertions passed
+spotlight priority + SFC regression: all assertions passed
+spotlight flow regression: all assertions passed
+match lifecycle regression: all assertions passed
+transient visual lifecycle regression: all assertions passed
+final result scroll regression: all assertions passed
+final result contrast regression: passed
+action + result resilience regression: all assertions passed
+interaction + accessibility regression: all assertions passed
+{
+  "result": "passed",
+  "runs": [
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 0,
+      "pickProviderRole": "winner",
+      "steps": 294,
+      "picks": 50,
+      "pairs": 17,
+      "spots": 44,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -31,
+        -24,
+        -86,
+        -32
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 1,
+      "pickProviderRole": "weakest",
+      "steps": 270,
+      "picks": 45,
+      "pairs": 18,
+      "spots": 39,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -26,
+        -84,
+        -13,
+        -21
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 2,
+      "pickProviderRole": "winner",
+      "steps": 275,
+      "picks": 47,
+      "pairs": 12,
+      "spots": 41,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -15,
+        11,
+        20,
+        -32
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 5,
+      "pickProviderRole": "weakest",
+      "steps": 297,
+      "picks": 50,
+      "pairs": 17,
+      "spots": 44,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        101,
+        36,
+        90,
+        92
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "once",
+      "feastPointPerCard": 0,
+      "pickProviderRole": "winner",
+      "steps": 267,
+      "picks": 45,
+      "pairs": 13,
+      "spots": 39,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        0,
+        -47,
+        -62,
+        -104
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "once",
+      "feastPointPerCard": 1,
+      "pickProviderRole": "weakest",
+      "steps": 282,
+      "picks": 47,
+      "pairs": 18,
+      "spots": 41,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -5,
+        -35,
+        -23,
+        -27
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "once",
+      "feastPointPerCard": 2,
+      "pickProviderRole": "winner",
+      "steps": 256,
+      "picks": 43,
+      "pairs": 13,
+      "spots": 37,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -60,
+        -33,
+        44,
+        0
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "reshuffle",
+      "shootLimit": "once",
+      "feastPointPerCard": 5,
+      "pickProviderRole": "weakest",
+      "steps": 274,
+      "picks": 46,
+      "pairs": 14,
+      "spots": 40,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        42,
+        139,
+        41,
+        -3
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 0,
+      "pickProviderRole": "winner",
+      "steps": 291,
+      "picks": 49,
+      "pairs": 17,
+      "spots": 43,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -56,
+        -20,
+        -6,
+        0
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 1,
+      "pickProviderRole": "weakest",
+      "steps": 256,
+      "picks": 43,
+      "pairs": 13,
+      "spots": 37,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -20,
+        12,
+        -35,
+        -8
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 2,
+      "pickProviderRole": "winner",
+      "steps": 288,
+      "picks": 49,
+      "pairs": 14,
+      "spots": 43,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -16,
+        -28,
+        28,
+        99
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "unlimited",
+      "feastPointPerCard": 5,
+      "pickProviderRole": "weakest",
+      "steps": 249,
+      "picks": 41,
+      "pairs": 17,
+      "spots": 35,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        101,
+        103,
+        60,
+        27
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "once",
+      "feastPointPerCard": 0,
+      "pickProviderRole": "winner",
+      "steps": 320,
+      "picks": 55,
+      "pairs": 16,
+      "spots": 49,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        -46,
+        -3,
+        0,
+        -52
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "once",
+      "feastPointPerCard": 1,
+      "pickProviderRole": "weakest",
+      "steps": 263,
+      "picks": 44,
+      "pairs": 12,
+      "spots": 38,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        10,
+        -33,
+        -28,
+        3
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "once",
+      "feastPointPerCard": 2,
+      "pickProviderRole": "winner",
+      "steps": 288,
+      "picks": 49,
+      "pairs": 17,
+      "spots": 43,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        16,
+        37,
+        14,
+        40
+      ]
+    },
+    {
+      "rounds": 3,
+      "dealMode": "carryOver",
+      "shootLimit": "once",
+      "feastPointPerCard": 5,
+      "pickProviderRole": "weakest",
+      "steps": 289,
+      "picks": 49,
+      "pairs": 16,
+      "spots": 43,
+      "roundEnds": 2,
+      "shootCounts": [
+        0,
+        0,
+        0,
+        0
+      ],
+      "totals": [
+        100,
+        176,
+        40,
+        95
+      ]
+    }
+  ]
+}
+{"result":"passed","loops":3602,"humanActions":27,"spotlightSamples":3231,"totals":[5,1,-13,-14]}
+{"result":"passed","contrast":[{"label":"進行メッセージ","ratio":15.17},{"label":"プレイヤー枠","ratio":13.92},{"label":"ラウンドバー","ratio":11.66},{"label":"HUD補助文字","ratio":11.06},{"label":"設定チップ","ratio":12.47}],"portrait":[{"width":320,"height":568,"arena":338,"tableHeight":187,"exposedCorner":20.53,"selectedTop":40},{"width":360,"height":640,"arena":410,"tableHeight":259,"exposedCorner":23.1,"selectedTop":40},{"width":375,"height":667,"arena":427,"tableHeight":266,"exposedCorner":24.06,"selectedTop":40},{"width":390,"height":844,"arena":604,"tableHeight":443,"exposedCorner":25.03,"selectedTop":40},{"width":393,"height":852,"arena":612,"tableHeight":451,"exposedCorner":25.22,"selectedTop":40},{"width":430,"height":932,"arena":692,"tableHeight":531,"exposedCorner":27.59,"selectedTop":40}],"landscape":[{"width":568,"height":320,"arena":170,"tableHeight":100,"exposedCorner":37.87,"selectedTop":16},{"width":667,"height":375,"arena":199,"tableHeight":109,"exposedCorner":44.47,"selectedTop":16},{"width":844,"height":390,"arena":214,"tableHeight":124,"exposedCorner":56.27,"selectedTop":16},{"width":852,"height":393,"arena":217,"tableHeight":127,"exposedCorner":56.8,"selectedTop":16},{"width":932,"height":430,"arena":254,"tableHeight":164,"exposedCorner":62.13,"selectedTop":16}]}
+{"result":"passed","portrait":[{"width":320,"height":568,"table":[300,182],"grid":[106,180],"resultGap":31,"commentGap":7},{"width":360,"height":600,"table":[340,214],"grid":[106,180],"resultGap":31,"commentGap":7},{"width":360,"height":640,"table":[340,248],"grid":[116,199],"resultGap":35,"commentGap":7},{"width":375,"height":667,"table":[351,249],"grid":[136,232],"resultGap":44,"commentGap":6},{"width":390,"height":600,"table":[370,196],"grid":[106,180],"resultGap":36,"commentGap":6},{"width":390,"height":640,"table":[368,230],"grid":[116,198],"resultGap":39,"commentGap":6},{"width":390,"height":664,"table":[366,246],"grid":[136,232],"resultGap":44,"commentGap":6},{"width":390,"height":844,"table":[366,426],"grid":[136,232],"resultGap":44,"commentGap":6},{"width":393,"height":852,"table":[369,434],"grid":[136,232],"resultGap":44,"commentGap":6},{"width":430,"height":600,"table":[410,196],"grid":[106,180],"resultGap":36,"commentGap":6},{"width":430,"height":650,"table":[408,240],"grid":[116,198],"resultGap":39,"commentGap":6},{"width":430,"height":800,"table":[406,382],"grid":[136,232],"resultGap":44,"commentGap":6},{"width":430,"height":932,"table":[406,514],"grid":[136,232],"resultGap":44,"commentGap":6}],"landscape":[{"width":568,"height":320,"table":[546,94],"grid":[192,76],"resultGap":3,"railGap":4},{"width":640,"height":360,"table":[618,134],"grid":[192,76],"resultGap":3,"railGap":4},{"width":667,"height":375,"table":[641,107],"grid":[228,86],"resultGap":4,"railGap":4},{"width":844,"height":390,"table":[818,122],"grid":[228,86],"resultGap":4,"railGap":4},{"width":852,"height":393,"table":[826,125],"grid":[228,86],"resultGap":4,"railGap":4},{"width":932,"height":430,"table":[906,162],"grid":[228,86],"resultGap":4,"railGap":4}],"desktop":[{"width":768,"height":600,"arena":[744,362],"grid":[298,113],"resultCardGap":32.5,"messagePlayerGap":7},{"width":1024,"height":600,"arena":[1000,362],"grid":[298,113],"resultCardGap":32.5,"messagePlayerGap":7},{"width":1024,"height":768,"arena":[1000,486],"grid":[338,131],"resultCardGap":77.5,"messagePlayerGap":7},{"width":1280,"height":720,"arena":[1256,438],"grid":[338,131],"resultCardGap":53.5,"messagePlayerGap":7},{"width":1366,"height":768,"arena":[1342,486],"grid":[338,131],"resultCardGap":77.5,"messagePlayerGap":7},{"width":1440,"height":900,"arena":[1416,618],"grid":[338,131],"resultCardGap":137.5,"messagePlayerGap":7},{"width":1920,"height":1080,"arena":[1896,798],"grid":[338,131],"resultCardGap":137.5,"messagePlayerGap":7}],"spectator":[{"width":320,"height":568,"mode":"portrait","tableWidth":304,"handsWidth":304},{"width":360,"height":640,"mode":"portrait","tableWidth":344,"handsWidth":344},{"width":375,"height":667,"mode":"portrait","tableWidth":359,"handsWidth":359},{"width":390,"height":844,"mode":"portrait","tableWidth":374,"handsWidth":374},{"width":393,"height":852,"mode":"portrait","tableWidth":377,"handsWidth":377},{"width":430,"height":932,"mode":"portrait","tableWidth":414,"handsWidth":414},{"width":568,"height":320,"mode":"landscape","tableWidth":193,"handsWidth":352},{"width":667,"height":375,"mode":"landscape","tableWidth":228,"handsWidth":416},{"width":844,"height":390,"mode":"landscape","tableWidth":290,"handsWidth":531},{"width":852,"height":393,"mode":"landscape","tableWidth":293,"handsWidth":536},{"width":932,"height":430,"mode":"landscape","tableWidth":321,"handsWidth":588},{"width":768,"height":600,"mode":"landscape","tableWidth":263,"handsWidth":482},{"width":1024,"height":600,"mode":"desktop","tableWidth":382,"handsWidth":602},{"width":1024,"height":768,"mode":"desktop","tableWidth":382,"handsWidth":602},{"width":1280,"height":720,"mode":"desktop","tableWidth":481,"handsWidth":759},{"width":1366,"height":768,"mode":"desktop","tableWidth":515,"handsWidth":811},{"width":1440,"height":900,"mode":"desktop","tableWidth":543,"handsWidth":857},{"width":1920,"height":1080,"mode":"desktop","tableWidth":730,"handsWidth":1150}]}
+{"result":"passed","htmlBytes":669840,"ids":119,"cssParsed":true,"serverFunctions":270,"clientFunctions":174,"duplicateIds":0,"duplicateFunctions":0,"blockingAlerts":0}
+app icon regression: all assertions passed
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pipi-tori-online@0.1.0 test:v41
+> npm run test:v40 --offline && node tests/v41_followup_regression.js
+
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pipi-tori-online@0.1.0 test:v40
+> node tests/intentional_leave_v40_regression.js && node tests/cpu_identity_dialogue_v40_regression.js && node tests/cpu_only_round_advance_v40_regression.js && node tests/parallel_middle_pick_v40_regression.js && node tests/v40_ui_lifecycle_regression.js
+
+{"result":"passed","suite":"intentional-leave-v40","temporaryReconnect":true,"lobbyPlayer":true,"lobbySpectator":true,"gameCpuSubstitute":true,"hostTransfer":true,"staleTokensRejected":true}
+{"result":"passed","suite":"cpu-identity-dialogue-v40","cpuCount":4,"names":["かももどき","ワクもどき","リクもどき","なかとーもどき"],"avatars":["🦆","✊🏻","📋","🌹"],"fixedPersonas":["かももどき","ワクもどき","リクもどき"],"authoredFourth":"なかとーもどき","personalitySeparated":true,"commentDomStable":true}
+{"result":"passed","suite":"cpu-only-round-advance-v40","spectatorBlocks":false,"autoAdvanceMs":2600,"humanFallbackMs":45000}
+{"result":"passed","suite":"parallel-middle-pick-v40","startDeltaMsMax":5,"distinctPickIds":true,"independentWait":true,"pairCleanseIndependent":true,"staleRejected":true,"commentAfterBothLanes":true,"commentPerTrickExactly":1,"tempoCpu4Tricks":48,"serialAverageMs":9220,"parallelAverageMs":5683,"tempoReductionPct":38}
+{"result":"passed","suite":"v40-ui-lifecycle","viewports":["320x568","375x667","390x844","393x852","430x932","568x320","667x375","844x390","932x430","768x600","1024x768","1280x720","1440x900","1920x1080"],"leaveModal":true,"safeArea":true,"tapTargetPx":44,"parallelResponsive":true,"commentEventDiff":true}
+{"result":"passed","suite":"v41-followup-regression","cssParsed":true,"fixedCpuPersonas":4,"duplicatePersonaAnimalIdentity":true,"parallelCommentAfterBoth":true,"lobbyRoleHorizontal":true,"targetConfirmSticky":true,"pairCopyExplicit":true,"portraitCases":[{"viewport":"320x568","tableHeight":187,"mode":"bounded-scroll"},{"viewport":"375x667","tableHeight":266,"mode":"bounded-scroll"},{"viewport":"390x844","tableHeight":443,"mode":"direct-fit"},{"viewport":"393x852","tableHeight":451,"mode":"direct-fit"},{"viewport":"430x932","tableHeight":531,"mode":"direct-fit"}]}
+
+NPM_TEST_EXIT=0

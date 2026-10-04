@@ -1,0 +1,14 @@
+{
+  "baseline": "pipi_tori_online_v44_slim.zip, version 8",
+  "baselineHtmlMatchedRenderResponse": true,
+  "changedExistingFilesBeforeDocumentation": [
+    "public/index.html"
+  ],
+  "unchangedCoreSha256": {
+    "server.js": "52e1185f8736993079e55a76c87cc1f2ccad61af1a462b30b74b4a36b0ef867f",
+    "cpu_personality_dialogue.js": "1f62f233f3a39f82fd6b5eba0b2f67021045fb3ded054341d49db1c53d9ac568",
+    "package.json": "cb773a374bf37b24950777994a8c686f80947b38b56b386a65f56c46f09ea9b7",
+    "package-lock.json": "168c28303b263bc860732fa69ad955ccc3603ddf0825ba7eb9352fd7607101c9"
+  },
+  "existingTestsUnchanged": true
+}

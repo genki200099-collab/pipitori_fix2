@@ -1,0 +1,61 @@
+/* v45: preserve the existing table layout; enhance sheets and touch controls. */
+:root { --native-visible-height:100dvh; --native-keyboard-inset:0px; }
+body.native-sheet-open {
+  position:fixed!important; top:var(--native-page-top)!important;
+  width:100%!important; overflow:hidden!important; overscroll-behavior:none;
+}
+body.modern-game-ui :is(button,summary,a,input,select) { -webkit-tap-highlight-color:rgba(8,107,134,.15); }
+body.modern-game-ui :is(button,summary) { touch-action:manipulation; }
+body.modern-game-ui button:not(:disabled):active { filter:brightness(.92); }
+body.modern-game-ui :is(.hand-card,.pick-card,.pick-target-card,.pair-card-btn) {
+  -webkit-user-select:none; user-select:none; -webkit-touch-callout:none;
+}
+/* The room code keeps ordinary iOS selection and long-press copy. */
+#roomCode { -webkit-user-select:text; user-select:text; }
+body.modern-game-ui :is(input.input,select.input,textarea) { font-size:max(16px,1rem)!important; scroll-margin-block:24px; }
+.native-sheet-handle { display:none; }
+body.modern-game-ui .utility-sheet,body.modern-game-ui .rule-help-panel {
+  overflow-x:hidden; overflow-y:auto; overscroll-behavior:contain;
+  overflow-wrap:anywhere; scroll-padding-block:80px 32px;
+}
+body.modern-game-ui .rule-help-backdrop { padding:0; border:0; }
+@media(max-width:720px), (max-height:520px) and (pointer:coarse) {
+  body.modern-game-ui :is(.utility-sheet,.rule-help-panel) {
+    inset:auto 0 0!important; width:100%!important; max-width:none!important;
+    max-height:calc(var(--native-visible-height) - max(12px,env(safe-area-inset-top)))!important;
+    padding-inline:max(16px,env(safe-area-inset-left)) max(16px,env(safe-area-inset-right))!important;
+    padding-bottom:max(24px,env(safe-area-inset-bottom))!important;
+    border-radius:24px 24px 0 0!important;
+    transform:translateY(var(--native-drag-y,0px))!important;
+    transition:transform 180ms ease-out;
+  }
+  body.modern-game-ui .utility-sheet { height:min(88dvh,var(--native-visible-height))!important; }
+  body.modern-game-ui .rule-help-panel { position:fixed!important; }
+  body.modern-game-ui .native-dragging { transition:none!important; }
+  body.native-keyboard-open.modern-game-ui :is(.utility-sheet,.rule-help-panel) { bottom:var(--native-keyboard-inset)!important; }
+  .native-sheet-handle {
+    display:flex; position:relative; justify-content:center; align-items:center;
+    width:100%; min-height:44px; margin:0 0 4px; padding:0;
+    color:#3b2118; background:transparent; border:0; border-radius:12px;
+    touch-action:none; cursor:grab;
+  }
+  .native-sheet-handle::before { content:''; width:36px; height:5px; border-radius:999px; background:#766e64; }
+  .native-sheet-handle:focus-visible { outline:3px solid #086b86; outline-offset:-3px; }
+  body.modern-game-ui .utility-head {
+    top:0; margin:0 -16px 12px; padding:8px 16px;
+    min-height:60px; gap:12px;
+  }
+  body.modern-game-ui .utility-head h2 { min-width:0; line-height:1.4; font-size:1.2rem; }
+  body.modern-game-ui :is(.utility-close,.rule-help-close) { flex-shrink:0; min-width:44px; min-height:44px; }
+  body.modern-game-ui .rule-help-close { top:52px!important; right:max(16px,env(safe-area-inset-right))!important; }
+  body.modern-game-ui #ruleHelpTitle { padding-right:48px; line-height:1.4; }
+  body.modern-game-ui .rule-help-body { line-height:1.65; }
+  body.modern-game-ui .utility-sheet .log { overflow-wrap:anywhere; }
+  body.modern-game-ui .room-clear-dialog {
+    max-width:calc(100vw - max(24px,env(safe-area-inset-left)) - max(24px,env(safe-area-inset-right)));
+    max-height:calc(var(--native-visible-height) - 32px); overflow:auto;
+  }
+}
+@media(prefers-reduced-motion:reduce) {
+  body.modern-game-ui :is(.utility-sheet,.rule-help-panel) { transition:none!important; scroll-behavior:auto!important; }
+}

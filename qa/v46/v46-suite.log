@@ -1,0 +1,31 @@
+npm warn Unknown env config "http-proxy". This will stop working in the next major version of npm.
+
+> pipi-tori-online@0.1.0 test:v46
+> node tests/joker_midtrick_conservation_v46.cjs && node tests/final_snapshot_v46.cjs && node tests/multiplayer_lifecycle_v46.cjs && node tests/multiplayer_websocket_v46.cjs && node tests/multiplayer_ui_v46.cjs && UI_QA_DIR=qa/v46 node tests/native_iphone_v45_behavior.cjs
+
+{"result":"passed","seats":[3,4,5],"jokerOnlyMidTrick":"returned before scoring","cardConservation":53}
+{"result":"passed","seats":[3,4,5],"timings":["perRound","gameEnd"],"expectedJokerHolderScore":-20,"finalSnapshotMatches":true,"idempotent":true}
+{"progress":96,"tricks":3081,"roundTransitions":192,"shootChoices":43}
+{"progress":192,"tricks":6191,"roundTransitions":384,"shootChoices":82}
+{"progress":288,"tricks":9261,"roundTransitions":576,"shootChoices":101}
+{"progress":384,"tricks":12365,"roundTransitions":768,"shootChoices":127}
+{"progress":480,"tricks":14707,"roundTransitions":960,"shootChoices":143}
+{"progress":576,"tricks":17035,"roundTransitions":1152,"shootChoices":155}
+{"progress":672,"tricks":19372,"roundTransitions":1344,"shootChoices":168}
+{"progress":768,"tricks":21704,"roundTransitions":1536,"shootChoices":185}
+{"progress":864,"tricks":23478,"roundTransitions":1728,"shootChoices":197}
+{"progress":960,"tricks":25247,"roundTransitions":1920,"shootChoices":202}
+{"progress":1056,"tricks":27035,"roundTransitions":2112,"shootChoices":208}
+{"progress":1152,"tricks":28813,"roundTransitions":2304,"shootChoices":218}
+{"result":"passed","seed":46,"mode":"full","runs":1152,"tricks":28813,"roundTransitions":2304,"shootChoices":218,"roundsPerMatch":3,"seats":[3,4,5],"ownership":"card IDs including trick and all excluded cards","activeFaceUniqueness":true}
+{"progress":1,"seats":3,"provider":"winner"}
+{"progress":2,"seats":3,"provider":"weakest"}
+{"progress":3,"seats":4,"provider":"winner"}
+{"progress":4,"seats":4,"provider":"weakest"}
+{"progress":5,"seats":5,"provider":"winner"}
+{"progress":6,"seats":5,"provider":"weakest"}
+{"result":"passed","method":"real local WebSocket with accelerated test clock","rows":[{"seats":3,"provider":"winner","deal":"reshuffle","rounds":3,"finished":true,"playerPrivacy":true,"spectatorHands":true,"reconnect":true,"initialPairs":false,"totals":[8,-31,-16]},{"seats":3,"provider":"weakest","deal":"carryOver","rounds":3,"finished":true,"playerPrivacy":true,"spectatorHands":true,"reconnect":true,"initialPairs":true,"totals":[-42,-41,4]},{"seats":4,"provider":"winner","deal":"reshuffle","rounds":3,"finished":true,"playerPrivacy":true,"spectatorHands":true,"reconnect":true,"initialPairs":false,"totals":[-22,18,24,-117]},{"seats":4,"provider":"weakest","deal":"carryOver","rounds":3,"finished":true,"playerPrivacy":true,"spectatorHands":true,"reconnect":true,"initialPairs":true,"totals":[-17,-55,3,-24]},{"seats":5,"provider":"winner","deal":"reshuffle","rounds":3,"finished":true,"playerPrivacy":true,"spectatorHands":true,"reconnect":true,"initialPairs":false,"totals":[-33,-7,-68,-12,-17]},{"seats":5,"provider":"weakest","deal":"carryOver","rounds":3,"finished":true,"playerPrivacy":true,"spectatorHands":true,"reconnect":true,"initialPairs":true,"totals":[5,-30,-22,-22,-24]}]}
+{"result":"passed","cases":84,"widths":[320,375,390,430,768,1024,1440],"renderedLayout":"not_checked"}
+{"result":"passed","method":"jsdom DOM events; no rendered layout or iOS emulation","rows":[{"width":320,"domBehavior":"passed","sheetFocusAndScroll":true,"ime":true,"gestureSafety":true,"keyboardSimulation":true,"largeTextModeSimulation":true,"cardSelectionAndSingleSend":true,"renderedLayout":"not_checked"},{"width":375,"domBehavior":"passed","sheetFocusAndScroll":true,"ime":true,"gestureSafety":true,"keyboardSimulation":true,"largeTextModeSimulation":true,"cardSelectionAndSingleSend":true,"renderedLayout":"not_checked"},{"width":390,"domBehavior":"passed","sheetFocusAndScroll":true,"ime":true,"gestureSafety":true,"keyboardSimulation":true,"largeTextModeSimulation":true,"cardSelectionAndSingleSend":true,"renderedLayout":"not_checked"},{"width":430,"domBehavior":"passed","sheetFocusAndScroll":true,"ime":true,"gestureSafety":true,"keyboardSimulation":true,"largeTextModeSimulation":true,"cardSelectionAndSingleSend":true,"renderedLayout":"not_checked"},{"width":768,"domBehavior":"passed","sheetFocusAndScroll":true,"ime":true,"gestureSafety":true,"keyboardSimulation":true,"largeTextModeSimulation":true,"cardSelectionAndSingleSend":true,"renderedLayout":"not_checked"},{"width":1024,"domBehavior":"passed","sheetFocusAndScroll":true,"ime":true,"gestureSafety":true,"keyboardSimulation":true,"largeTextModeSimulation":true,"cardSelectionAndSingleSend":true,"renderedLayout":"not_checked"},{"width":1440,"domBehavior":"passed","sheetFocusAndScroll":true,"ime":true,"gestureSafety":true,"keyboardSimulation":true,"largeTextModeSimulation":true,"cardSelectionAndSingleSend":true,"renderedLayout":"not_checked"},{"width":844,"height":390,"coarse":true,"landscapeGesture":"passed","renderedLayout":"not_checked"},{"width":844,"height":390,"coarse":false,"landscapeGesture":"passed","renderedLayout":"not_checked"}]}
+
+V46_TEST_EXIT=0

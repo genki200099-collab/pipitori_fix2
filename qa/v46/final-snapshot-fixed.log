@@ -1,0 +1,1 @@
+{"result":"passed","seats":[3,4,5],"timings":["perRound","gameEnd"],"expectedJokerHolderScore":-20,"finalSnapshotMatches":true,"idempotent":true}

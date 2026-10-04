@@ -1,0 +1,20 @@
+{
+  "result": "passed",
+  "rows": [
+    {
+      "route": "/",
+      "status": 200,
+      "contentType": "text/html; charset=utf-8"
+    },
+    {
+      "route": "/iphone-ui.js?v=45",
+      "status": 200,
+      "contentType": "text/javascript; charset=utf-8"
+    },
+    {
+      "route": "/iphone-ui.css?v=45",
+      "status": 200,
+      "contentType": "text/css; charset=utf-8"
+    }
+  ]
+}

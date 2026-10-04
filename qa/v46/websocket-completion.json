@@ -1,0 +1,108 @@
+{
+  "result": "passed",
+  "method": "real local WebSocket with accelerated test clock",
+  "rows": [
+    {
+      "seats": 3,
+      "provider": "winner",
+      "deal": "reshuffle",
+      "rounds": 3,
+      "finished": true,
+      "playerPrivacy": true,
+      "spectatorHands": true,
+      "reconnect": true,
+      "initialPairs": false,
+      "totals": [
+        8,
+        -31,
+        -16
+      ]
+    },
+    {
+      "seats": 3,
+      "provider": "weakest",
+      "deal": "carryOver",
+      "rounds": 3,
+      "finished": true,
+      "playerPrivacy": true,
+      "spectatorHands": true,
+      "reconnect": true,
+      "initialPairs": true,
+      "totals": [
+        -42,
+        -41,
+        4
+      ]
+    },
+    {
+      "seats": 4,
+      "provider": "winner",
+      "deal": "reshuffle",
+      "rounds": 3,
+      "finished": true,
+      "playerPrivacy": true,
+      "spectatorHands": true,
+      "reconnect": true,
+      "initialPairs": false,
+      "totals": [
+        -22,
+        18,
+        24,
+        -117
+      ]
+    },
+    {
+      "seats": 4,
+      "provider": "weakest",
+      "deal": "carryOver",
+      "rounds": 3,
+      "finished": true,
+      "playerPrivacy": true,
+      "spectatorHands": true,
+      "reconnect": true,
+      "initialPairs": true,
+      "totals": [
+        -17,
+        -55,
+        3,
+        -24
+      ]
+    },
+    {
+      "seats": 5,
+      "provider": "winner",
+      "deal": "reshuffle",
+      "rounds": 3,
+      "finished": true,
+      "playerPrivacy": true,
+      "spectatorHands": true,
+      "reconnect": true,
+      "initialPairs": false,
+      "totals": [
+        -33,
+        -7,
+        -68,
+        -12,
+        -17
+      ]
+    },
+    {
+      "seats": 5,
+      "provider": "weakest",
+      "deal": "carryOver",
+      "rounds": 3,
+      "finished": true,
+      "playerPrivacy": true,
+      "spectatorHands": true,
+      "reconnect": true,
+      "initialPairs": true,
+      "totals": [
+        5,
+        -30,
+        -22,
+        -22,
+        -24
+      ]
+    }
+  ]
+}

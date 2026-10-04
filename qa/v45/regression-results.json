@@ -1,0 +1,31 @@
+{
+  "staticAutomated": {
+    "source_integrity_regression": "passed",
+    "interaction_accessibility_regression": "passed",
+    "mobile_ui_regression": "passed",
+    "layout_collision_regression": "passed",
+    "v39_shoot_ui_regression": "passed",
+    "v40_ui_lifecycle_regression": "passed",
+    "final_result_scroll_regression": "passed",
+    "final_result_contrast_regression": "passed",
+    "action_and_result_resilience_regression": "passed",
+    "transient_visual_lifecycle_regression": "passed",
+    "app_icon_regression": "passed",
+    "default_rules_regression": "passed",
+    "player_count_3_5_regression": "passed",
+    "nakato_modoki_cpu_regression": "passed"
+  },
+  "localWebSocket": {
+    "reconnect_recovery_smoke": "passed",
+    "websocket_spectator_v37": "passed",
+    "spectator_cleanup_v37": "passed",
+    "websocket_lobby_repeat_v34": "passed",
+    "websocket_room_clear_v36": "passed"
+  },
+  "existingFailure": {
+    "v41_followup_regression": "failed on same old 4-player text assertion in baseline and changed sources"
+  },
+  "fullNpmTest": "not_run",
+  "visual": "not_run",
+  "realIPhone": "not_run"
+}

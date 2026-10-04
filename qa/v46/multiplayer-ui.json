@@ -1,0 +1,847 @@
+{
+  "result": "passed",
+  "method": "DOM behavior; no rendered layout",
+  "cases": 84,
+  "rows": [
+    {
+      "width": 320,
+      "count": 3,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 320,
+      "count": 3,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 320,
+      "count": 3,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 320,
+      "count": 4,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 320,
+      "count": 4,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 320,
+      "count": 4,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 320,
+      "count": 4,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 320,
+      "count": 5,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 320,
+      "count": 5,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 320,
+      "count": 5,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 320,
+      "count": 5,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 320,
+      "count": 5,
+      "viewer": 4,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 375,
+      "count": 3,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 375,
+      "count": 3,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 375,
+      "count": 3,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 375,
+      "count": 4,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 375,
+      "count": 4,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 375,
+      "count": 4,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 375,
+      "count": 4,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 375,
+      "count": 5,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 375,
+      "count": 5,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 375,
+      "count": 5,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 375,
+      "count": 5,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 375,
+      "count": 5,
+      "viewer": 4,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 390,
+      "count": 3,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 390,
+      "count": 3,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 390,
+      "count": 3,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 390,
+      "count": 4,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 390,
+      "count": 4,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 390,
+      "count": 4,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 390,
+      "count": 4,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 390,
+      "count": 5,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 390,
+      "count": 5,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 390,
+      "count": 5,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 390,
+      "count": 5,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 390,
+      "count": 5,
+      "viewer": 4,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 430,
+      "count": 3,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 430,
+      "count": 3,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 430,
+      "count": 3,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 430,
+      "count": 4,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 430,
+      "count": 4,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 430,
+      "count": 4,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 430,
+      "count": 4,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 430,
+      "count": 5,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 430,
+      "count": 5,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 430,
+      "count": 5,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 430,
+      "count": 5,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 430,
+      "count": 5,
+      "viewer": 4,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 768,
+      "count": 3,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 768,
+      "count": 3,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 768,
+      "count": 3,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 768,
+      "count": 4,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 768,
+      "count": 4,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 768,
+      "count": 4,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 768,
+      "count": 4,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 768,
+      "count": 5,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 768,
+      "count": 5,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 768,
+      "count": 5,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 768,
+      "count": 5,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 768,
+      "count": 5,
+      "viewer": 4,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1024,
+      "count": 3,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1024,
+      "count": 3,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1024,
+      "count": 3,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1024,
+      "count": 4,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1024,
+      "count": 4,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1024,
+      "count": 4,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1024,
+      "count": 4,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1024,
+      "count": 5,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1024,
+      "count": 5,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1024,
+      "count": 5,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1024,
+      "count": 5,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1024,
+      "count": 5,
+      "viewer": 4,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1440,
+      "count": 3,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1440,
+      "count": 3,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1440,
+      "count": 3,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1440,
+      "count": 4,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1440,
+      "count": 4,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1440,
+      "count": 4,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1440,
+      "count": 4,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1440,
+      "count": 5,
+      "viewer": 0,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1440,
+      "count": 5,
+      "viewer": 1,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1440,
+      "count": 5,
+      "viewer": 2,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1440,
+      "count": 5,
+      "viewer": 3,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    },
+    {
+      "width": 1440,
+      "count": 5,
+      "viewer": 4,
+      "seatIdentity": "passed",
+      "direction": "passed",
+      "startRetry": "passed",
+      "settings": "passed",
+      "renderedLayout": "not_checked"
+    }
+  ]
+}

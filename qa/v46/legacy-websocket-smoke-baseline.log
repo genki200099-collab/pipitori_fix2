@@ -1,0 +1,11 @@
+Error: 候補選択の識別子が古いか、現在のレーンと異なります。
+    at WebSocket.<anonymous> (/workspace/scratch/81661f6a93b9/rules-v46/pipi_tori_online/tests/websocket_game_smoke.js:181:47)
+    at WebSocket.emit (node:events:509:28)
+    at Receiver.receiverOnMessage (/workspace/scratch/81661f6a93b9/pipi-tori-source/node_modules/ws/lib/websocket.js:1239:20)
+    at Receiver.emit (node:events:509:28)
+    at Receiver.dataMessage (/workspace/scratch/81661f6a93b9/pipi-tori-source/node_modules/ws/lib/receiver.js:633:14)
+    at Receiver.getData (/workspace/scratch/81661f6a93b9/pipi-tori-source/node_modules/ws/lib/receiver.js:532:10)
+    at Receiver.startLoop (/workspace/scratch/81661f6a93b9/pipi-tori-source/node_modules/ws/lib/receiver.js:190:16)
+    at Receiver._write (/workspace/scratch/81661f6a93b9/pipi-tori-source/node_modules/ws/lib/receiver.js:117:10)
+    at writeOrBuffer (node:internal/streams/writable:570:12)
+    at _write (node:internal/streams/writable:499:10)

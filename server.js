@@ -1158,7 +1158,7 @@ function cpuCardPlayScore(room, pid, card){
   if(canWin){
     const over = Number(card.val || 0) - cpuCurrentLeadHigh(room);
     score += (82 - over * 7.5) * w.win;
-    score += normalizeFeastPointPerCard(room.feastPointPerCard) * 4 * 2.8;
+    score += normalizeFeastPointPerCard(room.feastPointPerCard) * roomSeatCapacity(room) * 2.8;
     // 新標準は勝者が提供者となり、勝利後に不要札を相手へ渡せる。
     // 従来モードは勝者がカードを受け取るため、同じ勝利でも手札増加リスクを見込む。
     if(normalizePickProviderRole(room.pickProviderRole)==='winner') score += 34 * w.dump;
@@ -2111,7 +2111,7 @@ function normalizeInitialPairDiscardEnabled(v){
 
 function normalizeRoundDealMode(v){
   // 標準は毎ラウンド全カードを回収して配り直す。
-  // carryOver は旧ルール互換：残り手札・ごちそう山・ペアを保持して13枚まで補充。
+  // carryOver は旧ルール互換：残り手札・ごちそう山・ペアを保持して人数別の枚数まで補充。
   return v === 'carryOver' ? 'carryOver' : 'reshuffle';
 }
 function roundDealModeLabel(room){
@@ -2807,7 +2807,7 @@ function createRoom(ws, name, totalRounds=3, madPigEnabled=true, jokerPenalty=-2
   const normalizedLoadFire=normalizedShootEnabled && normalizeShootLoadFireMode(shootLoadFireMode);
   const normalizedMoveRequirement=normalizedShootEnabled && !normalizedLoadFire && normalizeShootRequiresBabaMoved(shootRequiresBabaMoved);
   const seats=[3,4,5].includes(Number(playerCount))?Number(playerCount):4;
-  const room = {code:c, hostId:null, players:[], spectators:[], seatCapacity:seats, handSize:Math.floor(52/seats), phase:'lobby', round:1, totalRounds: normalizeRoundCount(totalRounds), roundDealMode:normalizeRoundDealMode(roundDealMode), feastPointPerCard:normalizeFeastPointPerCard(feastPointPerCard), pickProviderRole:normalizePickProviderRole(pickProviderRole), enableMiddleRankPick:normalizeEnableMiddleRankPick(enableMiddleRankPick), shootLoadFireMode:normalizedLoadFire, forceJokerPickCandidate:normalizeForceJokerPickCandidate(forceJokerPickCandidate), shootRequiresBabaMoved:normalizedMoveRequirement, babaMovedThisRound:false, babaMoveCountThisRound:0, babaMoveHistory:[], babaMoveEvent:null, madPigEnabled:normalizedMadPigEnabled, jokerPenalty: normalizeJokerPenalty(jokerPenalty), jokerPenaltyTiming: normalizeJokerPenaltyTiming(jokerPenaltyTiming), shootThePigEnabled:normalizedShootEnabled, shootThePigLimit:normalizeShootThePigLimit(shootThePigLimit), initialPairDiscardEnabled: normalizeInitialPairDiscardEnabled(initialPairDiscardEnabled), passThreeEnabled: normalizePassThreeEnabled(passThreeEnabled), penaltyMode: normalizePenaltyMode(penaltyMode), pickTargetCount: normalizePickTargetCount(pickTargetCount), initialPairDone:[], passDone:[], passSelections:{}, lead:0, current:0, leadSuit:null, trick:[], stock:[], log:[], message:`${seats}人そろったら開始できます。空席へCPUを追加できます。`, pendingPick:null, parallelPickGroup:null, pendingShootDecision:null, postTrickFlow:null, completedRoundTotalScores:Array(seats).fill(0), jokerPenaltyAppliedByRound:{}, shootFiredThisRound:false, shootFiredByPid:null, shootFireEvent:null, commentary:[], lastTrick:null, cardPlayEvent:null, trickCollectEvent:null, shootPigEvent:null, madPigEvent:null, pairCleanEvent:null, spotlightEvent:null, pendingSpotlightPlans:null, spotlightHistory:[], spotlightRoundCounts:{}, lastSpotlightSpeakerPid:null, transientTimers:new Map(), emptySince:null, cleanupTimer:null, closed:false};
+  const room = {code:c, hostId:null, players:[], spectators:[], seatCapacity:seats, handSize:Math.floor(52/seats), phase:'lobby', round:1, totalRounds: normalizeRoundCount(totalRounds), roundDealMode:normalizeRoundDealMode(roundDealMode), feastPointPerCard:normalizeFeastPointPerCard(feastPointPerCard), pickProviderRole:normalizePickProviderRole(pickProviderRole), enableMiddleRankPick:seats!==3 && normalizeEnableMiddleRankPick(enableMiddleRankPick), shootLoadFireMode:normalizedLoadFire, forceJokerPickCandidate:normalizeForceJokerPickCandidate(forceJokerPickCandidate), shootRequiresBabaMoved:normalizedMoveRequirement, babaMovedThisRound:false, babaMoveCountThisRound:0, babaMoveHistory:[], babaMoveEvent:null, madPigEnabled:normalizedMadPigEnabled, jokerPenalty: normalizeJokerPenalty(jokerPenalty), jokerPenaltyTiming: normalizeJokerPenaltyTiming(jokerPenaltyTiming), shootThePigEnabled:normalizedShootEnabled, shootThePigLimit:normalizeShootThePigLimit(shootThePigLimit), initialPairDiscardEnabled: normalizeInitialPairDiscardEnabled(initialPairDiscardEnabled), passThreeEnabled: normalizePassThreeEnabled(passThreeEnabled), penaltyMode: normalizePenaltyMode(penaltyMode), pickTargetCount: normalizePickTargetCount(pickTargetCount), initialPairDone:[], passDone:[], passSelections:{}, lead:0, current:0, leadSuit:null, trick:[], stock:[], log:[], message:`${seats}人そろったら開始できます。空席へCPUを追加できます。`, pendingPick:null, parallelPickGroup:null, pendingShootDecision:null, postTrickFlow:null, completedRoundTotalScores:Array(seats).fill(0), jokerPenaltyAppliedByRound:{}, shootFiredThisRound:false, shootFiredByPid:null, shootFireEvent:null, commentary:[], lastTrick:null, cardPlayEvent:null, trickCollectEvent:null, shootPigEvent:null, madPigEvent:null, pairCleanEvent:null, spotlightEvent:null, pendingSpotlightPlans:null, spotlightHistory:[], spotlightRoundCounts:{}, lastSpotlightSpeakerPid:null, transientTimers:new Map(), emptySince:null, cleanupTimer:null, closed:false};
   const participant=createHumanParticipant(room,name,ws,role);
   room.hostId=participant.id;
   if(role==='spectator') room.spectators.push(participant); else room.players.push(participant);
@@ -3120,7 +3120,9 @@ function ensureReviewToPick(room, reviewToken, winnerPid, weakestPid){
 
 
 function buildPostTrickFlow(room,winnerPid,weakestPid){
-  const rankings=Array.isArray(room.trickRankings)?room.trickRankings.slice():[winnerPid,null,null,null,weakestPid];
+  const rankings=Array.isArray(room.trickRankings)&&room.trickRankings.length===roomSeatCapacity(room)
+    ? room.trickRankings.slice()
+    : Array.from({length:roomSeatCapacity(room)},(_,rank)=>rank===0?winnerPid:rank===roomSeatCapacity(room)-1?weakestPid:null);
   const primaryRoles=resolvedPickRoles(room,winnerPid,weakestPid);
   const steps=[{pickStage:'primary',highPid:winnerPid,lowPid:weakestPid,pickProviderPid:primaryRoles.pickProviderPid,pickerPid:primaryRoles.pickerPid}];
   const secondaryRanks=secondaryPickRanks(room);
@@ -3179,7 +3181,8 @@ function beginPickStep(room,step,group=null,{defer=false,broadcastNow=true}={}){
     log(room,`🃏 強制候補ルール：${provider.name} のババブタを${step.pickStage==='secondary'?'中位':''}ピック候補へ固定しました。`);
   }
   const secondary=secondaryPickRanks(room);
-  const stageLabel=step.pickStage==='secondary'?`${secondary?.[0] || 2}位→${secondary?.[1] || 3}位ピック`:`1位→${roomSeatCapacity(room)}位ピック`;
+  const primaryRanks=step.pickProviderPid===step.highPid?[1,roomSeatCapacity(room)]:[roomSeatCapacity(room),1];
+  const stageLabel=step.pickStage==='secondary'?`${secondary?.[0] || 2}位→${secondary?.[1] || 3}位ピック`:`${primaryRanks[0]}位→${primaryRanks[1]}位ピック`;
   if(targetSelectionRequired){
     room.message=`🐽 ${stageLabel}：${provider.name} が候補を${targetCount}枚に絞ります。`;
     log(room,`🎯 ${stageLabel}：${provider.name} が${targetCount}枚を選び、${picker.name} が1枚引きます。`);
@@ -4283,11 +4286,11 @@ function resolveTrick(room){
     return false;
   }
 
-  // 5枚目以降は消さず、必ず持ち主へ戻す。
+  // 参加人数を超える場札は消さず、必ず持ち主へ戻す。
   if(room.trick.length > roomSeatCapacity(room)){
     const extras=room.trick.splice(roomSeatCapacity(room));
     const restored=restoreTrickCardsToOwners(room, extras);
-    log(room, `⚠️ 場に余分な${extras.length}枚があったため、${restored}枚を持ち主の手札へ戻して先頭4枚で復旧しました。`);
+    log(room, `⚠️ 場に余分な${extras.length}枚があったため、${restored}枚を持ち主の手札へ戻して先頭${roomSeatCapacity(room)}枚で復旧しました。`);
   }
 
   const core=room.trick.slice(0,roomSeatCapacity(room));
@@ -4793,14 +4796,17 @@ function makeRoundSnapshot(room, reasonPid, reasonText){
     const shootPigMadPigWaived = shootThePig;
 
     const roundJokerPenalty = (jokerPenaltyTiming === 'perRound' && hasJoker && !shootThePig) ? jokerPenaltyValue : 0;
-    const pendingFinalJokerPenalty = (jokerPenaltyTiming === 'gameEnd' && hasJoker && !shootThePig) ? jokerPenaltyValue : 0;
+    const gameEndJokerPenalty = (jokerPenaltyTiming === 'gameEnd' && hasJoker && !shootThePig) ? jokerPenaltyValue : 0;
+    const isFinalRound=(room.round || 1)>=(room.totalRounds || 3);
+    const finalJokerPenalty=isFinalRound?gameEndJokerPenalty:0;
+    const pendingFinalJokerPenalty=isFinalRound?0:gameEndJokerPenalty;
     const jokerPenaltyApplyKey=`${room.round || 1}:${i}`;
     if(roundJokerPenalty && !room.jokerPenaltyAppliedByRound[jokerPenaltyApplyKey]){
       p.jokerPenaltyBank = (p.jokerPenaltyBank || 0) + roundJokerPenalty;
       room.jokerPenaltyAppliedByRound[jokerPenaltyApplyKey]=roundJokerPenalty;
     }
-    const jokerPenaltyTotal = jokerPenaltyTiming === 'perRound' ? (p.jokerPenaltyBank || 0) : 0;
-    const jokerPenalty = jokerPenaltyTiming === 'perRound' ? roundJokerPenalty : 0;
+    const jokerPenaltyTotal = jokerPenaltyTiming === 'perRound' ? (p.jokerPenaltyBank || 0) : finalJokerPenalty;
+    const jokerPenalty = jokerPenaltyTiming === 'perRound' ? roundJokerPenalty : finalJokerPenalty;
     const rawMadPigPenalty = madPigPenaltyForRoom(room, p);
     const madPigPenalty = shootPigMadPigWaived ? 0 : rawMadPigPenalty;
     const rawHandPenalty = handPenaltyForRoom(room, p);
@@ -5082,6 +5088,13 @@ function checkRoundEnd(room, preferredPid=null){
 
   const out = room.players[outPid];
   const onlyJoker = isJokerOnlyHand(out);
+  // Every caller must preserve uncaptured cards when ending a round. An empty
+  // hand waits for the completed trick; a Joker-only turn cannot play a card,
+  // so its partial trick is cancelled and returned before scoring.
+  if(activeTrickInProgress(room)){
+    if(!onlyJoker){ rememberEndAfterTrick(room,outPid); return false; }
+    cancelCorruptTrick(room,room.trick.slice(),'ババブタだけの手番に到達したため未完了の場札を返却');
+  }
   clearAllProgressTimers(room);
   // ラウンド結果・最終結果へ、直前トリックの中央セリフを持ち越さない。
   room.spotlightEvent = null;

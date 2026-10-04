@@ -224,7 +224,7 @@ assert.strictEqual(api.normalizeShootLoadFireMode(true),true);
 // Defaults/dependencies/UI contracts remain aligned.
 {
   const socket=ws();api.createRoom(socket,'Default-v39');const d=[...api.rooms.values()].at(-1);
-  assert.strictEqual(d.enableMiddleRankPick,false);assert.strictEqual(d.shootLoadFireMode,false);
+  assert.strictEqual(d.enableMiddleRankPick,true);assert.strictEqual(d.forceJokerPickCandidate,true);assert.strictEqual(d.shootLoadFireMode,false);
   const socket2=ws();api.createRoom(socket2,'Normalized',3,true,-20,false,false,'mud6',2,'perRound',true,'reshuffle','unlimited',1,'winner','player',false,true,true,true);
   const n=[...api.rooms.values()].at(-1);
   assert.strictEqual(n.enableMiddleRankPick,true);assert.strictEqual(n.shootLoadFireMode,true);

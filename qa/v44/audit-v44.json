@@ -1,0 +1,3312 @@
+{
+  "rows": [
+    {
+      "width": 320,
+      "phase": "home",
+      "scroll": 320,
+      "create": {
+        "x": 32,
+        "y": 697.828125,
+        "width": 256,
+        "height": 58.984375,
+        "top": 697.828125,
+        "right": 288,
+        "bottom": 756.8125,
+        "left": 32
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact"
+    },
+    {
+      "width": 320,
+      "phase": "normal",
+      "scroll": 320,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 432,
+        "width": 320,
+        "height": 133,
+        "top": 432,
+        "right": 320,
+        "bottom": 565,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 388,
+        "width": 320,
+        "height": 52.78125,
+        "top": 388,
+        "right": 320,
+        "bottom": 440.78125,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 320,
+      "phase": "passing",
+      "scroll": 320,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 7,
+        "y": 505.984375,
+        "width": 306,
+        "height": 58.015625,
+        "top": 505.984375,
+        "right": 313,
+        "bottom": 564,
+        "left": 7
+      },
+      "note": {
+        "x": 7,
+        "y": 413,
+        "width": 306,
+        "height": 134.984375,
+        "top": 413,
+        "right": 313,
+        "bottom": 547.984375,
+        "left": 7
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 320,
+      "phase": "initialPair",
+      "scroll": 320,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 7,
+        "y": 423,
+        "width": 306,
+        "height": 141,
+        "top": 423,
+        "right": 313,
+        "bottom": 564,
+        "left": 7
+      },
+      "note": {
+        "x": 7,
+        "y": 413,
+        "width": 306,
+        "height": 52,
+        "top": 413,
+        "right": 313,
+        "bottom": 465,
+        "left": 7
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 320,
+      "phase": "pickTarget",
+      "scroll": 320,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 320,
+      "phase": "pick",
+      "scroll": 320,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 320,
+      "phase": "pair",
+      "scroll": 320,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 320,
+      "phase": "roundEnd",
+      "scroll": 320,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 432,
+        "width": 320,
+        "height": 133,
+        "top": 432,
+        "right": 320,
+        "bottom": 565,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 388,
+        "width": 320,
+        "height": 0,
+        "top": 388,
+        "right": 320,
+        "bottom": 388,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 320,
+      "phase": "finished",
+      "scroll": 320,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room finished-mode"
+    },
+    {
+      "width": 375,
+      "phase": "home",
+      "scroll": 375,
+      "create": {
+        "x": 32,
+        "y": 672.734375,
+        "width": 311,
+        "height": 58.984375,
+        "top": 672.734375,
+        "right": 343,
+        "bottom": 731.71875,
+        "left": 32
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact"
+    },
+    {
+      "width": 375,
+      "phase": "normal",
+      "scroll": 375,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 708,
+        "width": 375,
+        "height": 133,
+        "top": 708,
+        "right": 375,
+        "bottom": 841,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 664,
+        "width": 375,
+        "height": 52.78125,
+        "top": 664,
+        "right": 375,
+        "bottom": 716.78125,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 375,
+      "phase": "passing",
+      "scroll": 375,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 7,
+        "y": 792.375,
+        "width": 361,
+        "height": 47.625,
+        "top": 792.375,
+        "right": 368,
+        "bottom": 840,
+        "left": 7
+      },
+      "note": {
+        "x": 7,
+        "y": 689,
+        "width": 361,
+        "height": 145.375,
+        "top": 689,
+        "right": 368,
+        "bottom": 834.375,
+        "left": 7
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 375,
+      "phase": "initialPair",
+      "scroll": 375,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 7,
+        "y": 699,
+        "width": 361,
+        "height": 141,
+        "top": 699,
+        "right": 368,
+        "bottom": 840,
+        "left": 7
+      },
+      "note": {
+        "x": 7,
+        "y": 689,
+        "width": 361,
+        "height": 52,
+        "top": 689,
+        "right": 368,
+        "bottom": 741,
+        "left": 7
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 375,
+      "phase": "pickTarget",
+      "scroll": 375,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 375,
+      "phase": "pick",
+      "scroll": 375,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 375,
+      "phase": "pair",
+      "scroll": 375,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 375,
+      "phase": "roundEnd",
+      "scroll": 375,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 708,
+        "width": 375,
+        "height": 133,
+        "top": 708,
+        "right": 375,
+        "bottom": 841,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 664,
+        "width": 375,
+        "height": 0,
+        "top": 664,
+        "right": 375,
+        "bottom": 664,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 375,
+      "phase": "finished",
+      "scroll": 375,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room finished-mode"
+    },
+    {
+      "width": 390,
+      "phase": "home",
+      "scroll": 390,
+      "create": {
+        "x": 32,
+        "y": 665.546875,
+        "width": 326,
+        "height": 58.984375,
+        "top": 665.546875,
+        "right": 358,
+        "bottom": 724.53125,
+        "left": 32
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact"
+    },
+    {
+      "width": 390,
+      "phase": "normal",
+      "scroll": 390,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 708,
+        "width": 390,
+        "height": 133,
+        "top": 708,
+        "right": 390,
+        "bottom": 841,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 664,
+        "width": 390,
+        "height": 52.78125,
+        "top": 664,
+        "right": 390,
+        "bottom": 716.78125,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 390,
+      "phase": "passing",
+      "scroll": 390,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 7,
+        "y": 792.375,
+        "width": 376,
+        "height": 47.625,
+        "top": 792.375,
+        "right": 383,
+        "bottom": 840,
+        "left": 7
+      },
+      "note": {
+        "x": 7,
+        "y": 689,
+        "width": 376,
+        "height": 145.375,
+        "top": 689,
+        "right": 383,
+        "bottom": 834.375,
+        "left": 7
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 390,
+      "phase": "initialPair",
+      "scroll": 390,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 7,
+        "y": 699,
+        "width": 376,
+        "height": 141,
+        "top": 699,
+        "right": 383,
+        "bottom": 840,
+        "left": 7
+      },
+      "note": {
+        "x": 7,
+        "y": 689,
+        "width": 376,
+        "height": 52,
+        "top": 689,
+        "right": 383,
+        "bottom": 741,
+        "left": 7
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 390,
+      "phase": "pickTarget",
+      "scroll": 390,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 390,
+      "phase": "pick",
+      "scroll": 390,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 390,
+      "phase": "pair",
+      "scroll": 390,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 390,
+      "phase": "roundEnd",
+      "scroll": 390,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 708,
+        "width": 390,
+        "height": 133,
+        "top": 708,
+        "right": 390,
+        "bottom": 841,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 664,
+        "width": 390,
+        "height": 0,
+        "top": 664,
+        "right": 390,
+        "bottom": 664,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 390,
+      "phase": "finished",
+      "scroll": 390,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room finished-mode"
+    },
+    {
+      "width": 430,
+      "phase": "home",
+      "scroll": 430,
+      "create": {
+        "x": 32,
+        "y": 665.546875,
+        "width": 366,
+        "height": 58.984375,
+        "top": 665.546875,
+        "right": 398,
+        "bottom": 724.53125,
+        "left": 32
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact"
+    },
+    {
+      "width": 430,
+      "phase": "normal",
+      "scroll": 430,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 708,
+        "width": 430,
+        "height": 133,
+        "top": 708,
+        "right": 430,
+        "bottom": 841,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 664,
+        "width": 430,
+        "height": 52.78125,
+        "top": 664,
+        "right": 430,
+        "bottom": 716.78125,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 430,
+      "phase": "passing",
+      "scroll": 430,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 7,
+        "y": 792.375,
+        "width": 416,
+        "height": 47.625,
+        "top": 792.375,
+        "right": 423,
+        "bottom": 840,
+        "left": 7
+      },
+      "note": {
+        "x": 7,
+        "y": 689,
+        "width": 416,
+        "height": 145.375,
+        "top": 689,
+        "right": 423,
+        "bottom": 834.375,
+        "left": 7
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 430,
+      "phase": "initialPair",
+      "scroll": 430,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 7,
+        "y": 699,
+        "width": 416,
+        "height": 141,
+        "top": 699,
+        "right": 423,
+        "bottom": 840,
+        "left": 7
+      },
+      "note": {
+        "x": 7,
+        "y": 689,
+        "width": 416,
+        "height": 52,
+        "top": 689,
+        "right": 423,
+        "bottom": 741,
+        "left": 7
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 430,
+      "phase": "pickTarget",
+      "scroll": 430,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 430,
+      "phase": "pick",
+      "scroll": 430,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 430,
+      "phase": "pair",
+      "scroll": 430,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 430,
+      "phase": "roundEnd",
+      "scroll": 430,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 708,
+        "width": 430,
+        "height": 133,
+        "top": 708,
+        "right": 430,
+        "bottom": 841,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 664,
+        "width": 430,
+        "height": 0,
+        "top": 664,
+        "right": 430,
+        "bottom": 664,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room"
+    },
+    {
+      "width": 430,
+      "phase": "finished",
+      "scroll": 430,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-phone ui-phone-portrait mobile-table-compact gameplay-mode has-room finished-mode"
+    },
+    {
+      "width": 768,
+      "phase": "home",
+      "scroll": 768,
+      "create": {
+        "x": 50,
+        "y": 818.953125,
+        "width": 309,
+        "height": 58.984375,
+        "top": 818.953125,
+        "right": 359,
+        "bottom": 877.9375,
+        "left": 50
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [],
+      "body": "modern-game-ui ui-desktop"
+    },
+    {
+      "width": 768,
+      "phase": "normal",
+      "scroll": 768,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 12,
+        "y": 766,
+        "width": 744,
+        "height": 129,
+        "top": 766,
+        "right": 756,
+        "bottom": 895,
+        "left": 12
+      },
+      "note": {
+        "x": 12,
+        "y": 722,
+        "width": 744,
+        "height": 52.78125,
+        "top": 722,
+        "right": 756,
+        "bottom": 774.78125,
+        "left": 12
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 768,
+      "phase": "passing",
+      "scroll": 768,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 12,
+        "y": 817.1875,
+        "width": 744,
+        "height": 77.8125,
+        "top": 817.1875,
+        "right": 756,
+        "bottom": 895,
+        "left": 12
+      },
+      "note": {
+        "x": 12,
+        "y": 752,
+        "width": 744,
+        "height": 107.1875,
+        "top": 752,
+        "right": 756,
+        "bottom": 859.1875,
+        "left": 12
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 768,
+      "phase": "initialPair",
+      "scroll": 768,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 12,
+        "y": 762,
+        "width": 744,
+        "height": 133,
+        "top": 762,
+        "right": 756,
+        "bottom": 895,
+        "left": 12
+      },
+      "note": {
+        "x": 12,
+        "y": 752,
+        "width": 744,
+        "height": 52,
+        "top": 752,
+        "right": 756,
+        "bottom": 804,
+        "left": 12
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 768,
+      "phase": "pickTarget",
+      "scroll": 768,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 768,
+      "phase": "pick",
+      "scroll": 768,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 768,
+      "phase": "pair",
+      "scroll": 768,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 768,
+      "phase": "roundEnd",
+      "scroll": 768,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 12,
+        "y": 766,
+        "width": 744,
+        "height": 129,
+        "top": 766,
+        "right": 756,
+        "bottom": 895,
+        "left": 12
+      },
+      "note": {
+        "x": 12,
+        "y": 722,
+        "width": 744,
+        "height": 0,
+        "top": 722,
+        "right": 756,
+        "bottom": 722,
+        "left": 12
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 768,
+      "phase": "finished",
+      "scroll": 768,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room finished-mode"
+    },
+    {
+      "width": 1024,
+      "phase": "home",
+      "scroll": 1024,
+      "create": {
+        "x": 50,
+        "y": 810.359375,
+        "width": 437,
+        "height": 58.984375,
+        "top": 810.359375,
+        "right": 487,
+        "bottom": 869.34375,
+        "left": 50
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [],
+      "body": "modern-game-ui ui-desktop"
+    },
+    {
+      "width": 1024,
+      "phase": "normal",
+      "scroll": 1024,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 22,
+        "y": 766,
+        "width": 980,
+        "height": 129,
+        "top": 766,
+        "right": 1002,
+        "bottom": 895,
+        "left": 22
+      },
+      "note": {
+        "x": 12,
+        "y": 722,
+        "width": 1000,
+        "height": 52.78125,
+        "top": 722,
+        "right": 1012,
+        "bottom": 774.78125,
+        "left": 12
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1024,
+      "phase": "passing",
+      "scroll": 1024,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 12,
+        "y": 817.1875,
+        "width": 1000,
+        "height": 77.8125,
+        "top": 817.1875,
+        "right": 1012,
+        "bottom": 895,
+        "left": 12
+      },
+      "note": {
+        "x": 12,
+        "y": 752,
+        "width": 1000,
+        "height": 107.1875,
+        "top": 752,
+        "right": 1012,
+        "bottom": 859.1875,
+        "left": 12
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1024,
+      "phase": "initialPair",
+      "scroll": 1024,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 12,
+        "y": 762,
+        "width": 1000,
+        "height": 133,
+        "top": 762,
+        "right": 1012,
+        "bottom": 895,
+        "left": 12
+      },
+      "note": {
+        "x": 12,
+        "y": 752,
+        "width": 1000,
+        "height": 52,
+        "top": 752,
+        "right": 1012,
+        "bottom": 804,
+        "left": 12
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1024,
+      "phase": "pickTarget",
+      "scroll": 1024,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1024,
+      "phase": "pick",
+      "scroll": 1024,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1024,
+      "phase": "pair",
+      "scroll": 1024,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1024,
+      "phase": "roundEnd",
+      "scroll": 1024,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 22,
+        "y": 766,
+        "width": 980,
+        "height": 129,
+        "top": 766,
+        "right": 1002,
+        "bottom": 895,
+        "left": 22
+      },
+      "note": {
+        "x": 12,
+        "y": 722,
+        "width": 1000,
+        "height": 0,
+        "top": 722,
+        "right": 1012,
+        "bottom": 722,
+        "left": 12
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1024,
+      "phase": "finished",
+      "scroll": 1024,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room finished-mode"
+    },
+    {
+      "width": 1440,
+      "phase": "home",
+      "scroll": 1440,
+      "create": {
+        "x": 230,
+        "y": 812.953125,
+        "width": 465,
+        "height": 58.984375,
+        "top": 812.953125,
+        "right": 695,
+        "bottom": 871.9375,
+        "left": 230
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [],
+      "body": "modern-game-ui ui-desktop"
+    },
+    {
+      "width": 1440,
+      "phase": "normal",
+      "scroll": 1440,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 230,
+        "y": 766,
+        "width": 980,
+        "height": 129,
+        "top": 766,
+        "right": 1210,
+        "bottom": 895,
+        "left": 230
+      },
+      "note": {
+        "x": 12,
+        "y": 722,
+        "width": 1416,
+        "height": 52.78125,
+        "top": 722,
+        "right": 1428,
+        "bottom": 774.78125,
+        "left": 12
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1440,
+      "phase": "passing",
+      "scroll": 1440,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 12,
+        "y": 817.1875,
+        "width": 1416,
+        "height": 77.8125,
+        "top": 817.1875,
+        "right": 1428,
+        "bottom": 895,
+        "left": 12
+      },
+      "note": {
+        "x": 12,
+        "y": 752,
+        "width": 1416,
+        "height": 107.1875,
+        "top": 752,
+        "right": 1428,
+        "bottom": 859.1875,
+        "left": 12
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1440,
+      "phase": "initialPair",
+      "scroll": 1440,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 12,
+        "y": 762,
+        "width": 1416,
+        "height": 133,
+        "top": 762,
+        "right": 1428,
+        "bottom": 895,
+        "left": 12
+      },
+      "note": {
+        "x": 12,
+        "y": 752,
+        "width": 1416,
+        "height": 52,
+        "top": 752,
+        "right": 1428,
+        "bottom": 804,
+        "left": 12
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1440,
+      "phase": "pickTarget",
+      "scroll": 1440,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1440,
+      "phase": "pick",
+      "scroll": 1440,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1440,
+      "phase": "pair",
+      "scroll": 1440,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1440,
+      "phase": "roundEnd",
+      "scroll": 1440,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 230,
+        "y": 766,
+        "width": 980,
+        "height": 129,
+        "top": 766,
+        "right": 1210,
+        "bottom": 895,
+        "left": 230
+      },
+      "note": {
+        "x": 12,
+        "y": 722,
+        "width": 1416,
+        "height": 0,
+        "top": 722,
+        "right": 1428,
+        "bottom": 722,
+        "left": 12
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "↔ 広げる",
+          "w": 78,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room"
+    },
+    {
+      "width": 1440,
+      "phase": "finished",
+      "scroll": 1440,
+      "create": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "hand": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "note": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "buttons": [
+        {
+          "text": "ログ",
+          "w": 46,
+          "h": 44
+        },
+        {
+          "text": "ルール",
+          "w": 60,
+          "h": 44
+        },
+        {
+          "text": "離脱",
+          "w": 46,
+          "h": 44
+        }
+      ],
+      "body": "modern-game-ui ui-desktop gameplay-mode has-room finished-mode"
+    },
+    {
+      "phase": "text200",
+      "width": 320,
+      "scroll": 320
+    },
+    {
+      "phase": "reducedMotion",
+      "duration": "1e-05s"
+    }
+  ],
+  "errors": [],
+  "behavior": "create5, select Nakato, add4 CPUs, copy, start, sheets, expand, invalid code, keyboard, text200"
+}

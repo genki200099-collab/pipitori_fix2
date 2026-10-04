@@ -1,0 +1,617 @@
+[
+  {
+    "path": "ACCELERATED_WEBSOCKET_V27_RESULT.json",
+    "bytes": 303,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "APP_ICON_FAVICON_AUDIT_V17.md",
+    "bytes": 1170,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_COMMENTARY_READABILITY_V16_RESULT.json",
+    "bytes": 5647,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_CRITICAL_RESPONSIVE_AUDIT_V14_RESULT.json",
+    "bytes": 223,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_FINAL_RESULT_CONTRAST_V31_RESULT.json",
+    "bytes": 10509,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_FINAL_RESULT_SCROLL_V29_RESULT.json",
+    "bytes": 3260,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_FULL_RESPONSIVE_AUDIT_V15_RESULT.json",
+    "bytes": 377,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_INTERACTION_ACCESSIBILITY_V32_RESULT.json",
+    "bytes": 459,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_LIGHT_SURFACE_CONTRAST_V31_RESULT.json",
+    "bytes": 2080,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_OVERLAY_LIFECYCLE_V27_RESULT.json",
+    "bytes": 356,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_RESPONSIVE_AUDIT_V13_RESULT.json",
+    "bytes": 180,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_RULE_CONSISTENCY_V34_RESULT.json",
+    "bytes": 72,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_RULE_MATRIX_V35_RESULT.json",
+    "bytes": 59,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_RUNTIME_V25_RESULT.json",
+    "bytes": 1166,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_SHOOT_LIMIT_V33_RESULT.json",
+    "bytes": 56,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "BROWSER_SPOTLIGHT_V23_RESULT.json",
+    "bytes": 4126,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "CINEMATIC_MOTION_V9_AUDIT.md",
+    "bytes": 6399,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "COLLISION_FREE_UI_V10_AUDIT.md",
+    "bytes": 8735,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "CPU_COMMENTARY_READABILITY_AUDIT_V16.md",
+    "bytes": 2062,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "CPU_COMMENT_OBJECT_FIX_AUDIT_V26.md",
+    "bytes": 2859,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "CPU_DIALOGUE_STRATEGY_BOOST_AUDIT.md",
+    "bytes": 2024,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "CPU_PERSONALITY_DIALOGUE_V21_AUDIT.md",
+    "bytes": 3889,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "CPU_STRATEGY_DIALOGUE_ICONS_AUDIT.md",
+    "bytes": 1693,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "DEEP_DEBUG_PROGRESS_UI_AUDIT.md",
+    "bytes": 2298,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "DEFAULT_SPADE6_HAND_SHOOT_ONCE_AUDIT.md",
+    "bytes": 4539,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "DEVICE_RESPONSIVE_POLISH_AUDIT.md",
+    "bytes": 1075,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "EXPERT_DEBUG_PROGRESS_UI_AUDIT.md",
+    "bytes": 2820,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FAN_HAND_RECONNECT_V7_AUDIT.md",
+    "bytes": 6029,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FINAL_FULL_RULE_APP_UI_AUDIT.md",
+    "bytes": 3557,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FINAL_RESULT_CONTRAST_AUDIT_V31.md",
+    "bytes": 1948,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FINAL_RESULT_SCROLL_AUDIT_V29.md",
+    "bytes": 1966,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FOUR_HUMAN_COMPLETION_SMOKE_V15_RESULT.json",
+    "bytes": 176,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FULL_DEBUG_POLISH_V8_AUDIT.md",
+    "bytes": 6174,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FULL_RULE_PROGRESS_UI_AUDIT.md",
+    "bytes": 2583,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FULL_SOURCE_PROGRESS_UI_AUDIT_V12.md",
+    "bytes": 6099,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FULL_SOURCE_PROGRESS_UI_AUDIT_V15.md",
+    "bytes": 6106,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FULL_SOURCE_RESPONSIVE_AUDIT_V13.md",
+    "bytes": 8571,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FULL_SOURCE_ROUND_DEAL_CONNECTION_AUDIT_V14.md",
+    "bytes": 5721,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FULL_SOURCE_SENIOR_AUDIT_V25.md",
+    "bytes": 11868,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FULL_SOURCE_SENIOR_AUDIT_V27.md",
+    "bytes": 9109,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FULL_SOURCE_SENIOR_AUDIT_V30.md",
+    "bytes": 3441,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FULL_SOURCE_SENIOR_AUDIT_V32.md",
+    "bytes": 9129,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FULL_SOURCE_SENIOR_AUDIT_V34.md",
+    "bytes": 5539,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "FULL_SOURCE_UI_AUDIT_FIX.md",
+    "bytes": 1615,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "GLOBAL_AUDIT_AFTER_OPTION_CHANGES.md",
+    "bytes": 2193,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "HEADER_LOGO_TRAIL_AUDIT.md",
+    "bytes": 358,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "HYPE_SHOOT_BABA_AUDIT.md",
+    "bytes": 1459,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "IPHONE_PORTRAIT_UI_AUDIT.md",
+    "bytes": 622,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "JOKER_PENALTY_TIMING_AUDIT.md",
+    "bytes": 883,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "LATEST_FULL_AUDIT.md",
+    "bytes": 1139,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "LOBBY_UI_CLARITY_AUDIT.md",
+    "bytes": 1268,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "LOGO_REPLACEMENT_AUDIT.md",
+    "bytes": 406,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "MAD_PIG_DYNAMIC_LABEL_SHOOT_DEFAULT_AUDIT.md",
+    "bytes": 1311,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "MENU_COMMENTARY_EFFECTS_V3_AUDIT.md",
+    "bytes": 3422,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "MOBILE_PLAYABILITY_V6_AUDIT.md",
+    "bytes": 4890,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "MOBILE_UI_SAFARI_AUDIT.md",
+    "bytes": 507,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "MODERN_GAME_UI_POLISH_AUDIT.md",
+    "bytes": 1164,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "MODERN_TABLE_UI_V2_AUDIT.md",
+    "bytes": 3087,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "PC_BADGE_VISIBILITY_FIX_AUDIT.md",
+    "bytes": 1047,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "PC_TABLE_UI_CLEANUP_AUDIT.md",
+    "bytes": 1211,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "PICK_RANDOM_FAIRNESS_AUDIT.md",
+    "bytes": 1833,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "PICK_RANDOM_JOKER20_AUDIT.md",
+    "bytes": 1113,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "PICK_TARGET_BADGE_RIGHT_AUDIT.md",
+    "bytes": 481,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "PICK_TARGET_DEFAULT_2_AUDIT.md",
+    "bytes": 795,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "PICK_TARGET_SELECTION_SORT_AUDIT.md",
+    "bytes": 1109,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "PIG_SUIT_FLAVOR_V5_AUDIT.md",
+    "bytes": 4348,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "PIPITORI_V39_MIDDLE_PICK_LOAD_FIRE_AUDIT.md",
+    "bytes": 20038,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "PIPITORI_V40_PARALLEL_PICK_LEAVE_UI_AUDIT.md",
+    "bytes": 25081,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "PIPITORI_V41_CPU_CAST_PARALLEL_PICK_UI_FOLLOWUP_AUDIT.md",
+    "bytes": 10531,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "POST_RULE_HELP_FULL_AUDIT.md",
+    "bytes": 1899,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "ROOM_OPTIONS_ORGANIZED_AUDIT.md",
+    "bytes": 799,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "ROUND_END_TURN_START_AUDIT.md",
+    "bytes": 1706,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "RULE_HELP_MODAL_CLOSE_FIX_AUDIT.md",
+    "bytes": 1674,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "RULE_SELECTION_COMBINATION_AUDIT_V35.md",
+    "bytes": 5257,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "RULE_SELECTION_HELP_TREND_AUDIT.md",
+    "bytes": 1586,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "RULE_SUMMARY_CONSISTENCY_AUDIT.md",
+    "bytes": 2019,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "RUNTIME_WEBSOCKET_V27_RESULT.json",
+    "bytes": 306,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "SHOOT_THE_PIG_AUDIT.md",
+    "bytes": 1019,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "SHOOT_THE_PIG_LIMIT_AUDIT_V33.md",
+    "bytes": 5276,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "SOURCE_FULL_AUDIT_BUGFIX.md",
+    "bytes": 2005,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "SPADE_SUIT_PENALTY_MODE_AUDIT.md",
+    "bytes": 1213,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "SPOTLIGHT_DURATION_UNIFICATION_V28.md",
+    "bytes": 434,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "SPOTLIGHT_PRIORITY_SFC_V23_AUDIT.md",
+    "bytes": 4123,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "SPOTLIGHT_PROGRESS_UI_AUDIT_V24.md",
+    "bytes": 1075,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "STATIC_SECURITY_ASSET_V27_RESULT.json",
+    "bytes": 148,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "TABLE_ARROW_RESPONSIVE_FIX_AUDIT.md",
+    "bytes": 1225,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "TRICK_RESULT_TYPOGRAPHY_V11_AUDIT.md",
+    "bytes": 7422,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "UI_CLEANUP_SHOOT_THE_PIG_HYPE_AUDIT.md",
+    "bytes": 1433,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "UI_ORDER_SIMPLIFY_AUDIT.md",
+    "bytes": 306,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V27_QA_RESULT.json",
+    "bytes": 874,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V28_SPOTLIGHT_DURATION_QA.json",
+    "bytes": 589,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V30_QA_RESULT.json",
+    "bytes": 391,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V30_STATIC_AUDIT.json",
+    "bytes": 216,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V31_FINAL_CONTRAST_desktop.png",
+    "bytes": 292086,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V31_FINAL_CONTRAST_iphone-pro.png",
+    "bytes": 157642,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V31_FINAL_CONTRAST_iphone-se.png",
+    "bytes": 110314,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V31_FINAL_CONTRAST_landscape.png",
+    "bytes": 72190,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V31_FINAL_CONTRAST_phone-bottom.png",
+    "bytes": 114311,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V31_FINAL_CONTRAST_wide-bottom.png",
+    "bytes": 178190,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V31_FINAL_CONTRAST_wide.png",
+    "bytes": 335180,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V31_QA_RESULT.json",
+    "bytes": 604,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V32_EXTENDED_STRESS_RESULT.json",
+    "bytes": 221,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V32_QA_RESULT.json",
+    "bytes": 1216,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V32_STATIC_AUDIT.json",
+    "bytes": 3225,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V33_SHOOT_LIMIT_QA.json",
+    "bytes": 897,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V34_ASYNC_PROGRESS_RESULT.json",
+    "bytes": 100,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V34_ENGINE_STRESS_RESULT.json",
+    "bytes": 5516,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V34_QA_RESULT.json",
+    "bytes": 2915,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V34_STATIC_AUDIT.json",
+    "bytes": 380,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V34_WEBSOCKET_RUNTIME_RESULT.json",
+    "bytes": 1602,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V35_RULE_COMBINATION_MATRIX_RESULT.json",
+    "bytes": 50,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V35_RULE_GAMEPLAY_MATRIX_RESULT.json",
+    "bytes": 3276,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V35_RULE_MATRIX_QA.json",
+    "bytes": 1214,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "V41_DEFAULT_RULES_UPDATE.md",
+    "bytes": 851,
+    "reason": "過去版の監査記録・検証結果・画面"
+  },
+  {
+    "path": "public/app-icon-1024.png",
+    "bytes": 1586447,
+    "reason": "HTML・manifest・実行コードから未参照のアイコン"
+  },
+  {
+    "path": "public/app-icon-16.png",
+    "bytes": 937,
+    "reason": "HTML・manifest・実行コードから未参照のアイコン"
+  },
+  {
+    "path": "public/app-icon-48.png",
+    "bytes": 6496,
+    "reason": "HTML・manifest・実行コードから未参照のアイコン"
+  },
+  {
+    "path": "public/app-icon-64.png",
+    "bytes": 10870,
+    "reason": "HTML・manifest・実行コードから未参照のアイコン"
+  },
+  {
+    "path": "qa/v44/after-final-actions-320.png",
+    "bytes": 85865,
+    "reason": "配布・起動に不要なUI検証スクリーンショット（元v44に保存済み）"
+  },
+  {
+    "path": "qa/v44/after-finished-text200-320.png",
+    "bytes": 92533,
+    "reason": "配布・起動に不要なUI検証スクリーンショット（元v44に保存済み）"
+  },
+  {
+    "path": "qa/v44/after-home-390.png",
+    "bytes": 191985,
+    "reason": "配布・起動に不要なUI検証スクリーンショット（元v44に保存済み）"
+  },
+  {
+    "path": "qa/v44/after-ready-390.png",
+    "bytes": 218979,
+    "reason": "配布・起動に不要なUI検証スクリーンショット（元v44に保存済み）"
+  },
+  {
+    "path": "qa/v44/after-rules-sheet-390.png",
+    "bytes": 95371,
+    "reason": "配布・起動に不要なUI検証スクリーンショット（元v44に保存済み）"
+  }
+]

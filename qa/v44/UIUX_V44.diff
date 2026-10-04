@@ -1,0 +1,685 @@
+diff --git a/dist/index.html b/dist/index.html
+index c3cf661..3515f0c 100644
+--- a/dist/index.html
++++ b/dist/index.html
+@@ -7293,18 +7293,212 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
+     margin:0;
+   }
+ }
++
++/* v44: clear room flow, readable controls, accessible sheets */
++:root{color-scheme:light}
++body.modern-game-ui{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;font-size:1rem;line-height:1.55}
++body.modern-game-ui:not(.gameplay-mode) #app{max-width:1080px;padding:16px max(12px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
++body.modern-game-ui .hero{padding:16px!important;margin-bottom:16px;border-radius:22px}
++body.modern-game-ui .hero-brand{display:flex;align-items:center;justify-content:center;gap:20px}
++body.modern-game-ui .game-logo{width:190px!important;max-width:40%!important;height:auto!important;margin:0!important}
++body.modern-game-ui .hero-meta{text-align:left}
++body.modern-game-ui h1.hero-subtitle{font-size:1.5rem!important;line-height:1.3;margin:0;color:#642d36}
++body.modern-game-ui .hero-meta p{font-size:.875rem!important;line-height:1.5;margin:4px 0 0;color:#56463c}
++body.modern-game-ui #lobby{padding:20px!important;color:#33251d}
++body.modern-game-ui #lobby>h2{font-size:1.25rem;margin:0 0 12px}
++body.modern-game-ui .lobby-guide{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 16px}
++body.modern-game-ui .lobby-step{font-size:.875rem!important;padding:8px!important;min-height:44px;display:flex;gap:5px;align-items:center}
++body.modern-game-ui .lobby-step b{font-size:.875rem!important;flex-shrink:0}
++body.modern-game-ui .lobby-profile{padding:14px!important;margin:0 0 12px!important}
++body.modern-game-ui .lobby-profile-copy b{font-size:1rem!important}
++body.modern-game-ui #lobby small,body.modern-game-ui #lobby em,body.modern-game-ui #lobby .small,body.modern-game-ui #lobby .menu-eyebrow{font-size:.8125rem!important;line-height:1.5!important;color:#665043}
++body.modern-game-ui #lobby p{font-size:1rem;line-height:1.6}
++body.modern-game-ui .input{font-size:1rem!important;min-height:48px!important;line-height:1.4;width:100%;max-width:100%;box-sizing:border-box}
++body.modern-game-ui .btn{min-height:48px!important;font-size:1rem!important;line-height:1.4!important;white-space:normal}
++body.modern-game-ui :is(button,input,select,summary,a):focus-visible{outline:3px solid #086b86!important;outline-offset:3px!important}
++body.modern-game-ui .btn:disabled{opacity:1;color:#66564d;background:#e8e2dc!important;box-shadow:none!important;cursor:not-allowed}
++body.modern-game-ui .participant-role-picker{max-width:none;margin:12px 0;padding:0;border:0;gap:8px}
++body.modern-game-ui .participant-role-picker b{font-size:1rem}
++body.modern-game-ui .participant-role-picker label{min-height:64px}
++body.modern-game-ui .lobby-route-grid{display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:16px;margin-top:16px}
++body.modern-game-ui .lobby-route-card{padding:16px!important;min-width:0}
++body.modern-game-ui .lobby-route-card h3{font-size:1.125rem!important;line-height:1.4;margin:4px 0}
++body.modern-game-ui .lobby-route-card p{margin:8px 0 12px;font-size:.9375rem!important}
++body.modern-game-ui .join-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
++body.modern-game-ui #reconnect{grid-column:1/-1}
++body.modern-game-ui #code{letter-spacing:.15em;text-transform:uppercase}
++body.modern-game-ui [aria-invalid="true"]{border:2px solid #a51b37!important}
++body.modern-game-ui .join-feedback:empty,body.modern-game-ui #copyCodeFeedback:empty{display:none}
++body.modern-game-ui .join-feedback{color:#a51b37!important}
++body.modern-game-ui .room-setup-options,body.modern-game-ui .cpu-cast-details{margin:12px 0;border:1px solid #d8c8b9;border-radius:14px;background:#fffcf8;overflow:hidden}
++body.modern-game-ui summary{min-height:48px;padding:12px;font-size:1rem!important;line-height:1.5!important;cursor:pointer;box-sizing:border-box;color:#56372a}
++body.modern-game-ui .room-setup-options>summary span{display:block;margin-left:20px;font-size:.8125rem;color:#665043;font-weight:400}
++body.modern-game-ui .room-setup-options>section,body.modern-game-ui .room-setup-options>details{margin:12px!important}
++body.modern-game-ui .rule-presets,body.modern-game-ui .cpu-cast-list{display:grid!important;grid-template-columns:1fr!important;overflow:visible!important;gap:10px!important}
++body.modern-game-ui .rule-preset,body.modern-game-ui .cpu-cast-card{width:auto!important;min-width:0!important;max-width:100%!important;flex:none!important}
++body.modern-game-ui .settings-grid,body.modern-game-ui .featured-rule-grid,body.modern-game-ui .baba-move-option-group{grid-template-columns:1fr!important}
++body.modern-game-ui .rule-title{font-size:1rem!important;line-height:1.5;gap:8px}
++body.modern-game-ui .rule-help-btn{min-width:44px!important;min-height:44px!important;font-size:1rem!important;flex:0 0 44px}
++body.modern-game-ui .rule-presets small,body.modern-game-ui .preset-meta,body.modern-game-ui .cpu-cast-card :is(span,q,p){font-size:.875rem!important;line-height:1.5!important}
++body.modern-game-ui .cpu-cast-panel{margin:0!important;padding:14px!important}
++body.modern-game-ui .cpu-cast-head{display:block}
++body.modern-game-ui .create-feedback{font-size:.875rem!important;margin:12px 0;color:#665043}
++body.modern-game-ui .create-btn .btn-main{font-size:1.0625rem!important}.create-btn .btn-sub{font-size:.8125rem!important}
++body.has-room:not(.gameplay-mode) #lobby>:is(h2,.lobby-guide,.lobby-profile,.participant-role-picker,.lobby-route-grid,.cpu-cast-details,.settings-help,.cpu-character-note,#createFeedback,#joinFeedback){display:none!important}
++body.modern-game-ui .room-info-panel{margin:0!important;max-width:760px;margin-inline:auto!important}
++body.modern-game-ui .room-info-panel h3{font-size:1.25rem;margin:0 0 8px}
++body.modern-game-ui .room-created-banner{font-size:1rem!important;padding:12px!important;text-align:left}
++body.modern-game-ui .room-share{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 0}
++body.modern-game-ui .room-share span{font-size:.875rem;color:#665043}
++body.modern-game-ui .roomcode{margin:0!important;font-size:2rem!important;line-height:1.25;letter-spacing:.15em}
++body.modern-game-ui .room-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:8px}
++body.modern-game-ui #removeCpu{grid-column:1/-1}
++body.modern-game-ui .cpu-selection-preview{background:#edf6f4;border-radius:12px;padding:12px;color:#244c48}
++body.modern-game-ui .start-hint{font-size:1rem!important;line-height:1.5;padding:10px}
++body.modern-game-ui .lobby-participant-state{font-size:.8125rem!important}
++body.modern-game-ui .start-panel{margin:16px 0!important}
++body.modern-game-ui .room-clear-panel p{font-size:1rem;line-height:1.6}
++body.modern-game-ui .utility-sheet,body.modern-game-ui .rule-help-panel{font-size:1rem;line-height:1.6;overscroll-behavior:contain;scroll-padding:80px 16px}
++body.modern-game-ui .utility-sheet :is(p,li,.small),body.modern-game-ui .rule-help-body li{font-size:1rem!important;line-height:1.65!important}
++body.modern-game-ui .utility-head{position:sticky;top:0;z-index:2;background:#fffaf2;padding-block:8px}
++body.modern-game-ui .utility-close,body.modern-game-ui .rule-help-close{min-width:44px!important;min-height:44px!important;font-size:1.5rem!important}
++body.gameplay-mode.modern-game-ui .hud-button,body.gameplay-mode.modern-game-ui .hand-view-toggle{min-height:44px!important;min-width:44px!important;font-size:.875rem!important;padding:6px 8px!important}
++body.gameplay-mode.modern-game-ui .game-screen:not(.is-setup-mode){grid-template-rows:56px 38px minmax(0,1fr) 190px!important}
++body.gameplay-mode.modern-game-ui .hand-dock-title{font-size:.875rem!important;z-index:8;top:4px!important;left:12px!important;right:12px!important;display:flex!important;align-items:center;gap:8px}
++body.gameplay-mode.modern-game-ui .hand-dock-title b{font-size:.875rem!important}
++body.gameplay-mode.modern-game-ui .hand-view-toggle{margin-left:auto!important}
++body.gameplay-mode.modern-game-ui .hand-dock:not(:has(.pass-panel,.initial-pair-panel)) #handNote{display:block!important;position:absolute!important;top:48px!important;left:12px!important;right:12px!important;width:auto!important;transform:none!important;z-index:8;pointer-events:none}
++body.gameplay-mode.modern-game-ui #handNote .notice{padding:4px 8px!important;white-space:normal!important;overflow:visible!important;background:#fffaf2;color:#33251d}
++body.gameplay-mode.modern-game-ui #handNote .notice-title{font-size:.875rem!important;line-height:1.4!important}
++body.gameplay-mode.modern-game-ui #handNote .notice-body{display:block!important;font-size:.8125rem!important;line-height:1.4!important}
++body.gameplay-mode.modern-game-ui :is([data-pair-skip],[data-pass-submit],[data-initial-skip],[data-pick-target-submit]){min-height:44px!important}
++body.modern-game-ui .score-screen :is(p,li,.small){font-size:1rem!important;line-height:1.6!important}
++body.modern-game-ui .score-screen table{font-size:.875rem!important}
++body.finished-mode.modern-game-ui .final-actions .btn{min-height:48px!important;font-size:.875rem!important}
++@media(max-width:720px){
++ body.modern-game-ui:not(.gameplay-mode) #app{padding-top:10px}
++ body.modern-game-ui #lobby{padding:12px!important}
++ body.modern-game-ui .hero{padding:12px!important;margin-bottom:10px}
++ body.modern-game-ui .hero-brand{gap:12px}
++ body.modern-game-ui .game-logo{width:120px!important}
++ body.modern-game-ui h1.hero-subtitle{font-size:1.25rem!important}
++ body.modern-game-ui .hero-meta p{font-size:.8125rem!important}
++ body.modern-game-ui .lobby-route-grid{grid-template-columns:1fr;gap:12px}
++ body.modern-game-ui .lobby-step{font-size:.75rem!important;gap:4px;padding:6px!important}
++ body.modern-game-ui .lobby-step b{min-width:20px;width:20px;height:20px;font-size:.75rem!important}
++ body.modern-game-ui .room-actions{grid-template-columns:1fr}
++ body.modern-game-ui #removeCpu{grid-column:auto}
++ body.gameplay-mode.modern-game-ui .game-hud{grid-template-columns:minmax(0,1fr) auto!important;gap:4px;padding-inline:max(8px,env(safe-area-inset-left))!important}
++ body.gameplay-mode.modern-game-ui .game-brand{display:none!important}
++ body.gameplay-mode.modern-game-ui .game-hud-actions{gap:4px!important}
++ body.gameplay-mode.modern-game-ui .utility-sheet{inset:auto 0 0!important;width:100%!important;max-width:none!important;height:88dvh!important;border-radius:22px 22px 0 0;padding:12px 16px max(20px,env(safe-area-inset-bottom))!important;box-sizing:border-box}
++ body.modern-game-ui .rule-help-panel{position:fixed;left:0!important;right:0;bottom:0;top:auto!important;transform:none!important;width:100%!important;max-width:none;max-height:90dvh!important;border-radius:22px 22px 0 0;padding:24px 20px max(24px,env(safe-area-inset-bottom))!important;box-sizing:border-box}
++}
++@media(max-height:520px) and (orientation:landscape){body.gameplay-mode.modern-game-ui .game-screen:not(.is-setup-mode){grid-template-rows:52px 30px minmax(0,1fr) 150px!important}}
++@media(prefers-reduced-motion:reduce){body.modern-game-ui *,body.modern-game-ui *:before,body.modern-game-ui *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
++
++
++body.modern-game-ui .hero .hero-brand{flex-direction:row!important}
++body.modern-game-ui .hero .hero-meta{margin:0!important;flex:1}
++body.modern-game-ui .lobby-profile{display:block!important}
++body.modern-game-ui .lobby-profile-copy{margin:0!important}
++body.modern-game-ui .lobby-profile-copy .menu-eyebrow{display:none}
++body.modern-game-ui .profile-name-field{margin-top:6px!important}
++@media(max-width:720px){
++ body.modern-game-ui .lobby-profile-copy b{display:none}
++ body.modern-game-ui .lobby-profile-copy small{font-size:.8125rem!important}
++ body.modern-game-ui .participant-role-picker label{min-height:58px!important;padding:8px!important}
++ body.modern-game-ui .lobby-route-card .menu-eyebrow{display:none}
++ body.modern-game-ui .lobby-route-card p{font-size:.875rem!important;margin:6px 0 10px!important}
++ body.modern-game-ui .participant-role-picker small{font-size:.75rem!important}
++ body.modern-game-ui .participant-role-picker>legend{font-size:.875rem}
++}
++
++body.modern-game-ui .rule-presets,body.modern-game-ui .cpu-cast-list{grid-auto-flow:row!important;grid-auto-columns:auto!important}
++body.modern-game-ui .room-info-panel{padding:14px!important}
++body.modern-game-ui .lobby-route-card .create-btn{margin-top:0!important}
++@media(max-width:720px){
++ body.modern-game-ui .lobby-profile{padding:10px!important}
++ body.modern-game-ui .lobby-profile-copy small{margin:0!important}
++ body.modern-game-ui .profile-name-field{grid-template-columns:auto minmax(0,1fr)!important;gap:8px!important}
++ body.modern-game-ui .participant-role-picker label>span{display:none}
++ body.modern-game-ui .participant-role-picker label{display:block!important;min-height:58px!important}
++ body.modern-game-ui .participant-role-picker small{display:block;line-height:1.3!important}
++ body.modern-game-ui .participant-role-picker{margin:8px 0!important}
++ body.modern-game-ui .lobby-route-card{padding:12px!important}
++ body.modern-game-ui .lobby-route-card h3{font-size:1rem!important}
++ body.modern-game-ui .lobby-route-card.create-route p{display:none}
++ body.modern-game-ui .room-setup-options{margin:8px 0!important}
++ body.modern-game-ui .room-setup-options>summary{padding:8px!important;min-height:44px;font-size:.875rem!important}
++ body.modern-game-ui .room-setup-options>summary span{font-size:.75rem}
++ body.modern-game-ui .room-share{padding:10px 0}
++ body.modern-game-ui .lobby-participant{padding:7px 9px;min-height:44px;box-sizing:border-box}
++}
++
++body.gameplay-mode.modern-game-ui #gameScreen:not(.is-setup-mode):not(:has(#spectatorView:not([hidden]))){grid-template-rows:56px 44px minmax(0,1fr) 230px!important}
++body.gameplay-mode.modern-game-ui #playerHandDock:not(:has(.pass-panel,.initial-pair-panel)) .hand-wrap{padding-top:90px!important;box-sizing:border-box}
++body.gameplay-mode.modern-game-ui #playerHandDock #handNote{left:0!important;right:0!important;top:46px!important;width:auto!important}
++body.gameplay-mode.modern-game-ui #playerHandDock #handNote .notice{border-radius:12px!important;max-width:100%!important;padding:6px 8px!important}
++body.gameplay-mode.modern-game-ui #playerHandDock #handNote .notice-title{font-size:.875rem!important}
++body.gameplay-mode.modern-game-ui #playerHandDock #handNote .notice-body{font-size:.8125rem!important}
++body.gameplay-mode.modern-game-ui #playerHandDock #handAlerts{position:absolute!important;right:0;top:0;max-width:50%;z-index:9;pointer-events:auto}
++body.gameplay-mode.modern-game-ui .game-status.status b{font-size:.8125rem!important}
++body.gameplay-mode.modern-game-ui .game-status.status>div{min-width:0!important;padding:3px 6px!important}
++body.gameplay-mode.modern-game-ui .game-status.status span{font-size:.625rem!important}
++@media(max-width:720px){body.gameplay-mode.modern-game-ui .game-hud .game-brand{display:none!important}body.gameplay-mode.modern-game-ui .game-hud{grid-template-columns:minmax(0,1fr) auto!important}body.gameplay-mode.modern-game-ui .game-hud-actions{grid-column:2;grid-row:1}body.gameplay-mode.modern-game-ui .game-status.status{min-width:0;gap:4px!important}}
++@media(max-height:520px) and (orientation:landscape){body.gameplay-mode.modern-game-ui #gameScreen:not(.is-setup-mode):not(:has(#spectatorView:not([hidden]))){grid-template-rows:52px 32px minmax(0,1fr) 150px!important}body.gameplay-mode.modern-game-ui #playerHandDock:not(:has(.pass-panel,.initial-pair-panel)) .hand-wrap{padding-top:72px!important}body.gameplay-mode.modern-game-ui #playerHandDock #handNote .notice-body{display:none!important}}
++
++body.gameplay-mode.modern-game-ui #gameScreen .hud-button,body.gameplay-mode.modern-game-ui #playerHandDock .hand-view-toggle{min-height:44px!important;min-width:44px!important;font-size:.875rem!important}
++body.gameplay-mode.modern-game-ui #playerHandDock #handNote .notice-body{display:block!important}
++body.modern-game-ui .room-setup-options .featured-rule-card{grid-template-columns:1fr!important;min-width:0}
++body.modern-game-ui .room-setup-options .featured-rules-head,body.modern-game-ui .room-setup-options .preset-panel-head{display:block!important}
++body.modern-game-ui .room-setup-options .featured-rule-copy em{color:#fff!important}
++body.modern-game-ui .room-setup-options>section{padding:10px!important;margin:8px!important}
++body.modern-game-ui .room-setup-options .selected-preset-summary{grid-template-columns:1fr!important}
++body.modern-game-ui .room-setup-options .rule-preset{min-height:100px;padding:12px!important}
++body.modern-game-ui .room-setup-options .rule-title{flex-wrap:wrap}
++body.modern-game-ui .room-setup-options .settings-section{padding:10px!important}
++body.modern-game-ui .room-setup-options .settings-section-head{flex-wrap:wrap}
++body.modern-game-ui .room-setup-options .option-toggle{min-width:0;padding:10px!important}
++body.modern-game-ui .room-setup-options .settings-content{padding:8px!important}
++@media(max-width:360px){body.modern-game-ui .profile-name-field{grid-template-columns:1fr!important}body.modern-game-ui .join-row{grid-template-columns:1fr!important}body.modern-game-ui .hero .game-logo{display:none!important}body.modern-game-ui .hero .hero-meta{text-align:center}}
++@media(min-width:721px){body.modern-game-ui .lobby-profile{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}body.modern-game-ui .profile-name-field{grid-template-columns:1fr!important}body.modern-game-ui .participant-role-picker{max-width:680px;margin-inline:auto}}
++
++body.large-text-mode.modern-game-ui :is(.hero-brand,.room-share){flex-wrap:wrap!important}
++body.large-text-mode.modern-game-ui :is(.profile-name-field,.participant-role-picker,.join-row,.room-actions){grid-template-columns:1fr!important}
++body.large-text-mode.modern-game-ui .hero .game-logo{display:none!important}
++body.large-text-mode.gameplay-mode.modern-game-ui,body.large-text-mode.gameplay-mode.modern-game-ui #app{position:relative!important;overflow:auto!important;height:auto!important;min-height:100dvh!important}
++body.large-text-mode.gameplay-mode.modern-game-ui #gameScreen{position:relative!important;display:flex!important;flex-direction:column!important;height:auto!important;min-height:100dvh!important;overflow:visible!important}
++body.large-text-mode.gameplay-mode.modern-game-ui #gameScreen .game-hud{position:relative!important;inset:auto!important;display:flex!important;flex-wrap:wrap!important;height:auto!important;min-height:56px;flex-shrink:0}
++body.large-text-mode.gameplay-mode.modern-game-ui #gameScreen .game-hud-actions{flex-wrap:wrap!important}
++body.large-text-mode.gameplay-mode.modern-game-ui #gameScreen .game-round-status{height:auto!important;min-height:60px;flex-shrink:0}
++body.large-text-mode.gameplay-mode.modern-game-ui #playerGameArena{height:480px!important;flex-shrink:0}
++body.large-text-mode.gameplay-mode.modern-game-ui #playerHandDock{height:330px!important;flex-shrink:0}
++body.large-text-mode.gameplay-mode.modern-game-ui #playerHandDock .hand-wrap{padding-top:160px!important}
++body.large-text-mode.gameplay-mode.modern-game-ui #playerHandDock #handNote{top:90px!important}
++body.large-text-mode.gameplay-mode.modern-game-ui #scoreBox{position:relative!important;inset:auto!important;overflow:visible!important;height:auto!important;padding-bottom:24px!important}
++body.large-text-mode.finished-mode.modern-game-ui #scoreBox .final-actions{position:sticky!important;left:auto!important;bottom:0!important;transform:none!important;width:100%!important;grid-template-columns:1fr!important}
++
++body.finished-mode.modern-game-ui #scoreBox .final-stage{transform:none!important}
++body.finished-mode.modern-game-ui #scoreBox .score-compact{overflow-x:auto;overscroll-behavior-inline:contain}
++body.large-text-mode.finished-mode.modern-game-ui #scoreBox .final-actions{top:0!important;bottom:auto!important}
++@media(max-width:720px){body.finished-mode.modern-game-ui{--final-action-dock-height:190px}}
++
++body.modern-game-ui :is(#lobby,#gameScreen,.room-clear-dialog) .btn:not(.secondary):not(:disabled){background:linear-gradient(135deg,#b51e45,#85223f)!important;color:#fff!important;border-color:#85223f!important}
++body.gameplay-mode.modern-game-ui #gameScreen :is(button,input,select,a):focus-visible{outline:3px solid #ffe08a!important;outline-offset:3px!important}
++body.gameplay-mode.modern-game-ui #gameScreen #gameUtilityPanel :is(button,input,select,a):focus-visible{outline-color:#086b86!important}
+ </style>
+ </head>
+ <body class="modern-game-ui">
+ <div id="app">
+-  <header class="hero"><div class="hero-brand"><img class="game-logo" src="/pig_pick_trick_logo.png" alt="PIG PICK TRICK ロゴ"><div class="hero-meta"><div class="hero-subtitle">【ピピトリ】ピッグ・ピック・トリック</div><p>3〜5人 · トリックテイキング × ババ抜き</p></div></div></header>
++  <header class="hero"><div class="hero-brand"><img class="game-logo" src="/pig_pick_trick_logo.png" alt="PIG PICK TRICK ロゴ"><div class="hero-meta"><h1 class="hero-subtitle">ピピトリ</h1><p>3〜5人で遊ぶ、トリックテイキング × ババ抜き</p></div></div></header>
+ 
+   <section id="lobby" class="cardbox">
+-    <h2>オンライン部屋</h2>
++    <h2>部屋を作る・参加する</h2>
+     <div class="lobby-guide">
+       <div class="lobby-step active"><b>1</b><span>名前を入れる</span></div>
+-      <div class="lobby-step"><b>2</b><span>部屋を作る</span></div>
+-      <div class="lobby-step"><b>3</b><span>3〜5人で遊ぶ</span></div>
++      <div class="lobby-step"><b>2</b><span>部屋に入る</span></div>
++      <div class="lobby-step"><b>3</b><span>対戦する</span></div>
+     </div>
+     <section class="lobby-profile" aria-labelledby="playerProfileTitle">
+       <div class="lobby-profile-copy"><span class="menu-eyebrow">STEP 1</span><b id="playerProfileTitle">プレイヤー名を決める</b><small>対戦中に表示される名前です（12文字まで）</small></div>
+@@ -7320,15 +7514,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
+       <section class="lobby-route-card create-route">
+         <span class="menu-eyebrow">HOST</span><h3>新しい部屋を作る</h3><p>3人・4人・5人から選び、友達またはCPUと遊びます。</p>
+         <label class="input-label seat-count-picker"><span class="rule-title">遊ぶ人数</span><select id="playerCount" class="input" aria-label="遊ぶ人数"><option value="3">3人（17枚ずつ・1位→3位ピック）</option><option value="4" selected>4人（13枚ずつ・標準）</option><option value="5">5人（10枚ずつ・2組のピック）</option></select><em>3人は1位→3位、5人は1位→5位と2位→4位</em></label>
+-        <button id="create" class="btn create-btn" data-state="idle"><span class="btn-main">部屋を作る</span><span class="btn-sub">オンライン部屋を作成</span></button>
+-      </section>
+-      <section class="lobby-route-card join-route">
+-        <span class="menu-eyebrow">JOIN</span><h3>部屋コードで参加</h3><p>ホストから受け取った4文字のコードを入力します。</p>
+-        <div class="row join-row"><input id="code" class="input" placeholder="例：ABCD" maxlength="4" autocapitalize="characters" aria-label="部屋コード" /><button id="join" class="btn secondary">参加する</button><button id="reconnect" class="btn secondary reconnect-btn" style="display:none">前回の部屋に復帰</button></div>
+-      </section>
+-    </div>
+-    <div id="createFeedback" class="create-feedback" aria-live="polite">まだ部屋は作られていません。</div>
+-
++        <details class="room-setup-options"><summary>ルールを選ぶ・調整する<span id="setupRuleSummary">標準は3ラウンド・シュートOFF</span></summary>
+     <section class="rule-preset-panel" aria-labelledby="rulePresetTitle">
+       <div class="preset-panel-head"><div><span class="menu-eyebrow">STEP 2 · HOST RULES</span><h3 id="rulePresetTitle">遊び方を選ぶ</h3><p>迷ったら「スタンダード」。選んだ後に細かく調整できます。</p></div><span class="recommended-pill">おすすめから選択</span></div>
+       <div class="rule-presets" role="group" aria-label="ルールプリセット">
+@@ -7353,7 +7539,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
+       <summary class="advanced-settings-summary">⚙️ 詳細ルールをカスタマイズ <span class="small">プリセットから一項目ずつ変更できます</span></summary>
+       <div class="advanced-settings-hint">変更内容に合わせて、すぐ下の「試合傾向」がリアルタイムに更新されます。</div>
+       <div class="rules-default-note">
+-        <b>標準設定</b>：3ラウンド / ラウンド終了ごとに全カードを回収してシャッフル / ごちそう山1枚1点 / 🍎リンゴ・🌽トウモロコシ・🥬キャベツは-3点・通常の💧は-6点 / マッド固有-13点 / ババブタ-20点・ラウンド毎 / 勝者の手札から最弱者がピック（候補2枚） / 2位→3位ピックあり / 装填→発射なし / ババ必須候補あり / シュート移動条件なし / 3枚パスなし / 開始時ペア捨てなし / シュートOFF（ON時は両方とも手札・無制限）
++        <b>標準設定</b>：3ラウンド / ラウンド終了ごとに全カードを回収してシャッフル / ごちそう山1枚1点 / 🍎リンゴ・🌽トウモロコシ・🥬キャベツは-3点・通常の💧は-6点 / マッド固有-13点 / ババブタ-20点・ラウンド毎 / 勝者の手札から最弱者がピック（候補2枚） / 中位ピックあり（4人は2位→3位、5人は2位→4位、3人は対象外） / 装填→発射なし / ババ必須候補あり / シュート移動条件なし / 3枚パスなし / 開始時ペア捨てなし / シュートOFF（ON時は両方とも手札・無制限）
+       </div>
+       <div class="suit-flavor-map" aria-label="ピピトリの4スート">
+         <span class="suit-flavor apple"><i aria-hidden="true">🍎</i><b>リンゴ</b><small>赤色スート</small></span>
+@@ -7412,6 +7598,18 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
+         </section>
+       </div>
+     </details>
++        </details>
++        <button id="create" class="btn create-btn" data-state="idle"><span class="btn-main">部屋を作る</span><span class="btn-sub">オンライン部屋を作成</span></button>
++      </section>
++      <section class="lobby-route-card join-route">
++        <span class="menu-eyebrow">JOIN</span><h3>部屋コードで参加</h3><p>ホストから受け取った4文字のコードを入力します。</p>
++        <div class="row join-row"><input id="code" class="input" placeholder="例：ABCD" maxlength="4" autocapitalize="characters" autocomplete="off" spellcheck="false" enterkeyhint="go" aria-label="部屋コード（半角英数字4文字）" aria-describedby="joinFeedback" /><button id="join" class="btn secondary">参加する</button><button id="reconnect" class="btn secondary reconnect-btn" style="display:none">前回の部屋に復帰</button></div>
++      </section>
++    </div>
++    <p id="joinFeedback" class="join-feedback" role="status" aria-live="polite"></p>
++    <div id="createFeedback" class="create-feedback" aria-live="polite">まだ部屋は作られていません。</div>
++
++    <details class="cpu-cast-details"><summary>4人のCPUを知る</summary>
+     <section class="cpu-cast-panel" aria-labelledby="cpuCastTitle">
+       <div class="cpu-cast-head"><div><span class="menu-eyebrow">CPU CAST</span><h3 id="cpuCastTitle">個性の違う4人のライバル</h3></div><p>人数が足りない時に追加できます。判断もリアクションも性格ごとに変わります。</p></div>
+       <div class="cpu-cast-list">
+@@ -7421,10 +7619,15 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
+         <article class="cpu-cast-card nakato-modoki"><img src="/cpu_characters/nakato_modoki.png" alt="なかとーもどき"><div><b>なかとーもどき</b><span>戦略・美意識型</span><p>目先の勝ちだけでなく順位の先行きまで計算。危険札は得になる時だけ扱う。</p><q>なかとーの美しさチェック！</q></div></article>
+       </div>
+     </section>
++    </details>
+     <p class="small settings-help">ルール設定は部屋作成時のみ有効です。参加する場合はホスト側の設定が使われます。</p><p class="small cpu-character-note">CPUの種類を選んで、不足人数ぶん追加できます。</p>
+-    <div id="roomInfo" class="room-info-panel" style="display:none">
+-      <div class="room-created-banner">✅ 部屋を作成しました。友達に部屋コードを共有してください。</div>
+-      <div class="roomcode" id="roomCode">----</div>
++    <div id="roomInfo" class="room-info-panel" style="display:none" tabindex="-1" aria-labelledby="roomReadyTitle">
++      <h3 id="roomReadyTitle">対戦の準備</h3><div id="roomReadyBanner" class="room-created-banner">友達を招待するか、CPUを追加しましょう。</div>
++      <div class="room-share"><div><span>部屋コード</span><div class="roomcode" id="roomCode">----</div></div><button type="button" id="copyRoomCode" class="btn secondary">コードをコピー</button></div><p id="copyCodeFeedback" class="small" role="status" aria-live="polite"></p>
++      <div class="start-panel">
++        <button id="start" class="btn start-game-btn" disabled>4人で遊ぶ</button>
++        <div id="startHint" class="start-hint">4人そろうとゲームを開始できます。</div>
++      </div>
+       <section class="lobby-roster" aria-labelledby="lobbyRosterTitle">
+         <div class="lobby-roster-head"><b id="lobbyRosterTitle">プレイヤー</b><span id="lobbyParticipantSummary">現在 0 / 4人　あと4人</span></div>
+         <div id="lobbyParticipants" class="lobby-participants" aria-live="polite"></div>
+@@ -7432,11 +7635,8 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
+         <div id="lobbySpectators" class="lobby-spectators" aria-live="polite"></div>
+       </section>
+       <div id="participantRoleActions" class="participant-role-actions" aria-label="参加方法を変更"><span id="currentParticipantRole">🎮 プレイ参加中</span><button type="button" class="btn secondary" data-change-role>観戦へ切り替える</button></div>
+-      <div class="row room-actions"><label class="input-label cpu-picker-label"><span>追加するCPU</span><select id="cpuCharacterSelect" class="input" aria-label="追加するCPU"><option value="auto">おまかせ</option><option value="kamomodoki">かももどき</option><option value="wakumodoki">ワクもどき</option><option value="rikumodoki">リクもどき</option><option value="nakato_modoki">なかとーもどき</option></select></label><button id="addCpu" class="btn secondary">選んだCPUを追加</button><button id="removeCpu" class="btn secondary">CPUを外す</button></div>
+-      <div class="start-panel">
+-        <button id="start" class="btn start-game-btn" disabled>4人で遊ぶ</button>
+-        <div id="startHint" class="start-hint">4人そろうとゲームを開始できます。</div>
+-      </div>
++      <div class="row room-actions"><label class="input-label cpu-picker-label"><span>追加するCPU</span><select id="cpuCharacterSelect" class="input" aria-label="追加するCPU"><option value="auto">おまかせ</option><option value="kamomodoki">かももどき</option><option value="wakumodoki">ワクもどき</option><option value="rikumodoki">リクもどき</option><option value="nakato_modoki">なかとーもどき</option></select></label><button id="addCpu" class="btn secondary">選んだCPUを追加</button><button id="removeCpu" class="btn secondary">最後のCPUを外す</button></div>
++      <p id="cpuSelectionPreview" class="cpu-selection-preview" aria-live="polite">おまかせ：未参加のCPUを優先して選びます。</p><p id="cpuAddHint" class="small"></p>
+       <button type="button" id="clearRoom" class="btn secondary clear-room-button" hidden>部屋をクリアして作り直す</button>
+       <button type="button" id="leaveRoomLobby" class="btn secondary lobby-leave-button">部屋から離脱</button>
+     </div>
+@@ -7496,7 +7696,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
+ 
+     <section id="playerHandDock" class="hand-dock" aria-label="あなたの手札">
+       <div class="hand-dock-title"><span>あなたの手札</span><b id="handCountLabel">0枚</b><button type="button" id="handViewToggle" class="hand-view-toggle" data-hand-view-toggle aria-pressed="false"><span aria-hidden="true">↔</span> 広げる</button></div>
+-      <div class="hand-wrap"><div id="handNote"></div><div id="handAlerts"></div><div id="hand" class="hand"></div></div>
++      <div class="hand-wrap"><div id="handNote" aria-live="polite"></div><div id="handAlerts"></div><div id="hand" class="hand"></div></div>
+     </section>
+ 
+     <aside id="gameUtilityPanel" class="game-utility-panel" hidden aria-hidden="true">
+@@ -7687,6 +7887,7 @@ function fixPickTargetBadgePosition(){
+ 
+ 
+ function applyDeviceUiMode(){
++  document.body.classList.toggle('large-text-mode',parseFloat(getComputedStyle(document.documentElement).fontSize)>24);
+   const w = window.innerWidth || document.documentElement.clientWidth || 0;
+   const h = window.innerHeight || document.documentElement.clientHeight || 0;
+   const coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+@@ -7786,6 +7987,7 @@ function showTransientNotice(className,html,duration=2800){
+ }
+ 
+ function renderTurnNotice(){
++  if(state?.phase!=='playing' || !state?.isYourTurn){document.querySelectorAll('.turn-notice').forEach(el=>el.remove());return;}
+   if(!state || state.isSpectator || state.participantRole==='spectator') return;
+   const key=`${state.round || 0}:${state.current ?? '-'}:${(state.trick || []).map(x=>x.card?.id || '').join(',')}`;
+   if(!state.isYourTurn){ return; }
+@@ -7923,6 +8125,8 @@ function clearReconnectInfo(){
+ }
+ 
+ function resetRoomClientState({hostCleared=false,wasHost=false}={}){
++  document.body.classList.remove('has-room');
++  setJoinRequestUi(false);
+   stopReconnectLoop();
+   clearReconnectInfo();
+   intentionalClose=true;
+@@ -8103,6 +8307,42 @@ function scheduleReconnect(immediate=false){
+ }
+ 
+ const $=id=>document.getElementById(id);
++
++const uiDialogStates=new Map();
++function focusUiDialog(root){
++ if(uiDialogStates.has(root)) return;
++ const disabled=[];
++ let branch=root;
++ while(branch.parentElement && branch.parentElement!==document.documentElement){
++  for(const sibling of branch.parentElement.children){if(sibling!==branch && sibling.tagName!=='SCRIPT' && !sibling.inert){sibling.inert=true;disabled.push(sibling);}}
++  branch=branch.parentElement;
++ }
++ const opener=document.activeElement;
++ const trap=ev=>{if(ev.key!=='Tab')return;const items=[...(root.querySelector('[role="dialog"]')||root).querySelectorAll('button,input,select,a[href],[tabindex="0"]')].filter(el=>!el.disabled&&el.getClientRects().length);if(!items.length)return;const first=items[0],last=items.at(-1);if(ev.shiftKey&&document.activeElement===first){ev.preventDefault();last.focus();}else if(!ev.shiftKey&&document.activeElement===last){ev.preventDefault();first.focus();}};
++ root.addEventListener('keydown',trap);uiDialogStates.set(root,{opener,disabled,trap});
++ root.querySelector('.utility-close,.rule-help-close')?.focus({preventScroll:true});
++}
++function restoreUiDialog(root){
++ const saved=uiDialogStates.get(root);if(!saved)return;
++ saved.disabled.forEach(el=>el.inert=false);root.removeEventListener('keydown',saved.trap);uiDialogStates.delete(root);
++ if(saved.opener?.isConnected&&!saved.opener.closest('[hidden]'))saved.opener.focus({preventScroll:true});
++}
++function setJoinRequestUi(busy){
++ const btn=$('join');if(!btn)return;btn.disabled=busy;btn.setAttribute('aria-busy',String(busy));btn.textContent=busy?'参加中…':'参加する';
++ clearTimeout(window.__joinRequestTimer);if(busy)window.__joinRequestTimer=setTimeout(()=>{setJoinRequestUi(false);$('joinFeedback').textContent='応答がありません。接続を確認してもう一度お試しください。';},16000);
++}
++function updateCpuPreview(){
++ const descriptions={auto:'おまかせ：未参加のCPUを優先して選びます。',kamomodoki:'かももどき：駆け引き・挑発型。危険札を仕込むのが得意。',wakumodoki:'ワクもどき：直感・大胆型。高札やコンボに挑戦。',rikumodoki:'リクもどき：分析・堅実型。危険札を冷静に管理。',nakato_modoki:'なかとーもどき：戦略・美意識型。順位の先行きまで計算。'};
++ $('cpuSelectionPreview').textContent=descriptions[$('cpuCharacterSelect').value]||descriptions.auto;
++}
++$('cpuCharacterSelect').addEventListener('change',updateCpuPreview);
++$('copyRoomCode').addEventListener('click',async()=>{
++ try{await navigator.clipboard.writeText($('roomCode').textContent);$('copyCodeFeedback').textContent='コードをコピーしました。友達に送って招待できます。';}
++ catch{const selection=getSelection(),range=document.createRange();range.selectNodeContents($('roomCode'));selection.removeAllRanges();selection.addRange(range);$('copyCodeFeedback').textContent='コードを選択しました。長押しまたはコピー操作で共有してください。';}
++});
++$('code').addEventListener('input',()=>{$('code').value=$('code').value.toUpperCase();$('code').removeAttribute('aria-invalid');$('joinFeedback').textContent='';});
++$('code').addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();$('join').click();}});
++
+ function selectedParticipantRole(){
+   return document.querySelector('input[name="participantRole"]:checked')?.value==='spectator' ? 'spectator' : 'player';
+ }
+@@ -8123,7 +8363,7 @@ function openGameUtilityPanel(view='log'){
+   if(view === 'rules') renderSelectedRuleSummary();
+   panel.hidden = false;
+   panel.setAttribute('aria-hidden','false');
+-  panel.querySelector('.utility-close')?.focus({preventScroll:true});
++  focusUiDialog(panel);
+ }
+ 
+ function closeGameUtilityPanel(){
+@@ -8131,6 +8371,7 @@ function closeGameUtilityPanel(){
+   if(!panel || panel.hidden) return;
+   panel.hidden = true;
+   panel.setAttribute('aria-hidden','true');
++  restoreUiDialog(panel);
+ }
+ 
+ function setupGameUtilityPanel(){
+@@ -8246,6 +8487,12 @@ function renderSpectatorPresence(){
+ function updateLobbyActionUi(){
+   renderLobbyParticipants(state);
+   if(!state) return;
++  const entered=!document.body.classList.contains('has-room');
++  document.body.classList.add('has-room');
++  if(entered && state.phase==='lobby'){$('roomInfo').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});}
++  $('roomReadyBanner').textContent=isHost()?'友達にコードを共有するか、CPUを追加しましょう。':'部屋に参加しました。ホストの開始を待ちましょう。';
++  $('cpuCharacterSelect').disabled=!isHost();
++  $('cpuAddHint').textContent=!isHost()?'CPUの追加・削除はホストが操作します。':state.players.length>=Number(state.playerSeatCapacity||4)?'人数がそろいました。ゲームを開始できます。':'同じCPUも複数追加できます。外すと最後に追加したCPUが退出します。';
+   const steps = document.querySelectorAll('.lobby-step');
+   const hasRoom = !!state.code && state.phase !== undefined;
+   const capacity=Number(state.playerSeatCapacity || 4);
+@@ -8296,7 +8543,7 @@ const RULE_HELP_TEXTS = {
+   roundDealMode:{
+     title:'次ラウンドの配り方',
+     body:[
+-      '標準は「全カードを回収してシャッフル」です。ラウンド終了時に得点を確定し、手札・ごちそう山・ペア浄化済みカードをすべて回収して、新しい13枚を配ります。',
++      '標準は「全カードを回収してシャッフル」です。ラウンド終了時に得点を確定し、手札・ごちそう山・ペア浄化済みカードをすべて回収して、3人は17枚、4人は13枚、5人は10枚を新しく配ります。',
+       '「残りカードを持ち越して補充」は旧ルール互換です。残り手札、ごちそう山、ペア浄化済みカードを保持し、手札だけ13枚まで通常カードで補充します。',
+       'どちらを選んでも、ラウンドごとの得点、ババブタ失点、シュート失点はゲーム終了まで正しく累計されます。',
+       '開始時3枚パスと開始時ペア捨ては、ゲーム開始時の第1ラウンドだけ実施します。'
+@@ -8478,6 +8725,7 @@ function updateRulePresetUi(){
+   summary.innerHTML = preset
+     ? `<span>現在の設定</span><b>${esc(preset.label)}</b><small>${esc(preset.description)}</small>`
+     : '<span>現在の設定</span><b>カスタム</b><small>詳細ルールを個別に調整したオリジナル設定です。</small>';
++  if($('setupRuleSummary')) $('setupRuleSummary').textContent=`${$('selectedPresetSummary')?.querySelector('b')?.textContent||'カスタム'}・${Number($('rounds').value||3)}ラウンド・シュート${$('shootThePigEnabled').value==='true'?'ON':'OFF'}`;
+ }
+ function applyRulePreset(key){
+   const preset = RULE_PRESETS[key];
+@@ -8504,6 +8752,7 @@ function setupRulePresets(){
+ 
+ function readRuleSelectionForTrend(){
+   return {
++    playerCount:Number($('playerCount')?.value || 4),
+     rounds:Number($('rounds')?.value || 3),
+     roundDealMode:$('roundDealMode')?.value || 'reshuffle',
+     feastPointPerCard:Math.max(0,Math.min(10,Math.trunc(Number($('feastPointPerCard')?.value ?? 1)))),
+@@ -8585,9 +8834,9 @@ function buildMatchTrendDescription(cfg){
+     tags.push('最弱から勝者へ'); pressure += 1;
+     points.push('最弱者が候補を出し、勝者が1枚受け取る従来ルールです。勝者の手札が増えやすくなります。');
+   }
+-  if(cfg.enableMiddleRankPick){
++  if(cfg.enableMiddleRankPick && cfg.playerCount!==3){
+     tags.push('中位ピック');chaos+=1;strategy+=1;
+-    points.unshift('1位↔最弱と2位→3位のピックを同時進行します。1トリックでカードが2回動き、全員が順位争いに関わりやすくなります。');
++    points.unshift(`1位↔最弱と2位→${cfg.playerCount===5?'4':'3'}位のピックを同時進行します。1トリックでカードが2回動き、全員が順位争いに関わりやすくなります。`);
+   }
+ 
+   if(cfg.pickCount === 0){ tags.push('ピック運大'); chaos += 2; points.push('候補を絞らず、提供者の手札全体から引きます。事故感と運要素が強くなります。'); }
+@@ -8612,7 +8861,7 @@ function buildMatchTrendDescription(cfg){
+   if(cfg.forceJokerPickCandidate && cfg.shootRequiresBabaMoved && cfg.shoot){
+     points.unshift('ババブタが卓上を移動しやすく、移動後のシュートを巡る駆け引きが強い組み合わせです。');
+   }
+-  if(cfg.enableMiddleRankPick && cfg.shootLoadFireMode && cfg.forceJokerPickCandidate){
++  if(cfg.enableMiddleRankPick && cfg.playerCount!==3 && cfg.shootLoadFireMode && cfg.forceJokerPickCandidate){
+     points.unshift('ババブタが非常に動きやすく、装填と発射を巡る派手な攻防が起こりやすい注目ルール構成です。');
+   }
+ 
+@@ -8663,6 +8912,7 @@ function openRuleHelp(ruleKey){
+   if(panel) panel.scrollTop = 0;
+   modal.classList.add('open');
+   modal.setAttribute('aria-hidden','false');
++  focusUiDialog(modal);
+ }
+ 
+ 
+@@ -8675,12 +8925,13 @@ function closeRuleHelp(ev=null){
+   if(!modal) return;
+   modal.classList.remove('open');
+   modal.setAttribute('aria-hidden','true');
++  restoreUiDialog(modal);
+ }
+ 
+ 
+ 
+ function setupRuleSelectionHelpers(){
+-  const ids = ['rounds','roundDealMode','feastPointPerCard','penaltyMode','madPigEnabled','jokerPenalty','jokerPenaltyTiming','shootThePigEnabled','shootThePigLimit','enableMiddleRankPick','shootLoadFireMode','forceJokerPickCandidate','shootRequiresBabaMoved','pickProviderRole','pickTargetCount','passThreeEnabled','initialPairDiscardEnabled'];
++  const ids = ['playerCount','rounds','roundDealMode','feastPointPerCard','penaltyMode','madPigEnabled','jokerPenalty','jokerPenaltyTiming','shootThePigEnabled','shootThePigLimit','enableMiddleRankPick','shootLoadFireMode','forceJokerPickCandidate','shootRequiresBabaMoved','pickProviderRole','pickTargetCount','passThreeEnabled','initialPairDiscardEnabled'];
+   ids.forEach(id=>{
+     const el = $(id);
+     if(!el || el.dataset.trendBound === '1') return;
+@@ -8703,6 +8954,7 @@ function setupRuleSelectionHelpers(){
+       const now = Date.now();
+       if(now - __ruleHelpOpenAt < 180) return;
+       __ruleHelpOpenAt = now;
++      btn.focus({preventScroll:true});
+       openRuleHelp(btn.dataset.helpRule);
+     };
+     btn.addEventListener('pointerdown', stopLabelAction);
+@@ -8918,10 +9170,12 @@ $('join').onclick=()=>{
+   if(!/^[A-Z0-9]{4}$/.test(enteredCode)){
+     const feedback=$('createFeedback');
+     if(feedback){ feedback.dataset.tone='error'; feedback.textContent='部屋コードを半角4文字で入力してください。'; }
++    $('code').setAttribute('aria-invalid','true');$('joinFeedback').textContent='部屋コードを半角英数字4文字で入力してください。';
+     $('code').focus();
+     hypeToast('部屋コードは半角4文字です','danger');
+     return;
+   }
++  setJoinRequestUi(true);$('joinFeedback').textContent='';
+   pendingConnectIntent='join';
+   participantRole=selectedParticipantRole();
+   const sameRoom=saved && saved.code===enteredCode;
+@@ -9304,6 +9558,10 @@ document.addEventListener('click', handleInitialPairEvent);
+ 
+ // Edge/PCブラウザ対策：手札カードもインラインonclickを使わずイベント委任で出す。
+ // 2トリック目以降にDOM再描画やグローバル名解決の影響でクリック不能になる問題を防ぐ。
++function accessibleCardLabel(card){
++ if(!card)return 'カード';if(card.joker)return 'ババブタ';
++ return `${suitUi(card.suit).name}の${card.rank}${isMadPig(card)?'、マッド・ピッグ':''}`;
++}
+ function playCardChoiceLabel(card){
+   if(!card) return 'カード';
+   if(card.joker) return 'ババブタ';
+@@ -9437,6 +9695,7 @@ function connect(after, isReconnect=false){
+       return;
+     }
+     if(msg.type==='created'||msg.type==='joined'||msg.type==='reconnected'){
++      setJoinRequestUi(false);
+       intentionalLeave=false;
+       reconnectBlockedElsewhere=false;
+       pendingConnectIntent='idle';
+@@ -9458,7 +9717,7 @@ function connect(after, isReconnect=false){
+         setCreateButtonState('created', `部屋を作成しました。部屋コード ${msg.code} を共有できます。`);
+         hypeToast('✅ 部屋を作成しました');
+       } else if(msg.type==='joined'){
+-        setCreateButtonState('idle', '参加モードです。部屋作成する場合は名前を確認して押してください。');
++        setCreateButtonState('idle', '部屋に参加しました。');
+       } else if(msg.type==='reconnected'){
+         // 復帰直後の最初のstateは現在状態として静かに採用し、切断中のイベントを再演出しない。
+         __animationStateHydrated=false;__animationOrigins.clear();
+@@ -9506,12 +9765,15 @@ function connect(after, isReconnect=false){
+       render();
+     }
+     if(msg.type==='playerSeatsFull'){
++      setJoinRequestUi(false);
+       const offer=$('playerSeatsFullOffer');
+       if(offer){offer.hidden=false;offer.querySelector('span').textContent=msg.message || '観戦者として参加できます。';}
+       const feedback=$('createFeedback');if(feedback){feedback.dataset.tone='neutral';feedback.textContent=msg.message || 'プレイヤー席は満員です。';}
+       setConnStatus('接続済');
+     }
+     if(msg.type==='errorMsg'){
++      if(pendingConnectIntent==='join'){$('joinFeedback').textContent=msg.message||'参加できませんでした。コードを確認してください。';$('code').setAttribute('aria-invalid','true');}
++      setJoinRequestUi(false);
+       setConnStatus('要確認');
+       if($('create')?.classList.contains('is-creating')) setCreateButtonState('error', msg.message || '部屋作成に失敗しました。');
+       if(reconnectInFlight){
+@@ -9543,6 +9805,7 @@ function connect(after, isReconnect=false){
+   };
+   socket.onclose=(event)=>{
+     if(socket !== ws || generation !== socketGeneration) return;
++    if(pendingConnectIntent==='join'){setJoinRequestUi(false);$('joinFeedback').textContent='接続が切れました。もう一度お試しください。';}
+     if(socketOpenTimer){ clearTimeout(socketOpenTimer); socketOpenTimer=null; }
+     stopSocketHealth();
+     stopReconnectLoop(false);
+@@ -9830,7 +10093,7 @@ function compactOptionChips(){
+   if(state.passThreeEnabled) chips.push('3枚パス');
+   if(state.initialPairDiscardEnabled) chips.push('開始ペア');
+   if(state.forceJokerPickCandidate) chips.push('🃏ババ必須候補');
+-  if(state.enableMiddleRankPick) chips.push('🥈2位→🥉3位ピック');
++  if(state.enableMiddleRankPick && Number(state.playerSeatCapacity||state.players?.length||4)!==3) chips.push(`${secondaryPickLabel()}ピック`);
+   if(state.shootLoadFireMode) chips.push(state.shootFiredThisRound?'🌕発射済み':'🌕装填→発射');
+   if(state.shootRequiresBabaMoved) chips.push(state.babaMovedThisRound?'🃏ババ移動済み✓':'🃏ババ移動まだ');
+   if(state.roundEndDeferred) chips.push('トリック後終了');
+@@ -9855,7 +10118,7 @@ function renderSelectedRuleSummary(){
+   if(!target || !state) return;
+   const rounds=Number(state.totalRounds || 3);
+   const pickCount=Number(state.pickTargetCount || 0);
+-  const summaryKey=[rounds,state.roundDealMode,state.feastPointPerCard,state.penaltyMode,state.jokerPenalty,state.jokerPenaltyTiming,state.madPigEnabled,state.shootThePigEnabled,state.shootThePigLimit,state.enableMiddleRankPick,state.shootLoadFireMode,state.shootFiredThisRound,state.forceJokerPickCandidate,state.shootRequiresBabaMoved,state.babaMovedThisRound,state.babaMoveCountThisRound,state.pickProviderRole,pickCount,state.passThreeEnabled,state.initialPairDiscardEnabled].join('|');
++  const summaryKey=[state.playerSeatCapacity,state.cardsPerPlayer,rounds,state.roundDealMode,state.feastPointPerCard,state.penaltyMode,state.jokerPenalty,state.jokerPenaltyTiming,state.madPigEnabled,state.shootThePigEnabled,state.shootThePigLimit,state.enableMiddleRankPick,state.shootLoadFireMode,state.shootFiredThisRound,state.forceJokerPickCandidate,state.shootRequiresBabaMoved,state.babaMovedThisRound,state.babaMoveCountThisRound,state.pickProviderRole,pickCount,state.passThreeEnabled,state.initialPairDiscardEnabled].join('|');
+   if(summaryKey===__lastActiveRuleSummaryKey) return;
+   __lastActiveRuleSummaryKey=summaryKey;
+   const jokerTiming=state.jokerPenaltyTiming==='gameEnd' ? 'ゲーム終了時に一度' : '各ラウンド';
+@@ -9890,7 +10153,7 @@ function renderSelectedRuleSummary(){
+   ];
+   target.innerHTML=`
+     <div class="active-rule-chips">${compactOptionChips().map(chip=>`<span>${esc(chip)}</span>`).join('')}</div>
+-    <div class="active-rule-basics"><b>共通の進め方</b><p>リードスートを持っていれば必ずフォロー。リードスートの最大が勝者、規定の最小が最弱。勝者は場の${state.playerSeatCapacity}枚を山へ取り、設定された提供者から反対側へ1枚移します。追加ピックONでは${primaryPickLabel()}に加え${secondaryPickLabel()}も同時進行します。受取人は同じ数字をペア浄化でき、次のリードは勝者です。</p></div>
++    <div class="active-rule-basics"><b>共通の進め方</b><p>リードスートを持っていれば必ずフォロー。リードスートの最大が勝者、規定の最小が最弱。勝者は場の${state.playerSeatCapacity}枚を山へ取り、設定された提供者から反対側へ1枚移します。${Number(state.playerSeatCapacity||state.players?.length||4)===3?'3人用では追加ピックを行いません。':state.enableMiddleRankPick?`${primaryPickLabel()}に加え${secondaryPickLabel()}も同時進行します。`:'中位の追加ピックはOFFです。'}受取人は同じ数字をペア浄化でき、次のリードは勝者です。</p></div>
+     <div class="active-rule-grid">${cards.map(([name,value])=>`<article><b>${esc(name)}</b><p>${esc(value)}</p></article>`).join('')}</div>`;
+ }
+ 
+@@ -10707,7 +10970,7 @@ function updatePassSelectionUI(){
+     btn.classList.toggle('pass-selected', selected);
+     btn.setAttribute('aria-pressed',selected?'true':'false');
+     const card=hand.find(c=>c.id===id);
+-    if(card) btn.setAttribute('aria-label',`${playCardChoiceLabel(card)}を3枚パス候補に${selected?'選択済み':'選ぶ'}`);
++    if(card) btn.setAttribute('aria-label',`${accessibleCardLabel(card)}を3枚パス候補に${selected?'選択済み':'選ぶ'}`);
+   });
+ 
+   const countEl = document.getElementById('passCount');
+@@ -10734,7 +10997,7 @@ function updateInitialPairSelectionUI(){
+     btn.classList.toggle('initial-candidate', isCandidate);
+     btn.classList.toggle('initial-dim', isDim);
+     btn.setAttribute('aria-pressed',isSelected?'true':'false');
+-    if(card) btn.setAttribute('aria-label',`${playCardChoiceLabel(card)}を開始時ペア候補に${isSelected?'選択済み':'選ぶ'}`);
++    if(card) btn.setAttribute('aria-label',`${accessibleCardLabel(card)}を開始時ペア候補に${isSelected?'選択済み':'選ぶ'}`);
+   });
+   renderRoundStatus();
+ }
+@@ -10758,7 +11021,7 @@ function updatePickTargetSelectionUI(pickId=''){
+     btn.disabled=mandatory;
+     btn.setAttribute('aria-pressed',selected?'true':'false');
+     const card=hand.find(c=>c.id===id);
+-    if(card) btn.setAttribute('aria-label',mandatory?`${playCardChoiceLabel(card)}はルールにより必須候補`:`${playCardChoiceLabel(card)}をピック候補に${selected?'選択済み':'選ぶ'}`);
++    if(card) btn.setAttribute('aria-label',mandatory?`${accessibleCardLabel(card)}はルールにより必須候補`:`${accessibleCardLabel(card)}をピック候補に${selected?'選択済み':'選ぶ'}`);
+     const label = btn.querySelector('.small');
+     if(label) label.textContent = mandatory ? '必須候補' : selected ? '候補' : '選ぶ';
+   });
+@@ -10934,7 +11197,7 @@ function renderTable(){
+         for(const c of targetVisualHand){
+           const selected = pickTargetSelectedIds.includes(c.id);
+           const mandatory=mandatoryIds.includes(c.id);
+-          const aria=mandatory?`${playCardChoiceLabel(c)}はルールにより必須候補`:`${playCardChoiceLabel(c)}をピック候補に${selected?'選択済み':'選ぶ'}`;
++          const aria=mandatory?`${accessibleCardLabel(c)}はルールにより必須候補`:`${accessibleCardLabel(c)}をピック候補に${selected?'選択済み':'選ぶ'}`;
+           html += `<button type="button" class="pick-target-card ${selected?'selected':''} ${mandatory?'mandatory-pick-card':''}" ${mandatory?'disabled':''} data-pick-target-card-id="${escAttr(c.id)}" aria-label="${escAttr(aria)}" aria-pressed="${selected?'true':'false'}">${mandatory?'<span class="mandatory-pick-badge">🃏 必須候補</span>':''}${cardHTML(c,true)}<div class="small">${mandatory?'必須候補':selected?'候補':'選ぶ'}</div></button>`;
+         }
+         html += `</div><button type="button" class="btn" ${count===need?'':'disabled'} data-pick-target-submit="1">この${need}枚を候補にする</button><div class="small">選んだ候補は、${esc(picker.name)}側ではランダム順で表示されます。</div></div>`;
+@@ -10951,7 +11214,7 @@ function renderTable(){
+       if(state.yourIndex===pickerPid && Array.isArray(pc.candidates)){
+         html += `<div class="pair-choice"><h4>ペア浄化するカードを選択</h4><div class="pair-cards" data-card-count="${pc.candidates.length}">`;
+         for(const c of pc.candidates){
+-          html += `<button type="button" class="pair-card-btn" data-pair-card-id="${escAttr(c.id)}" aria-label="${escAttr(playCardChoiceLabel(c))}と引いたカードをペア浄化する">${cardHTML(c,true)}<div class="small">この札と浄化</div></button>`;
++          html += `<button type="button" class="pair-card-btn" data-pair-card-id="${escAttr(c.id)}" aria-label="${escAttr(accessibleCardLabel(c))}と引いたカードをペア浄化する">${cardHTML(c,true)}<div class="small">この札と浄化</div></button>`;
+         }
+         html += `</div><button type="button" class="btn secondary skip-pair" data-pair-skip="1">ペア浄化をスキップ</button></div>`;
+       } else {
+@@ -11154,8 +11417,9 @@ function renderHand(){
+   } else if(state?.phase === 'playing' && state?.isYourTurn && playableSet.size === 0){
+     note = `<div class="notice info"><div class="notice-title">出せるカードなし</div><div class="notice-body">終了条件の処理を待っています。</div></div>`;
+   } else if(state?.phase === 'playing' && state?.isYourTurn){
+-    note = `<div class="notice info"><div class="notice-title">あなたの手番</div><div class="notice-body">光っているカードを選んでください。</div></div>`;
++    note = `<div class="notice info"><div class="notice-title">あなたの手番</div><div class="notice-body">出せるカードを選び、もう一度タップで出します。</div></div>`;
+   }
++  if(!note && state?.phase==='playing') note='<div class="notice info"><div class="notice-title">次の手番を待っています</div><div class="notice-body">「広げる」で手札を確認できます。</div></div>';
+   $('handNote').innerHTML = note;
+ 
+   const alerts = [];
+@@ -11177,7 +11441,7 @@ function renderHand(){
+     if(state?.phase === 'passing'){
+       const passable = !passDone && passableSet.has(c.id);
+       const selectedPass = passSelectedIds.includes(c.id);
+-      return `<button type="button" class="hand-card ${passable?'passable':'pass-disabled'} ${selectedPass?'pass-selected':''}" ${passable?'':'disabled'} data-pass-card-id="${escAttr(c.id)}" aria-label="${escAttr(playCardChoiceLabel(c))}を3枚パス候補に${selectedPass?'選択済み':'選ぶ'}" aria-pressed="${selectedPass?'true':'false'}">${cardHTML(c, passable)}</button>`;
++      return `<button type="button" class="hand-card ${passable?'passable':'pass-disabled'} ${selectedPass?'pass-selected':''}" ${passable?'':'disabled'} data-pass-card-id="${escAttr(c.id)}" aria-label="${escAttr(accessibleCardLabel(c))}を3枚パス候補に${selectedPass?'選択済み':'選ぶ'}" aria-pressed="${selectedPass?'true':'false'}">${cardHTML(c, passable)}</button>`;
+     }
+     if(state?.phase === 'initialPair'){
+       const done = Array.isArray(state.initialPairDone) && state.initialPairDone.includes(state.yourIndex);
+@@ -11185,13 +11449,13 @@ function renderHand(){
+       const selectedCls = selected === c.id ? 'initial-selected' : '';
+       const candidate = selectedCard && !c.joker && c.id !== selected && c.rank === selectedCard.rank;
+       const dim = selectedCard && !candidate && selected !== c.id ? 'initial-dim' : '';
+-      return `<button type="button" class="hand-card ${selectable?'initial-selectable':'un'} ${selectedCls} ${candidate?'initial-candidate':''} ${dim}" ${selectable?'':'disabled'} data-initial-card-id="${escAttr(c.id)}" aria-label="${escAttr(playCardChoiceLabel(c))}を開始時ペア候補に${selected===c.id?'選択済み':'選ぶ'}" aria-pressed="${selected===c.id?'true':'false'}">${cardHTML(c, selectable)}</button>`;
++      return `<button type="button" class="hand-card ${selectable?'initial-selectable':'un'} ${selectedCls} ${candidate?'initial-candidate':''} ${dim}" ${selectable?'':'disabled'} data-initial-card-id="${escAttr(c.id)}" aria-label="${escAttr(accessibleCardLabel(c))}を開始時ペア候補に${selected===c.id?'選択済み':'選ぶ'}" aria-pressed="${selected===c.id?'true':'false'}">${cardHTML(c, selectable)}</button>`;
+     }
+     const can = playableSet.has(c.id);
+     const selectedPlay=selectedPlayCardId===c.id;
+     const committing=selectedPlay && playCommitPending;
+     const fanEnter=firstVisibleHand || !previousHandIds.has(c.id);
+-    return `<button type="button" class="hand-card ${can?'':'un'} ${selectedPlay?'is-selected':''} ${committing?'is-committing':''} ${fanEnter?'fan-enter':''}" style="${fanCardStyle(index,hand.length)}" ${can?'': 'disabled'} data-card-id="${escAttr(c.id)}" aria-label="${escAttr(playCardChoiceLabel(c))}${can?'を選ぶ':'・現在は出せません'}" aria-pressed="${selectedPlay?'true':'false'}">${cardHTML(c, can)}</button>`;
++    return `<button type="button" class="hand-card ${can?'':'un'} ${selectedPlay?'is-selected':''} ${committing?'is-committing':''} ${fanEnter?'fan-enter':''}" style="${fanCardStyle(index,hand.length)}" ${can?'': 'disabled'} data-card-id="${escAttr(c.id)}" aria-label="${escAttr(accessibleCardLabel(c))}${can?'を選ぶ':'・現在は出せません'}" aria-pressed="${selectedPlay?'true':'false'}">${cardHTML(c, can)}</button>`;
+   }).join('') || '<p class="small">手札はまだありません。</p>';
+ 
+   $('hand').innerHTML = cards;
+@@ -11421,6 +11685,13 @@ function renderScore(){
+ 
+   const scoreHtml = `
+     <div class="final-stage">
++      <div class="final-actions">
++        <button type="button" class="btn secondary" data-scroll-top>上に戻る</button>
++        ${isHost()
++          ? `<button type="button" class="btn" data-rematch>同じメンバー・同じルールで再戦</button>`
++          : `<button type="button" class="btn" disabled aria-disabled="true" title="ホストが再戦を開始できます">ホストの再戦操作を待つ</button>`}
++        <button type="button" class="btn secondary" data-new-game>新しい部屋で遊ぶ</button>
++      </div>
+       <div class="final-hero">
+         <div class="crown">🏆🐷🏆</div>
+         <h3>${topPlayers.length>1?'収穫祭、同率優勝は…':'収穫祭、優勝は…'}</h3>
+@@ -11437,13 +11708,7 @@ function renderScore(){
+           ${rows}
+         </table>
+       </div>
+-      <div class="final-actions">
+-        <button type="button" class="btn secondary" data-scroll-top>上に戻る</button>
+-        ${isHost()
+-          ? `<button type="button" class="btn" data-rematch>同じメンバー・同じルールで再戦</button>`
+-          : `<button type="button" class="btn" disabled aria-disabled="true" title="ホストが再戦を開始できます">ホストの再戦操作を待つ</button>`}
+-        <button type="button" class="btn secondary" data-new-game>新しい部屋で遊ぶ</button>
+-      </div>
++
+     </div>
+   `;
+   const key = JSON.stringify((state.players||[]).map(p=>[p.name,p.avatar,p.connected,p.final?.total,p.final?.pile,p.final?.pileScore,p.final?.completedRoundCardScore,p.final?.jokerPenalty,p.final?.madPigPenalty,p.final?.shootPigPenalty,p.final?.shootPigActivatedRounds?.join(','),p.final?.shootBlockedByUnmovedBaba,(p.playEvaluation||[]).join('|'),p.matchStats?.trickWins,p.matchStats?.pairCleans,p.matchStats?.babaForcedCandidateCount,p.matchStats?.babaForcedTransferCount,p.matchStats?.shootBlockedByUnmovedBabaCount]).concat([state.hostId,state.you,state.feastPointPerCard,state.jokerPenaltyTiming,state.shootThePigEnabled,state.shootThePigLimit,state.forceJokerPickCandidate,state.shootRequiresBabaMoved,state.babaMovedThisRound,state.madPigEnabled,state.penaltyMode,state.roundDealMode]));

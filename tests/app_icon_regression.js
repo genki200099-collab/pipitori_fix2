@@ -23,7 +23,7 @@ assert.match(server, /'\.webmanifest':'application\/manifest\+json; charset=utf-
 assert.deepStrictEqual(pngDimensions(path.join(publicDir, 'apple-touch-icon.png')), [180,180]);
 assert.deepStrictEqual(pngDimensions(path.join(publicDir, 'app-icon-192.png')), [192,192]);
 assert.deepStrictEqual(pngDimensions(path.join(publicDir, 'app-icon-512.png')), [512,512]);
-assert.deepStrictEqual(pngDimensions(path.join(publicDir, 'app-icon-1024.png')), [1024,1024]);
+assert.deepStrictEqual(pngDimensions(path.join(publicDir, 'app-icon-32.png')), [32,32]);
 const ico = fs.readFileSync(path.join(publicDir, 'favicon.ico'));
 assert.strictEqual(ico.readUInt16LE(0), 0);
 assert.strictEqual(ico.readUInt16LE(2), 1);

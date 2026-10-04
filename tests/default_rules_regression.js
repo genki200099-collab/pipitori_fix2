@@ -346,18 +346,21 @@ assert.strictEqual(api.normalizePickProviderRole('legacy'),'winner');
   assert.strictEqual(room.roundDealMode,'reshuffle');
   assert.strictEqual(room.penaltyMode,'mud6');
   assert.strictEqual(room.pickTargetCount,2);
-  assert.strictEqual(room.shootThePigEnabled,true);
+  assert.strictEqual(room.shootThePigEnabled,false);
   assert.strictEqual(room.shootThePigLimit,'unlimited');
-  assert.strictEqual(room.forceJokerPickCandidate,false);
+  assert.strictEqual(room.forceJokerPickCandidate,true);
+  assert.strictEqual(room.enableMiddleRankPick,true);
   assert.strictEqual(room.shootRequiresBabaMoved,false);
   assert.strictEqual(room.passThreeEnabled,false);
   assert.strictEqual(room.initialPairDiscardEnabled,false);
   assert.ok(sent.some(x=>x.type==='created'));
   const state=api.publicState(room,room.players[0].id);
   assert.strictEqual(state.shootThePigLimit,'unlimited');
+  assert.strictEqual(state.shootThePigEnabled,false);
   assert.strictEqual(state.shootThePigPerPlayerLimit,null);
   assert.strictEqual(state.roundDealMode,'reshuffle');
-  assert.strictEqual(state.forceJokerPickCandidate,false);
+  assert.strictEqual(state.forceJokerPickCandidate,true);
+  assert.strictEqual(state.enableMiddleRankPick,true);
   assert.strictEqual(state.shootRequiresBabaMoved,false);
   assert.strictEqual(state.players[0].shootUsed,false);
 }
@@ -448,6 +451,8 @@ assert.strictEqual(api.normalizePickProviderRole('legacy'),'winner');
 // Static UI contract: selected option, standard preset, help copy, and no weakest +3 bonus.
 {
   const html=fs.readFileSync(htmlPath,'utf8');
+  assert.match(html,/<select id="shootThePigEnabled" class="input"><option value="false" selected>OFF<\/option><option value="true">ON<\/option><\/select>/);
+  assert.strictEqual((html.match(/shootThePigEnabled:'false'/g)||[]).length,4);
   assert.match(html,/<option value="mud6" selected>リンゴ・トウモロコシ・キャベツは-3点、通常の💧は-6点<\/option>/);
   assert.match(html,/<select id="roundDealMode"[^>]*><option value="reshuffle" selected>全カードを回収してシャッフル<\/option>/);
   assert.match(html,/values:\{rounds:'3',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6'.*pickProviderRole:'winner',pickTargetCount:'2'.*passThreeEnabled:'false'.*initialPairDiscardEnabled:'false'/);

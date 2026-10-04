@@ -72,6 +72,6 @@ assert.match(html,/id="shootThePigLimit"/);
 assert.match(html,/<option value="unlimited" selected>無制限<\/option>/);
 assert.match(html,/<option value="once">1人1回まで<\/option>/);
 assert.match(html,/shootThePigLimit:\$\('shootThePigLimit'\)\.value \|\| 'unlimited'/);
-assert.match(html,/シュートON（両方とも手札・無制限）/);
+assert.match(html,/シュートOFF（ON時は両方とも手札・無制限）/);
 assert.doesNotMatch(html,/シュートON（両方とも手札・各自1回）/);
 console.log('shoot limit regression: all assertions passed');

@@ -1,0 +1,37 @@
+'use strict';
+const assert=require('assert');
+const crypto=require('crypto');
+const fs=require('fs');
+const path=require('path');
+const vm=require('vm');
+const root=path.resolve(__dirname,'..');
+const source=fs.readFileSync(path.join(root,'server.js'),'utf8');
+const html=fs.readFileSync(path.join(root,'public','index.html'),'utf8');
+class FakeWebSocketServer{constructor(){this.clients=new Set();}on(){}}
+const fakeHttpServer={listen(){}};
+const sandbox={console,Buffer,process:{env:{}},__dirname:root,setTimeout:()=>1,clearTimeout:()=>{},setInterval:()=>1,clearInterval:()=>{},require(name){
+ if(name==='http')return{createServer:()=>fakeHttpServer}; if(name==='ws')return{Server:FakeWebSocketServer,OPEN:1}; if(name==='crypto')return crypto;if(name==='fs')return fs;if(name==='path')return path;if(name==='./cpu_personality_dialogue')return require(path.join(root,'cpu_personality_dialogue.js'));if(name==='./spotlight_priority')return require(path.join(root,'spotlight_priority.js'));throw new Error(name);
+}};sandbox.globalThis=sandbox;
+vm.runInNewContext(`${source}\n;globalThis.__api={finishAfterPick,checkRoundEnd,ensureLobbyHost,makeDeck};`,sandbox,{filename:'server.js'});
+const api=sandbox.__api;
+const ws=()=>({readyState:1,send(){}});
+const player=(id,hand)=>({id,name:id,resumeToken:id,cpu:false,ws:ws(),hand,scorePile:[],pairs:[],completedRoundCardScoreBank:0,jokerPenaltyBank:0,shootPigPenaltyBank:0,shootPigFinalMadPigWaived:false,shootPigGameEndJokerWaived:false,shootPigActivatedRounds:[],out:false});
+const deck=api.makeDeck();
+const players=[0,1,2,3].map(i=>player(`P${i}`,deck.slice(i*3,i*3+3)));
+const room={code:'VIS1',hostId:'P0',players,phase:'playing',round:1,totalRounds:3,roundDealMode:'reshuffle',madPigEnabled:true,shootThePigEnabled:true,jokerPenalty:20,jokerPenaltyTiming:'perRound',penaltyMode:'mud6',pickTargetCount:2,lead:0,current:null,leadSuit:'apple',trick:[],stock:[],log:[],commentary:[],pendingPick:{winnerPid:0,weakestPid:1,result:{drawn:deck[20]},token:'p'},trickReview:null,pairCleanEvent:{id:'pair-old'},madPigEvent:{id:'mad-old'},spotlightEvent:null,pendingSpotlightPlans:[],shootPigRoundResults:{},initialPairDone:[],passDone:[],passSelections:{},transientTimers:new Map()};
+api.finishAfterPick(room,0);
+assert.strictEqual(room.pairCleanEvent,null,'completed pair event must not leak into next trick');
+assert.strictEqual(room.madPigEvent,null,'completed mad event must not leak into next trick');
+const endPlayers=[player('E0',[]),player('E1',[deck[1]]),player('E2',[deck[2]]),player('E3',[deck[3]])];
+const endRoom={...room,players:endPlayers,phase:'playing',current:0,pendingPick:null,trick:[],lastTrick:{winnerName:'old'},pairCleanEvent:{id:'pair-end'},madPigEvent:{id:'mad-end'},roundEndDeferred:null};
+assert.strictEqual(api.checkRoundEnd(endRoom,0),true);
+assert.strictEqual(endRoom.lastTrick,null);
+assert.strictEqual(endRoom.pairCleanEvent,null);
+assert.strictEqual(endRoom.madPigEvent,null);
+assert.match(html,/function clearTimedOverlay/);
+assert.match(html,/root\.dataset\.eventId!==safeEventId/);
+assert.match(html,/__babaDrawOverlayClearTimer/);
+assert.match(html,/__shootPigOverlayClearTimer/);
+assert.match(html,/body\.spotlight-active \.commentary-layer/);
+assert.match(html,/timedOverlayHoldMs/);
+console.log('transient visual lifecycle regression: all assertions passed');

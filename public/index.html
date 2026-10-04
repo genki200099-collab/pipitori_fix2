@@ -4059,6 +4059,8 @@ body.gameplay-mode .hero,body.gameplay-mode #lobby{display:none!important}
 .table-players.players{position:absolute;inset:0;display:block;z-index:6;pointer-events:none}
 .table-players .player{position:absolute;width:clamp(126px,14vw,184px);min-height:64px;padding:7px 9px;border:1px solid rgba(255,255,255,.18);border-radius:16px;background:linear-gradient(145deg,rgba(5,28,34,.92),rgba(8,45,47,.9));color:#fff;box-shadow:0 10px 24px rgba(0,0,0,.24);display:grid;grid-template-columns:44px minmax(0,1fr);grid-template-rows:auto auto;column-gap:8px;align-items:center;text-align:left;overflow:visible;backdrop-filter:blur(10px)}
 .table-players .player.position-top{top:9px;left:50%;transform:translateX(-50%)}
+.table-players .player.position-upper-left{top:9px;left:24%;transform:translateX(-50%)}
+.table-players .player.position-upper-right{top:9px;right:24%;transform:translateX(50%)}
 .table-players .player.position-left{left:9px;top:50%;transform:translateY(-50%)}
 .table-players .player.position-right{right:9px;top:50%;transform:translateY(-50%)}
 .table-players .player.position-bottom{bottom:9px;left:50%;transform:translateX(-50%)}
@@ -4127,7 +4129,7 @@ body.finished-mode{overflow:auto}body.finished-mode .game-screen{display:block;h
 .rule-presets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}.rule-preset{position:relative;min-width:0;min-height:132px;padding:14px 12px 12px;border:1px solid rgba(72,33,52,.14);border-radius:20px;background:rgba(255,255,255,.82);color:#4a2638;text-align:left;cursor:pointer;box-shadow:0 8px 18px rgba(72,33,52,.06);transition:transform .18s ease,border-color .18s ease,box-shadow .18s ease,background .18s ease;touch-action:manipulation}.rule-preset:hover,.rule-preset:focus-visible{transform:translateY(-3px);border-color:rgba(191,38,67,.42);outline:none;box-shadow:0 15px 26px rgba(72,33,52,.12)}.rule-preset.is-selected{border-color:#d63d5a;background:linear-gradient(145deg,#fff,#fff0f2);box-shadow:0 0 0 3px rgba(214,61,90,.12),0 14px 28px rgba(133,31,55,.12)}.preset-check{position:absolute;right:9px;top:9px;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#d83d5b;color:#fff;font-size:12px;opacity:0;transform:scale(.6);transition:.18s}.rule-preset.is-selected .preset-check{opacity:1;transform:scale(1)}.preset-icon{display:block;font-size:26px;line-height:1}.preset-copy{display:block;margin-top:10px}.preset-copy b{display:block;font-size:15px}.preset-copy small{display:block;margin-top:2px;color:#846b77;font-size:10px;font-weight:800}.preset-meta{display:block;margin-top:10px;padding-top:8px;border-top:1px solid rgba(72,33,52,.09);color:#795c6a;font-size:9px;font-weight:1000;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .selected-preset-summary{display:grid;grid-template-columns:auto auto minmax(0,1fr);align-items:center;gap:8px 10px;margin-top:12px;padding:10px 12px;border:1px solid rgba(88,178,155,.28);border-radius:16px;background:rgba(235,255,249,.74)}.selected-preset-summary>span{color:#45756b;font-size:9px;font-weight:1000;letter-spacing:.12em}.selected-preset-summary>b{padding:4px 8px;border-radius:999px;background:#16665c;color:#fff;font-size:11px}.selected-preset-summary>small{color:#42655e;font-size:11px;font-weight:800}.selected-preset-summary.is-custom{border-color:rgba(115,77,180,.28);background:rgba(247,241,255,.8)}.selected-preset-summary.is-custom>b{background:#6e4aaa}
 .rule-preset-panel+.advanced-settings{margin-top:12px}.rule-preset-panel+.advanced-settings .advanced-settings-summary{margin-top:0}
-.cpu-cast-panel{margin-top:16px;padding:18px;border:1px solid rgba(72,33,52,.13);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.87),rgba(235,251,248,.72));box-shadow:0 15px 32px rgba(72,33,52,.07)}.cpu-cast-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px}.cpu-cast-head p{max-width:520px;text-align:right}.cpu-cast-list{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:14px}.cpu-cast-card{--cast:#d83d5b;display:grid;grid-template-columns:66px minmax(0,1fr);gap:11px;min-width:0;padding:12px;border:1px solid color-mix(in srgb,var(--cast) 28%,transparent);border-radius:20px;background:rgba(255,255,255,.84);box-shadow:0 8px 18px rgba(72,33,52,.06)}.cpu-cast-card.wakumodoki{--cast:#df7a25}.cpu-cast-card.rikumodoki{--cast:#3d75b9}.cpu-cast-card img{width:66px;height:66px;border:3px solid color-mix(in srgb,var(--cast) 36%,white);border-radius:18px;object-fit:cover;box-shadow:0 8px 15px rgba(72,33,52,.14)}.cpu-cast-card b{display:block;color:#462335;font-size:14px}.cpu-cast-card span{display:inline-block;margin-top:3px;padding:2px 6px;border-radius:999px;background:color-mix(in srgb,var(--cast) 13%,white);color:var(--cast);font-size:9px;font-weight:1000}.cpu-cast-card p{margin:6px 0 4px;color:#715c67;font-size:10px;font-weight:800;line-height:1.4}.cpu-cast-card q{display:block;color:var(--cast);font-size:9px;font-weight:1000;quotes:none}
+.cpu-cast-panel{margin-top:16px;padding:18px;border:1px solid rgba(72,33,52,.13);border-radius:26px;background:linear-gradient(145deg,rgba(255,255,255,.87),rgba(235,251,248,.72));box-shadow:0 15px 32px rgba(72,33,52,.07)}.cpu-cast-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px}.cpu-cast-head p{max-width:520px;text-align:right}.cpu-cast-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin-top:14px}.cpu-cast-card{--cast:#d83d5b;display:grid;grid-template-columns:66px minmax(0,1fr);gap:11px;min-width:0;padding:12px;border:1px solid color-mix(in srgb,var(--cast) 28%,transparent);border-radius:20px;background:rgba(255,255,255,.84);box-shadow:0 8px 18px rgba(72,33,52,.06)}.cpu-cast-card.wakumodoki{--cast:#df7a25}.cpu-cast-card.rikumodoki{--cast:#3d75b9}.cpu-cast-card.nakato-modoki{--cast:#8e477a}.cpu-cast-card img{width:66px;height:66px;border:3px solid color-mix(in srgb,var(--cast) 36%,white);border-radius:18px;object-fit:cover;box-shadow:0 8px 15px rgba(72,33,52,.14)}.cpu-cast-card b{display:block;color:#462335;font-size:14px}.cpu-cast-card span{display:inline-block;margin-top:3px;padding:2px 6px;border-radius:999px;background:color-mix(in srgb,var(--cast) 13%,white);color:var(--cast);font-size:9px;font-weight:1000}.cpu-cast-card p{margin:6px 0 4px;color:#715c67;font-size:10px;font-weight:800;line-height:1.4}.cpu-cast-card q{display:block;color:var(--cast);font-size:9px;font-weight:1000;quotes:none}
 
 /* コメントの局面・感情・強度を視覚化 */
 .commentary-layer .speech-bubble{--speaker:#55cbb3;position:relative;border-left:3px solid var(--speaker);overflow:visible;transform-origin:85% 50%}.commentary-layer .speech-bubble.kamomodoki{--speaker:#ff7181}.commentary-layer .speech-bubble.wakumodoki{--speaker:#ffab4b}.commentary-layer .speech-bubble.rikumodoki{--speaker:#65a8e8}.speech-cue{position:absolute;right:-7px;top:-11px;display:grid;place-items:center;width:26px;height:26px;border:1px solid rgba(255,255,255,.45);border-radius:10px;background:var(--speaker);box-shadow:0 6px 14px rgba(0,0,0,.25);font-size:14px;transform:rotate(5deg)}.speech-meta{display:flex;align-items:center;gap:5px;min-width:0}.speech-tag{max-width:92px;padding:1px 5px;border-radius:999px;background:color-mix(in srgb,var(--speaker) 22%,transparent);color:#eafff7;font-size:6px;font-weight:1000;letter-spacing:.08em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.commentary-layer .speech-bubble.mood-victory{background:linear-gradient(145deg,rgba(57,45,12,.96),rgba(7,42,40,.94));border-color:#f1c75b;animation:speechVictory .55s cubic-bezier(.2,1.45,.3,1)}.commentary-layer .speech-bubble.mood-danger,.commentary-layer .speech-bubble.mood-shock{background:linear-gradient(145deg,rgba(91,18,36,.97),rgba(34,12,27,.95));border-color:#ff7181}.commentary-layer .speech-bubble.mood-shock{animation:speechShock .46s ease-in-out}.commentary-layer .speech-bubble.mood-suspense,.commentary-layer .speech-bubble.mood-scheme{background:linear-gradient(145deg,rgba(45,21,67,.96),rgba(6,33,39,.95));border-color:#bd82f3}.commentary-layer .speech-bubble.mood-relief{background:linear-gradient(145deg,rgba(10,73,61,.96),rgba(5,35,39,.94));border-color:#64dfbd;animation:speechRelief .6s ease-out}.commentary-layer .speech-bubble.mood-analysis,.commentary-layer .speech-bubble.mood-summary{background:linear-gradient(145deg,rgba(17,48,75,.97),rgba(5,35,42,.95));border-color:#65a8e8}.commentary-layer .speech-bubble.mood-hype{background:linear-gradient(145deg,rgba(105,48,7,.96),rgba(44,20,35,.95));border-color:#ffab4b;animation:speechHype .55s cubic-bezier(.2,1.5,.3,1)}.commentary-layer.intensity-critical{width:min(330px,39vw)}.commentary-layer .speech-bubble.intensity-critical{box-shadow:0 0 0 3px color-mix(in srgb,var(--speaker) 28%,transparent),0 16px 38px rgba(0,0,0,.4)}.commentary-layer .speech-bubble.intensity-strong .speech-body p,.commentary-layer .speech-bubble.intensity-critical .speech-body p{font-weight:1000}.commentary-layer .speech-bubble.from-left{transform-origin:0 50%}.commentary-layer .speech-bubble.from-top{transform-origin:50% 0}.commentary-layer .speech-bubble.from-right{transform-origin:100% 50%}
@@ -7291,18 +7293,212 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
     margin:0;
   }
 }
+
+/* v44: clear room flow, readable controls, accessible sheets */
+:root{color-scheme:light}
+body.modern-game-ui{font-family:-apple-system,BlinkMacSystemFont,"Hiragino Sans","Noto Sans JP",sans-serif;font-size:1rem;line-height:1.55}
+body.modern-game-ui:not(.gameplay-mode) #app{max-width:1080px;padding:16px max(12px,env(safe-area-inset-right)) max(24px,env(safe-area-inset-bottom)) max(12px,env(safe-area-inset-left))}
+body.modern-game-ui .hero{padding:16px!important;margin-bottom:16px;border-radius:22px}
+body.modern-game-ui .hero-brand{display:flex;align-items:center;justify-content:center;gap:20px}
+body.modern-game-ui .game-logo{width:190px!important;max-width:40%!important;height:auto!important;margin:0!important}
+body.modern-game-ui .hero-meta{text-align:left}
+body.modern-game-ui h1.hero-subtitle{font-size:1.5rem!important;line-height:1.3;margin:0;color:#642d36}
+body.modern-game-ui .hero-meta p{font-size:.875rem!important;line-height:1.5;margin:4px 0 0;color:#56463c}
+body.modern-game-ui #lobby{padding:20px!important;color:#33251d}
+body.modern-game-ui #lobby>h2{font-size:1.25rem;margin:0 0 12px}
+body.modern-game-ui .lobby-guide{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;margin:0 0 16px}
+body.modern-game-ui .lobby-step{font-size:.875rem!important;padding:8px!important;min-height:44px;display:flex;gap:5px;align-items:center}
+body.modern-game-ui .lobby-step b{font-size:.875rem!important;flex-shrink:0}
+body.modern-game-ui .lobby-profile{padding:14px!important;margin:0 0 12px!important}
+body.modern-game-ui .lobby-profile-copy b{font-size:1rem!important}
+body.modern-game-ui #lobby small,body.modern-game-ui #lobby em,body.modern-game-ui #lobby .small,body.modern-game-ui #lobby .menu-eyebrow{font-size:.8125rem!important;line-height:1.5!important;color:#665043}
+body.modern-game-ui #lobby p{font-size:1rem;line-height:1.6}
+body.modern-game-ui .input{font-size:1rem!important;min-height:48px!important;line-height:1.4;width:100%;max-width:100%;box-sizing:border-box}
+body.modern-game-ui .btn{min-height:48px!important;font-size:1rem!important;line-height:1.4!important;white-space:normal}
+body.modern-game-ui :is(button,input,select,summary,a):focus-visible{outline:3px solid #086b86!important;outline-offset:3px!important}
+body.modern-game-ui .btn:disabled{opacity:1;color:#66564d;background:#e8e2dc!important;box-shadow:none!important;cursor:not-allowed}
+body.modern-game-ui .participant-role-picker{max-width:none;margin:12px 0;padding:0;border:0;gap:8px}
+body.modern-game-ui .participant-role-picker b{font-size:1rem}
+body.modern-game-ui .participant-role-picker label{min-height:64px}
+body.modern-game-ui .lobby-route-grid{display:grid;grid-template-columns:1fr 1fr;align-items:start;gap:16px;margin-top:16px}
+body.modern-game-ui .lobby-route-card{padding:16px!important;min-width:0}
+body.modern-game-ui .lobby-route-card h3{font-size:1.125rem!important;line-height:1.4;margin:4px 0}
+body.modern-game-ui .lobby-route-card p{margin:8px 0 12px;font-size:.9375rem!important}
+body.modern-game-ui .join-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:8px}
+body.modern-game-ui #reconnect{grid-column:1/-1}
+body.modern-game-ui #code{letter-spacing:.15em;text-transform:uppercase}
+body.modern-game-ui [aria-invalid="true"]{border:2px solid #a51b37!important}
+body.modern-game-ui .join-feedback:empty,body.modern-game-ui #copyCodeFeedback:empty{display:none}
+body.modern-game-ui .join-feedback{color:#a51b37!important}
+body.modern-game-ui .room-setup-options,body.modern-game-ui .cpu-cast-details{margin:12px 0;border:1px solid #d8c8b9;border-radius:14px;background:#fffcf8;overflow:hidden}
+body.modern-game-ui summary{min-height:48px;padding:12px;font-size:1rem!important;line-height:1.5!important;cursor:pointer;box-sizing:border-box;color:#56372a}
+body.modern-game-ui .room-setup-options>summary span{display:block;margin-left:20px;font-size:.8125rem;color:#665043;font-weight:400}
+body.modern-game-ui .room-setup-options>section,body.modern-game-ui .room-setup-options>details{margin:12px!important}
+body.modern-game-ui .rule-presets,body.modern-game-ui .cpu-cast-list{display:grid!important;grid-template-columns:1fr!important;overflow:visible!important;gap:10px!important}
+body.modern-game-ui .rule-preset,body.modern-game-ui .cpu-cast-card{width:auto!important;min-width:0!important;max-width:100%!important;flex:none!important}
+body.modern-game-ui .settings-grid,body.modern-game-ui .featured-rule-grid,body.modern-game-ui .baba-move-option-group{grid-template-columns:1fr!important}
+body.modern-game-ui .rule-title{font-size:1rem!important;line-height:1.5;gap:8px}
+body.modern-game-ui .rule-help-btn{min-width:44px!important;min-height:44px!important;font-size:1rem!important;flex:0 0 44px}
+body.modern-game-ui .rule-presets small,body.modern-game-ui .preset-meta,body.modern-game-ui .cpu-cast-card :is(span,q,p){font-size:.875rem!important;line-height:1.5!important}
+body.modern-game-ui .cpu-cast-panel{margin:0!important;padding:14px!important}
+body.modern-game-ui .cpu-cast-head{display:block}
+body.modern-game-ui .create-feedback{font-size:.875rem!important;margin:12px 0;color:#665043}
+body.modern-game-ui .create-btn .btn-main{font-size:1.0625rem!important}.create-btn .btn-sub{font-size:.8125rem!important}
+body.has-room:not(.gameplay-mode) #lobby>:is(h2,.lobby-guide,.lobby-profile,.participant-role-picker,.lobby-route-grid,.cpu-cast-details,.settings-help,.cpu-character-note,#createFeedback,#joinFeedback){display:none!important}
+body.modern-game-ui .room-info-panel{margin:0!important;max-width:760px;margin-inline:auto!important}
+body.modern-game-ui .room-info-panel h3{font-size:1.25rem;margin:0 0 8px}
+body.modern-game-ui .room-created-banner{font-size:1rem!important;padding:12px!important;text-align:left}
+body.modern-game-ui .room-share{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px 0}
+body.modern-game-ui .room-share span{font-size:.875rem;color:#665043}
+body.modern-game-ui .roomcode{margin:0!important;font-size:2rem!important;line-height:1.25;letter-spacing:.15em}
+body.modern-game-ui .room-actions{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:end;gap:8px}
+body.modern-game-ui #removeCpu{grid-column:1/-1}
+body.modern-game-ui .cpu-selection-preview{background:#edf6f4;border-radius:12px;padding:12px;color:#244c48}
+body.modern-game-ui .start-hint{font-size:1rem!important;line-height:1.5;padding:10px}
+body.modern-game-ui .lobby-participant-state{font-size:.8125rem!important}
+body.modern-game-ui .start-panel{margin:16px 0!important}
+body.modern-game-ui .room-clear-panel p{font-size:1rem;line-height:1.6}
+body.modern-game-ui .utility-sheet,body.modern-game-ui .rule-help-panel{font-size:1rem;line-height:1.6;overscroll-behavior:contain;scroll-padding:80px 16px}
+body.modern-game-ui .utility-sheet :is(p,li,.small),body.modern-game-ui .rule-help-body li{font-size:1rem!important;line-height:1.65!important}
+body.modern-game-ui .utility-head{position:sticky;top:0;z-index:2;background:#fffaf2;padding-block:8px}
+body.modern-game-ui .utility-close,body.modern-game-ui .rule-help-close{min-width:44px!important;min-height:44px!important;font-size:1.5rem!important}
+body.gameplay-mode.modern-game-ui .hud-button,body.gameplay-mode.modern-game-ui .hand-view-toggle{min-height:44px!important;min-width:44px!important;font-size:.875rem!important;padding:6px 8px!important}
+body.gameplay-mode.modern-game-ui .game-screen:not(.is-setup-mode){grid-template-rows:56px 38px minmax(0,1fr) 190px!important}
+body.gameplay-mode.modern-game-ui .hand-dock-title{font-size:.875rem!important;z-index:8;top:4px!important;left:12px!important;right:12px!important;display:flex!important;align-items:center;gap:8px}
+body.gameplay-mode.modern-game-ui .hand-dock-title b{font-size:.875rem!important}
+body.gameplay-mode.modern-game-ui .hand-view-toggle{margin-left:auto!important}
+body.gameplay-mode.modern-game-ui .hand-dock:not(:has(.pass-panel,.initial-pair-panel)) #handNote{display:block!important;position:absolute!important;top:48px!important;left:12px!important;right:12px!important;width:auto!important;transform:none!important;z-index:8;pointer-events:none}
+body.gameplay-mode.modern-game-ui #handNote .notice{padding:4px 8px!important;white-space:normal!important;overflow:visible!important;background:#fffaf2;color:#33251d}
+body.gameplay-mode.modern-game-ui #handNote .notice-title{font-size:.875rem!important;line-height:1.4!important}
+body.gameplay-mode.modern-game-ui #handNote .notice-body{display:block!important;font-size:.8125rem!important;line-height:1.4!important}
+body.gameplay-mode.modern-game-ui :is([data-pair-skip],[data-pass-submit],[data-initial-skip],[data-pick-target-submit]){min-height:44px!important}
+body.modern-game-ui .score-screen :is(p,li,.small){font-size:1rem!important;line-height:1.6!important}
+body.modern-game-ui .score-screen table{font-size:.875rem!important}
+body.finished-mode.modern-game-ui .final-actions .btn{min-height:48px!important;font-size:.875rem!important}
+@media(max-width:720px){
+ body.modern-game-ui:not(.gameplay-mode) #app{padding-top:10px}
+ body.modern-game-ui #lobby{padding:12px!important}
+ body.modern-game-ui .hero{padding:12px!important;margin-bottom:10px}
+ body.modern-game-ui .hero-brand{gap:12px}
+ body.modern-game-ui .game-logo{width:120px!important}
+ body.modern-game-ui h1.hero-subtitle{font-size:1.25rem!important}
+ body.modern-game-ui .hero-meta p{font-size:.8125rem!important}
+ body.modern-game-ui .lobby-route-grid{grid-template-columns:1fr;gap:12px}
+ body.modern-game-ui .lobby-step{font-size:.75rem!important;gap:4px;padding:6px!important}
+ body.modern-game-ui .lobby-step b{min-width:20px;width:20px;height:20px;font-size:.75rem!important}
+ body.modern-game-ui .room-actions{grid-template-columns:1fr}
+ body.modern-game-ui #removeCpu{grid-column:auto}
+ body.gameplay-mode.modern-game-ui .game-hud{grid-template-columns:minmax(0,1fr) auto!important;gap:4px;padding-inline:max(8px,env(safe-area-inset-left))!important}
+ body.gameplay-mode.modern-game-ui .game-brand{display:none!important}
+ body.gameplay-mode.modern-game-ui .game-hud-actions{gap:4px!important}
+ body.gameplay-mode.modern-game-ui .utility-sheet{inset:auto 0 0!important;width:100%!important;max-width:none!important;height:88dvh!important;border-radius:22px 22px 0 0;padding:12px 16px max(20px,env(safe-area-inset-bottom))!important;box-sizing:border-box}
+ body.modern-game-ui .rule-help-panel{position:fixed;left:0!important;right:0;bottom:0;top:auto!important;transform:none!important;width:100%!important;max-width:none;max-height:90dvh!important;border-radius:22px 22px 0 0;padding:24px 20px max(24px,env(safe-area-inset-bottom))!important;box-sizing:border-box}
+}
+@media(max-height:520px) and (orientation:landscape){body.gameplay-mode.modern-game-ui .game-screen:not(.is-setup-mode){grid-template-rows:52px 30px minmax(0,1fr) 150px!important}}
+@media(prefers-reduced-motion:reduce){body.modern-game-ui *,body.modern-game-ui *:before,body.modern-game-ui *:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
+
+
+body.modern-game-ui .hero .hero-brand{flex-direction:row!important}
+body.modern-game-ui .hero .hero-meta{margin:0!important;flex:1}
+body.modern-game-ui .lobby-profile{display:block!important}
+body.modern-game-ui .lobby-profile-copy{margin:0!important}
+body.modern-game-ui .lobby-profile-copy .menu-eyebrow{display:none}
+body.modern-game-ui .profile-name-field{margin-top:6px!important}
+@media(max-width:720px){
+ body.modern-game-ui .lobby-profile-copy b{display:none}
+ body.modern-game-ui .lobby-profile-copy small{font-size:.8125rem!important}
+ body.modern-game-ui .participant-role-picker label{min-height:58px!important;padding:8px!important}
+ body.modern-game-ui .lobby-route-card .menu-eyebrow{display:none}
+ body.modern-game-ui .lobby-route-card p{font-size:.875rem!important;margin:6px 0 10px!important}
+ body.modern-game-ui .participant-role-picker small{font-size:.75rem!important}
+ body.modern-game-ui .participant-role-picker>legend{font-size:.875rem}
+}
+
+body.modern-game-ui .rule-presets,body.modern-game-ui .cpu-cast-list{grid-auto-flow:row!important;grid-auto-columns:auto!important}
+body.modern-game-ui .room-info-panel{padding:14px!important}
+body.modern-game-ui .lobby-route-card .create-btn{margin-top:0!important}
+@media(max-width:720px){
+ body.modern-game-ui .lobby-profile{padding:10px!important}
+ body.modern-game-ui .lobby-profile-copy small{margin:0!important}
+ body.modern-game-ui .profile-name-field{grid-template-columns:auto minmax(0,1fr)!important;gap:8px!important}
+ body.modern-game-ui .participant-role-picker label>span{display:none}
+ body.modern-game-ui .participant-role-picker label{display:block!important;min-height:58px!important}
+ body.modern-game-ui .participant-role-picker small{display:block;line-height:1.3!important}
+ body.modern-game-ui .participant-role-picker{margin:8px 0!important}
+ body.modern-game-ui .lobby-route-card{padding:12px!important}
+ body.modern-game-ui .lobby-route-card h3{font-size:1rem!important}
+ body.modern-game-ui .lobby-route-card.create-route p{display:none}
+ body.modern-game-ui .room-setup-options{margin:8px 0!important}
+ body.modern-game-ui .room-setup-options>summary{padding:8px!important;min-height:44px;font-size:.875rem!important}
+ body.modern-game-ui .room-setup-options>summary span{font-size:.75rem}
+ body.modern-game-ui .room-share{padding:10px 0}
+ body.modern-game-ui .lobby-participant{padding:7px 9px;min-height:44px;box-sizing:border-box}
+}
+
+body.gameplay-mode.modern-game-ui #gameScreen:not(.is-setup-mode):not(:has(#spectatorView:not([hidden]))){grid-template-rows:56px 44px minmax(0,1fr) 230px!important}
+body.gameplay-mode.modern-game-ui #playerHandDock:not(:has(.pass-panel,.initial-pair-panel)) .hand-wrap{padding-top:90px!important;box-sizing:border-box}
+body.gameplay-mode.modern-game-ui #playerHandDock #handNote{left:0!important;right:0!important;top:46px!important;width:auto!important}
+body.gameplay-mode.modern-game-ui #playerHandDock #handNote .notice{border-radius:12px!important;max-width:100%!important;padding:6px 8px!important}
+body.gameplay-mode.modern-game-ui #playerHandDock #handNote .notice-title{font-size:.875rem!important}
+body.gameplay-mode.modern-game-ui #playerHandDock #handNote .notice-body{font-size:.8125rem!important}
+body.gameplay-mode.modern-game-ui #playerHandDock #handAlerts{position:absolute!important;right:0;top:0;max-width:50%;z-index:9;pointer-events:auto}
+body.gameplay-mode.modern-game-ui .game-status.status b{font-size:.8125rem!important}
+body.gameplay-mode.modern-game-ui .game-status.status>div{min-width:0!important;padding:3px 6px!important}
+body.gameplay-mode.modern-game-ui .game-status.status span{font-size:.625rem!important}
+@media(max-width:720px){body.gameplay-mode.modern-game-ui .game-hud .game-brand{display:none!important}body.gameplay-mode.modern-game-ui .game-hud{grid-template-columns:minmax(0,1fr) auto!important}body.gameplay-mode.modern-game-ui .game-hud-actions{grid-column:2;grid-row:1}body.gameplay-mode.modern-game-ui .game-status.status{min-width:0;gap:4px!important}}
+@media(max-height:520px) and (orientation:landscape){body.gameplay-mode.modern-game-ui #gameScreen:not(.is-setup-mode):not(:has(#spectatorView:not([hidden]))){grid-template-rows:52px 32px minmax(0,1fr) 150px!important}body.gameplay-mode.modern-game-ui #playerHandDock:not(:has(.pass-panel,.initial-pair-panel)) .hand-wrap{padding-top:72px!important}body.gameplay-mode.modern-game-ui #playerHandDock #handNote .notice-body{display:none!important}}
+
+body.gameplay-mode.modern-game-ui #gameScreen .hud-button,body.gameplay-mode.modern-game-ui #playerHandDock .hand-view-toggle{min-height:44px!important;min-width:44px!important;font-size:.875rem!important}
+body.gameplay-mode.modern-game-ui #playerHandDock #handNote .notice-body{display:block!important}
+body.modern-game-ui .room-setup-options .featured-rule-card{grid-template-columns:1fr!important;min-width:0}
+body.modern-game-ui .room-setup-options .featured-rules-head,body.modern-game-ui .room-setup-options .preset-panel-head{display:block!important}
+body.modern-game-ui .room-setup-options .featured-rule-copy em{color:#fff!important}
+body.modern-game-ui .room-setup-options>section{padding:10px!important;margin:8px!important}
+body.modern-game-ui .room-setup-options .selected-preset-summary{grid-template-columns:1fr!important}
+body.modern-game-ui .room-setup-options .rule-preset{min-height:100px;padding:12px!important}
+body.modern-game-ui .room-setup-options .rule-title{flex-wrap:wrap}
+body.modern-game-ui .room-setup-options .settings-section{padding:10px!important}
+body.modern-game-ui .room-setup-options .settings-section-head{flex-wrap:wrap}
+body.modern-game-ui .room-setup-options .option-toggle{min-width:0;padding:10px!important}
+body.modern-game-ui .room-setup-options .settings-content{padding:8px!important}
+@media(max-width:360px){body.modern-game-ui .profile-name-field{grid-template-columns:1fr!important}body.modern-game-ui .join-row{grid-template-columns:1fr!important}body.modern-game-ui .hero .game-logo{display:none!important}body.modern-game-ui .hero .hero-meta{text-align:center}}
+@media(min-width:721px){body.modern-game-ui .lobby-profile{display:grid!important;grid-template-columns:minmax(0,1fr) minmax(0,1fr)!important}body.modern-game-ui .profile-name-field{grid-template-columns:1fr!important}body.modern-game-ui .participant-role-picker{max-width:680px;margin-inline:auto}}
+
+body.large-text-mode.modern-game-ui :is(.hero-brand,.room-share){flex-wrap:wrap!important}
+body.large-text-mode.modern-game-ui :is(.profile-name-field,.participant-role-picker,.join-row,.room-actions){grid-template-columns:1fr!important}
+body.large-text-mode.modern-game-ui .hero .game-logo{display:none!important}
+body.large-text-mode.gameplay-mode.modern-game-ui,body.large-text-mode.gameplay-mode.modern-game-ui #app{position:relative!important;overflow:auto!important;height:auto!important;min-height:100dvh!important}
+body.large-text-mode.gameplay-mode.modern-game-ui #gameScreen{position:relative!important;display:flex!important;flex-direction:column!important;height:auto!important;min-height:100dvh!important;overflow:visible!important}
+body.large-text-mode.gameplay-mode.modern-game-ui #gameScreen .game-hud{position:relative!important;inset:auto!important;display:flex!important;flex-wrap:wrap!important;height:auto!important;min-height:56px;flex-shrink:0}
+body.large-text-mode.gameplay-mode.modern-game-ui #gameScreen .game-hud-actions{flex-wrap:wrap!important}
+body.large-text-mode.gameplay-mode.modern-game-ui #gameScreen .game-round-status{height:auto!important;min-height:60px;flex-shrink:0}
+body.large-text-mode.gameplay-mode.modern-game-ui #playerGameArena{height:480px!important;flex-shrink:0}
+body.large-text-mode.gameplay-mode.modern-game-ui #playerHandDock{height:330px!important;flex-shrink:0}
+body.large-text-mode.gameplay-mode.modern-game-ui #playerHandDock .hand-wrap{padding-top:160px!important}
+body.large-text-mode.gameplay-mode.modern-game-ui #playerHandDock #handNote{top:90px!important}
+body.large-text-mode.gameplay-mode.modern-game-ui #scoreBox{position:relative!important;inset:auto!important;overflow:visible!important;height:auto!important;padding-bottom:24px!important}
+body.large-text-mode.finished-mode.modern-game-ui #scoreBox .final-actions{position:sticky!important;left:auto!important;bottom:0!important;transform:none!important;width:100%!important;grid-template-columns:1fr!important}
+
+body.finished-mode.modern-game-ui #scoreBox .final-stage{transform:none!important}
+body.finished-mode.modern-game-ui #scoreBox .score-compact{overflow-x:auto;overscroll-behavior-inline:contain}
+body.large-text-mode.finished-mode.modern-game-ui #scoreBox .final-actions{top:0!important;bottom:auto!important}
+@media(max-width:720px){body.finished-mode.modern-game-ui{--final-action-dock-height:190px}}
+
+body.modern-game-ui :is(#lobby,#gameScreen,.room-clear-dialog) .btn:not(.secondary):not(:disabled){background:linear-gradient(135deg,#b51e45,#85223f)!important;color:#fff!important;border-color:#85223f!important}
+body.gameplay-mode.modern-game-ui #gameScreen :is(button,input,select,a):focus-visible{outline:3px solid #ffe08a!important;outline-offset:3px!important}
+body.gameplay-mode.modern-game-ui #gameScreen #gameUtilityPanel :is(button,input,select,a):focus-visible{outline-color:#086b86!important}
 </style>
 </head>
 <body class="modern-game-ui">
 <div id="app">
-  <header class="hero"><div class="hero-brand"><img class="game-logo" src="/pig_pick_trick_logo.png" alt="PIG PICK TRICK ロゴ"><div class="hero-meta"><div class="hero-subtitle">【ピピトリ】ピッグ・ピック・トリック</div><p>4人専用 · トリックテイキング × ババ抜き</p></div></div></header>
+  <header class="hero"><div class="hero-brand"><img class="game-logo" src="/pig_pick_trick_logo.png" alt="PIG PICK TRICK ロゴ"><div class="hero-meta"><h1 class="hero-subtitle">ピピトリ</h1><p>3〜5人で遊ぶ、トリックテイキング × ババ抜き</p></div></div></header>
 
   <section id="lobby" class="cardbox">
-    <h2>オンライン部屋</h2>
+    <h2>部屋を作る・参加する</h2>
     <div class="lobby-guide">
       <div class="lobby-step active"><b>1</b><span>名前を入れる</span></div>
-      <div class="lobby-step"><b>2</b><span>部屋を作る</span></div>
-      <div class="lobby-step"><b>3</b><span>4人で遊ぶ</span></div>
+      <div class="lobby-step"><b>2</b><span>部屋に入る</span></div>
+      <div class="lobby-step"><b>3</b><span>対戦する</span></div>
     </div>
     <section class="lobby-profile" aria-labelledby="playerProfileTitle">
       <div class="lobby-profile-copy"><span class="menu-eyebrow">STEP 1</span><b id="playerProfileTitle">プレイヤー名を決める</b><small>対戦中に表示される名前です（12文字まで）</small></div>
@@ -7310,26 +7506,19 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
     </section>
     <fieldset class="participant-role-picker" aria-labelledby="participantRoleTitle">
       <legend id="participantRoleTitle">参加方法</legend>
-      <label><input type="radio" name="participantRole" value="player" checked><span aria-hidden="true">🎮</span><b>プレイする</b><small>4つのプレイヤー席へ参加</small></label>
+      <label><input type="radio" name="participantRole" value="player" checked><span aria-hidden="true">🎮</span><b>プレイする</b><small>選ばれた人数のプレイヤー席へ参加</small></label>
       <label><input type="radio" name="participantRole" value="spectator"><span aria-hidden="true">👁</span><b>観戦する</b><small>全員の手札を見て観戦</small></label>
     </fieldset>
     <div id="playerSeatsFullOffer" class="spectate-offer" hidden role="status" aria-live="polite"><b>プレイヤー席は満員です</b><span>観戦者としてこのまま入れます。</span><button type="button" class="btn secondary" data-join-as-spectator>👁 観戦する</button></div>
     <div class="lobby-route-grid" aria-label="遊び方を選択">
       <section class="lobby-route-card create-route">
-        <span class="menu-eyebrow">HOST</span><h3>新しい部屋を作る</h3><p>好みのルールを選び、友達またはCPUと4人で遊びます。</p>
-        <button id="create" class="btn create-btn" data-state="idle"><span class="btn-main">部屋を作る</span><span class="btn-sub">オンライン部屋を作成</span></button>
-      </section>
-      <section class="lobby-route-card join-route">
-        <span class="menu-eyebrow">JOIN</span><h3>部屋コードで参加</h3><p>ホストから受け取った4文字のコードを入力します。</p>
-        <div class="row join-row"><input id="code" class="input" placeholder="例：ABCD" maxlength="4" autocapitalize="characters" aria-label="部屋コード" /><button id="join" class="btn secondary">参加する</button><button id="reconnect" class="btn secondary reconnect-btn" style="display:none">前回の部屋に復帰</button></div>
-      </section>
-    </div>
-    <div id="createFeedback" class="create-feedback" aria-live="polite">まだ部屋は作られていません。</div>
-
+        <span class="menu-eyebrow">HOST</span><h3>新しい部屋を作る</h3><p>3人・4人・5人から選び、友達またはCPUと遊びます。</p>
+        <label class="input-label seat-count-picker"><span class="rule-title">遊ぶ人数</span><select id="playerCount" class="input" aria-label="遊ぶ人数"><option value="3">3人（17枚ずつ・1位→3位ピック）</option><option value="4" selected>4人（13枚ずつ・標準）</option><option value="5">5人（10枚ずつ・2組のピック）</option></select><em>3人は1位→3位、5人は1位→5位と2位→4位</em></label>
+        <details class="room-setup-options"><summary>ルールを選ぶ・調整する<span id="setupRuleSummary">標準は3ラウンド・シュートOFF</span></summary>
     <section class="rule-preset-panel" aria-labelledby="rulePresetTitle">
       <div class="preset-panel-head"><div><span class="menu-eyebrow">STEP 2 · HOST RULES</span><h3 id="rulePresetTitle">遊び方を選ぶ</h3><p>迷ったら「スタンダード」。選んだ後に細かく調整できます。</p></div><span class="recommended-pill">おすすめから選択</span></div>
       <div class="rule-presets" role="group" aria-label="ルールプリセット">
-        <button type="button" class="rule-preset is-selected" data-rule-preset="standard" aria-pressed="true"><span class="preset-check">✓</span><span class="preset-icon">✨</span><span class="preset-copy"><b>スタンダード</b><small>初プレイ・迷った時に</small></span><span class="preset-meta">3R · 💧-6 · シュート無制限</span></button>
+        <button type="button" class="rule-preset is-selected" data-rule-preset="standard" aria-pressed="true"><span class="preset-check">✓</span><span class="preset-icon">✨</span><span class="preset-copy"><b>スタンダード</b><small>初プレイ・迷った時に</small></span><span class="preset-meta">3R · 💧-6 · シュートOFF</span></button>
         <button type="button" class="rule-preset" data-rule-preset="quick" aria-pressed="false"><span class="preset-check">✓</span><span class="preset-icon">⚡</span><span class="preset-copy"><b>クイック</b><small>短時間で1勝負</small></span><span class="preset-meta">1R · 標準失点 · 約15分</span></button>
         <button type="button" class="rule-preset" data-rule-preset="dramatic" aria-pressed="false"><span class="preset-check">✓</span><span class="preset-icon">🎭</span><span class="preset-copy"><b>ドラマチック</b><small>事故と逆転を楽しむ</small></span><span class="preset-meta">ババ-30 · ピック6</span></button>
         <button type="button" class="rule-preset" data-rule-preset="strategic" aria-pressed="false"><span class="preset-check">✓</span><span class="preset-icon">🧠</span><span class="preset-copy"><b>ストラテジー</b><small>手札管理と読み合い</small></span><span class="preset-meta">5R · 💧管理 · 3枚パス</span></button>
@@ -7338,11 +7527,11 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
     </section>
 
     <section class="featured-rules" aria-labelledby="featuredRulesTitle">
-      <div class="featured-rules-head"><div><span class="menu-eyebrow">TESTING NOW</span><h3 id="featuredRulesTitle">🔥 テスト中の注目ルール</h3><p>通常ルールは変えず、ONにした項目だけ追加されます。</p></div><span class="recommended-pill">すべて標準OFF</span></div>
+      <div class="featured-rules-head"><div><span class="menu-eyebrow">TESTING NOW</span><h3 id="featuredRulesTitle">🔥 テスト中の注目ルール</h3><p>追加ピックとババ必須候補は、最初からONで遊べます。</p></div><span class="recommended-pill">①③は標準ON</span></div>
       <div class="featured-rule-grid">
-        <label class="featured-rule-card"><span class="featured-rule-copy"><b>① 2位と3位の間でもピック <button type="button" class="rule-help-btn" data-help-rule="enableMiddleRankPick" aria-label="中位ピックのヘルプ">?</button></b><small>1位↔4位と2位→3位を、2レーンで同時に進めます。</small></span><select id="enableMiddleRankPick" class="input" aria-label="2位と3位の間でもピック"><option value="false" selected>OFF</option><option value="true">ON</option></select></label>
+        <label class="featured-rule-card"><span class="featured-rule-copy"><b>① 中位の追加ピック <button type="button" class="rule-help-btn" data-help-rule="enableMiddleRankPick" aria-label="中位ピックのヘルプ">?</button></b><small>4人は2位→3位、5人は2位→4位。3人では使いません。</small></span><select id="enableMiddleRankPick" class="input" aria-label="中位の追加ピック"><option value="false">OFF</option><option value="true" selected>ON</option></select></label>
         <label class="featured-rule-card"><span class="featured-rule-copy"><b>② シュート「装填 → 発射」 <button type="button" class="rule-help-btn" data-help-rule="shootLoadFireMode" aria-label="装填から発射のヘルプ">?</button></b><small>ババ＋マッドを揃えて装填。勝てば自分で必殺技を発射できます。</small><em>💥 専用の必殺技演出あり</em></span><select id="shootLoadFireMode" class="input" aria-label="シュート装填から発射"><option value="false" selected>OFF</option><option value="true">ON</option></select></label>
-        <label class="featured-rule-card"><span class="featured-rule-copy"><b>③ ババブタを必ずピック候補</b><small>提供者がババを持つ場合、候補を絞る両ピックで必須になります。</small></span><select id="forceJokerPickCandidate" class="input" aria-label="ババブタを必ずピック候補"><option value="false" selected>OFF</option><option value="true">ON</option></select></label>
+        <label class="featured-rule-card"><span class="featured-rule-copy"><b>③ ババブタを必ずピック候補</b><small>提供者がババを持つ場合、候補を絞る両ピックで必須になります。</small></span><select id="forceJokerPickCandidate" class="input" aria-label="ババブタを必ずピック候補"><option value="false">OFF</option><option value="true" selected>ON</option></select></label>
       </div>
     </section>
 
@@ -7350,7 +7539,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
       <summary class="advanced-settings-summary">⚙️ 詳細ルールをカスタマイズ <span class="small">プリセットから一項目ずつ変更できます</span></summary>
       <div class="advanced-settings-hint">変更内容に合わせて、すぐ下の「試合傾向」がリアルタイムに更新されます。</div>
       <div class="rules-default-note">
-        <b>標準設定</b>：3ラウンド / ラウンド終了ごとに全カードを回収してシャッフル / ごちそう山1枚1点 / 🍎リンゴ・🌽トウモロコシ・🥬キャベツは-3点・通常の💧は-6点 / マッド固有-13点 / ババブタ-20点・ラウンド毎 / 勝者の手札から最弱者がピック（候補2枚） / 中位ピックなし / 装填→発射なし / ババ必須候補なし / シュート移動条件なし / 3枚パスなし / 開始時ペア捨てなし / シュートON（両方とも手札・無制限）
+        <b>標準設定</b>：3ラウンド / ラウンド終了ごとに全カードを回収してシャッフル / ごちそう山1枚1点 / 🍎リンゴ・🌽トウモロコシ・🥬キャベツは-3点・通常の💧は-6点 / マッド固有-13点 / ババブタ-20点・ラウンド毎 / 勝者の手札から最弱者がピック（候補2枚） / 中位ピックあり（4人は2位→3位、5人は2位→4位、3人は対象外） / 装填→発射なし / ババ必須候補あり / シュート移動条件なし / 3枚パスなし / 開始時ペア捨てなし / シュートOFF（ON時は両方とも手札・無制限）
       </div>
       <div class="suit-flavor-map" aria-label="ピピトリの4スート">
         <span class="suit-flavor apple"><i aria-hidden="true">🍎</i><b>リンゴ</b><small>赤色スート</small></span>
@@ -7384,7 +7573,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
             <label class="input-label option-toggle"><span class="rule-title"><span>マッド・ピッグ</span><button type="button" class="rule-help-btn" data-help-rule="madPigEnabled" aria-label="マッド・ピッグのヘルプ">?</button></span><select id="madPigEnabled" class="input"><option value="true" selected>あり</option><option value="false">なし</option></select><em>💧11は固有-13点（通常失点と重複なし）</em></label>
             <label class="input-label"><span class="rule-title"><span>ババブタ失点</span><button type="button" class="rule-help-btn" data-help-rule="jokerPenalty" aria-label="ババブタ失点のヘルプ">?</button></span><input id="jokerPenalty" class="input" type="number" value="-20" min="-999" max="0" step="1" /><em>標準は-20点</em></label>
             <label class="input-label option-toggle"><span class="rule-title"><span>ババブタ失点タイミング</span><button type="button" class="rule-help-btn" data-help-rule="jokerPenaltyTiming" aria-label="ババブタ失点タイミングのヘルプ">?</button></span><select id="jokerPenaltyTiming" class="input"><option value="perRound" selected>ラウンド毎</option><option value="gameEnd">ゲームの最後</option></select><em>標準はラウンド毎</em></label>
-            <label class="input-label option-toggle"><span class="rule-title"><span>シュート・ザ・ピッグ</span><button type="button" class="rule-help-btn" data-help-rule="shootThePigEnabled" aria-label="シュート・ザ・ピッグのヘルプ">?</button></span><select id="shootThePigEnabled" class="input"><option value="false">OFF</option><option value="true" selected>ON</option></select><em id="shootThePigHint">標準ON。ババブタ＋マッドを手札に残すと発動</em></label>
+            <label class="input-label option-toggle"><span class="rule-title"><span>シュート・ザ・ピッグ</span><button type="button" class="rule-help-btn" data-help-rule="shootThePigEnabled" aria-label="シュート・ザ・ピッグのヘルプ">?</button></span><select id="shootThePigEnabled" class="input"><option value="false" selected>OFF</option><option value="true">ON</option></select><em id="shootThePigHint">標準OFF。ONにするとババブタ＋マッドを手札に残した時に発動</em></label>
             <label class="input-label option-toggle"><span class="rule-title"><span>シュート発動回数</span><button type="button" class="rule-help-btn" data-help-rule="shootThePigLimit" aria-label="シュート発動回数のヘルプ">?</button></span><select id="shootThePigLimit" class="input"><option value="unlimited" selected>無制限</option><option value="once">1人1回まで</option></select><em id="shootThePigLimitHint">標準は無制限。各ラウンドで条件を満たせば再発動可能</em></label>
             <div class="baba-move-option-group" role="group" aria-labelledby="babaMoveOptionTitle">
               <div class="baba-move-option-head"><b id="babaMoveOptionTitle">🃏 ババブタ移動オプション</b><small>どちらも標準OFF・同時ON可</small></div>
@@ -7402,25 +7591,43 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
           <p>標準設定から変化を付けたい時の調整項目です。カードを取られる側と候補数を明示して選べます。</p>
           <div class="settings-grid compact-grid">
             <label class="input-label option-toggle"><span class="rule-title"><span>ピックされる人（カードを取られる側）</span><button type="button" class="rule-help-btn" data-help-rule="pickProviderRole" aria-label="ピックされる人のヘルプ">?</button></span><select id="pickProviderRole" class="input"><option value="winner" selected>勝者：勝者の手札から最弱者が引く（標準）</option><option value="weakest">最弱者：最弱者の手札から勝者が引く（従来）</option></select><em>提供者が候補を選び、反対側が1枚受け取ります</em></label>
-            <label class="input-label option-toggle"><span class="rule-title"><span>ピック候補数</span><button type="button" class="rule-help-btn" data-help-rule="pickTargetCount" aria-label="ピック候補数のヘルプ">?</button></span><select id="pickTargetCount" class="input"><option value="0">絞らない</option><option value="1">1枚</option><option value="2" selected>2枚</option><option value="3">3枚</option><option value="4">4枚</option><option value="5">5枚</option><option value="6">6枚</option><option value="7">7枚</option><option value="8">8枚</option><option value="9">9枚</option><option value="10">10枚</option><option value="11">11枚</option><option value="12">12枚</option><option value="13">13枚</option></select><em>標準は2枚。カードを取られる側が候補を絞る</em></label>
+            <label class="input-label option-toggle"><span class="rule-title"><span>ピック候補数</span><button type="button" class="rule-help-btn" data-help-rule="pickTargetCount" aria-label="ピック候補数のヘルプ">?</button></span><select id="pickTargetCount" class="input"><option value="0">絞らない</option><option value="1">1枚</option><option value="2" selected>2枚</option><option value="3">3枚</option><option value="4">4枚</option><option value="5">5枚</option><option value="6">6枚</option><option value="7">7枚</option><option value="8">8枚</option><option value="9">9枚</option><option value="10">10枚</option><option value="11">11枚</option><option value="12">12枚</option><option value="13">13枚</option><option value="14">14枚</option><option value="15">15枚</option><option value="16">16枚</option><option value="17">17枚</option></select><em>標準は2枚。3人用では最大17枚まで候補にできます</em></label>
             <label class="input-label option-toggle"><span class="rule-title"><span>開始時3枚パス</span><button type="button" class="rule-help-btn" data-help-rule="passThreeEnabled" aria-label="開始時3枚パスのヘルプ">?</button></span><select id="passThreeEnabled" class="input"><option value="false" selected>なし</option><option value="true">あり</option></select><em>開始前に3枚渡す</em></label>
             <label class="input-label option-toggle"><span class="rule-title"><span>開始時ペア捨て</span><button type="button" class="rule-help-btn" data-help-rule="initialPairDiscardEnabled" aria-label="開始時ペア捨てのヘルプ">?</button></span><select id="initialPairDiscardEnabled" class="input"><option value="false" selected>なし</option><option value="true">あり</option></select><em>同じ数字ペアを任意で捨てる</em></label>
           </div>
         </section>
       </div>
     </details>
+        </details>
+        <button id="create" class="btn create-btn" data-state="idle"><span class="btn-main">部屋を作る</span><span class="btn-sub">オンライン部屋を作成</span></button>
+      </section>
+      <section class="lobby-route-card join-route">
+        <span class="menu-eyebrow">JOIN</span><h3>部屋コードで参加</h3><p>ホストから受け取った4文字のコードを入力します。</p>
+        <div class="row join-row"><input id="code" class="input" placeholder="例：ABCD" maxlength="4" autocapitalize="characters" autocomplete="off" spellcheck="false" enterkeyhint="go" aria-label="部屋コード（半角英数字4文字）" aria-describedby="joinFeedback" /><button id="join" class="btn secondary">参加する</button><button id="reconnect" class="btn secondary reconnect-btn" style="display:none">前回の部屋に復帰</button></div>
+      </section>
+    </div>
+    <p id="joinFeedback" class="join-feedback" role="status" aria-live="polite"></p>
+    <div id="createFeedback" class="create-feedback" aria-live="polite">まだ部屋は作られていません。</div>
+
+    <details class="cpu-cast-details"><summary>4人のCPUを知る</summary>
     <section class="cpu-cast-panel" aria-labelledby="cpuCastTitle">
-      <div class="cpu-cast-head"><div><span class="menu-eyebrow">CPU CAST</span><h3 id="cpuCastTitle">個性の違う3人のライバル</h3></div><p>人数が足りない時に追加できます。判断もリアクションも性格ごとに変わります。</p></div>
+      <div class="cpu-cast-head"><div><span class="menu-eyebrow">CPU CAST</span><h3 id="cpuCastTitle">個性の違う4人のライバル</h3></div><p>人数が足りない時に追加できます。判断もリアクションも性格ごとに変わります。</p></div>
       <div class="cpu-cast-list">
         <article class="cpu-cast-card kamomodoki"><img src="/cpu_characters/kamomodoki.jpg" alt="かももどき"><div><b>かももどき</b><span>駆け引き・挑発型</span><p>甘い口調で危険札を仕込み、相手のピンチほど楽しそう。</p><q>人の不幸は蜜の味です♡</q></div></article>
         <article class="cpu-cast-card wakumodoki"><img src="/cpu_characters/wakumodoki.jpg" alt="ワクもどき"><div><b>ワクもどき</b><span>直感・大胆型</span><p>勢いとひらめきで高札もコンボも狙う、場を沸かせる挑戦者。</p><q>やるぞぉ〜！できるぞぉ〜！</q></div></article>
         <article class="cpu-cast-card rikumodoki"><img src="/cpu_characters/rikumodoki.png" alt="リクもどき"><div><b>リクもどき</b><span>分析・堅実型</span><p>危険札と進行を冷静に管理し、最小コストで勝ち筋を組み立てる。</p><q>進捗とリスクを確認します。</q></div></article>
+        <article class="cpu-cast-card nakato-modoki"><img src="/cpu_characters/nakato_modoki.png" alt="なかとーもどき"><div><b>なかとーもどき</b><span>戦略・美意識型</span><p>目先の勝ちだけでなく順位の先行きまで計算。危険札は得になる時だけ扱う。</p><q>なかとーの美しさチェック！</q></div></article>
       </div>
     </section>
-    <p class="small settings-help">ルール設定は部屋作成時のみ有効です。参加する場合はホスト側の設定が使われます。</p><p class="small cpu-character-note">部屋作成後、不足人数ぶんのCPUを追加できます。</p>
-    <div id="roomInfo" class="room-info-panel" style="display:none">
-      <div class="room-created-banner">✅ 部屋を作成しました。友達に部屋コードを共有してください。</div>
-      <div class="roomcode" id="roomCode">----</div>
+    </details>
+    <p class="small settings-help">ルール設定は部屋作成時のみ有効です。参加する場合はホスト側の設定が使われます。</p><p class="small cpu-character-note">CPUの種類を選んで、不足人数ぶん追加できます。</p>
+    <div id="roomInfo" class="room-info-panel" style="display:none" tabindex="-1" aria-labelledby="roomReadyTitle">
+      <h3 id="roomReadyTitle">対戦の準備</h3><div id="roomReadyBanner" class="room-created-banner">友達を招待するか、CPUを追加しましょう。</div>
+      <div class="room-share"><div><span>部屋コード</span><div class="roomcode" id="roomCode">----</div></div><button type="button" id="copyRoomCode" class="btn secondary">コードをコピー</button></div><p id="copyCodeFeedback" class="small" role="status" aria-live="polite"></p>
+      <div class="start-panel">
+        <button id="start" class="btn start-game-btn" disabled>4人で遊ぶ</button>
+        <div id="startHint" class="start-hint">4人そろうとゲームを開始できます。</div>
+      </div>
       <section class="lobby-roster" aria-labelledby="lobbyRosterTitle">
         <div class="lobby-roster-head"><b id="lobbyRosterTitle">プレイヤー</b><span id="lobbyParticipantSummary">現在 0 / 4人　あと4人</span></div>
         <div id="lobbyParticipants" class="lobby-participants" aria-live="polite"></div>
@@ -7428,11 +7635,8 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
         <div id="lobbySpectators" class="lobby-spectators" aria-live="polite"></div>
       </section>
       <div id="participantRoleActions" class="participant-role-actions" aria-label="参加方法を変更"><span id="currentParticipantRole">🎮 プレイ参加中</span><button type="button" class="btn secondary" data-change-role>観戦へ切り替える</button></div>
-      <div class="row room-actions"><button id="addCpu" class="btn secondary">CPUを追加</button><button id="removeCpu" class="btn secondary">CPUを外す</button></div>
-      <div class="start-panel">
-        <button id="start" class="btn start-game-btn" disabled>4人で遊ぶ</button>
-        <div id="startHint" class="start-hint">4人そろうとゲームを開始できます。</div>
-      </div>
+      <div class="row room-actions"><label class="input-label cpu-picker-label"><span>追加するCPU</span><select id="cpuCharacterSelect" class="input" aria-label="追加するCPU"><option value="auto">おまかせ</option><option value="kamomodoki">かももどき</option><option value="wakumodoki">ワクもどき</option><option value="rikumodoki">リクもどき</option><option value="nakato_modoki">なかとーもどき</option></select></label><button id="addCpu" class="btn secondary">選んだCPUを追加</button><button id="removeCpu" class="btn secondary">最後のCPUを外す</button></div>
+      <p id="cpuSelectionPreview" class="cpu-selection-preview" aria-live="polite">おまかせ：未参加のCPUを優先して選びます。</p><p id="cpuAddHint" class="small"></p>
       <button type="button" id="clearRoom" class="btn secondary clear-room-button" hidden>部屋をクリアして作り直す</button>
       <button type="button" id="leaveRoomLobby" class="btn secondary lobby-leave-button">部屋から離脱</button>
     </div>
@@ -7492,7 +7696,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
 
     <section id="playerHandDock" class="hand-dock" aria-label="あなたの手札">
       <div class="hand-dock-title"><span>あなたの手札</span><b id="handCountLabel">0枚</b><button type="button" id="handViewToggle" class="hand-view-toggle" data-hand-view-toggle aria-pressed="false"><span aria-hidden="true">↔</span> 広げる</button></div>
-      <div class="hand-wrap"><div id="handNote"></div><div id="handAlerts"></div><div id="hand" class="hand"></div></div>
+      <div class="hand-wrap"><div id="handNote" aria-live="polite"></div><div id="handAlerts"></div><div id="hand" class="hand"></div></div>
     </section>
 
     <aside id="gameUtilityPanel" class="game-utility-panel" hidden aria-hidden="true">
@@ -7500,7 +7704,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
       <div class="utility-sheet" role="dialog" aria-modal="true" aria-labelledby="utilityTitle">
         <div class="utility-head"><h2 id="utilityTitle">ゲーム情報</h2><button type="button" class="utility-close" data-close-game-panel aria-label="閉じる">×</button></div>
         <section class="utility-section utility-log" data-utility-view="log"><h3>進行ログ</h3><div id="log" class="log"></div></section>
-        <section class="utility-section utility-spectators" data-utility-view="spectators"><h3>👁 観戦者</h3><p>観戦者には4人全員の手札が公開されています。</p><div id="gameSpectatorList" class="game-spectator-list"></div></section>
+        <section class="utility-section utility-spectators" data-utility-view="spectators"><h3>👁 観戦者</h3><p>観戦者にはプレイヤー全員の手札が公開されています。</p><div id="gameSpectatorList" class="game-spectator-list"></div></section>
         <section class="utility-section utility-rules" id="ruleSummary" data-utility-view="rules">
           <h3>🐷 この対戦のルール</h3>
           <div id="activeRuleSummary" class="active-rule-summary" aria-live="polite"></div>
@@ -7508,7 +7712,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
         <div class="rule-card">
           <h3>基本</h3>
           <ul>
-            <li>4人専用。通常カード52枚＋ババブタ1枚を使い、通常カード1枚を抜いて各自13枚。</li>
+            <li>3〜5人で遊べます。3人は17枚、4人は13枚、5人は10枚ずつ配ります。ババブタとマッド・ピッグは必ず使用します。</li>
             <li>強さ：13 ＞ 12 ＞ … ＞ 1。1が最弱、13が最強。</li>
             <li>リードスートがあれば必ず出す。ババブタは場に出せない。</li>
             <li>勝者はリードスートで一番強いカード。</li>
@@ -7518,11 +7722,11 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
         <div class="rule-card">
           <h3>ピックとペア</h3>
           <ul>
-            <li>勝者は場の4枚をごちそう山へ。</li>
+            <li>トリックの勝者は、その場に出た全カードをごちそう山へ。</li>
             <li>標準は勝者が自分の手札から候補を出し、最弱者が1枚引いて受け取る。従来方向も選択可。</li>
             <li>カードを取られる側が候補を2枚に絞る。絞らない/1〜13枚にも変更可。</li>
             <li>任意で「ババブタ必須候補」をONにできる。候補1枚ならババが自動確定。「絞らない」は元々全手札候補なので変化なし。</li>
-            <li>任意で「2位と3位の間でもピック」をONにすると、1位↔4位と2位→3位を別pickIdの2レーンで同時進行する。両方のピック／浄化が終わると次のトリックへ進む。</li>
+            <li>中位の追加ピックをONにすると、4人は2位→3位、5人は2位→4位を、1位と最弱のピックと別レーンで同時進行します。3人用では追加ピックはありません。</li>
             <li>提供者の候補選択画面はスート順→数字順。ピッカー側は公平なランダム順。</li>
             <li>受取人の手札で同じ数字ができたら、ペアで捨てるかスキップを選ぶ。ババブタはペア不可。次のリードは勝者。</li>
           </ul>
@@ -7560,7 +7764,7 @@ body.finished-mode{--final-action-dock-height:76px}.final-stage{padding-bottom:c
           <ul>
             <li>3ラウンド / ピック対象2枚 / リンゴ・トウモロコシ・キャベツは-3点・通常の💧は-6点。</li>
             <li>マッド・ピッグあり / ババブタ-20点・ラウンド毎。</li>
-            <li>2位→3位ピックOFF / 装填→発射OFF / ババ必須候補OFF / シュート移動条件OFF / 3枚パスなし / 開始時ペア捨てなし / シュートON（両方とも手札・無制限）。</li>
+            <li>2位→3位ピックON / 装填→発射OFF / ババ必須候補ON / シュート移動条件OFF / 3枚パスなし / 開始時ペア捨てなし / シュートOFF（ON時は両方とも手札・無制限）。</li>
           </ul>
         </div>
       </div>
@@ -7683,6 +7887,7 @@ function fixPickTargetBadgePosition(){
 
 
 function applyDeviceUiMode(){
+  document.body.classList.toggle('large-text-mode',parseFloat(getComputedStyle(document.documentElement).fontSize)>24);
   const w = window.innerWidth || document.documentElement.clientWidth || 0;
   const h = window.innerHeight || document.documentElement.clientHeight || 0;
   const coarse = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
@@ -7782,6 +7987,7 @@ function showTransientNotice(className,html,duration=2800){
 }
 
 function renderTurnNotice(){
+  if(state?.phase!=='playing' || !state?.isYourTurn){document.querySelectorAll('.turn-notice').forEach(el=>el.remove());return;}
   if(!state || state.isSpectator || state.participantRole==='spectator') return;
   const key=`${state.round || 0}:${state.current ?? '-'}:${(state.trick || []).map(x=>x.card?.id || '').join(',')}`;
   if(!state.isYourTurn){ return; }
@@ -7919,6 +8125,8 @@ function clearReconnectInfo(){
 }
 
 function resetRoomClientState({hostCleared=false,wasHost=false}={}){
+  document.body.classList.remove('has-room');
+  setJoinRequestUi(false);
   stopReconnectLoop();
   clearReconnectInfo();
   intentionalClose=true;
@@ -8099,6 +8307,42 @@ function scheduleReconnect(immediate=false){
 }
 
 const $=id=>document.getElementById(id);
+
+const uiDialogStates=new Map();
+function focusUiDialog(root){
+ if(uiDialogStates.has(root)) return;
+ const disabled=[];
+ let branch=root;
+ while(branch.parentElement && branch.parentElement!==document.documentElement){
+  for(const sibling of branch.parentElement.children){if(sibling!==branch && sibling.tagName!=='SCRIPT' && !sibling.inert){sibling.inert=true;disabled.push(sibling);}}
+  branch=branch.parentElement;
+ }
+ const opener=document.activeElement;
+ const trap=ev=>{if(ev.key!=='Tab')return;const items=[...(root.querySelector('[role="dialog"]')||root).querySelectorAll('button,input,select,a[href],[tabindex="0"]')].filter(el=>!el.disabled&&el.getClientRects().length);if(!items.length)return;const first=items[0],last=items.at(-1);if(ev.shiftKey&&document.activeElement===first){ev.preventDefault();last.focus();}else if(!ev.shiftKey&&document.activeElement===last){ev.preventDefault();first.focus();}};
+ root.addEventListener('keydown',trap);uiDialogStates.set(root,{opener,disabled,trap});
+ root.querySelector('.utility-close,.rule-help-close')?.focus({preventScroll:true});
+}
+function restoreUiDialog(root){
+ const saved=uiDialogStates.get(root);if(!saved)return;
+ saved.disabled.forEach(el=>el.inert=false);root.removeEventListener('keydown',saved.trap);uiDialogStates.delete(root);
+ if(saved.opener?.isConnected&&!saved.opener.closest('[hidden]'))saved.opener.focus({preventScroll:true});
+}
+function setJoinRequestUi(busy){
+ const btn=$('join');if(!btn)return;btn.disabled=busy;btn.setAttribute('aria-busy',String(busy));btn.textContent=busy?'参加中…':'参加する';
+ clearTimeout(window.__joinRequestTimer);if(busy)window.__joinRequestTimer=setTimeout(()=>{setJoinRequestUi(false);$('joinFeedback').textContent='応答がありません。接続を確認してもう一度お試しください。';},16000);
+}
+function updateCpuPreview(){
+ const descriptions={auto:'おまかせ：未参加のCPUを優先して選びます。',kamomodoki:'かももどき：駆け引き・挑発型。危険札を仕込むのが得意。',wakumodoki:'ワクもどき：直感・大胆型。高札やコンボに挑戦。',rikumodoki:'リクもどき：分析・堅実型。危険札を冷静に管理。',nakato_modoki:'なかとーもどき：戦略・美意識型。順位の先行きまで計算。'};
+ $('cpuSelectionPreview').textContent=descriptions[$('cpuCharacterSelect').value]||descriptions.auto;
+}
+$('cpuCharacterSelect').addEventListener('change',updateCpuPreview);
+$('copyRoomCode').addEventListener('click',async()=>{
+ try{await navigator.clipboard.writeText($('roomCode').textContent);$('copyCodeFeedback').textContent='コードをコピーしました。友達に送って招待できます。';}
+ catch{const selection=getSelection(),range=document.createRange();range.selectNodeContents($('roomCode'));selection.removeAllRanges();selection.addRange(range);$('copyCodeFeedback').textContent='コードを選択しました。長押しまたはコピー操作で共有してください。';}
+});
+$('code').addEventListener('input',()=>{$('code').value=$('code').value.toUpperCase();$('code').removeAttribute('aria-invalid');$('joinFeedback').textContent='';});
+$('code').addEventListener('keydown',ev=>{if(ev.key==='Enter'){ev.preventDefault();$('join').click();}});
+
 function selectedParticipantRole(){
   return document.querySelector('input[name="participantRole"]:checked')?.value==='spectator' ? 'spectator' : 'player';
 }
@@ -8119,7 +8363,7 @@ function openGameUtilityPanel(view='log'){
   if(view === 'rules') renderSelectedRuleSummary();
   panel.hidden = false;
   panel.setAttribute('aria-hidden','false');
-  panel.querySelector('.utility-close')?.focus({preventScroll:true});
+  focusUiDialog(panel);
 }
 
 function closeGameUtilityPanel(){
@@ -8127,6 +8371,7 @@ function closeGameUtilityPanel(){
   if(!panel || panel.hidden) return;
   panel.hidden = true;
   panel.setAttribute('aria-hidden','true');
+  restoreUiDialog(panel);
 }
 
 function setupGameUtilityPanel(){
@@ -8192,8 +8437,9 @@ function renderLobbyParticipants(roomState=state){
   const players=roomState?.players || [];
   const spectators=roomState?.spectators || [];
   const count=players.length;
-  const remain=Math.max(0,4-count);
-  summary.textContent=`現在 ${count} / 4人　${remain ? `あと${remain}人` : '全員そろいました'}`;
+  const capacity=Number(roomState?.playerSeatCapacity || roomState?.playerCount || 4);
+  const remain=Math.max(0,capacity-count);
+  summary.textContent=`現在 ${count} / ${capacity}人　${remain ? `あと${remain}人` : '全員そろいました'}`;
   const rows=players.map((p,index)=>{
     const host=p.id===roomState?.hostId;
     const you=p.id===roomState?.you;
@@ -8201,8 +8447,8 @@ function renderLobbyParticipants(roomState=state){
     const badges=[host?'ホスト':'',you?'あなた':'',p.cpu?'CPU':(!p.connected?'切断中':'オンライン')].filter(Boolean).join('・');
     return `<div class="lobby-participant" title="${escAttr(identity)}" aria-label="${escAttr(`${host?'ホスト、':''}${you?'あなた、':''}${identity}、${badges}`)}"><span class="lobby-participant-name">${host?'👑 ':''}${esc(identity)}</span><span class="lobby-participant-state">${esc(badges)}</span></div>`;
   });
-  while(rows.length<4) rows.push('<div class="lobby-participant empty" aria-label="空き枠"><span class="lobby-participant-name">＋ 空き</span><span class="lobby-participant-state">参加待ち</span></div>');
-  list.innerHTML=rows.slice(0,4).join('');
+  while(rows.length<capacity) rows.push('<div class="lobby-participant empty" aria-label="空き枠"><span class="lobby-participant-name">＋ 空き</span><span class="lobby-participant-state">参加待ち</span></div>');
+  list.innerHTML=rows.slice(0,capacity).join('');
   const spectatorList=$('lobbySpectators');
   const spectatorSummary=$('lobbySpectatorSummary');
   if(spectatorSummary) spectatorSummary.textContent=`${spectators.length}人`;
@@ -8221,7 +8467,7 @@ function renderLobbyParticipants(roomState=state){
   if(roleLabel) roleLabel.textContent=yourRole==='spectator'?'👁 観戦参加中':'🎮 プレイ参加中';
   if(roleButton){
     roleButton.textContent=yourRole==='spectator'?'プレイへ切り替える':'観戦へ切り替える';
-    roleButton.disabled=roomState?.phase!=='lobby' || (yourRole==='spectator' && players.length>=4);
+    roleButton.disabled=roomState?.phase!=='lobby' || (yourRole==='spectator' && players.length>=capacity);
     roleButton.title=roleButton.disabled && yourRole==='spectator'?'プレイヤー席が満員です':'';
   }
 }
@@ -8241,9 +8487,16 @@ function renderSpectatorPresence(){
 function updateLobbyActionUi(){
   renderLobbyParticipants(state);
   if(!state) return;
+  const entered=!document.body.classList.contains('has-room');
+  document.body.classList.add('has-room');
+  if(entered && state.phase==='lobby'){$('roomInfo').focus({preventScroll:true});window.scrollTo({top:0,behavior:'instant'});}
+  $('roomReadyBanner').textContent=isHost()?'友達にコードを共有するか、CPUを追加しましょう。':'部屋に参加しました。ホストの開始を待ちましょう。';
+  $('cpuCharacterSelect').disabled=!isHost();
+  $('cpuAddHint').textContent=!isHost()?'CPUの追加・削除はホストが操作します。':state.players.length>=Number(state.playerSeatCapacity||4)?'人数がそろいました。ゲームを開始できます。':'同じCPUも複数追加できます。外すと最後に追加したCPUが退出します。';
   const steps = document.querySelectorAll('.lobby-step');
   const hasRoom = !!state.code && state.phase !== undefined;
-  const ready = state.phase === 'lobby' && (state.players || []).length === 4;
+  const capacity=Number(state.playerSeatCapacity || 4);
+  const ready = state.phase === 'lobby' && (state.players || []).length === capacity;
   steps.forEach((el,idx)=>{
     el.classList.toggle('active', idx === 0 || (idx === 1 && hasRoom) || (idx === 2 && ready));
     el.classList.toggle('done', (idx === 0 && hasRoom) || (idx === 1 && hasRoom));
@@ -8259,16 +8512,16 @@ function updateLobbyActionUi(){
   }
   if(start && state.phase === 'lobby'){
     const count = (state.players || []).length;
-    const remain = Math.max(0, 4 - count);
+    const remain = Math.max(0, capacity - count);
     const host = isHost();
-    start.classList.toggle('is-ready', host && count === 4);
-    start.classList.toggle('is-waiting', count < 4);
+    start.classList.toggle('is-ready', host && count === capacity);
+    start.classList.toggle('is-waiting', count < capacity);
     if(host){
-      start.textContent = count === 4 ? '4人で遊ぶ！ゲーム開始' : `あと${remain}人で開始`;
-      if(hint) hint.textContent = count === 4 ? '準備OKです。中央の大きなボタンでゲームを開始できます。' : `現在${count}/4人です。友達を待つかCPUを追加してください。`;
+      start.textContent = count === capacity ? `${capacity}人で遊ぶ！ゲーム開始` : `あと${remain}人で開始`;
+      if(hint) hint.textContent = count === capacity ? '準備OKです。中央の大きなボタンでゲームを開始できます。' : `現在${count}/${capacity}人です。友達を待つかCPUを追加してください。`;
     } else {
-      start.textContent = count === 4 ? 'ホストが開始します' : `参加中 ${count}/4人`;
-      if(hint) hint.textContent = count === 4 ? 'ホストの開始を待っています。' : 'ホストが人数をそろえるのを待っています。';
+      start.textContent = count === capacity ? 'ホストが開始します' : `参加中 ${count}/${capacity}人`;
+      if(hint) hint.textContent = count === capacity ? 'ホストの開始を待っています。' : 'ホストが人数をそろえるのを待っています。';
     }
   } else if(start && state.phase !== 'lobby'){
     start.textContent = 'ゲーム進行中';
@@ -8290,7 +8543,7 @@ const RULE_HELP_TEXTS = {
   roundDealMode:{
     title:'次ラウンドの配り方',
     body:[
-      '標準は「全カードを回収してシャッフル」です。ラウンド終了時に得点を確定し、手札・ごちそう山・ペア浄化済みカードをすべて回収して、新しい13枚を配ります。',
+      '標準は「全カードを回収してシャッフル」です。ラウンド終了時に得点を確定し、手札・ごちそう山・ペア浄化済みカードをすべて回収して、3人は17枚、4人は13枚、5人は10枚を新しく配ります。',
       '「残りカードを持ち越して補充」は旧ルール互換です。残り手札、ごちそう山、ペア浄化済みカードを保持し、手札だけ13枚まで通常カードで補充します。',
       'どちらを選んでも、ラウンドごとの得点、ババブタ失点、シュート失点はゲーム終了まで正しく累計されます。',
       '開始時3枚パスと開始時ペア捨ては、ゲーム開始時の第1ラウンドだけ実施します。'
@@ -8300,7 +8553,7 @@ const RULE_HELP_TEXTS = {
     title:'ごちそう山の得点',
     body:[
       'ごちそう山のカード1枚あたりの得点です。0〜10点の整数で、標準は1点です。',
-      '通常は1トリックで4枚を獲得するため、1枚1点なら+4点、1枚2点なら+8点です。',
+      '1トリックの獲得枚数は参加人数と同じです。1枚1点なら、3人卓は+3点、4人卓は+4点、5人卓は+5点になります。',
       'マッド・ピッグが山にある場合も、まずこの得点を加え、その後に固有失点を適用します。'
     ]
   },
@@ -8347,7 +8600,7 @@ const RULE_HELP_TEXTS = {
       '標準では2枚を持てば判定します。「シュートにはババブタの移動が必要」をONにした部屋では、同じラウンド中のババ実移動も必要です。',
       '発動者は、そのラウンドのババブタ失点とマッド・ピッグ失点が0になり、他全員に-10点を与えます。',
       '発動回数は別項目で「無制限」または「1人1回まで」を選べます。',
-      '標準設定はON・無制限です。',
+      '標準設定はOFFです。ONにした場合、発動回数は無制限または1人1回までから選べます。',
       'マッド・ピッグOFF時は選択できません。'
     ]
   },
@@ -8364,7 +8617,7 @@ const RULE_HELP_TEXTS = {
   forceJokerPickCandidate:{
     title:'ババブタを必ずピック候補にする',
     body:[
-      'ONで、カード提供者がババブタを持ち、候補を絞る設定なら、ババブタを解除できない必須候補にします。標準はOFFです。',
+      'ONで、カード提供者がババブタを持ち、候補を絞る設定なら、ババブタを解除できない必須候補にします。標準はONです。',
       '候補1枚ならババブタ1枚でサーバーが自動確定し、そのままピックへ進みます。候補2枚ならババブタ＋提供者が選ぶ通常カード1枚です。',
       '「絞らない」は元々手札全体が候補なので、候補構成は変わりません。配置順はランダムで、ピッカーもCPUもババの位置を知りません。',
       '「シュートにはババブタの移動が必要」と同時にONにできます。候補入りだけでは移動済みにならず、実際に引かれた時だけ数えます。'
@@ -8373,7 +8626,7 @@ const RULE_HELP_TEXTS = {
   enableMiddleRankPick:{
     title:'2位と3位の間でもピック',
     body:[
-      'ONでは通常の1位↔最弱ピックと同時に、トリック2位が候補を出して3位が1枚受け取ります。標準はOFFです。',
+      'ONでは通常の1位↔最弱ピックと同時に、トリック2位が候補を出して3位が1枚受け取ります。標準はONです。',
       '順位はトリック解決時に一度だけ確定し、最初のピック後も変わりません。次のリードは従来どおり1位です。',
       '候補数、ババ必須候補、CPUの公平なランダム選択、ペア浄化、切断時の自動復旧は追加ピックにも同じように適用されます。'
     ]
@@ -8434,19 +8687,19 @@ const RULE_HELP_TEXTS = {
 const RULE_PRESETS = {
   standard:{
     label:'スタンダード', description:'運と戦略のバランスが良い標準ルールです。',
-    values:{rounds:'3',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-20',jokerPenaltyTiming:'perRound',shootThePigEnabled:'true',shootThePigLimit:'unlimited',enableMiddleRankPick:'false',shootLoadFireMode:'false',forceJokerPickCandidate:'false',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'2',passThreeEnabled:'false',initialPairDiscardEnabled:'false'}
+    values:{rounds:'3',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-20',jokerPenaltyTiming:'perRound',shootThePigEnabled:'false',shootThePigLimit:'unlimited',enableMiddleRankPick:'true',shootLoadFireMode:'false',forceJokerPickCandidate:'true',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'2',passThreeEnabled:'false',initialPairDiscardEnabled:'false'}
   },
   quick:{
     label:'クイック', description:'1ラウンドで決着。ルールを覚える練習や短時間プレイ向けです。',
-    values:{rounds:'1',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-20',jokerPenaltyTiming:'perRound',shootThePigEnabled:'true',shootThePigLimit:'unlimited',enableMiddleRankPick:'false',shootLoadFireMode:'false',forceJokerPickCandidate:'false',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'2',passThreeEnabled:'false',initialPairDiscardEnabled:'false'}
+    values:{rounds:'1',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-20',jokerPenaltyTiming:'perRound',shootThePigEnabled:'false',shootThePigLimit:'unlimited',enableMiddleRankPick:'true',shootLoadFireMode:'false',forceJokerPickCandidate:'true',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'2',passThreeEnabled:'false',initialPairDiscardEnabled:'false'}
   },
   dramatic:{
     label:'ドラマチック', description:'重いババブタと広いピック候補で、事故・逆転・歓声が増える設定です。',
-    values:{rounds:'3',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-30',jokerPenaltyTiming:'perRound',shootThePigEnabled:'true',shootThePigLimit:'unlimited',enableMiddleRankPick:'false',shootLoadFireMode:'false',forceJokerPickCandidate:'false',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'6',passThreeEnabled:'false',initialPairDiscardEnabled:'false'}
+    values:{rounds:'3',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-30',jokerPenaltyTiming:'perRound',shootThePigEnabled:'false',shootThePigLimit:'unlimited',enableMiddleRankPick:'true',shootLoadFireMode:'false',forceJokerPickCandidate:'true',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'6',passThreeEnabled:'false',initialPairDiscardEnabled:'false'}
   },
   strategic:{
     label:'ストラテジー', description:'💧スート管理、3枚パス、開始ペアを使う長期の読み合いです。',
-    values:{rounds:'5',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-20',jokerPenaltyTiming:'perRound',shootThePigEnabled:'true',shootThePigLimit:'unlimited',enableMiddleRankPick:'false',shootLoadFireMode:'false',forceJokerPickCandidate:'false',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'2',passThreeEnabled:'true',initialPairDiscardEnabled:'true'}
+    values:{rounds:'5',roundDealMode:'reshuffle',feastPointPerCard:'1',penaltyMode:'mud6',madPigEnabled:'true',jokerPenalty:'-20',jokerPenaltyTiming:'perRound',shootThePigEnabled:'false',shootThePigLimit:'unlimited',enableMiddleRankPick:'true',shootLoadFireMode:'false',forceJokerPickCandidate:'true',shootRequiresBabaMoved:'false',pickProviderRole:'winner',pickTargetCount:'2',passThreeEnabled:'true',initialPairDiscardEnabled:'true'}
   }
 };
 
@@ -8472,6 +8725,7 @@ function updateRulePresetUi(){
   summary.innerHTML = preset
     ? `<span>現在の設定</span><b>${esc(preset.label)}</b><small>${esc(preset.description)}</small>`
     : '<span>現在の設定</span><b>カスタム</b><small>詳細ルールを個別に調整したオリジナル設定です。</small>';
+  if($('setupRuleSummary')) $('setupRuleSummary').textContent=`${$('selectedPresetSummary')?.querySelector('b')?.textContent||'カスタム'}・${Number($('rounds').value||3)}ラウンド・シュート${$('shootThePigEnabled').value==='true'?'ON':'OFF'}`;
 }
 function applyRulePreset(key){
   const preset = RULE_PRESETS[key];
@@ -8498,6 +8752,7 @@ function setupRulePresets(){
 
 function readRuleSelectionForTrend(){
   return {
+    playerCount:Number($('playerCount')?.value || 4),
     rounds:Number($('rounds')?.value || 3),
     roundDealMode:$('roundDealMode')?.value || 'reshuffle',
     feastPointPerCard:Math.max(0,Math.min(10,Math.trunc(Number($('feastPointPerCard')?.value ?? 1)))),
@@ -8539,8 +8794,8 @@ function buildMatchTrendDescription(cfg){
 
   tags.push(`ごちそう1枚${cfg.feastPointPerCard}点`);
   if(cfg.feastPointPerCard===0){ chaos += 1; points.push('ごちそう山は0点です。勝利価値より、手札移動と危険札処理の比重が上がります。'); }
-  else if(cfg.feastPointPerCard>=5){ pressure += 2; points.push(`ごちそう山は1枚${cfg.feastPointPerCard}点。通常1トリックで+${cfg.feastPointPerCard*4}点となり、勝利価値が大きい設定です。`); }
-  else { points.push(`ごちそう山は1枚${cfg.feastPointPerCard}点。通常1トリックで+${cfg.feastPointPerCard*4}点です。`); }
+  else if(cfg.feastPointPerCard>=5){ pressure += 2; points.push(`ごちそう山は1枚${cfg.feastPointPerCard}点。1トリックの獲得枚数に応じて得点が入り、勝利価値が大きい設定です。`); }
+  else { points.push(`ごちそう山は1枚${cfg.feastPointPerCard}点。得点は参加人数ぶんのカード枚数で決まります。`); }
 
   if(cfg.penaltyMode === 'faceValue'){ tags.push('高数字が危険'); strategy += 2; pressure += 1; points.push('数字分失点なので、高い数字を残すほど重くなります。高札の処理判断が重要です。'); }
   else if(cfg.penaltyMode === 'mud6'){ tags.push('💧重点管理'); strategy += 2; pressure += 2; points.push('標準の💧-6/他-3です。通常の💧は他スートの2倍重く、トリックで処理する判断が重要です。マッドは固有-13点で重複しません。'); }
@@ -8579,9 +8834,9 @@ function buildMatchTrendDescription(cfg){
     tags.push('最弱から勝者へ'); pressure += 1;
     points.push('最弱者が候補を出し、勝者が1枚受け取る従来ルールです。勝者の手札が増えやすくなります。');
   }
-  if(cfg.enableMiddleRankPick){
+  if(cfg.enableMiddleRankPick && cfg.playerCount!==3){
     tags.push('中位ピック');chaos+=1;strategy+=1;
-    points.unshift('1位↔最弱と2位→3位のピックを同時進行します。1トリックでカードが2回動き、全員が順位争いに関わりやすくなります。');
+    points.unshift(`1位↔最弱と2位→${cfg.playerCount===5?'4':'3'}位のピックを同時進行します。1トリックでカードが2回動き、全員が順位争いに関わりやすくなります。`);
   }
 
   if(cfg.pickCount === 0){ tags.push('ピック運大'); chaos += 2; points.push('候補を絞らず、提供者の手札全体から引きます。事故感と運要素が強くなります。'); }
@@ -8606,7 +8861,7 @@ function buildMatchTrendDescription(cfg){
   if(cfg.forceJokerPickCandidate && cfg.shootRequiresBabaMoved && cfg.shoot){
     points.unshift('ババブタが卓上を移動しやすく、移動後のシュートを巡る駆け引きが強い組み合わせです。');
   }
-  if(cfg.enableMiddleRankPick && cfg.shootLoadFireMode && cfg.forceJokerPickCandidate){
+  if(cfg.enableMiddleRankPick && cfg.playerCount!==3 && cfg.shootLoadFireMode && cfg.forceJokerPickCandidate){
     points.unshift('ババブタが非常に動きやすく、装填と発射を巡る派手な攻防が起こりやすい注目ルール構成です。');
   }
 
@@ -8657,6 +8912,7 @@ function openRuleHelp(ruleKey){
   if(panel) panel.scrollTop = 0;
   modal.classList.add('open');
   modal.setAttribute('aria-hidden','false');
+  focusUiDialog(modal);
 }
 
 
@@ -8669,12 +8925,13 @@ function closeRuleHelp(ev=null){
   if(!modal) return;
   modal.classList.remove('open');
   modal.setAttribute('aria-hidden','true');
+  restoreUiDialog(modal);
 }
 
 
 
 function setupRuleSelectionHelpers(){
-  const ids = ['rounds','roundDealMode','feastPointPerCard','penaltyMode','madPigEnabled','jokerPenalty','jokerPenaltyTiming','shootThePigEnabled','shootThePigLimit','enableMiddleRankPick','shootLoadFireMode','forceJokerPickCandidate','shootRequiresBabaMoved','pickProviderRole','pickTargetCount','passThreeEnabled','initialPairDiscardEnabled'];
+  const ids = ['playerCount','rounds','roundDealMode','feastPointPerCard','penaltyMode','madPigEnabled','jokerPenalty','jokerPenaltyTiming','shootThePigEnabled','shootThePigLimit','enableMiddleRankPick','shootLoadFireMode','forceJokerPickCandidate','shootRequiresBabaMoved','pickProviderRole','pickTargetCount','passThreeEnabled','initialPairDiscardEnabled'];
   ids.forEach(id=>{
     const el = $(id);
     if(!el || el.dataset.trendBound === '1') return;
@@ -8697,6 +8954,7 @@ function setupRuleSelectionHelpers(){
       const now = Date.now();
       if(now - __ruleHelpOpenAt < 180) return;
       __ruleHelpOpenAt = now;
+      btn.focus({preventScroll:true});
       openRuleHelp(btn.dataset.helpRule);
     };
     btn.addEventListener('pointerdown', stopLabelAction);
@@ -8900,7 +9158,7 @@ $('create').onclick=()=>{
   pendingConnectIntent='create';
   setCreateButtonState('creating');
   participantRole=selectedParticipantRole();
-  connect(()=>send({type:'create', participantRole, name:$('name').value, rounds:Number($('rounds').value || 3), roundDealMode:$('roundDealMode').value || 'reshuffle', feastPointPerCard:Number($('feastPointPerCard').value ?? 1), madPigEnabled:$('madPigEnabled').value==='true', shootThePigEnabled:$('shootThePigEnabled').value==='true', shootThePigLimit:$('shootThePigLimit').value || 'unlimited', enableMiddleRankPick:$('enableMiddleRankPick').value==='true', shootLoadFireMode:$('shootLoadFireMode').value==='true', forceJokerPickCandidate:$('forceJokerPickCandidate').value==='true', shootRequiresBabaMoved:$('shootLoadFireMode').value!=='true' && $('shootRequiresBabaMoved').value==='true', jokerPenalty:Number($('jokerPenalty').value || -20), jokerPenaltyTiming:$('jokerPenaltyTiming').value, initialPairDiscardEnabled:$('initialPairDiscardEnabled').value==='true', passThreeEnabled:$('passThreeEnabled').value==='true', penaltyMode:$('penaltyMode').value, pickProviderRole:$('pickProviderRole').value || 'winner', pickTargetCount:Number($('pickTargetCount').value || 2)}));
+  connect(()=>send({type:'create', playerCount:Number($('playerCount')?.value || 4), participantRole, name:$('name').value, rounds:Number($('rounds').value || 3), roundDealMode:$('roundDealMode').value || 'reshuffle', feastPointPerCard:Number($('feastPointPerCard').value ?? 1), madPigEnabled:$('madPigEnabled').value==='true', shootThePigEnabled:$('shootThePigEnabled').value==='true', shootThePigLimit:$('shootThePigLimit').value || 'unlimited', enableMiddleRankPick:$('enableMiddleRankPick').value==='true', shootLoadFireMode:$('shootLoadFireMode').value==='true', forceJokerPickCandidate:$('forceJokerPickCandidate').value==='true', shootRequiresBabaMoved:$('shootLoadFireMode').value!=='true' && $('shootRequiresBabaMoved').value==='true', jokerPenalty:Number($('jokerPenalty').value || -20), jokerPenaltyTiming:$('jokerPenaltyTiming').value, initialPairDiscardEnabled:$('initialPairDiscardEnabled').value==='true', passThreeEnabled:$('passThreeEnabled').value==='true', penaltyMode:$('penaltyMode').value, pickProviderRole:$('pickProviderRole').value || 'winner', pickTargetCount:Number($('pickTargetCount').value || 2)}));
 };
 $('join').onclick=()=>{
   setCreateButtonState('idle', '部屋コードで参加します。');
@@ -8912,10 +9170,12 @@ $('join').onclick=()=>{
   if(!/^[A-Z0-9]{4}$/.test(enteredCode)){
     const feedback=$('createFeedback');
     if(feedback){ feedback.dataset.tone='error'; feedback.textContent='部屋コードを半角4文字で入力してください。'; }
+    $('code').setAttribute('aria-invalid','true');$('joinFeedback').textContent='部屋コードを半角英数字4文字で入力してください。';
     $('code').focus();
     hypeToast('部屋コードは半角4文字です','danger');
     return;
   }
+  setJoinRequestUi(true);$('joinFeedback').textContent='';
   pendingConnectIntent='join';
   participantRole=selectedParticipantRole();
   const sameRoom=saved && saved.code===enteredCode;
@@ -8948,18 +9208,18 @@ $('start').onclick=()=>{
   window.clearTimeout(window.__startRequestTimer);
   if(!send({type:'start'})){
     setStartRequestUi(false);
-    btn.disabled=!(isHost() && state?.phase==='lobby' && state?.players?.length===4);
+    btn.disabled=!(isHost() && state?.phase==='lobby' && state?.players?.length===Number(state?.playerSeatCapacity || 4));
     return;
   }
   window.__startRequestTimer=window.setTimeout(()=>{
     if(state?.phase==='lobby'){
       setStartRequestUi(false);
-      btn.disabled=!(isHost() && state.players.length===4);
+      btn.disabled=!(isHost() && state.players.length===Number(state.playerSeatCapacity || 4));
       hypeToast('開始処理の応答がありません。接続状態を確認してもう一度試してください。','danger');
     }
   },6000);
 };
-$('addCpu').onclick=()=>send({type:'addCpu'});
+$('addCpu').onclick=()=>send({type:'addCpu',characterKey:$('cpuCharacterSelect')?.value || 'auto'});
 $('removeCpu').onclick=()=>send({type:'removeCpu'});
 function reconnectSavedRoom(manual=false){
   const data=loadReconnectInfo();
@@ -9298,6 +9558,10 @@ document.addEventListener('click', handleInitialPairEvent);
 
 // Edge/PCブラウザ対策：手札カードもインラインonclickを使わずイベント委任で出す。
 // 2トリック目以降にDOM再描画やグローバル名解決の影響でクリック不能になる問題を防ぐ。
+function accessibleCardLabel(card){
+ if(!card)return 'カード';if(card.joker)return 'ババブタ';
+ return `${suitUi(card.suit).name}の${card.rank}${isMadPig(card)?'、マッド・ピッグ':''}`;
+}
 function playCardChoiceLabel(card){
   if(!card) return 'カード';
   if(card.joker) return 'ババブタ';
@@ -9431,6 +9695,7 @@ function connect(after, isReconnect=false){
       return;
     }
     if(msg.type==='created'||msg.type==='joined'||msg.type==='reconnected'){
+      setJoinRequestUi(false);
       intentionalLeave=false;
       reconnectBlockedElsewhere=false;
       pendingConnectIntent='idle';
@@ -9452,7 +9717,7 @@ function connect(after, isReconnect=false){
         setCreateButtonState('created', `部屋を作成しました。部屋コード ${msg.code} を共有できます。`);
         hypeToast('✅ 部屋を作成しました');
       } else if(msg.type==='joined'){
-        setCreateButtonState('idle', '参加モードです。部屋作成する場合は名前を確認して押してください。');
+        setCreateButtonState('idle', '部屋に参加しました。');
       } else if(msg.type==='reconnected'){
         // 復帰直後の最初のstateは現在状態として静かに採用し、切断中のイベントを再演出しない。
         __animationStateHydrated=false;__animationOrigins.clear();
@@ -9500,12 +9765,15 @@ function connect(after, isReconnect=false){
       render();
     }
     if(msg.type==='playerSeatsFull'){
+      setJoinRequestUi(false);
       const offer=$('playerSeatsFullOffer');
       if(offer){offer.hidden=false;offer.querySelector('span').textContent=msg.message || '観戦者として参加できます。';}
       const feedback=$('createFeedback');if(feedback){feedback.dataset.tone='neutral';feedback.textContent=msg.message || 'プレイヤー席は満員です。';}
       setConnStatus('接続済');
     }
     if(msg.type==='errorMsg'){
+      if(pendingConnectIntent==='join'){$('joinFeedback').textContent=msg.message||'参加できませんでした。コードを確認してください。';$('code').setAttribute('aria-invalid','true');}
+      setJoinRequestUi(false);
       setConnStatus('要確認');
       if($('create')?.classList.contains('is-creating')) setCreateButtonState('error', msg.message || '部屋作成に失敗しました。');
       if(reconnectInFlight){
@@ -9537,6 +9805,7 @@ function connect(after, isReconnect=false){
   };
   socket.onclose=(event)=>{
     if(socket !== ws || generation !== socketGeneration) return;
+    if(pendingConnectIntent==='join'){setJoinRequestUi(false);$('joinFeedback').textContent='接続が切れました。もう一度お試しください。';}
     if(socketOpenTimer){ clearTimeout(socketOpenTimer); socketOpenTimer=null; }
     stopSocketHealth();
     stopReconnectLoop(false);
@@ -9610,7 +9879,8 @@ function renderSpectatorView(){
   const trickByPid=new Map((state.trick || []).map(entry=>[entry.pid,entry]));
   const pp=state.pendingPick,group=state.parallelPickGroup;
   const roleText=group?'2つのピックが同時進行中':pp?`カード移動：${playerIdentityText(pp.pickProviderPid)} → ${playerIdentityText(pp.pickerPid)}`:state.trickReview?`👑 ${playerIdentityText(state.trickReview.winnerPid)} / 💀 ${playerIdentityText(state.trickReview.weakestPid)}`:`手番：${state.current!=null?playerIdentityText(state.current):'結果確認中'}`;
-  if($('spectatorNow')) $('spectatorNow').textContent=`第${state.round || 1}ラウンド · ${roleText}`;
+  if($('spectatorNow')) $('spectatorNow').textContent=`${state.playerSeatCapacity}人卓・第${state.round || 1}ラウンド · ${roleText}`;
+  const handsTitle=$('spectatorHandsTitle');if(handsTitle) handsTitle.textContent=`${state.playerSeatCapacity}人の全手札`;
   const trick=$('spectatorTrick');
   const trickKey=JSON.stringify([(state.trick||[]).map(x=>[x.pid,x.card?.id,x.order]),state.current,state.leadSuit,roleText]);
   if(trick && trick.dataset.renderKey!==trickKey){trick.dataset.renderKey=trickKey;trick.innerHTML=`<div class="spectator-trick-grid">${state.players.map((p,pid)=>{
@@ -9620,7 +9890,7 @@ function renderSpectatorView(){
   const pickFlow=$('spectatorPickFlow');
   const visibleLanes=group?[group.primary,group.secondary].filter(Boolean):pp?[pp]:[];
   const pickKey=JSON.stringify(visibleLanes.map(lane=>[lane.pickId,lane.status,lane.result?.eventId,lane.pairChoice?.drawn?.id,lane.targetSelectionDone]));
-  if(pickFlow && pickFlow.dataset.renderKey!==pickKey){pickFlow.dataset.renderKey=pickKey;pickFlow.innerHTML=visibleLanes.length?`<div class="${group?'spectator-parallel-grid':''}">${visibleLanes.map(lane=>`<div class="spectator-flow" data-pick-flow data-pick-id="${escAttr(lane.pickId)}">${lane.pickStage==='secondary'?'🥈 2位 → 🥉 3位':'🏆 1位 ↔ 4位'}<br><b>${esc(playerIdentityText(lane.pickProviderPid))}</b> → <b>${esc(playerIdentityText(lane.pickerPid))}</b><br><span>${esc(parallelLaneStatusLabel(lane))}</span>${lane.result?`<br>結果：${esc(lane.result.text || '')}`:''}</div>`).join('')}</div>`:'';}
+  if(pickFlow && pickFlow.dataset.renderKey!==pickKey){pickFlow.dataset.renderKey=pickKey;pickFlow.innerHTML=visibleLanes.length?`<div class="${group?'spectator-parallel-grid':''}">${visibleLanes.map(lane=>`<div class="spectator-flow" data-pick-flow data-pick-id="${escAttr(lane.pickId)}">${lane.pickStage==='secondary'?`🥈 ${secondaryPickLabel()}`:`🏆 ${primaryPickLabel()}`}<br><b>${esc(playerIdentityText(lane.pickProviderPid))}</b> → <b>${esc(playerIdentityText(lane.pickerPid))}</b><br><span>${esc(parallelLaneStatusLabel(lane))}</span>${lane.result?`<br>結果：${esc(lane.result.text || '')}`:''}</div>`).join('')}</div>`:'';}
   const hands=$('spectatorHands');
   const handsKey=JSON.stringify(state.players.map((p,pid)=>[p.id,p.name,p.avatar,p.completedRoundTotalScore,p.scorePileCount,(p.hand||[]).map(c=>c.id),spectatorRoleClass(pid)]));
   if(hands && hands.dataset.renderKey!==handsKey){hands.dataset.renderKey=handsKey;hands.innerHTML=`<div class="spectator-hand-list">${state.players.map((p,pid)=>{
@@ -9733,8 +10003,15 @@ function safeCssToken(value, fallback='default'){
 }
 function relativeSeatPosition(pid){
   const base = Number.isInteger(state?.yourIndex) && state.yourIndex >= 0 ? state.yourIndex : 0;
-  return ['bottom','left','top','right'][((Number(pid) - base + 4) % 4 + 4) % 4] || 'top';
+  const count=Number(state?.playerSeatCapacity || state?.players?.length || 4);
+  const delta=((Number(pid)-base+count)%count+count)%count;
+  if(delta===0) return 'bottom';
+  if(count===3) return delta===1?'left':'right';
+  if(count===5) return ['','left','upper-left','upper-right','right'][delta] || 'top';
+  return ['','left','top','right'][delta] || 'top';
 }
+function secondaryPickLabel(){const n=Number(state?.playerSeatCapacity||state?.players?.length||4);return n===5?'2位→4位':n===3?'追加ピックなし':'2位→3位';}
+function primaryPickLabel(){const n=Number(state?.playerSeatCapacity||state?.players?.length||4);return `1位↔${n}位`;}
 
 
 
@@ -9816,7 +10093,7 @@ function compactOptionChips(){
   if(state.passThreeEnabled) chips.push('3枚パス');
   if(state.initialPairDiscardEnabled) chips.push('開始ペア');
   if(state.forceJokerPickCandidate) chips.push('🃏ババ必須候補');
-  if(state.enableMiddleRankPick) chips.push('🥈2位→🥉3位ピック');
+  if(state.enableMiddleRankPick && Number(state.playerSeatCapacity||state.players?.length||4)!==3) chips.push(`${secondaryPickLabel()}ピック`);
   if(state.shootLoadFireMode) chips.push(state.shootFiredThisRound?'🌕発射済み':'🌕装填→発射');
   if(state.shootRequiresBabaMoved) chips.push(state.babaMovedThisRound?'🃏ババ移動済み✓':'🃏ババ移動まだ');
   if(state.roundEndDeferred) chips.push('トリック後終了');
@@ -9841,7 +10118,7 @@ function renderSelectedRuleSummary(){
   if(!target || !state) return;
   const rounds=Number(state.totalRounds || 3);
   const pickCount=Number(state.pickTargetCount || 0);
-  const summaryKey=[rounds,state.roundDealMode,state.feastPointPerCard,state.penaltyMode,state.jokerPenalty,state.jokerPenaltyTiming,state.madPigEnabled,state.shootThePigEnabled,state.shootThePigLimit,state.enableMiddleRankPick,state.shootLoadFireMode,state.shootFiredThisRound,state.forceJokerPickCandidate,state.shootRequiresBabaMoved,state.babaMovedThisRound,state.babaMoveCountThisRound,state.pickProviderRole,pickCount,state.passThreeEnabled,state.initialPairDiscardEnabled].join('|');
+  const summaryKey=[state.playerSeatCapacity,state.cardsPerPlayer,rounds,state.roundDealMode,state.feastPointPerCard,state.penaltyMode,state.jokerPenalty,state.jokerPenaltyTiming,state.madPigEnabled,state.shootThePigEnabled,state.shootThePigLimit,state.enableMiddleRankPick,state.shootLoadFireMode,state.shootFiredThisRound,state.forceJokerPickCandidate,state.shootRequiresBabaMoved,state.babaMovedThisRound,state.babaMoveCountThisRound,state.pickProviderRole,pickCount,state.passThreeEnabled,state.initialPairDiscardEnabled].join('|');
   if(summaryKey===__lastActiveRuleSummaryKey) return;
   __lastActiveRuleSummaryKey=summaryKey;
   const jokerTiming=state.jokerPenaltyTiming==='gameEnd' ? 'ゲーム終了時に一度' : '各ラウンド';
@@ -9860,14 +10137,14 @@ function renderSelectedRuleSummary(){
         : `ON：手札にババブタ＋マッド・ピッグを残すと、本人対象失点0・他全員-10点（${shootThePigLimitText()}／${state.jokerPenaltyTiming==='gameEnd'?'最終ラウンド終了時のみ判定':'各ラウンド終了時に判定'}${state.shootRequiresBabaMoved?'／そのラウンド中のババ移動必須':''}）`;
   const cards=[
     ['ラウンド', `${rounds}ラウンド`],
-    ['次ラウンドの配り方', state.roundDealMode==='carryOver' ? '残り手札・ごちそう山・ペアを持ち越し、手札を13枚まで補充' : '全カードを回収してシャッフルし、新しい13枚を配る（標準）'],
-    ['ごちそう山', `1枚${Number(state.feastPointPerCard ?? 1)}点（通常1トリック+${Number(state.feastPointPerCard ?? 1)*4}点）`],
+    ['次ラウンドの配り方', state.roundDealMode==='carryOver' ? `残り手札・ごちそう山・ペアを持ち越し、手札を${state.cardsPerPlayer}枚まで補充` : `全カードを回収してシャッフルし、新しい${state.cardsPerPlayer}枚を配る（標準）`],
+    ['ごちそう山', `1枚${Number(state.feastPointPerCard ?? 1)}点（通常1トリック+${Number(state.feastPointPerCard ?? 1)*Number(state.playerSeatCapacity||4)}点）`],
     ['手札の失点', selectedPenaltyRuleText()],
     ['ババブタ', `${rulePenaltyPointText(state.jokerPenalty ?? 20)}・${jokerTiming}`],
     ['マッド・ピッグ', madText],
     ['シュート・ザ・ピッグ', shootText],
     ['ピックされる人', state.pickProviderRole==='weakest' ? '最弱者の手札から勝者が引く（従来）' : '勝者の手札から最弱者が引く（標準）'],
-    ['2位→3位ピック', state.enableMiddleRankPick ? 'ON：1位↔4位と同時に、2位が提供し3位が1枚受け取る' : 'OFF（標準）'],
+    ['中位の追加ピック', state.enableMiddleRankPick && Number(state.playerSeatCapacity)!==3 ? `ON：${primaryPickLabel()}と同時に、${secondaryPickLabel()}（提供者から受取人へ1枚）` : Number(state.playerSeatCapacity)===3 ? '3人用では対象外' : 'OFF'],
     ['ピック候補', pickCount>0 ? `カードを取られる側が${pickCount}枚に絞り、受取側が1枚ピック` : '提供者の手札全体から受取側が1枚ピック'],
     ['ババブタ必須候補', state.forceJokerPickCandidate ? `ON：候補を絞る時はババを必須枠にする${pickCount===1?'（提供者が持つ場合は移動確定）':''}` : 'OFF（標準）'],
     ['ババ移動とシュート', state.shootLoadFireMode ? '装填→発射モードでは移動条件を使用しない' : state.shootRequiresBabaMoved ? `ON：このラウンドは${state.babaMovedThisRound?`移動済み（${Number(state.babaMoveCountThisRound||0)}回）`:'まだ移動していません'}` : 'OFF（標準）：ババ移動はシュート条件に含めない'],
@@ -9876,7 +10153,7 @@ function renderSelectedRuleSummary(){
   ];
   target.innerHTML=`
     <div class="active-rule-chips">${compactOptionChips().map(chip=>`<span>${esc(chip)}</span>`).join('')}</div>
-    <div class="active-rule-basics"><b>共通の進め方</b><p>リードスートを持っていれば必ずフォロー。リードスートの最大が勝者、規定の最小が最弱。勝者は場の4枚を山へ取り、設定された提供者から反対側へ1枚移します。中位ピックONでは1位↔4位と2位→3位を同時進行します。受取人は同じ数字をペア浄化でき、次のリードは勝者です。</p></div>
+    <div class="active-rule-basics"><b>共通の進め方</b><p>リードスートを持っていれば必ずフォロー。リードスートの最大が勝者、規定の最小が最弱。勝者は場の${state.playerSeatCapacity}枚を山へ取り、設定された提供者から反対側へ1枚移します。${Number(state.playerSeatCapacity||state.players?.length||4)===3?'3人用では追加ピックを行いません。':state.enableMiddleRankPick?`${primaryPickLabel()}に加え${secondaryPickLabel()}も同時進行します。`:'中位の追加ピックはOFFです。'}受取人は同じ数字をペア浄化でき、次のリードは勝者です。</p></div>
     <div class="active-rule-grid">${cards.map(([name,value])=>`<article><b>${esc(name)}</b><p>${esc(value)}</p></article>`).join('')}</div>`;
 }
 
@@ -9974,14 +10251,14 @@ function render(){
     $('message').textContent=messageText;
   }
   const startBtn=$('start');
-  const canStart=isHost() && state.phase==='lobby' && state.players.length===4;
+  const canStart=isHost() && state.phase==='lobby' && state.players.length===Number(state.playerSeatCapacity || 4);
   if(state.phase!=='lobby'){
     window.clearTimeout(window.__startRequestTimer);
     setStartRequestUi(false);
   }
   if(startBtn) startBtn.disabled=startBtn.classList.contains('is-starting') ? true : !canStart;
-  // 観戦者数や接続総数ではなく、サーバーが確定した4つのゲーム席だけで判定する。
-  $('addCpu').disabled = !(state.canAddCpu===true || (isHost() && state.phase==='lobby' && Number(state.playerSeatCount ?? state.players.length)<4));
+  // 観戦者数や接続総数ではなく、選択したプレイ人数のゲーム席だけで判定する。
+  $('addCpu').disabled = !(state.canAddCpu===true || (isHost() && state.phase==='lobby' && Number(state.playerSeatCount ?? state.players.length)<Number(state.playerSeatCapacity || 4)));
   $('removeCpu').disabled = !(isHost() && state.phase==='lobby' && state.players.some(p=>p.cpu));
   updateLobbyActionUi();renderSpectatorPresence(); renderRoundStatus(); renderRoundModal(); renderSelectedRuleSummary();
   renderTurnNotice();renderShootLoadReady();renderShootChoice();
@@ -10621,20 +10898,19 @@ function renderCommentary(){
 
 function renderPlayers(){
   const base = Number.isInteger(state.yourIndex) && state.yourIndex >= 0 ? state.yourIndex : 0;
-  const placements = [
-    {pid:(base+1)%4, position:'left'},
-    {pid:(base+2)%4, position:'top'},
-    {pid:(base+3)%4, position:'right'},
-    {pid:base, position:'bottom'}
-  ];
+  const count=Number(state.playerSeatCapacity || state.players.length || 4);
+  const positions=count===3?['left','right']:count===5?['left','upper-left','upper-right','right']:['left','top','right'];
+  const placements=positions.map((position,index)=>({pid:(base+index+1)%count,position}));
+  placements.push({pid:base,position:'bottom'});
   const key = placements.map(({pid:i,position})=>{
     const p=state.players[i];
     if(!p) return 'x';
-    return [i,position,p.name,p.avatar,p.cpuKey,p.avatarImage,p.connected,p.handCount,p.scorePileCount,p.scorePileScore,p.pairsCount,p.completedRoundTotalScore,p.shootUsed,p.shootActivationCount,p.shootLimitReached,state.shootThePigLimit,state.current===i,p.id===state.you].join(':');
+    return [count,i,position,p.name,p.avatar,p.cpuKey,p.avatarImage,p.connected,p.handCount,p.scorePileCount,p.scorePileScore,p.pairsCount,p.completedRoundTotalScore,p.shootUsed,p.shootActivationCount,p.shootLimitReached,state.shootThePigLimit,state.current===i,p.id===state.you].join(':');
   }).join('|');
   if(key === __lastPlayersRenderKey) return;
   __lastPlayersRenderKey = key;
 
+  $('players').dataset.playerCount=String(count);
   $('players').innerHTML = placements.map(({pid:i,position})=>{
     const p=state.players[i]; if(!p) return '';
     const turn = state.current===i ? '<span class="turn-mini">手番</span>' : '';
@@ -10694,7 +10970,7 @@ function updatePassSelectionUI(){
     btn.classList.toggle('pass-selected', selected);
     btn.setAttribute('aria-pressed',selected?'true':'false');
     const card=hand.find(c=>c.id===id);
-    if(card) btn.setAttribute('aria-label',`${playCardChoiceLabel(card)}を3枚パス候補に${selected?'選択済み':'選ぶ'}`);
+    if(card) btn.setAttribute('aria-label',`${accessibleCardLabel(card)}を3枚パス候補に${selected?'選択済み':'選ぶ'}`);
   });
 
   const countEl = document.getElementById('passCount');
@@ -10721,7 +10997,7 @@ function updateInitialPairSelectionUI(){
     btn.classList.toggle('initial-candidate', isCandidate);
     btn.classList.toggle('initial-dim', isDim);
     btn.setAttribute('aria-pressed',isSelected?'true':'false');
-    if(card) btn.setAttribute('aria-label',`${playCardChoiceLabel(card)}を開始時ペア候補に${isSelected?'選択済み':'選ぶ'}`);
+    if(card) btn.setAttribute('aria-label',`${accessibleCardLabel(card)}を開始時ペア候補に${isSelected?'選択済み':'選ぶ'}`);
   });
   renderRoundStatus();
 }
@@ -10745,7 +11021,7 @@ function updatePickTargetSelectionUI(pickId=''){
     btn.disabled=mandatory;
     btn.setAttribute('aria-pressed',selected?'true':'false');
     const card=hand.find(c=>c.id===id);
-    if(card) btn.setAttribute('aria-label',mandatory?`${playCardChoiceLabel(card)}はルールにより必須候補`:`${playCardChoiceLabel(card)}をピック候補に${selected?'選択済み':'選ぶ'}`);
+    if(card) btn.setAttribute('aria-label',mandatory?`${accessibleCardLabel(card)}はルールにより必須候補`:`${accessibleCardLabel(card)}をピック候補に${selected?'選択済み':'選ぶ'}`);
     const label = btn.querySelector('.small');
     if(label) label.textContent = mandatory ? '必須候補' : selected ? '候補' : '選ぶ';
   });
@@ -10850,7 +11126,8 @@ function renderParallelPickLane(pp,laneName){
   }else{
     body=`<div class="parallel-readonly" data-pick-status>${esc(picker.name || 'ピッカー')} が${isPickReady(pp)?'ピック中':'準備中'}…</div><div class="pick-hand">${Array.from({length:Number(pp.targetCandidateCount || provider.handCount || 0)},()=>'<div class="playing-card back"></div>').join('')}</div>`;
   }
-  return `<section class="parallel-pick-lane ${laneName} ${operable?'is-operable':''} ${phaseClass}" data-pick-id="${escAttr(pp.pickId)}" aria-label="${primary?'1位と4位':'2位と3位'}のピック"><header class="parallel-lane-head"><div><b>${primary?'🏆 1位 ↔ 4位 PICK':'🥈 2位 → 🥉 3位 PICK'}</b><small>${operable?'あなたが操作するレーン':'リアルタイム進行'}</small></div><span class="parallel-lane-status">${esc(parallelLaneStatusLabel(pp))}</span></header><div class="parallel-lane-people"><div class="parallel-person"><span class="avatar">${playerAvatarHTML(pp.pickProviderPid)}</span><b>${esc(provider.name || '')}</b><small>提供者</small></div><span class="parallel-arrow">→</span><div class="parallel-person"><span class="avatar">${playerAvatarHTML(pp.pickerPid)}</span><b>${esc(picker.name || '')}</b><small>受取人</small></div></div><div class="parallel-lane-body">${body}</div></section>`;
+  const laneTitle=primary?primaryPickLabel():secondaryPickLabel();
+  return `<section class="parallel-pick-lane ${laneName} ${operable?'is-operable':''} ${phaseClass}" data-pick-id="${escAttr(pp.pickId)}" aria-label="${escAttr(laneTitle)}のピック"><header class="parallel-lane-head"><div><b>${primary?`🏆 ${primaryPickLabel()} PICK`:`🥈 ${secondaryPickLabel()} PICK`}</b><small>${operable?'あなたが操作するレーン':'リアルタイム進行'}</small></div><span class="parallel-lane-status">${esc(parallelLaneStatusLabel(pp))}</span></header><div class="parallel-lane-people"><div class="parallel-person"><span class="avatar">${playerAvatarHTML(pp.pickProviderPid)}</span><b>${esc(provider.name || '')}</b><small>提供者</small></div><span class="parallel-arrow">→</span><div class="parallel-person"><span class="avatar">${playerAvatarHTML(pp.pickerPid)}</span><b>${esc(picker.name || '')}</b><small>受取人</small></div></div><div class="parallel-lane-body">${body}</div></section>`;
 }
 
 function renderParallelPickTable(group){
@@ -10899,7 +11176,7 @@ function renderTable(){
     const providerRank=secondary?'🥈 2位':providerPid===(pp.trickWinnerPid ?? pp.winnerPid)?'👑 勝者':'💀 最弱';
     const pickerRank=secondary?'🥉 3位':pickerPid===(pp.trickWinnerPid ?? pp.winnerPid)?'👑 勝者':'💀 最弱';
     let html=`<div class="pick-stage ${secondary?'secondary-pick-stage':''}">
-      <h3>🐽 ${secondary?'2位 → 3位 ピック':'1位 → 最弱 ピック'}</h3>
+      <h3>🐽 ${secondary?`${secondaryPickLabel()} ピック`:`1位 → ${Number(state.playerSeatCapacity)-0}位 ピック`}</h3>
       <div class="pick-main">
         <div class="pick-person provider"><div class="big">${playerAvatarHTML(providerPid)}</div><span class="pick-system-role">カードを取られる人</span><span class="pick-trick-role">${providerRank}</span><span class="pick-person-name" title="${escAttr(playerIdentityText(providerPid))}">${esc(provider.name)}</span></div>
         <div class="pick-big-arrow">➡<small>カードの移動</small></div>
@@ -10920,7 +11197,7 @@ function renderTable(){
         for(const c of targetVisualHand){
           const selected = pickTargetSelectedIds.includes(c.id);
           const mandatory=mandatoryIds.includes(c.id);
-          const aria=mandatory?`${playCardChoiceLabel(c)}はルールにより必須候補`:`${playCardChoiceLabel(c)}をピック候補に${selected?'選択済み':'選ぶ'}`;
+          const aria=mandatory?`${accessibleCardLabel(c)}はルールにより必須候補`:`${accessibleCardLabel(c)}をピック候補に${selected?'選択済み':'選ぶ'}`;
           html += `<button type="button" class="pick-target-card ${selected?'selected':''} ${mandatory?'mandatory-pick-card':''}" ${mandatory?'disabled':''} data-pick-target-card-id="${escAttr(c.id)}" aria-label="${escAttr(aria)}" aria-pressed="${selected?'true':'false'}">${mandatory?'<span class="mandatory-pick-badge">🃏 必須候補</span>':''}${cardHTML(c,true)}<div class="small">${mandatory?'必須候補':selected?'候補':'選ぶ'}</div></button>`;
         }
         html += `</div><button type="button" class="btn" ${count===need?'':'disabled'} data-pick-target-submit="1">この${need}枚を候補にする</button><div class="small">選んだ候補は、${esc(picker.name)}側ではランダム順で表示されます。</div></div>`;
@@ -10937,7 +11214,7 @@ function renderTable(){
       if(state.yourIndex===pickerPid && Array.isArray(pc.candidates)){
         html += `<div class="pair-choice"><h4>ペア浄化するカードを選択</h4><div class="pair-cards" data-card-count="${pc.candidates.length}">`;
         for(const c of pc.candidates){
-          html += `<button type="button" class="pair-card-btn" data-pair-card-id="${escAttr(c.id)}" aria-label="${escAttr(playCardChoiceLabel(c))}と引いたカードをペア浄化する">${cardHTML(c,true)}<div class="small">この札と浄化</div></button>`;
+          html += `<button type="button" class="pair-card-btn" data-pair-card-id="${escAttr(c.id)}" aria-label="${escAttr(accessibleCardLabel(c))}と引いたカードをペア浄化する">${cardHTML(c,true)}<div class="small">この札と浄化</div></button>`;
         }
         html += `</div><button type="button" class="btn secondary skip-pair" data-pair-skip="1">ペア浄化をスキップ</button></div>`;
       } else {
@@ -11140,8 +11417,9 @@ function renderHand(){
   } else if(state?.phase === 'playing' && state?.isYourTurn && playableSet.size === 0){
     note = `<div class="notice info"><div class="notice-title">出せるカードなし</div><div class="notice-body">終了条件の処理を待っています。</div></div>`;
   } else if(state?.phase === 'playing' && state?.isYourTurn){
-    note = `<div class="notice info"><div class="notice-title">あなたの手番</div><div class="notice-body">光っているカードを選んでください。</div></div>`;
+    note = `<div class="notice info"><div class="notice-title">あなたの手番</div><div class="notice-body">出せるカードを選び、もう一度タップで出します。</div></div>`;
   }
+  if(!note && state?.phase==='playing') note='<div class="notice info"><div class="notice-title">次の手番を待っています</div><div class="notice-body">「広げる」で手札を確認できます。</div></div>';
   $('handNote').innerHTML = note;
 
   const alerts = [];
@@ -11163,7 +11441,7 @@ function renderHand(){
     if(state?.phase === 'passing'){
       const passable = !passDone && passableSet.has(c.id);
       const selectedPass = passSelectedIds.includes(c.id);
-      return `<button type="button" class="hand-card ${passable?'passable':'pass-disabled'} ${selectedPass?'pass-selected':''}" ${passable?'':'disabled'} data-pass-card-id="${escAttr(c.id)}" aria-label="${escAttr(playCardChoiceLabel(c))}を3枚パス候補に${selectedPass?'選択済み':'選ぶ'}" aria-pressed="${selectedPass?'true':'false'}">${cardHTML(c, passable)}</button>`;
+      return `<button type="button" class="hand-card ${passable?'passable':'pass-disabled'} ${selectedPass?'pass-selected':''}" ${passable?'':'disabled'} data-pass-card-id="${escAttr(c.id)}" aria-label="${escAttr(accessibleCardLabel(c))}を3枚パス候補に${selectedPass?'選択済み':'選ぶ'}" aria-pressed="${selectedPass?'true':'false'}">${cardHTML(c, passable)}</button>`;
     }
     if(state?.phase === 'initialPair'){
       const done = Array.isArray(state.initialPairDone) && state.initialPairDone.includes(state.yourIndex);
@@ -11171,13 +11449,13 @@ function renderHand(){
       const selectedCls = selected === c.id ? 'initial-selected' : '';
       const candidate = selectedCard && !c.joker && c.id !== selected && c.rank === selectedCard.rank;
       const dim = selectedCard && !candidate && selected !== c.id ? 'initial-dim' : '';
-      return `<button type="button" class="hand-card ${selectable?'initial-selectable':'un'} ${selectedCls} ${candidate?'initial-candidate':''} ${dim}" ${selectable?'':'disabled'} data-initial-card-id="${escAttr(c.id)}" aria-label="${escAttr(playCardChoiceLabel(c))}を開始時ペア候補に${selected===c.id?'選択済み':'選ぶ'}" aria-pressed="${selected===c.id?'true':'false'}">${cardHTML(c, selectable)}</button>`;
+      return `<button type="button" class="hand-card ${selectable?'initial-selectable':'un'} ${selectedCls} ${candidate?'initial-candidate':''} ${dim}" ${selectable?'':'disabled'} data-initial-card-id="${escAttr(c.id)}" aria-label="${escAttr(accessibleCardLabel(c))}を開始時ペア候補に${selected===c.id?'選択済み':'選ぶ'}" aria-pressed="${selected===c.id?'true':'false'}">${cardHTML(c, selectable)}</button>`;
     }
     const can = playableSet.has(c.id);
     const selectedPlay=selectedPlayCardId===c.id;
     const committing=selectedPlay && playCommitPending;
     const fanEnter=firstVisibleHand || !previousHandIds.has(c.id);
-    return `<button type="button" class="hand-card ${can?'':'un'} ${selectedPlay?'is-selected':''} ${committing?'is-committing':''} ${fanEnter?'fan-enter':''}" style="${fanCardStyle(index,hand.length)}" ${can?'': 'disabled'} data-card-id="${escAttr(c.id)}" aria-label="${escAttr(playCardChoiceLabel(c))}${can?'を選ぶ':'・現在は出せません'}" aria-pressed="${selectedPlay?'true':'false'}">${cardHTML(c, can)}</button>`;
+    return `<button type="button" class="hand-card ${can?'':'un'} ${selectedPlay?'is-selected':''} ${committing?'is-committing':''} ${fanEnter?'fan-enter':''}" style="${fanCardStyle(index,hand.length)}" ${can?'': 'disabled'} data-card-id="${escAttr(c.id)}" aria-label="${escAttr(accessibleCardLabel(c))}${can?'を選ぶ':'・現在は出せません'}" aria-pressed="${selectedPlay?'true':'false'}">${cardHTML(c, can)}</button>`;
   }).join('') || '<p class="small">手札はまだありません。</p>';
 
   $('hand').innerHTML = cards;
@@ -11407,6 +11685,13 @@ function renderScore(){
 
   const scoreHtml = `
     <div class="final-stage">
+      <div class="final-actions">
+        <button type="button" class="btn secondary" data-scroll-top>上に戻る</button>
+        ${isHost()
+          ? `<button type="button" class="btn" data-rematch>同じメンバー・同じルールで再戦</button>`
+          : `<button type="button" class="btn" disabled aria-disabled="true" title="ホストが再戦を開始できます">ホストの再戦操作を待つ</button>`}
+        <button type="button" class="btn secondary" data-new-game>新しい部屋で遊ぶ</button>
+      </div>
       <div class="final-hero">
         <div class="crown">🏆🐷🏆</div>
         <h3>${topPlayers.length>1?'収穫祭、同率優勝は…':'収穫祭、優勝は…'}</h3>
@@ -11423,13 +11708,7 @@ function renderScore(){
           ${rows}
         </table>
       </div>
-      <div class="final-actions">
-        <button type="button" class="btn secondary" data-scroll-top>上に戻る</button>
-        ${isHost()
-          ? `<button type="button" class="btn" data-rematch>同じメンバー・同じルールで再戦</button>`
-          : `<button type="button" class="btn" disabled aria-disabled="true" title="ホストが再戦を開始できます">ホストの再戦操作を待つ</button>`}
-        <button type="button" class="btn secondary" data-new-game>新しい部屋で遊ぶ</button>
-      </div>
+
     </div>
   `;
   const key = JSON.stringify((state.players||[]).map(p=>[p.name,p.avatar,p.connected,p.final?.total,p.final?.pile,p.final?.pileScore,p.final?.completedRoundCardScore,p.final?.jokerPenalty,p.final?.madPigPenalty,p.final?.shootPigPenalty,p.final?.shootPigActivatedRounds?.join(','),p.final?.shootBlockedByUnmovedBaba,(p.playEvaluation||[]).join('|'),p.matchStats?.trickWins,p.matchStats?.pairCleans,p.matchStats?.babaForcedCandidateCount,p.matchStats?.babaForcedTransferCount,p.matchStats?.shootBlockedByUnmovedBabaCount]).concat([state.hostId,state.you,state.feastPointPerCard,state.jokerPenaltyTiming,state.shootThePigEnabled,state.shootThePigLimit,state.forceJokerPickCandidate,state.shootRequiresBabaMoved,state.babaMovedThisRound,state.madPigEnabled,state.penaltyMode,state.roundDealMode]));

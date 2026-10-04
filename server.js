@@ -784,8 +784,14 @@ function activePlayerCount(room){
 function gameSeatCount(room){
   return Array.isArray(room?.players) ? room.players.length : 0;
 }
+function roomSeatCapacity(room){ return [3,4,5].includes(Number(room?.seatCapacity)) ? Number(room.seatCapacity) : 4; }
+function roomHandSize(room){ return Math.floor(52 / roomSeatCapacity(room)); }
+function secondaryPickRanks(room){
+  const seats=roomSeatCapacity(room);
+  return seats===3 ? null : seats===5 ? [2,4] : [2,3];
+}
 function canHostAddCpu(room, requesterId){
-  return !!(room && room.phase==='lobby' && room.hostId===requesterId && gameSeatCount(room)<4);
+  return !!(room && room.phase==='lobby' && room.hostId===requesterId && gameSeatCount(room)<roomSeatCapacity(room));
 }
 function safeBroadcast(room){
   try { broadcast(room); } catch(e) { console.error('safeBroadcast error', e); }
@@ -869,6 +875,17 @@ const CPU_CHARACTERS = [
     personality:PERSONA_PROFILES.rikumodoki.summary,
     catchphrase:'進捗確認します。',
     motto:['締切厳守','計画通りに進めましょう']
+  },
+  {
+    key:'nakato_modoki',
+    name:'なかとーもどき',
+    avatar:'🌹', imagePath:'/cpu_characters/nakato_modoki.png',
+    gender:'male',
+    style:'strategic_showman',
+    title:'戦略・美意識型',
+    personality:PERSONA_PROFILES.nakato_modoki.summary,
+    catchphrase:'なかとーの美しさチェック！',
+    motto:['美しく勝つ','未来の順位まで計算済み']
   }
 ];
 
@@ -992,7 +1009,7 @@ function assignCpuDisplayIdentity(room){
 }
 
 function cpuOnlyRoom(room){
-  return !!room && (room.players || []).length===4 && (room.players || []).every(p=>p?.cpu);
+  return !!room && (room.players || []).length===roomSeatCapacity(room) && (room.players || []).every(p=>p?.cpu);
 }
 
 function roundEndContinueDelay(room){
@@ -1051,6 +1068,7 @@ function cpuPersonalityWeights(player){
   if(ch?.key === 'kamomodoki') return {win:1.36, dump:1.18, risk:0.74, chaos:.26, shoot:1.04, talk:.56};
   if(ch?.key === 'wakumodoki') return {win:1.14, dump:.95, risk:0.50, chaos:.72, shoot:1.52, talk:.62};
   if(ch?.key === 'rikumodoki') return {win:.68, dump:1.30, risk:1.46, chaos:.06, shoot:.70, talk:.46};
+  if(ch?.key === 'nakato_modoki') return {win:.96, dump:1.08, risk:1.13, chaos:.20, shoot:.82, talk:.54};
   return {win:1, dump:1, risk:1, chaos:.18, shoot:1, talk:.35};
 }
 
@@ -1095,6 +1113,14 @@ function cpuCardPlayScore(room, pid, card){
       score += shoot && !isMad ? 34 : 0;
       score += risk * .38;
       if(highCard >= 12) score += Math.random()*35; // 大胆な高札リード
+    } else if(ch?.key === 'nakato_modoki'){
+      // 先の順位とピック後の得失を見て動く。勝ちを急がず、見せ場も少し評価する。
+      score += lowCard * 7.6 + highCard * 2.1;
+      score += (suitCount <= 2 ? 17 : 0);
+      score -= risk * 2.8 * w.risk;
+      if(handRisk >= 30) score += risk * 2.0;
+      if((mode === 'mud6' || mode === 'mudSuit') && card.suit === MUD_SUIT && !isMad) score += 20;
+      if(highCard >= 11 && Math.random() < .18) score += 16; // たまに美しく目立つ一手
     } else {
       score += lowCard * 10.4;
       score += (suitCount <= 2 ? 20 : 0);
@@ -1143,6 +1169,7 @@ function cpuCardPlayScore(room, pid, card){
     if(ch?.key === 'kamomodoki') score += 48; // 攻撃的に取りに行く
     if(ch?.key === 'wakumodoki') score += 28 + Math.random()*34;
     if(ch?.key === 'rikumodoki' && over <= 2) score += 52; // 最小勝ちを評価
+    if(ch?.key === 'nakato_modoki') score += (over <= 2 ? 34 : 12) + (normalizePickProviderRole(room.pickProviderRole)==='winner' ? 12 : 0);
     if(loadedForFire){
       const targetHand=Math.min(...room.players.filter((_,i)=>i!==pid).map(p=>Number(p.hand?.length || 0)));
       const personalityBoost=ch?.key==='wakumodoki'?260:ch?.key==='kamomodoki'?205:135;
@@ -1871,7 +1898,9 @@ function publicState(room, viewerId){
     isSpectator,
     maxSpectators:MAX_SPECTATORS_PER_ROOM,
     playerSeatCount:gameSeatCount(room),
-    playerSeatCapacity:4,
+    playerSeatCapacity:roomSeatCapacity(room),
+    playerCount:roomSeatCapacity(room),
+    cardsPerPlayer:roomHandSize(room),
     canAddCpu:canHostAddCpu(room,viewerId),
     phase: room.phase,
     disconnectedActionGraceMs: DISCONNECTED_ACTION_GRACE_MS,
@@ -1891,7 +1920,7 @@ function publicState(room, viewerId){
     spectatorShootLoadStates:isSpectator ? room.players.map((p,pid)=>({pid,loaded:playerIsShootLoaded(room,p),event:p.shootLoadEvent && p.shootLoadEvent.expiresAt>Date.now()?p.shootLoadEvent:null})) : null,
     pendingShootDecision,
     trickRankings:Array.isArray(room.trickRankings)?room.trickRankings.slice():[],
-    completedRoundTotalScores:Array.isArray(room.completedRoundTotalScores)?room.completedRoundTotalScores.slice():[0,0,0,0],
+    completedRoundTotalScores:Array.isArray(room.completedRoundTotalScores)?room.completedRoundTotalScores.slice():Array(roomSeatCapacity(room)).fill(0),
     forceJokerPickCandidate:normalizeForceJokerPickCandidate(room.forceJokerPickCandidate),
     shootRequiresBabaMoved:!normalizeShootLoadFireMode(room.shootLoadFireMode) && normalizeShootRequiresBabaMoved(room.shootRequiresBabaMoved),
     babaMovedThisRound:!!room.babaMovedThisRound,
@@ -1913,8 +1942,8 @@ function publicState(room, viewerId){
     feastPointPerCard: normalizeFeastPointPerCard(room.feastPointPerCard),
     pickProviderRole: normalizePickProviderRole(room.pickProviderRole),
     passDone: room.passDone || [],
-    passTargetPid: viewerIndex >= 0 ? passTargetPid(viewerIndex) : null,
-    passSourcePid: viewerIndex >= 0 ? passSourcePid(viewerIndex) : null,
+    passTargetPid: viewerIndex >= 0 ? passTargetPid(viewerIndex,room) : null,
+    passSourcePid: viewerIndex >= 0 ? passSourcePid(viewerIndex,room) : null,
     passableCardIds: viewerIndex >= 0 && room.phase === 'passing' ? passableCardIds(room.players[viewerIndex]) : [],
     initialPairDone: room.initialPairDone || [],
     initialPairCandidateIds: viewerIndex >= 0 && room.phase === 'initialPair' ? initialPairCandidateIds(room.players[viewerIndex]) : [],
@@ -2464,7 +2493,7 @@ function reconnectRoom(ws, c, playerId, name, resumeToken){
 function normalizePickTargetCount(v){
   const n = Number(v);
   if(!Number.isFinite(n) || n <= 0) return 0; // 0 = 絞らない
-  return Math.max(1, Math.min(13, Math.floor(n)));
+  return Math.max(1, Math.min(17, Math.floor(n)));
 }
 
 function normalizeFeastPointPerCard(v){
@@ -2763,20 +2792,22 @@ function roomOptionSummary(room){
   const babaOptions=[];
   if(normalizeForceJokerPickCandidate(room.forceJokerPickCandidate)) babaOptions.push('ババ必須候補');
   if(normalizeShootRequiresBabaMoved(room.shootRequiresBabaMoved)) babaOptions.push('シュート移動条件');
-  const middle=normalizeEnableMiddleRankPick(room.enableMiddleRankPick)?'＋2位→3位':'';
+  const ranks=secondaryPickRanks(room);
+  const middle=normalizeEnableMiddleRankPick(room.enableMiddleRankPick)&&ranks?`＋${ranks[0]}位→${ranks[1]}位`:'';
   return `全${room.totalRounds || 3}R / 配り直し:${roundDealModeLabel(room)} / ごちそう:1枚${normalizeFeastPointPerCard(room.feastPointPerCard)}点 / 失点:${roomPenaltyLabel(room)} / ババ:${rulePenaltyPointLabel(room.jokerPenalty ?? 20)}(${jokerPenaltyTimingLabel(room)}) / マッド:${roomMadPigLabel(room)} / シュート:${shootThePigLabel(room)} / ピック:${roomPickProviderLabel(room)}${middle}・${pickTargetLabel(room)}${babaOptions.length?` / ババ移動:${babaOptions.join('＋')}`:''} / 3枚パス:${room.passThreeEnabled ? 'あり' : 'なし'} / 開始ペア:${room.initialPairDiscardEnabled ? 'あり' : 'なし'}`;
 }
 
 
 
-function createRoom(ws, name, totalRounds=3, madPigEnabled=true, jokerPenalty=-20, initialPairDiscardEnabled=false, passThreeEnabled=false, penaltyMode='mud6', pickTargetCount=2, jokerPenaltyTiming='perRound', shootThePigEnabled=true, roundDealMode='reshuffle', shootThePigLimit='unlimited', feastPointPerCard=1, pickProviderRole='winner', participantRole='player', forceJokerPickCandidate=false, shootRequiresBabaMoved=false, enableMiddleRankPick=false, shootLoadFireMode=false){
+function createRoom(ws, name, totalRounds=3, madPigEnabled=true, jokerPenalty=-20, initialPairDiscardEnabled=false, passThreeEnabled=false, penaltyMode='mud6', pickTargetCount=2, jokerPenaltyTiming='perRound', shootThePigEnabled=false, roundDealMode='reshuffle', shootThePigLimit='unlimited', feastPointPerCard=1, pickProviderRole='winner', participantRole='player', forceJokerPickCandidate=true, shootRequiresBabaMoved=false, enableMiddleRankPick=true, shootLoadFireMode=false, playerCount=4){
   const c = code();
   const role=normalizeParticipantRole(participantRole);
   const normalizedMadPigEnabled=normalizeMadPigEnabled(madPigEnabled);
   const normalizedShootEnabled=normalizedMadPigEnabled && normalizeShootThePigEnabled(shootThePigEnabled);
   const normalizedLoadFire=normalizedShootEnabled && normalizeShootLoadFireMode(shootLoadFireMode);
   const normalizedMoveRequirement=normalizedShootEnabled && !normalizedLoadFire && normalizeShootRequiresBabaMoved(shootRequiresBabaMoved);
-  const room = {code:c, hostId:null, players:[], spectators:[], phase:'lobby', round:1, totalRounds: normalizeRoundCount(totalRounds), roundDealMode:normalizeRoundDealMode(roundDealMode), feastPointPerCard:normalizeFeastPointPerCard(feastPointPerCard), pickProviderRole:normalizePickProviderRole(pickProviderRole), enableMiddleRankPick:normalizeEnableMiddleRankPick(enableMiddleRankPick), shootLoadFireMode:normalizedLoadFire, forceJokerPickCandidate:normalizeForceJokerPickCandidate(forceJokerPickCandidate), shootRequiresBabaMoved:normalizedMoveRequirement, babaMovedThisRound:false, babaMoveCountThisRound:0, babaMoveHistory:[], babaMoveEvent:null, madPigEnabled:normalizedMadPigEnabled, jokerPenalty: normalizeJokerPenalty(jokerPenalty), jokerPenaltyTiming: normalizeJokerPenaltyTiming(jokerPenaltyTiming), shootThePigEnabled:normalizedShootEnabled, shootThePigLimit:normalizeShootThePigLimit(shootThePigLimit), initialPairDiscardEnabled: normalizeInitialPairDiscardEnabled(initialPairDiscardEnabled), passThreeEnabled: normalizePassThreeEnabled(passThreeEnabled), penaltyMode: normalizePenaltyMode(penaltyMode), pickTargetCount: normalizePickTargetCount(pickTargetCount), initialPairDone:[], passDone:[], passSelections:{}, lead:0, current:0, leadSuit:null, trick:[], stock:[], log:[], message:'4人そろったら開始できます。観戦者の人数に関係なく、空席へCPUを追加できます。', pendingPick:null, parallelPickGroup:null, pendingShootDecision:null, postTrickFlow:null, completedRoundTotalScores:[0,0,0,0], jokerPenaltyAppliedByRound:{}, shootFiredThisRound:false, shootFiredByPid:null, shootFireEvent:null, commentary:[], lastTrick:null, cardPlayEvent:null, trickCollectEvent:null, shootPigEvent:null, madPigEvent:null, pairCleanEvent:null, spotlightEvent:null, pendingSpotlightPlans:null, spotlightHistory:[], spotlightRoundCounts:{}, lastSpotlightSpeakerPid:null, transientTimers:new Map(), emptySince:null, cleanupTimer:null, closed:false};
+  const seats=[3,4,5].includes(Number(playerCount))?Number(playerCount):4;
+  const room = {code:c, hostId:null, players:[], spectators:[], seatCapacity:seats, handSize:Math.floor(52/seats), phase:'lobby', round:1, totalRounds: normalizeRoundCount(totalRounds), roundDealMode:normalizeRoundDealMode(roundDealMode), feastPointPerCard:normalizeFeastPointPerCard(feastPointPerCard), pickProviderRole:normalizePickProviderRole(pickProviderRole), enableMiddleRankPick:normalizeEnableMiddleRankPick(enableMiddleRankPick), shootLoadFireMode:normalizedLoadFire, forceJokerPickCandidate:normalizeForceJokerPickCandidate(forceJokerPickCandidate), shootRequiresBabaMoved:normalizedMoveRequirement, babaMovedThisRound:false, babaMoveCountThisRound:0, babaMoveHistory:[], babaMoveEvent:null, madPigEnabled:normalizedMadPigEnabled, jokerPenalty: normalizeJokerPenalty(jokerPenalty), jokerPenaltyTiming: normalizeJokerPenaltyTiming(jokerPenaltyTiming), shootThePigEnabled:normalizedShootEnabled, shootThePigLimit:normalizeShootThePigLimit(shootThePigLimit), initialPairDiscardEnabled: normalizeInitialPairDiscardEnabled(initialPairDiscardEnabled), passThreeEnabled: normalizePassThreeEnabled(passThreeEnabled), penaltyMode: normalizePenaltyMode(penaltyMode), pickTargetCount: normalizePickTargetCount(pickTargetCount), initialPairDone:[], passDone:[], passSelections:{}, lead:0, current:0, leadSuit:null, trick:[], stock:[], log:[], message:`${seats}人そろったら開始できます。空席へCPUを追加できます。`, pendingPick:null, parallelPickGroup:null, pendingShootDecision:null, postTrickFlow:null, completedRoundTotalScores:Array(seats).fill(0), jokerPenaltyAppliedByRound:{}, shootFiredThisRound:false, shootFiredByPid:null, shootFireEvent:null, commentary:[], lastTrick:null, cardPlayEvent:null, trickCollectEvent:null, shootPigEvent:null, madPigEvent:null, pairCleanEvent:null, spotlightEvent:null, pendingSpotlightPlans:null, spotlightHistory:[], spotlightRoundCounts:{}, lastSpotlightSpeakerPid:null, transientTimers:new Map(), emptySince:null, cleanupTimer:null, closed:false};
   const participant=createHumanParticipant(room,name,ws,role);
   room.hostId=participant.id;
   if(role==='spectator') room.spectators.push(participant); else room.players.push(participant);
@@ -2795,8 +2826,8 @@ function joinRoom(ws, c, name, playerId=null, resumeToken=null, participantRole=
   if(role==='player' && room.phase !== 'lobby'){
     return send(ws,'errorMsg',{message:'この部屋は開始済みです。切断復帰には、この席を使っていた端末のプレイヤーIDと復帰トークンが必要です。'});
   }
-  if(role==='player' && room.players.length >= 4) {
-    return send(ws,'playerSeatsFull',{message:'プレイヤーは4人そろっています。観戦者として参加できます。',canSpectate:true,code:c});
+  if(role==='player' && room.players.length >= roomSeatCapacity(room)) {
+    return send(ws,'playerSeatsFull',{message:`プレイヤー席は${roomSeatCapacity(room)}人で満席です。観戦者として参加できます。`,canSpectate:true,code:c});
   }
   if(role==='spectator' && (room.spectators || []).length >= MAX_SPECTATORS_PER_ROOM){
     return send(ws,'errorMsg',{message:`観戦者は最大${MAX_SPECTATORS_PER_ROOM}人です。`});
@@ -2822,8 +2853,8 @@ function changeParticipantRole(room, participantId, nextRole, requesterWs=null){
   if(!participant || (requesterWs && participant.ws!==requesterWs)) return false;
   const current=normalizeParticipantRole(participant.participantRole);
   if(current===role) return true;
-  if(role==='player' && room.players.length>=4){
-    send(participant.ws,'playerSeatsFull',{message:'プレイヤー席は満員です。空きができるまで観戦できます。',canSpectate:true,code:room.code});
+  if(role==='player' && room.players.length>=roomSeatCapacity(room)){
+    send(participant.ws,'playerSeatsFull',{message:`プレイヤー席は${roomSeatCapacity(room)}人で満員です。空きができるまで観戦できます。`,canSpectate:true,code:room.code});
     return false;
   }
   if(role==='spectator' && room.spectators.length>=MAX_SPECTATORS_PER_ROOM){
@@ -2862,8 +2893,9 @@ function nextCpuCharacter(room){
   return CPU_CHARACTERS.slice().sort((a,b)=>Number(usedCounts.get(a.key)||0)-Number(usedCounts.get(b.key)||0))[0] || CPU_CHARACTERS[0];
 }
 
-function createCpuSeat(room,preserved={}){
-  const ch=nextCpuCharacter(room);
+function createCpuSeat(room,preserved={},requestedCharacterKey=null){
+  const requested=CPU_CHARACTERS.find(character=>character.key===requestedCharacterKey);
+  const ch=requested || nextCpuCharacter(room);
   // 既存3人格は名前・姿もキャラクターそのものとして固定する。
   // 3人格がすべて着席済みの時だけ、重複する4人目の内部人格と
   // 卓上表示identityを分離し、共有動物poolから表示名と絵文字を割り当てる。
@@ -2929,16 +2961,16 @@ function leaveRoom(room,participantId,requesterWs=null){
 }
 
 
-function addCpu(room, requesterId){
+function addCpu(room, requesterId, requestedCharacterKey='auto'){
   if(!room || room.hostId !== requesterId) return;
   if(room.phase !== 'lobby') return;
-  if(gameSeatCount(room) >= 4) { room.message='ゲーム席は4席すべて埋まっています。'; broadcast(room); return; }
-  const player=createCpuSeat(room);
+  if(gameSeatCount(room) >= roomSeatCapacity(room)) { room.message=`ゲーム席は${roomSeatCapacity(room)}席すべて埋まっています。`; broadcast(room); return; }
+  const player=createCpuSeat(room,{},requestedCharacterKey==='auto' ? null : requestedCharacterKey);
   const ch=cpuCharacter(player);
   room.players.push(player);
   log(room, `${player.name} を追加しました。`);
   say(room, room.players.length-1, ch.catchphrase || 'よろしくお願いします。', {eventKey:'greeting'});
-  room.message='CPUを追加しました。4人そろったら開始できます。';
+  room.message=`CPUを追加しました。${roomSeatCapacity(room)}人そろったら開始できます。`;
   broadcast(room);
 }
 
@@ -3088,11 +3120,13 @@ function ensureReviewToPick(room, reviewToken, winnerPid, weakestPid){
 
 
 function buildPostTrickFlow(room,winnerPid,weakestPid){
-  const rankings=Array.isArray(room.trickRankings)?room.trickRankings.slice():[winnerPid,null,null,weakestPid];
+  const rankings=Array.isArray(room.trickRankings)?room.trickRankings.slice():[winnerPid,null,null,null,weakestPid];
   const primaryRoles=resolvedPickRoles(room,winnerPid,weakestPid);
   const steps=[{pickStage:'primary',highPid:winnerPid,lowPid:weakestPid,pickProviderPid:primaryRoles.pickProviderPid,pickerPid:primaryRoles.pickerPid}];
-  if(normalizeEnableMiddleRankPick(room.enableMiddleRankPick) && Number.isInteger(rankings[1]) && Number.isInteger(rankings[2])){
-    steps.push({pickStage:'secondary',highPid:rankings[1],lowPid:rankings[2],pickProviderPid:rankings[1],pickerPid:rankings[2]});
+  const secondaryRanks=secondaryPickRanks(room);
+  if(normalizeEnableMiddleRankPick(room.enableMiddleRankPick) && secondaryRanks && Number.isInteger(rankings[secondaryRanks[0]-1]) && Number.isInteger(rankings[secondaryRanks[1]-1])){
+    const [providerRank,pickerRank]=secondaryRanks;
+    steps.push({pickStage:'secondary',providerRank,pickerRank,highPid:rankings[providerRank-1],lowPid:rankings[pickerRank-1],pickProviderPid:rankings[providerRank-1],pickerPid:rankings[pickerRank-1]});
   }
   return {winnerPid,weakestPid,rankings,steps,index:0,createdAt:Date.now(),parallel:steps.length===2};
 }
@@ -3106,7 +3140,8 @@ function beginPickStep(room,step,group=null,{defer=false,broadcastNow=true}={}){
   const provider=room.players[step.pickProviderPid];
   const picker=room.players[step.pickerPid];
   if(!provider || !picker || provider===picker || !provider.hand?.length){
-    log(room,`⚠️ ${step.pickStage==='secondary'?'2位→3位':'通常'}ピックは提供可能な手札がないためスキップします。`);
+    const secondary=secondaryPickRanks(room);
+    log(room,`⚠️ ${step.pickStage==='secondary'?`${secondary?.[0] || 2}位→${secondary?.[1] || 3}位`:'通常'}ピックは提供可能な手札がないためスキップします。`);
     if(group){
       const skipped={pickId:`pick-${step.pickStage}-${uid()}`,groupId:group.groupId,pickStage:step.pickStage,status:'skipped',trickWinnerPid:step.highPid,trickWeakestPid:step.lowPid,pickProviderPid:step.pickProviderPid,pickerPid:step.pickerPid,createdAt:Date.now(),result:null};
       group[step.pickStage]=skipped;
@@ -3143,7 +3178,8 @@ function beginPickStep(room,step,group=null,{defer=false,broadcastNow=true}={}){
     providerStats.babaForcedCandidateCount++;
     log(room,`🃏 強制候補ルール：${provider.name} のババブタを${step.pickStage==='secondary'?'中位':''}ピック候補へ固定しました。`);
   }
-  const stageLabel=step.pickStage==='secondary'?'2位→3位ピック':'1位→4位ピック';
+  const secondary=secondaryPickRanks(room);
+  const stageLabel=step.pickStage==='secondary'?`${secondary?.[0] || 2}位→${secondary?.[1] || 3}位ピック`:`1位→${roomSeatCapacity(room)}位ピック`;
   if(targetSelectionRequired){
     room.message=`🐽 ${stageLabel}：${provider.name} が候補を${targetCount}枚に絞ります。`;
     log(room,`🎯 ${stageLabel}：${provider.name} が${targetCount}枚を選び、${picker.name} が1枚引きます。`);
@@ -3185,7 +3221,8 @@ function startParallelPickGroup(room,flow){
     const primary=group.primary;
     room.pendingShootDecision={id:`shoot-choice-${room.round || 1}-${flow.winnerPid}-${uid()}`,pickId:primary.pickId,groupId:group.groupId,shooterPid:flow.winnerPid,targetPid:flow.weakestPid,createdAt:Date.now(),expiresAt:Date.now()+GAME_TIMING.shootDecisionFallback};
     matchStatsFor(shooter).shootFireOpportunityCount++;
-    room.message=`🌕 ${shooter.name} はシュート選択中。同時に2位→3位ピックも進行します。`;
+    const ranks=secondaryPickRanks(room);
+    room.message=`🌕 ${shooter.name} はシュート選択中。${ranks?`同時に${ranks[0]}位→${ranks[1]}位ピックも進行します。`:''}`;
     if(shooter.cpu){
       const choiceId=room.pendingShootDecision.id;
       scheduleRoomTask(room,`cpu-shoot-${choiceId}`,GAME_TIMING.shootDecisionCpu,()=>{
@@ -3193,7 +3230,8 @@ function startParallelPickGroup(room,flow){
       });
     }
   }else{
-    room.message='🐽 1位↔4位と2位→3位の2ピックが同時進行中です。';
+    const ranks=secondaryPickRanks(room);
+    room.message=`🐽 1位↔${roomSeatCapacity(room)}位と${ranks?.[0] || 2}位→${ranks?.[1] || 3}位の2ピックが同時進行中です。`;
   }
   if(parallelPickGroupComplete(room)) finishParallelPickGroup(room);
   else broadcast(room);
@@ -3364,7 +3402,7 @@ function ensureRoomProgress(room){
     return;
   }
   if(room.phase !== 'playing') return;
-  if(!room.players || room.players.length !== 4) return;
+  if(!room.players || room.players.length !== roomSeatCapacity(room)) return;
 
   if(room.pendingShootTransition){
     if(Date.now()>=Number(room.pendingShootTransition.until || 0)) finishShootPresentation(room,room.pendingShootTransition.id);
@@ -3411,7 +3449,7 @@ function ensureRoomProgress(room){
   }
 
   // 4枚出揃っているのにレビューにもピックにも進んでいない場合は、トリック解決をやり直す。
-  if(!roomHasActivePicks(room) && !room.trickReview && room.trick && room.trick.length===4){
+  if(!roomHasActivePicks(room) && !room.trickReview && room.trick && room.trick.length===roomSeatCapacity(room)){
     log(room, '⚠️ トリック解決待ちで停止を検知したため、自動復旧しました。');
     resolveTrick(room);
     broadcast(room);
@@ -3420,7 +3458,7 @@ function ensureRoomProgress(room){
 
   // トリックが5枚以上など不正状態になった場合も、resolveTrick側で余分な札を
   // 持ち主へ返してから先頭4枚を解決する。ここでsliceすると余分なカードが消える。
-  if(!roomHasActivePicks(room) && !room.trickReview && room.trick && room.trick.length>4){
+  if(!roomHasActivePicks(room) && !room.trickReview && room.trick && room.trick.length>roomSeatCapacity(room)){
     log(room, '⚠️ 場のカード枚数が不正だったため、余分なカードを返して復旧します。');
     resolveTrick(room);
     broadcast(room);
@@ -3429,7 +3467,7 @@ function ensureRoomProgress(room){
 
   // 通常進行中なのにcurrentがnullで、レビュー・ピック待ちでもない場合は復旧。
   if(room.current == null && !roomHasActivePicks(room) && !room.trickReview){
-    if(room.trick && room.trick.length>0 && room.trick.length<4){
+    if(room.trick && room.trick.length>0 && room.trick.length<roomSeatCapacity(room)){
       const lastPid = room.trick[room.trick.length-1].pid;
       room.current = (lastPid + 1) % room.players.length;
       log(room, '⚠️ 手番表示が停止したため、次プレイヤーへ自動復旧しました。');
@@ -3705,7 +3743,7 @@ function initializeMatch(room, {rematch=false}={}){
   clearAllProgressTimers(room);
   room.phase='playing';
   room.round=1;
-  room.lead=Math.floor(Math.random()*4);
+  room.lead=Math.floor(Math.random()*room.players.length);
   room.current=room.lead;
   room.trick=[];
   room.leadSuit=null;
@@ -3747,14 +3785,14 @@ function initializeMatch(room, {rematch=false}={}){
   room.babaMoveEvent=null;
   room.lastHumanTurnRebroadcastAt=0;
   room.lastNoPlayableRebroadcastAt=0;
-  room.completedRoundTotalScores=[0,0,0,0];
+  room.completedRoundTotalScores=Array(roomSeatCapacity(room)).fill(0);
   room.jokerPenaltyAppliedByRound={};
   for(const p of room.players){
     p.hand=[];p.scorePile=[];p.pairs=[];p.completedRoundCardScoreBank=0;p.jokerPenaltyBank=0;p.shootPigPenaltyBank=0;
     p.shootPigActivatedRounds=[];p.shootLoadedNow=false;p.shootLoadEvent=null;p.out=false;p.final=null;p.matchStats=newMatchStats();p.playEvaluation=[];
   }
   dealInitial(room);
-  log(room, `${rematch?'同じメンバーで再戦！':'収穫祭スタート！'}${roomOptionSummary(room)}。通常カードを1枚抜き、全員13枚で開始します。`);
+  log(room, `${rematch?'同じメンバーで再戦！':'収穫祭スタート！'}${roomOptionSummary(room)}。${room.removedCards?.length || 1}枚を抜き、全員${roomHandSize(room)}枚で開始します。`);
 
   if(room.passThreeEnabled){
     room.phase='passing';room.setupPhaseStartedAt=Date.now();room.current=null;
@@ -3776,8 +3814,8 @@ function startGame(room, requesterId){
   if(!room || room.hostId !== requesterId) return false;
   // 開始メッセージの連打・遅延到着で、進行中のゲームを再配札しない。
   if(room.phase !== 'lobby') return false;
-  if(room.players.length !== 4){
-    room.message='4人そろうと開始できます。足りない席はCPUを追加してください。';broadcast(room);return false;
+  if(room.players.length !== roomSeatCapacity(room)){
+    room.message=`${roomSeatCapacity(room)}人そろうと開始できます。足りない席はCPUを追加してください。`;broadcast(room);return false;
   }
   cancelRoomCleanup(room);
   return initializeMatch(room,{rematch:false});
@@ -3785,7 +3823,7 @@ function startGame(room, requesterId){
 
 function rematchGame(room, requesterId){
   if(!room || room.hostId !== requesterId || room.phase !== 'finished') return false;
-  if(room.players.length !== 4){room.message='再戦には4人必要です。';broadcast(room);return false;}
+  if(room.players.length !== roomSeatCapacity(room)){room.message=`再戦には${roomSeatCapacity(room)}人必要です。`;broadcast(room);return false;}
   const missing=room.players.filter(p=>!p.cpu && !isPlayerConnectedForProgress(p));
   if(missing.length){room.message=`${missing.map(p=>p.name).join('・')} の再接続後に再戦できます。`;broadcast(room);return false;}
   cancelRoomCleanup(room);
@@ -3795,23 +3833,29 @@ function rematchGame(room, requesterId){
 
 function dealInitial(room){
   let deck = makeDeck();
-  const normals = deck.map((c,i)=>c.joker?-1:i).filter(i=>i>=0);
-  const idx = normals[Math.floor(Math.random()*normals.length)];
-  room.removedCard = deck.splice(idx,1)[0];
+  const handSize=roomHandSize(room), removeCount=deck.length-handSize*roomSeatCapacity(room);
+  room.removedCards=[];
+  for(let n=0;n<removeCount;n++){
+    const normals=deck.map((c,i)=>c.joker || isMadPig(c)?-1:i).filter(i=>i>=0);
+    if(!normals.length) break;
+    const idx=normals[Math.floor(Math.random()*normals.length)];
+    room.removedCards.push(deck.splice(idx,1)[0]);
+  }
+  room.removedCard=room.removedCards[0] || null;
   shuffle(deck);
-  for(let i=0;i<13;i++) for(let p=0;p<4;p++) room.players[p].hand.push(deck.pop());
+  for(let i=0;i<handSize;i++) for(let p=0;p<roomSeatCapacity(room);p++) room.players[p].hand.push(deck.pop());
   room.stock = deck;
   room.players.forEach(p=>sortHand(p.hand));
-  log(room, `均一配札のため ${cardText(room.removedCard)} を箱に戻しました。`);
+  log(room, `${roomSeatCapacity(room)}人用の配札（${handSize}枚ずつ）のため ${room.removedCards.map(cardText).join('・')} を箱に戻しました。`);
 }
 
 
-function passTargetPid(pid){
-  return (Number(pid) + 1) % 4;
+function passTargetPid(pid,room){
+  return (Number(pid) + 1) % roomSeatCapacity(room);
 }
 
-function passSourcePid(pid){
-  return (Number(pid) + 3) % 4;
+function passSourcePid(pid,room){
+  return (Number(pid) + roomSeatCapacity(room) - 1) % roomSeatCapacity(room);
 }
 
 function passableCardIds(player){
@@ -3858,7 +3902,7 @@ function finishPassThreePhase(room){
       room.passSelections[i]=ids;
       log(room, `⚠️ ${p.name} の3枚パス選択に重複または不正IDがあったため、合法な3枚へ自動補正しました。`);
     }
-    transfers.push({from:i, to:passTargetPid(i), ids:[...ids]});
+    transfers.push({from:i, to:passTargetPid(i,room), ids:[...ids]});
   }
 
   // 先に全員の手札から抜く。これで同時パス扱いになる。
@@ -4155,8 +4199,8 @@ function playCard(room, playerId, cardId){
   room.message = `${p.name} が ${cardText(card)} を出しました。`;
   log(room, room.message);
   // ババブタ1枚だけになった場合は即終了候補にしない。次にその人の手番が来るまではピックまで進める。
-  if(isEmptyHand(p) && room.trick.length < 4) rememberEndAfterTrick(room, pid);
-  if(room.trick.length===4) resolveTrick(room); else room.current=(pid+1)%4;
+  if(isEmptyHand(p) && room.trick.length < roomSeatCapacity(room)) rememberEndAfterTrick(room, pid);
+  if(room.trick.length===roomSeatCapacity(room)) resolveTrick(room); else room.current=(pid+1)%roomSeatCapacity(room);
   broadcast(room);
 }
 
@@ -4220,7 +4264,7 @@ function judgeWeakestCard(room, leadSuit, trickEntries=null){
 
 function rankTrickPlayers(room, leadSuit, trickEntries=null){
   const valid=(Array.isArray(trickEntries)?trickEntries:room?.trick || []).filter(x=>validTrickEntry(room,x));
-  if(valid.length!==4 || !suits.includes(leadSuit)) return [];
+  if(valid.length!==roomSeatCapacity(room) || !suits.includes(leadSuit)) return [];
   // 既存勝者（リードスート最大）と既存最弱（非フォロー最小、同値は後出し）を
   // 両端に保つ強さ順。非フォロー同士は値の大きい札・先出しを上位とする。
   return valid.slice().sort((a,b)=>{
@@ -4234,23 +4278,23 @@ function rankTrickPlayers(room, leadSuit, trickEntries=null){
 }
 
 function resolveTrick(room){
-  if(!room.trick || room.trick.length < 4){
-    log(room, '⚠️ トリック解決に必要な4枚が揃っていないため、処理を中断しました。');
+  if(!room.trick || room.trick.length < roomSeatCapacity(room)){
+    log(room, `⚠️ トリック解決に必要な${roomSeatCapacity(room)}枚が揃っていないため、処理を中断しました。`);
     return false;
   }
 
   // 5枚目以降は消さず、必ず持ち主へ戻す。
-  if(room.trick.length > 4){
-    const extras=room.trick.splice(4);
+  if(room.trick.length > roomSeatCapacity(room)){
+    const extras=room.trick.splice(roomSeatCapacity(room));
     const restored=restoreTrickCardsToOwners(room, extras);
     log(room, `⚠️ 場に余分な${extras.length}枚があったため、${restored}枚を持ち主の手札へ戻して先頭4枚で復旧しました。`);
   }
 
-  const core=room.trick.slice(0,4);
+  const core=room.trick.slice(0,roomSeatCapacity(room));
   const valid=core.filter(x=>validTrickEntry(room,x));
   const distinctPids=new Set(valid.map(x=>x.pid));
   const distinctCards=new Set(valid.map(x=>cardFaceKey(x.card)));
-  if(valid.length!==4 || distinctPids.size!==4 || distinctCards.size!==4){
+  if(valid.length!==roomSeatCapacity(room) || distinctPids.size!==roomSeatCapacity(room) || distinctCards.size!==roomSeatCapacity(room)){
     cancelCorruptTrick(room, core, '場札に無効カード・同一プレイヤーの重複・カード重複を検知しました');
     broadcast(room);
     return false;
@@ -4267,7 +4311,7 @@ function resolveTrick(room){
 
   const rankings=rankTrickPlayers(room,leadSuit,core);
   const winner=rankings[0] || null;
-  const weakest=rankings[3] || null;
+  const weakest=rankings[roomSeatCapacity(room)-1] || null;
   if(!winner || !weakest || !room.players[winner.pid] || !room.players[weakest.pid]){
     cancelCorruptTrick(room, core, '勝者または最弱を確定できませんでした');
     broadcast(room);
@@ -4280,7 +4324,7 @@ function resolveTrick(room){
   weakestStats.weakestCount++;
   winnerStats.feastCardsWon+=core.length;
   winnerStats.feastPointsWon+=core.length*normalizeFeastPointPerCard(room.feastPointPerCard);
-  if(room.players.reduce((sum,p)=>sum+(p.hand?.length || 0),0)<=20) winnerStats.endgameTrickWins++;
+  if(room.players.reduce((sum,p)=>sum+(p.hand?.length || 0),0)<=roomSeatCapacity(room)*5) winnerStats.endgameTrickWins++;
   if(Number(winner.card.val)>=11) winnerStats.highCardWins++;
   if(Number(winner.card.val)<=6) winnerStats.efficientLowWins++;
 
@@ -4689,7 +4733,8 @@ function finishPickLane(room,pp,winnerPid){
   pp.status='completed';
   if(isParallelPick(room,pp)){
     if(parallelPickGroupComplete(room)) return finishParallelPickGroup(room);
-    room.message=`${pp.pickStage==='primary'?'1位↔4位':'2位→3位'}ピック完了。もう1つのレーンを待っています。`;
+    const secondary=secondaryPickRanks(room);
+    room.message=`${pp.pickStage==='primary'?`1位↔${roomSeatCapacity(room)}位`:`${secondary?.[0] || 2}位→${secondary?.[1] || 3}位`}ピック完了。もう1つのレーンを待っています。`;
     broadcast(room);
     return true;
   }
@@ -4824,7 +4869,7 @@ function makeRoundSnapshot(room, reasonPid, reasonText){
 }
 
 function recordRoundStats(room,snapshot){
-  if(!Array.isArray(room.completedRoundTotalScores)) room.completedRoundTotalScores=[0,0,0,0];
+  if(!Array.isArray(room.completedRoundTotalScores)) room.completedRoundTotalScores=Array(roomSeatCapacity(room)).fill(0);
   for(const row of snapshot?.rows || []){
     const player=room.players?.[row.pid];
     if(!player) continue;
@@ -4917,8 +4962,8 @@ function beginNextRound(room){
     room.stock=[];
     room.removedCard=null;
     dealInitial(room);
-    transitionText='全カードを回収してシャッフルし、全員へ13枚ずつ配り直しました。';
-    detailText='全員13枚の新しい手札';
+      transitionText=`全カードを回収してシャッフルし、全員へ${roomHandSize(room)}枚ずつ配り直しました。`;
+      detailText=`全員${roomHandSize(room)}枚の新しい手札`;
     assertUniqueActiveCards(room, `第${nextRound}ラウンド全シャッフル後`);
   } else {
     let refill = buildUniqueNormalRefillDeck(room);
@@ -4935,7 +4980,7 @@ function beginNextRound(room){
     for(const p of room.players){
       const before = p.hand.length;
       let added = 0;
-      while(p.hand.length < 13){
+      while(p.hand.length < roomHandSize(room)){
         const card = drawRefill();
         if(card && !collectActiveFaceKeys(room).has(cardFaceKey(card))){
           p.hand.push(card);
@@ -4946,10 +4991,10 @@ function beginNextRound(room){
       refillRows.push(`${p.name}:${before}→${p.hand.length}${added ? `(+${added})` : ''}`);
     }
     assertUniqueActiveCards(room, `第${nextRound}ラウンド補充後`);
-    const allFull = room.players.every(p=>p.hand.length === 13);
+    const allFull = room.players.every(p=>p.hand.length === roomHandSize(room));
     transitionText = allFull
-      ? '残り手札・ごちそう山・ペアを持ち越し、全員の手札を13枚まで補充しました。'
-      : '持ち越し後に補充しましたが、一部の手札が13枚未満です。';
+      ? `残り手札・ごちそう山・ペアを持ち越し、全員の手札を${roomHandSize(room)}枚まで補充しました。`
+      : `持ち越し後に補充しましたが、一部の手札が${roomHandSize(room)}枚未満です。`;
     detailText=`補充結果：${refillRows.join(' / ')}`;
   }
 
@@ -5187,7 +5232,7 @@ wss.on('connection', (ws) => {
       if((msg.type==='create' || msg.type==='join' || msg.type==='reconnect') && roomByWs(ws)){
         return send(ws,'errorMsg',{message:'この画面はすでに部屋へ接続済みです。別の部屋へ移る場合は新しい画面で開いてください。'});
       }
-      if(msg.type==='create') return createRoom(ws, msg.name, msg.rounds, msg.madPigEnabled, msg.jokerPenalty, msg.initialPairDiscardEnabled, msg.passThreeEnabled, msg.penaltyMode, msg.pickTargetCount, msg.jokerPenaltyTiming, msg.shootThePigEnabled, msg.roundDealMode, msg.shootThePigLimit, msg.feastPointPerCard, msg.pickProviderRole, msg.participantRole, msg.forceJokerPickCandidate, msg.shootRequiresBabaMoved, msg.enableMiddleRankPick, msg.shootLoadFireMode);
+      if(msg.type==='create') return createRoom(ws, msg.name, msg.rounds, msg.madPigEnabled, msg.jokerPenalty, msg.initialPairDiscardEnabled, msg.passThreeEnabled, msg.penaltyMode, msg.pickTargetCount, msg.jokerPenaltyTiming, msg.shootThePigEnabled, msg.roundDealMode, msg.shootThePigLimit, msg.feastPointPerCard, msg.pickProviderRole, msg.participantRole, msg.forceJokerPickCandidate, msg.shootRequiresBabaMoved, msg.enableMiddleRankPick, msg.shootLoadFireMode, msg.playerCount);
       if(msg.type==='join') return joinRoom(ws, msg.code, msg.name, msg.playerId, msg.resumeToken, msg.participantRole);
       if(msg.type==='reconnect') return reconnectRoom(ws, msg.code, msg.playerId, msg.name, msg.resumeToken);
       const room = roomByWs(ws);
@@ -5207,7 +5252,7 @@ wss.on('connection', (ws) => {
       }
       if(msg.type==='start') startGame(room, ws.playerId);
       if(msg.type==='rematch') rematchGame(room, ws.playerId);
-      if(msg.type==='addCpu') addCpu(room, ws.playerId);
+      if(msg.type==='addCpu') addCpu(room, ws.playerId, typeof msg.characterKey==='string' ? msg.characterKey : 'auto');
       if(msg.type==='removeCpu') removeCpu(room, ws.playerId);
       if(msg.type==='clearRoom') clearRoom(room, ws.playerId, ws);
       if(msg.type==='play') playCard(room, ws.playerId, msg.cardId);
